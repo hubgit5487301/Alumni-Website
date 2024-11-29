@@ -1,6 +1,6 @@
 # hubgit5487301.github.io
 install following dependencies to deploy\
-dependencies:\
+
 express: 4.21.1\
 express-session: 1.18.1\
 mongoose: 8.8.2\
