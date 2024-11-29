@@ -49,8 +49,10 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
     name : eventname,
     date: eventdate,
     location: eventlocation,
-    email: eventemail,
-    phone_no: eventphone,
+    contact_info:{
+      email: eventemail,
+      phone_no: eventphone
+    },
     event_des: eventdescription,
     event_file: eventfile,
     event_logo: eventimage,}

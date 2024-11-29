@@ -42,49 +42,49 @@ app.use(passport.session());
 
 app.post('/submit-alumni', async (req, res) => {
   try{
-  const { personname, userid, email, getpassword, personimage, details } = req.body;
-  const {salt, passwordhash} = hashPassword(getpassword);
-  const image = personimage || undefined;
-  const newdetails = {
-    batch: details.batch,
-    branch: details.branch,
-    aboutme: details.aboutme || undefined,
-    education: details.education || undefined,
-    currentrole: details.currentrole || undefined,
-    experience: details.experience || undefined,
-    contactinfo: details.contactinfo || undefined,
-    };
-  console.log(newdetails)
-  const newUser = new user({
-    personname,
-    userid,
-    email,
-    salt,
-    passwordhash,
-    personimage: image,
-    details: newdetails, 
-  });
-  
-  const finduserbyuserid = await user.findOne({"userid":userid});
-  const finduserbyuseremail = await user.findOne({"email":email});
-  if(!finduserbyuserid && !finduserbyuseremail) {
-    await newUser.save();
-    res.status(200).json({message:'Data submitted'});
-  }
-  
-  if(finduserbyuserid){
-     return res.status(409).json({message:'user already exists'})
+    const { personname, userid, email, getpassword, personimage, details } = req.body;
+    const {salt, passwordhash} = hashPassword(getpassword);
+    const image = personimage || undefined;
+    const newdetails = {
+      batch: details.batch,
+      branch: details.branch,
+      aboutme: details.aboutme || undefined,
+      education: details.education || undefined,
+      currentrole: details.currentrole || undefined,
+      experience: details.experience || undefined,
+      contactinfo: details.contactinfo || undefined,
+      };
+    console.log(newdetails)
+    const newUser = new user({
+      personname,
+      userid,
+      email,
+      salt,
+      passwordhash,
+      personimage: image,
+      details: newdetails, 
+    });
+    
+    const finduserbyuserid = await user.findOne({"userid":userid});
+    const finduserbyuseremail = await user.findOne({"email":email});
+    if(!finduserbyuserid && !finduserbyuseremail) {
+      await newUser.save();
+      res.status(200).json({message:'Data submitted'});
     }
-  
-  if(finduserbyuseremail) {
-    return res.status(409).json({message:'email already exists'})
-    }
+    
+    if(finduserbyuserid){
+      return res.status(409).json({message:'user already exists'})
+      }
+    
+    if(finduserbyuseremail) {
+      return res.status(409).json({message:'email already exists'})
+      }
   }
   catch(err) {
     res.status(500).json({error:'Failed to save data'});
     console.log(err);
   }
-}
+  }
 );
 
 app.get('/', async (req, res) => {
