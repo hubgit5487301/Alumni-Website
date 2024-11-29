@@ -73,7 +73,7 @@ function formInput() {
       userid: userid,
       email: email,
       getpassword: password,
-      persondefaultimage: personimage,
+      personimage: personimage,
       details:{
         batch:batch,
         branch:branch,
@@ -94,7 +94,7 @@ function formInput() {
     .then((response) => {
       if(!response.ok) {
         return response.json().then((errorData) => {
-        throw new Error(errorData.message || 'error submiting data');
+          throw new Error(errorData.message || 'error submiting data');
       });
     }
     return response.json()

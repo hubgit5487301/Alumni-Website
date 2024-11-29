@@ -1,6 +1,19 @@
-import { upload as upload, inputCheck ,changefieldcolor,isValidEmail} from "./protected-scripts/util.js";
 
-let storedEvents = JSON.parse(localStorage.getItem('events')) || {};
+import { upload as eventdataupload, inputCheck ,changefieldcolor,isValidEmail} from "./util.js";
+
+const allowedpic =['image/jpeg','image/png'];
+const allowedfile =['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+
+let eventfile = null;
+eventdataupload('.js-event-file',allowedfile, true, '.js-event-file', (file64) => {
+  eventfile = file64;
+})
+
+
+let eventimage = null;
+eventdataupload('.js-event-pic', allowedpic, true, '.js-event-pic', (file64) =>{
+  eventimage = file64;
+})
 
 function eventForm () {
 document.querySelector('.js-event-submit').addEventListener(('click'), (event) => {
@@ -11,8 +24,7 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
   const eventemail = document.querySelector('.js-event-contact-info-email').value;
   const eventphone = document.querySelector('.js-event-contact-info-phoneno').value;
   const eventdescription = document.querySelector('.js-event-description').value;
-  const eventimage = localStorage.getItem('eventpic') || 'images/events-test.jpg';
-  const eventfile = localStorage.getItem('eventfile') || 'images/events-test.jpg';
+
   const fields = [
     { value: eventname, selector: '.js-event-name' },
     { value: eventdate, selector: '.js-event-date-time' },
@@ -33,35 +45,42 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
     return;
   }
 
-  const eventDay = eventdate;
-  console.log(eventDay);
-
-  if(!storedEvents[eventDay]){
-    storedEvents[eventDay] = [];
-  }
-
-
-  storedEvents[eventDay].push({
-    eventname : eventname,
-    eventdate: eventdate,
-    eventlocation: eventlocation,
-    eventemail: eventemail,
-    eventphone: eventphone,
-    eventdescription: eventdescription,
-    eventfile: eventfile,
-    eventimage: eventimage,}
+  const storedEvents = ({
+    name : eventname,
+    date: eventdate,
+    location: eventlocation,
+    email: eventemail,
+    phone_no: eventphone,
+    event_des: eventdescription,
+    event_file: eventfile,
+    event_logo: eventimage,}
   );
-console.log(storedEvents);
-  localStorage.setItem('events',JSON.stringify(storedEvents));
-  alert('Event details submitted');
-  window.location.href='event-directory.html';
+  fetch(`http://localhost:8000/protected/submit-event`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(storedEvents),
+  })
+  .then((response) => {
+    if(!response.ok) {
+      return response.json().then((errorData) => {
+        throw new Error(errorData.message || 'error submitting data')
+      });
+    }
+    return response.json()
+  })
+   .then((data) => {
+    console.log(data);
+    alert('Form submitted successfully!');
+    window.location.href = '/protected/event-directory';
+   })
+   .catch((err) => {
+    console.error(err.message);
+    alert(err.message);
+   })
 
 })}
 
-
-const allowedfile =['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-const allowedpic =['image/jpeg','image/png'];
-upload('.js-event-file',allowedfile,'eventfile');
-upload('.js-event-pic',allowedpic,'eventpic');
 
 eventForm();
