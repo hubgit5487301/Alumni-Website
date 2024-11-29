@@ -14,6 +14,7 @@ router.get('/event-form', (req, res) => {
 router.post('/submit-event', async (req, res) => {
   try{
     const {name, date, location, contact_info, event_des, event_file, event_logo} = req.body;
+    console.log(date);
     const logo = event_logo || undefined;
     const event_date = new Date(req.body.date);
     const newEvent = new event({
@@ -25,29 +26,26 @@ router.post('/submit-event', async (req, res) => {
       event_file,
       event_logo: logo,
     })
-    console.log(newEvent)
+    //console.log(newEvent)
     const eventDate = new Date(req.body.date);
     const findeventbydate = await event.findOne({date: eventDate});
     const findeventbyname = await event.findOne({name: name});
     if(findeventbydate) {
       if(!findeventbyname) {
         await newEvent.save();
-        console.log('1')
-        res.status(200).json({message: 'Data submitted'});
+        return res.status(500).json({message: 'Data submitted'});
       }
       else {
-        console.log('2')
-        res.status(500).json({message: 'Event of same name and at same time exists already'})
+        return res.status(500).json({message: 'This event exists already'})
       }
     }
     if(findeventbyname) {
       if(!findeventbydate) {
-        console.log('3')
         await newEvent.save();
-        res.status(200).json({message: 'Data submitted'});
+        return res.status(200).json({message: 'Data submitted'});
       }
-      else {console.log('4')
-        res.status(500).json({message: 'Event of same name and at same time exists already'})
+      else {
+        return res.status(500).json({message: 'This event exists already'})
       }
     }
     await newEvent.save();

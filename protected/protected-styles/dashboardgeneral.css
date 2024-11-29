@@ -275,6 +275,7 @@ input,textarea,select {
   padding: 0.5vw;
   transition: 0.01s;
   resize: vertical;
+  width: auto;
 }
 
 

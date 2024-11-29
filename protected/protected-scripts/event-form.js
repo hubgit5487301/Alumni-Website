@@ -37,6 +37,7 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
   let isInvalid = inputCheck(fields);
   if (isInvalid) {
     alert("Please fill all required fields.");
+    return;
   }
   
   if(!isValidEmail(eventemail)) {

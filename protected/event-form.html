@@ -28,12 +28,16 @@
           <input class="input-default js-event-contact-info-phoneno" minlength="10" maxlength="10" type="number" placeholder="Phone No">
           <label for="event-location">Event description<text class="star">*</text></label>
           <textarea class="input-default js-event-description" type="text" placeholder="Event description"></textarea>
-          <div class="files-upload">
-            <label for="event-file">Event file</label>
-            <input class="event-file js-event-file" type="file" accept=".pdf, .docx">
-            <label for="event-file">Event Logo</label>
-            <input class="event-file js-event-pic" type="file" accept=".jpg, .png">
-          </div>
+          
+            <div class="box-1">
+              <label for="event-file" class="event-file-text">Event file</label>
+              <input class="event-file js-event-file" type="file" accept=".pdf, .docx">
+            </div>
+            <div class="box-2">
+              <label for="event-file" class="event-file-text">Event Logo</label>
+              <input class="event-file js-event-pic" type="file" accept=".jpg, .png">
+            </div>
+          
           <button type="submit" class="event-submit js-event-submit">Submit</button>
         </form>
       </div>
