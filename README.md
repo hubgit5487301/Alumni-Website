@@ -12,9 +12,7 @@ to run locally follow steps
 
 3.open project folder in VScode
 
-4.open terminal and run following command
+4.open terminal in Vscode and run following command
 
 ```bash
-# Example command
-git clone https://github.com/user/repository.git
-
+npm i -D
