@@ -1,3 +1,14 @@
+const urlParams = new URLSearchParams(window.location.search);
+if(urlParams.has('alert')) {
+  const amessage = urlParams.get('alert');
+  if(amessage === 'not-logged-in') {
+    alert('You need to login first!');
+    window.location.href = '/login';
+  }
+}
+
+
+
 document.querySelector('.js-login-button').addEventListener('click', (event) => {
   event.preventDefault();
   const userid = document.querySelector('.js-userid-box').value;

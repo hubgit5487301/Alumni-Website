@@ -1,20 +1,20 @@
 //import { darkMode} from "/script/util.js";
 let headerhtml = `
           <div class="left-content">
-            <a href="/login" class="home-link">
+            <a href="/dashboard" class="home-link">
               <button class="home-button">
                 <img src="images/logo.png" class="logo-icon">
                 Alumni Portal</button> 
             </a>
           </div>
           <div class="middle-content">
-            <a class="link" href="/login">
+            <a class="link" href="/dashboard">
             <img class="home-icon js-nav-icon" src="images/home.svg"></a>
-            <a class="link" href="/login"">
+            <a class="link" href="/alumni-directory">
             <img class="friends-icon js-nav-icon" src="images/friends.svg"></a>
-            <a class="link" href="/login"">
+            <a class="link" href="/event-directory"">
             <img class="events-icon js-nav-icon" src="images/events.svg"></a>
-            <a class="link" href="/login"">
+            <a class="link" href="/job-directory">
             <img class="job-icon js-nav-icon" src="images/job.svg"></a>
             <a class="link" href="contact-us.html">
             <img class="contact-us-icon js-nav-icon" src="images/contact-us.svg"></a>

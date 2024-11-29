@@ -46,7 +46,6 @@ router.get(`/users/:userid`, async (req,res) =>{
   try {
     const userid = req.params.userid;
     const founduser = await user.findOne({userid});
-    console.log('hi')
     founduser._id = null;
     founduser.salt = null;
     founduser.passwordhash = null;
@@ -63,5 +62,18 @@ router.get(`/users/:userid`, async (req,res) =>{
   }
 })
 
+
+router.get('/event-directory', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'protected', 'event-directory.html'))
+})
+
+
+router.get('/job-directory', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'protected', 'jobs.html'))
+})
+
+router.get('/contact-us', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'protected', 'contact-us.html'))
+})
 
 module.exports = router;

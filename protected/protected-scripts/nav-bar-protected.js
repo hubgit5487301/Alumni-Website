@@ -13,9 +13,9 @@ let headerhtml = `
             <img class="friends-icon js-nav-icon" src="/images/friends.svg"></a>
             <a class="link" href="/protected/event-directory">
             <img class="events-icon js-nav-icon" src="/images/events.svg"></a>
-            <a class="link" href="/jobs">
+            <a class="link" href="/protected/job-directory">
             <img class="job-icon js-nav-icon" src="/images/job.svg"></a>
-            <a class="link" href="/contact-us">
+            <a class="link" href="/protected/contact-us">
             <img class="contact-us-icon js-nav-icon" src="/images/contact-us.svg"></a>
           </div>
           <div class="right-content">

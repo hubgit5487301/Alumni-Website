@@ -10,6 +10,7 @@ const crypto = require('crypto');
 
 const connectDB = require('./config/mongo');
 const userRoutes = require('./config/userroutes');
+const loginroutes = require('./config/loginauthenticationroutes.js');
 const passport = require('./config/passport-config');
 const user = require('./config/alumni');
 const {hashPassword, verifypassword} = require('./config/util.js');
@@ -81,7 +82,6 @@ app.post('/submit-alumni', async (req, res) => {
 
 app.get('/login', async (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'))            
-  
 })
 
 
@@ -92,6 +92,7 @@ function isAuthenticated (req, res, next) {
     res.redirect('/login')
   
 }
+
 
 
 app.post('/login', (req, res, next) => {
@@ -110,18 +111,7 @@ app.post('/login', (req, res, next) => {
     });
   })(req, res, next);
 });
-  
-
-
-
-app.get('/dashboard', (req,res) => {
-  if(req.isAuthenticated()) {
-    res.sendFile(path.join(__dirname, 'protected', 'dashboard.html'));
-  }
-else {
-  res.redirect('/login');
-  }
-});
+ 
 
 
 
@@ -135,9 +125,17 @@ app.get('/logout', (req, res) => {
   })
 })
 
+app.get('/dashboard', (req,res) => {
+  if(req.isAuthenticated()) {
+    res.sendFile(path.join(__dirname, 'protected', 'dashboard.html'));
+  }
+  else {
+  res.redirect('/login?alert=not-logged-in');
+  }
+});
 
 
-
+app.use(loginroutes);
 app.use('/protected', isAuthenticated, userRoutes);
 
 
