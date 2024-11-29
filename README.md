@@ -9,4 +9,12 @@ to run locally follow steps
   node.js: <a href="https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi">https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi</a>
 
 2.download and exctract project zip
+
 3.open project folder in VScode
+
+4.open terminal and run following command
+
+```bash
+# Example command
+git clone https://github.com/user/repository.git
+
