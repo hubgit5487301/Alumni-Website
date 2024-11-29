@@ -9,8 +9,8 @@ const session = require('express-session');
 const crypto = require('crypto');
 
 const connectDB = require('./config/mongo');
-const userRoutes = require('./config/userroutes');
-const loginroutes = require('./config/loginauthenticationroutes.js');
+const userRoutes = require('./config/routes/userroutes.js');
+const loginroutes = require('./config/routes/loginauthenticationroutes');
 const passport = require('./config/passport-config');
 const user = require('./models/alumni.js');
 const {hashPassword, verifypassword} = require('./config/util.js');
