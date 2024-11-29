@@ -11,6 +11,7 @@ to run locally follow steps
 2.download and exctract project zip
 
 3.open project folder in VScode
+
 4.create a .env file and enter follow parameters and their values
 ```bash
   Port = 'your port number' (a port number on which u want to run the server eg: 5000)
@@ -25,4 +26,7 @@ npm i -D
 ```bash
 node server.js
 ```
-6.open a browser window
+6.open a browser window and type following in address bar
+```bash
+http://loaclhost:<your port number>/
+```
