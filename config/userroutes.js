@@ -4,7 +4,7 @@ const path = require('path');
 const crypto = require('crypto');
 
 const router = express();
-const user = require('./alumni');
+const user = require('../models/alumni.js');
 const {hashPassword, verifypassword} = require('./util.js');
 
 

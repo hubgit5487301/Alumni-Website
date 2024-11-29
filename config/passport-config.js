@@ -1,6 +1,6 @@
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-const Users = require('./alumni');
+const Users = require('../models/alumni');
 const {hashPassword, verifyPassword} = require('./util');
 
 

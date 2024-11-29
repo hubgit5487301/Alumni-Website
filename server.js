@@ -12,7 +12,7 @@ const connectDB = require('./config/mongo');
 const userRoutes = require('./config/userroutes');
 const loginroutes = require('./config/loginauthenticationroutes.js');
 const passport = require('./config/passport-config');
-const user = require('./config/alumni');
+const user = require('./models/alumni.js');
 const {hashPassword, verifypassword} = require('./config/util.js');
 
 const app = express();
@@ -80,6 +80,11 @@ app.post('/submit-alumni', async (req, res) => {
 }
 );
 
+app.get('/', async (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'))            
+})
+
+
 app.get('/login', async (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'))            
 })
@@ -130,7 +135,7 @@ app.get('/dashboard', (req,res) => {
     res.sendFile(path.join(__dirname, 'protected', 'dashboard.html'));
   }
   else {
-  res.redirect('/login?alert=not-logged-in');
+  res.redirect(`/login?alert=not-logged-in`);
   }
 });
 
