@@ -16,7 +16,8 @@ to run locally follow steps
 ```bash
   Port = 'your port number' (a port number on which u want to run the server eg: 5000)
   mongoURI = 'your mongodb URI' (your mongo db key eg:mongoURI=mongodb+srv://<username>:<password>@cluster0.ddh4n.mongodb.net/<databasename>?retryWrites=true&w=majority&appName=Cluster0 )
-  key = 'for session' (any string preferably a random and secure one eg:sdiyc123rF*7902jsv5sdvcwq88082fnp;v)```
+  key = 'for session' (any string preferably a random and secure one eg:sdiyc123rF*7902jsv5sdvcwq88082fnp;v)
+```
 4.open terminal in Vscode and run following command (this will install all required dependencies)
 
 ```bash
