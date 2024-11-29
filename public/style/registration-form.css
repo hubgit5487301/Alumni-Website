@@ -1,0 +1,129 @@
+.form-box {
+  display: grid;
+  padding: 1.5vw;
+  gap: 2vw;
+  justify-items: center;
+  align-items: center;
+}
+
+.top-text {
+  align-self: center;
+  background-color: rgba(46, 45, 45, 0.604);
+  box-shadow: rgba(20, 20, 20, 0.663) 0px 18px 16px 0px;
+  padding: 1vw 2vw;
+  border-radius: 5px;
+}
+
+.input-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10vw;
+  justify-items: center;
+}
+
+.profile-input {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vw;
+}
+
+
+.profile-input-2 {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vw;
+}
+
+.js-userid {
+  text-transform: uppercase;
+}
+
+.js-userid::placeholder {
+  text-transform: none;
+}
+
+
+
+.profile-input-2 input {
+  background-color: rgb(59, 59, 59);
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5vw;
+}
+.profile-input-2 .pic-input {
+  display: none;
+}
+.submit-button {
+  border: none;
+  color: white;
+  font-size: 1vw;
+  padding: 0.4vw;
+  padding-inline: 5vw;
+  border-radius: 10px;  
+  background-color: rgb(21, 101, 221);
+  font-weight: bold;
+  font-size:1.5vw ;
+  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
+  transition: 0.15s;
+  cursor: pointer;
+}
+.submit-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
+}
+
+.submit-button:active {
+  transform: scale(1);
+  opacity: 0.8;
+  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+}
+
+.about-you,.education,.current-role,.experience,.contact-info {
+  height: 2.8vw;
+  resize: none;
+  padding: 0.5vw;
+  outline: none;
+  background-color: rgb(59, 59, 59);
+  border: 1.5px solid rgb(59, 59, 59);
+  border-radius: 5px;
+}
+
+.pic-input-box {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1vw;
+  background-color: rgba(46, 45, 45, 0.604);
+  border-radius: 5px;
+  padding: 1vw;
+}
+
+.pic-input-button{
+  background-color: rgb(21, 101, 221);
+  padding: 0.5vw 1vw;
+  cursor: pointer;
+  transition: 0.15s;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0px 5px 20px 0px rgb(20, 20, 20);
+}
+
+.pic-input-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
+}
+
+
+.pic-input-button:active {
+  transform: scale(1);
+  opacity: 0.8;
+  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+}
+
+.file-name {
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Alumni Directory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" />
+    <link rel="stylesheet" href="./style/dashboardgeneral.css">
+    <link rel="stylesheet" href="./style/nav-bar.css">
+    <link rel="stylesheet" href="./style/registration-form.css">
+  </head>
+  <body class="general-dashboard">
+    <div class="top-box js-top-box"></div>
+    <div class="bottom-box">
+      <div class="top-text">Register</div>
+      <form class="form-box js-form-box">
+        <div class="input-form">
+          <div class="profile-input js-profile-input">
+            <label for="name">Name<text class="star">*</text></label>
+            <input class="input-default js-name" type="text" placeholder="Your name">
+            <label for="roll-no">College Roll No (eg:for 2021 computer science 05 = 21CSE05 )<text class="star">*</text></label>
+            <input class="input-default js-userid" type="text" placeholder="Roll no (will be used as your user-id)">
+            <label for="batch">Batch<text class="star">*</text></label>
+            <select class="input-default js-batch" name="year">
+              <option value="" disabled selected hidden>Select your batch passout year</option>
+            </select>
+            <label for="branch">Branch<text class="star">*</text></label>
+            <select class="input-default js-branch" name="branch">
+              <option value="" disabled selected hidden>Select your branch</option>
+              <option  value="CSE">Computer Science Engineering</option>
+              <option  value="ME">Mechanical Engineering</option>
+              <option  value="CE">Civil Engineering</option>
+              <option  value="EE">Electrical Engineering</option>
+              <option  value="ECE">Electrical communication Engineering</option>
+            </select>
+            <label for="Email">Email<text class="star">*</text></label>
+            <input class="input-default js-email" autocomplete="email" type="email" placeholder="Your email">
+            <label for="Password">Password<text class="star">*</text></label>
+            <input class="input-default js-password" maxlength="16" minlength="8" autocomplete="new-password" type="password" placeholder="Your password">
+            <label for="Password">Re-Enter Password<text class="star">*</text></label>
+            <input class="input-default js-password-recheck" maxlength="16" minlength="8" autocomplete="new-password" type="password" placeholder="Enter your password again">
+          </div>
+          <div class="profile-input-2 js-profile-input-2">
+            <label for="about-me">About you</label>
+            <textarea class="about-you js-about-me" type="text" placeholder="About you"></textarea>
+            <label for="education">Education</label>
+            <textarea class="education js-education" type="text" placeholder="Education"></textarea>
+            <label for="current-role">Current work of place</label>
+            <textarea class="current-role js-current-role" type="text" placeholder="Current role"></textarea>
+            <label for="experience">Work experience</label>
+            <textarea class="experience js-experience" type="text" placeholder="Work experience"></textarea>
+            <label for="contact-info">Contact information</label>
+            <textarea class="contact-info js-contact-info" type="text" placeholder="Contact information"></textarea>
+            <label class="custom-pic-input" type="file">Profile picture</label>
+             <div class="pic-input-box">
+              <label for="file-upload" class="pic-input-button js-pic-input-button">Upload</label>
+              <input id="file-upload" type="file" class="pic-input js-pic-input">
+              <span class="file-name js-filename">Filename</span>
+             </div>
+          </div>
+        </div>
+        <button class="submit-button js-submit-button">Submit</button>
+      </form>
+    </div>
+    <footer class="bottom js-bottom"></footer>
+    <script type="module" src="./script/nav-bar.js"></script>
+    <script type="module" src="./script/registration-form.js"></script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+.all-events {
+  display: grid;
+  background-color: transparent;
+  margin-top: 1.5vw;
+}
+
+.all-events::-webkit-scrollbar{
+  display: none;
+}
+
+.event-row {
+  display: grid;
+  grid-template-columns: repeat(5 , 1fr);
+  background-color: transparent;
+  gap: 1.5vw;
+  row-gap: 3vw;
+  overflow: scroll;
+  padding: 2vw;
+  margin-left: 1vw;
+}
+
+.event-row::-webkit-scrollbar{
+  display: none;
+}
+
+.event {
+  display: flex;
+  flex-direction: column;
+  padding: 0%;
+  background-color: transparent;
+  gap: 0.5vw;
+  transition: 0.15s;
+  cursor: pointer;
+ }
+ 
+ .event:hover {
+   transform: scale(1.05);
+ }
+ 
+ .event:active {
+   transform: scale(1);
+   opacity: 0.8;
+ }
+ 
+ .e-event-icon {
+   height: 13vw;
+   width: 16vw;
+   background-color: transparent;
+   box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+   border-radius: 10px;
+   transition: 0.15s;
+ }
+ 
+ .event-info {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   border-radius: 10px;
+   background-color:  rgba(46, 45, 45, 0.596);
+   padding: 1vw;
+ }
+
+ .event-info h1 {
+  font-size: 1.5vw;
+  font-weight: bold;
+ }
+
+ .each-event {
+  text-decoration: none;
+}
+
+ .event-info p{
+  font-size: 1vw;
+  align-self: center;
+  color: rgb(187, 185, 181);
+ }
