@@ -12,7 +12,13 @@ to run locally follow steps
 
 3.open project folder in VScode
 
-4.open terminal in Vscode and run following command
+4.open terminal in Vscode and run following command (this will install all required dependencies)
 
 ```bash
 npm i -D
+```
+5.type following commmand in terminal to run server
+```bash
+node server.js
+```
+6.open a browser window
