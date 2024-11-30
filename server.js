@@ -54,7 +54,6 @@ app.post('/submit-alumni', async (req, res) => {
       experience: details.experience || undefined,
       contactinfo: details.contactinfo || undefined,
       };
-    console.log(newdetails)
     const newUser = new user({
       personname,
       userid,

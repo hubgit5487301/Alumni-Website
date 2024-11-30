@@ -31,6 +31,7 @@
   gap: 0.5vw;
   transition: 0.15s;
   cursor: pointer;
+  width: 15.1vw;
  }
  
  .event:hover {
@@ -44,7 +45,7 @@
  
  .e-event-icon {
    height: 13vw;
-   width: 16vw;
+   width: 15.1vw;
    background-color: transparent;
    box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
    border-radius: 10px;

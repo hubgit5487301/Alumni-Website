@@ -74,7 +74,6 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
     return response.json()
   })
    .then((data) => {
-    console.log(data);
     alert('Form submitted successfully!');
     window.location.href = '/protected/event-directory';
    })

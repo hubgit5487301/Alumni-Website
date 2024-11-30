@@ -1,6 +1,6 @@
 let personHtml = '';
 
-fetch(`http://localhost:8000/protected/users`,)
+fetch(`http://localhost:8000/protected/users`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');
