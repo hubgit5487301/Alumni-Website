@@ -34,7 +34,7 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
     { value: eventdescription, selector: '.js-event-description' },
   ];
 
-  let isInvalid = inputCheck(fields);
+  const isInvalid = inputCheck(fields);
   if (isInvalid) {
     alert("Please fill all required fields.");
     return;
@@ -58,6 +58,7 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
     event_file: eventfile,
     event_logo: eventimage,}
   );
+
   fetch(`http://localhost:8000/protected/submit-event`, {
     method: 'POST',
     headers: {
@@ -67,9 +68,7 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
   })
   .then((response) => {
     if(!response.ok) {
-      return response.json().then((errorData) => {
         throw new Error(errorData.message || 'error submitting data')
-      });
     }
     return response.json()
   })

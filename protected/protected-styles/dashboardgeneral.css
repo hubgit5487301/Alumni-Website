@@ -1,5 +1,5 @@
 .general-dashboard {
-  background-image: url("/images/background-test.jpg");
+  background-image: url("/images/night_sky.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -262,6 +262,7 @@ input,textarea,select {
   padding: 0.5vw;
   transition: 0.01s;
   border-radius: 4px;
+  resize: vertical;
 }
 
 .input-default {
@@ -276,6 +277,7 @@ input,textarea,select {
   transition: 0.01s;
   resize: vertical;
   width: auto;
+  resize: vertical;
 }
 
 

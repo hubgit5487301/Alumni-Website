@@ -34,15 +34,15 @@
             <div class="submit-message">
               <h1>Leave a Message</h1>
               <form class="message-form">
-                <label for="fname">First Name</label>
-                <input class="fname" type="text" id="fname" placeholder="Your name">
-                <label for="lname">Last Name</label>
-                <input class="lname" type="text" id="lname" placeholder="Your last name">
-                <label for="Email">Email</label>
-                <input class="email" type="email" id="email" placeholder="Your email">
-                <label for="message">Message</label>
-                <textarea  class="message" placeholder="Your message"></textarea>
-                <button class="submit-message-button">Submit</button>
+                <label for="fname">First Name<span class="star">*</span></label>
+                <input class="input-default js-fname" type="text" placeholder="Your name">
+                <label for="lname">Last Name<span class="star">*</span></label>
+                <input class="input-default js-lname" type="text" placeholder="Your last name">
+                <label for="Email">Email<span class="star">*</span></label>
+                <input class="input-default js-email" type="email" placeholder="Your email">
+                <label for="message">Message<span class="star">*</span></label>
+                <textarea  class="input-default js-message" placeholder="Your message"></textarea>
+                <button class="submit-message-button js-submit-message-button">Submit</button>
               </form>
             </div>
           </div>
@@ -51,5 +51,6 @@
     </div>
     <footer class="bottom js-bottom"></footer>
     <script type="module" src="/protected-scripts/nav-bar-protected.js"></script>
+    <script type="module" src="/protected-scripts/contact-us.js"></script>
   </body>
 </html>

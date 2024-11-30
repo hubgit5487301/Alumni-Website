@@ -12,6 +12,7 @@ const connectDB = require('./config/mongo');
 const userRoutes = require('./config/routes/userroutes.js');
 const loginroutes = require('./config/routes/loginauthenticationroutes');
 const eventroutes = require('./config/routes/eventroutes');
+const messageroute = require('./config/routes/messageroute');
 const passport = require('./config/passport-config');
 const user = require('./models/alumni');
 const {hashPassword, verifypassword} = require('./config/util');
@@ -80,8 +81,8 @@ app.post('/submit-alumni', async (req, res) => {
       }
   }
   catch(err) {
-    res.status(500).json({error:'Failed to save data'});
     console.log(err);
+    res.status(500).json({error:'Failed to save data'});
   }
   }
 );
@@ -147,6 +148,8 @@ app.get('/dashboard', (req,res) => {
 
 
 app.use(loginroutes);
+app.use(messageroute);
+app.use('/protected', isAuthenticated, messageroute);
 app.use('/protected', isAuthenticated, eventroutes);
 app.use('/protected', isAuthenticated, userRoutes);
 
