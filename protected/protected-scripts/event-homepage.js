@@ -1,38 +1,34 @@
-import { formatEventDate } from "/protected-scripts/util.js";
-
-let storedEvents = JSON.parse(localStorage.getItem('events'));
-let storedindex = JSON.parse(localStorage.getItem('commonindex'));
+import { formatEventDate } from "./util.js";
 let eventHtml = '';
 
-const sortedDates = Object.keys(storedEvents).sort((a, b) => new Date(a) - new Date(b));
+fetch(`http://localhost:8000/protected/homeevents`)
+.then(response => {
+  if(!response.ok) {
+    throw new Error('response not ok')
+  }
+  return response.json();
+})
 
-
-sortedDates.forEach((date) => {
-  const event = storedEvents[date];
-  event.forEach ( event => {
-  eventHtml +=`
+.then(data => {
+  data.forEach((event) => {
+    eventHtml +=`
       <div class="bottom-second-event-box js-bottom-second-event-box">
-        <img class="event-image" src="${event.eventimage}">
+        <img class="event-image" src="${event.event_logo}">
         <div class="event-info">
-          <p class="event-info-text">${event.eventname}</p>
-          <p class="event-info-text-1 js-event-info-text-1" id="${event.eventdate}">${formatEventDate(event.eventdate)}</p>
+          <p class="event-info-text">${event.name}</p>
+          <p class="event-info-text-1 js-event-info-text-1" id="${event.date}">${formatEventDate(event.date)}</p>
         </div>
-      </div>`;
+      </div>`;});
+    document.querySelector('.js-bottom-second-event-boxes').innerHTML = eventHtml;
+    document.querySelectorAll('.js-bottom-second-event-box').forEach((event, index) => {
+        event.addEventListener('click' ,() => {
+        const event_id = data[index]._id;
+        window.location.href = `protected/event.html?_id=${event_id}`;
+    });
+});});
 
-})});
-document.querySelector('.js-bottom-second-event-boxes').innerHTML = eventHtml;
 
 let wheel = document.querySelector('.js-bottom-second-event-boxes');
 wheel.addEventListener('wheel', (event) => {
   event.preventDefault(); 
-  wheel.scrollLeft += event.deltaY; 
-});
-
-document.querySelectorAll('.js-bottom-second-event-box')
-    .forEach((link, index) => {
-      link.addEventListener('click' ,(e) => {
-        storedindex = e.target.closest('.js-bottom-second-event-box').querySelector('.js-event-info-text-1').id;
-        localStorage.setItem('eventcommonindex',JSON.stringify(storedindex));
-        window.location.href = ("event.html");
-      });
-    });
+  wheel.scrollLeft += event.deltaY; })

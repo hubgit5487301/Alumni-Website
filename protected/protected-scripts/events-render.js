@@ -13,8 +13,6 @@ fetch(`http://localhost:8000/protected/events`)
 
  .then(data => {
     data.forEach((event) => {
-      /*sortedDates.forEach((date) => {
-        const event = storedEvents[date];*/
         eventHtml += 
         `<div class="event js-event">
                 <img class="e-event-icon" src=${event.event_logo}>
@@ -27,11 +25,9 @@ fetch(`http://localhost:8000/protected/events`)
 document.querySelector('.js-events-row').innerHTML = eventHtml;
 document.querySelectorAll('.js-event').forEach((event, index) => {
       event.addEventListener('click' ,() => {
-        console.log(event);
         const event_id = data[index]._id;
         window.location.href =  `event.html?_id=${event_id}`;
       });
     });
 });});
 
-    //const sortedDates = Object.keys(event).sort((a, b) => new Date(a) - new Date(b));

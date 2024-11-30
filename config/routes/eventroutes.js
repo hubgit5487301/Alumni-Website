@@ -93,4 +93,23 @@ router.get(`/event.html`, (req, res) =>{
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event.html'));
 })
 
+
+router.get('/homeevents', async (req,res) => {
+  try {
+    const send_events = await events.find().sort({ date:1});
+    send_events.forEach((event) =>{
+      event.event_file = null;
+      event.contact_info = null;
+      event.location = null;
+      event.event_des = null;
+    })
+     res.status(200).json(send_events) ;
+  }
+  catch(err) {
+    console.error('error getting events', err);
+    res.status(503).json({error:'internal server error'})
+  }
+})
+
+
 module.exports = router;
