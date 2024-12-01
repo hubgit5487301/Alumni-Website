@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const path = require('path');
 
 const router = express();
@@ -93,7 +92,6 @@ router.get(`/event.html`, (req, res) =>{
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event.html'));
 })
 
-
 router.get('/event-search', async (req, res) => {
   const input = req.query.name;
   try{
@@ -120,10 +118,6 @@ router.get('/event-search', async (req, res) => {
   }
 });
 
-
-
-
-
 router.get('/homeevents', async (req,res) => {
   try {
     const send_events = await events.find().sort({ date:1});
@@ -141,5 +135,7 @@ router.get('/homeevents', async (req,res) => {
   }
 })
 
-
+router.get('/event-directory', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event-directory.html'))
+})
 module.exports = router;

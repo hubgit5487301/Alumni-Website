@@ -88,3 +88,4 @@ searchInput.addEventListener('input', () =>{
   })
  
 }, 250)})
+

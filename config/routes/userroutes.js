@@ -11,11 +11,9 @@ router.get('/',(req, res) => {
   console.log('alumni')
 });
 
-
 router.get('/alumni-directory', (req, res) =>{
   res.sendFile(path.join(__dirname, '..','..', 'protected', 'alumni-directory.html'));
 })
-
 
 router.get('/users', async (req,res) => {
   try {
@@ -37,7 +35,6 @@ router.get('/users', async (req,res) => {
 router.get('/profile.html', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'profile.html'))
 })
-
 
 router.get(`/users/:userid`, async (req,res) =>{
   try {
@@ -84,12 +81,6 @@ router.get('/alumni-search', async (req, res) => {
   }
 });
 
-
-router.get('/event-directory', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event-directory.html'))
-})
-
-
 router.get('/job-directory', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'jobs.html'))
 })
@@ -97,7 +88,6 @@ router.get('/job-directory', (req, res) => {
 router.get('/contact-us', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'contact-us.html'))
 })
-
 
 
 module.exports = router;

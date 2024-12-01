@@ -15,6 +15,7 @@ const eventroutes = require('./config/routes/eventroutes');
 const messageroute = require('./config/routes/messageroute');
 const passport = require('./config/passport-config');
 const user = require('./models/alumni');
+const servicesroute = require('./config/routes/servicesroute.js')
 const {hashPassword, verifypassword} = require('./config/util');
 
 const app = express();
@@ -37,7 +38,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 
 
@@ -91,11 +91,9 @@ app.get('/', async (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'))            
 })
 
-
 app.get('/login', async (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'))            
 })
-
 
 function isAuthenticated (req, res, next) {
   if(req.isAuthenticated()) {
@@ -104,8 +102,6 @@ function isAuthenticated (req, res, next) {
     res.redirect('/login')
   
 }
-
-
 
 app.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
@@ -124,9 +120,6 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
  
-
-
-
 app.get('/logout', (req, res) => {
   req.logOut((err) => {
     if(err) {
@@ -146,9 +139,19 @@ app.get('/dashboard', (req,res) => {
   }
 });
 
+app.get('/user_logo', (req, res) => {
+  if(req.isAuthenticated()) {
+    res.status(200).json(req.user.personimage);
+  }
+  else {
+    res.redirect(`/login?alert=not-logged-in`);
+  }
+});
+
 
 app.use(loginroutes);
 app.use(messageroute);
+app.use('/protected', isAuthenticated, servicesroute);
 app.use('/protected', isAuthenticated, messageroute);
 app.use('/protected', isAuthenticated, eventroutes);
 app.use('/protected', isAuthenticated, userRoutes);

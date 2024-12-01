@@ -160,6 +160,7 @@ input,textarea,select {
 .events-head {
   font-weight: bold;
   font-size: 1.25vw;
+  text-decoration: none;
 }
 
 .bottom-second-event-boxes {
