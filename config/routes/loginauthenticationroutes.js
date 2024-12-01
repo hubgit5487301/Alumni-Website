@@ -39,5 +39,11 @@ router.get('/contact-us', (req, res) => {
   res.redirect('/login')
 })
 
+router.get('/services', (req, res) => {
+  if(req.isAuthenticated()) {
+  res.sendFile(path.join(__dirname, 'public', 'services.html'))}
+  else
+  res.redirect('/login?alert=not-logged-in')
+})
 
 module.exports = router;

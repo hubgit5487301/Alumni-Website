@@ -20,4 +20,6 @@ const userSchema = mongoose.Schema({
   details: {type: DetailsSchema, required: true, default:"no input"}
 })
 
+
+
 module.exports = mongoose.model('Alumni', userSchema);

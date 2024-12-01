@@ -3,19 +3,22 @@ const port = process.env.PORT;
 
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const crypto = require('crypto');
 
 const connectDB = require('./config/mongo');
+
 const userRoutes = require('./config/routes/userroutes.js');
 const loginroutes = require('./config/routes/loginauthenticationroutes');
 const eventroutes = require('./config/routes/eventroutes');
 const messageroute = require('./config/routes/messageroute');
+const jobroute = require('./config/routes/jobroute')
+
 const passport = require('./config/passport-config');
 const user = require('./models/alumni');
-const servicesroute = require('./config/routes/servicesroute.js')
+const servicesroute = require('./config/routes/servicesroute.js');
+
+
 const {hashPassword, verifypassword} = require('./config/util');
 
 const app = express();
@@ -151,6 +154,7 @@ app.get('/user_logo', (req, res) => {
 
 app.use(loginroutes);
 app.use(messageroute);
+app.use('/protected', isAuthenticated, jobroute);
 app.use('/protected', isAuthenticated, servicesroute);
 app.use('/protected', isAuthenticated, messageroute);
 app.use('/protected', isAuthenticated, eventroutes);

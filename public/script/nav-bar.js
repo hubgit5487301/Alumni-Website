@@ -1,24 +1,32 @@
 //import { darkMode} from "/script/util.js";
 let headerhtml = `
           <div class="left-content">
-            <a href="/dashboard" class="home-link">
-              <button class="home-button">
-                <img src="images/logo.png" class="logo-icon">
-                Alumni Portal</button> 
-            </a>
-          </div>
-          <div class="middle-content">
-            <a class="link" href="/dashboard">
-            <img class="home-icon js-nav-icon" src="images/home.svg"></a>
-            <a class="link" href="/alumni-directory">
-            <img class="friends-icon js-nav-icon" src="images/friends.svg"></a>
-            <a class="link" href="/event-directory"">
-            <img class="events-icon js-nav-icon" src="images/events.svg"></a>
-            <a class="link" href="/job-directory">
-            <img class="job-icon js-nav-icon" src="images/job.svg"></a>
-            <a class="link" href="contact-us.html">
-            <img class="contact-us-icon js-nav-icon" src="images/contact-us.svg"></a>
-          </div>
+              <a href="/dashboard" class="home-link">
+                <button class="home-button">
+                  <img src="/images/logo.png" class="logo-icon">
+                  Alumni Portal</button> 
+              </a>
+            </div>
+            <div class="middle-content">
+              <a class="dashlink" href="/dashboard">
+                <img class="home-icon js-nav-icon" src="/images/home.svg">
+                <div class="tooltip">Dashboard</div></a>
+              <a class="serviceslink" href="/services">
+                <img class="services-icon js-services-icon" src="/images/services.svg">
+                <div class="tooltip">Services</div></a>
+              <a class="alumnilink" href="/alumni-directory">
+                <img class="friends-icon js-nav-icon" src="/images/friends.svg">
+                <div class="tooltip">ALumni directory</div></a>
+              <a class="eventlink" href="/event-directory">
+                <img class="events-icon js-nav-icon" src="/images/events.svg">
+                <div class="tooltip">Event directory</div></a>
+              <a class="joblink" href="/job-directory">
+                <img class="job-icon js-nav-icon" src="/images/job.svg">
+                <div class="tooltip">Career services</div></a>
+              <a class="contactlink" href="/contact-us">
+                <img class="contact-us-icon js-nav-icon" src="/images/contact-us.svg">
+                <div class="tooltip">Contact us</div></a>
+            </div>
           <div class="right-content">
             <a class="login-link" href="login.html">
               <p class="Hi js-Hi" >Login</p></a>

@@ -24,22 +24,23 @@
               <input class="input-default js-job-tittle" type="text" placeholder="Job Tittle">
               <label for="job-location">Job Location</label>
               <input class="input-default js-job-location" type="text" placeholder="Job location">
-              <label for="job-salary">Job Salary</label>
-              <input class="input-default js-job-salary" type="text" placeholder="Job Salary">
+              <label for="job-salary">Job Salary (monthly)</label>
+              <input class="input-default js-job-salary" type="number" min="5000" placeholder="Job Salary (monthly)">
               <label for="job-type">Job Type</label>
               <select class="input-default js-job-type" name="job-type">
                 <option value="" disabled selected hidden>Select Job Type</option>
-                <option value="full-time">Full-Time</option>
-                <option value="part-time">Part-Time</option>
-                <option value="internship">Internship</option>
-                <option value="contract">Contract</option>
+                <option value="Full Time">Full-Time</option>
+                <option value="Part Time">Part-Time</option>
+                <option value="Internship">Internship</option>
+                <option value="Contract">Contract</option>
               </select>
-              <label for="job-location">Employement </label>
+              <label for="job-level">Employement Level</label>
               <select class="input-default js-job-level" name="job level">
                 <option value="" disabled selected hidden>Select level</option>
-                <option value="entry-level">Entry Level</option>
-                <option value="mid-level">Mid Level</option>
-                <option value="senior-level">Senior Level</option>
+                <option value="Entry level">Entry Level</option>
+                <option value="Mid level">Mid Level</option>
+                <option value="Senior level">Senior Level</option>
+                <option value="Manager">Manager</option>
               </select>
               <label for="job-des">Job Description</label>
               <textarea class="input-default js-job-des" type="text" placeholder="Job Description"></textarea>
@@ -54,7 +55,7 @@
               <input class="input-default js-exp-level" type="text" placeholder="Experience Level(in years)">
             </form>
           </div>
-          <div>
+          <div class="job-appli-box js-job-appli-box">
             <h1>Application Details</h1>
             <form class="job-appli js-job-appli">
               <label for="deadline">Application Deadline</label>
@@ -84,11 +85,12 @@
               <input class="job-file js-company-logo" type="file" accept=".jpg, .png">
             </form>
           </div>
-          <button type="submit" class="submit-button">Submit</button>
+          <button class="submit-button js-submit-button">Submit</button>
         </div>
       </div>
     </div>
     <footer class="bottom js-bottom"></footer>
     <script type="module" src="/protected-scripts/nav-bar-protected.js"></script>
+    <script type="module" src="/protected-scripts/job-form.js"></script>
   </body>
 </html>
