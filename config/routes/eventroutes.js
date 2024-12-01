@@ -94,6 +94,36 @@ router.get(`/event.html`, (req, res) =>{
 })
 
 
+router.get('/event-search', async (req, res) => {
+  const input = req.query.name;
+  try{
+    const results = await events.find({
+      name: { $regex: input, $options: 'i' }
+    });
+    results.forEach((events, index) => {
+      const events_search = events.toObject();
+      events_search.details = null;
+      events_search.contact_info = null;
+      events_search.location = null;
+      events_search.event_des = null;
+      events_search.event_file = null; 
+
+      results[index] = events_search;
+    });
+  if(results.length === 0){
+    return res.status(200).json([]);
+  }
+  res.status(200).json(results);
+  }
+  catch(err) {
+    res.status(500).json({error: 'internal servor error'});
+  }
+});
+
+
+
+
+
 router.get('/homeevents', async (req,res) => {
   try {
     const send_events = await events.find().sort({ date:1});
