@@ -19,8 +19,10 @@ to run locally follow steps
   key = 'for session' (any string preferably a random and secure one eg: sdiyc123rF*7902jsv5sdvcwq88082fnp;v)
   service = 'email service' (email service u want to save user feedback at eg: gmail)
   user = 'your email account' (email account eg: 'user@gmail.com'
-  pass = 'your gmail app key' (gmail app key or a password for other sevices for gmail get one from <a href ="https://myaccount.google.com/u/1/apppasswords")
-```
+  pass = 'your gmail app key' (gmail app key or a password for other sevices for gmail get one from
+  ```
+  <a href ="https://myaccount.google.com/u/1/apppasswords")
+
 4.open terminal in Vscode and run following command (this will install all required dependencies)
 ```bash
 npm i -D
