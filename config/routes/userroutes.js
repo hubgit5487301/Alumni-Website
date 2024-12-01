@@ -90,4 +90,8 @@ router.get('/contact-us', (req, res) => {
 })
 
 
+router.get('/job-form', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job-form.html'))
+})
+
 module.exports = router;

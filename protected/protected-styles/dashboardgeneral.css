@@ -267,6 +267,8 @@ input,textarea,select {
 }
 
 .input-default {
+  display: flex;
+  flex: 1;
   background-color: rgb(59, 59, 59);
   outline: none;
   border-color: rgb(59, 59, 59);
