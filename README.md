@@ -21,7 +21,7 @@ to run locally follow steps
   user = 'your email account' (email account eg: 'user@gmail.com')
   pass = 'your gmail app key' (gmail app key or a password for other sevices)
   ```
-  <a href ="https://myaccount.google.com/u/1/apppasswords"</a>
+  <a href ="https://myaccount.google.com/u/1/apppasswords">get gmail app passkey here</a>
 
 4.open terminal in Vscode and run following command (this will install all required dependencies)
 ```bash
