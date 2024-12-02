@@ -19,7 +19,7 @@ const jobSchema = new mongoose.Schema({
   job_company_website: {type: String, defualt: "No url provided"},
   job_company_des: {type: String, required: true},
   job_contact_info: {type: String, required: true},
-  job_company_logo: {type: String, defualt: ''},
+  job_company_logo: {type: String, defualt: 'test'},
 })
 
 

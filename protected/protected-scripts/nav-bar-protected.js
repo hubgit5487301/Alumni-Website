@@ -1,7 +1,6 @@
 
-let personimage = '';
 
-fetch(`http://localhost:8000/user_logo`)
+fetch(`http://localhost:8000/protected/user_logo`)
 .then(response => {
    if(!response.ok) {
     throw new Error('response not ok')
@@ -10,7 +9,6 @@ fetch(`http://localhost:8000/user_logo`)
 }) 
 
 .then(data => {
-  personimage = data;
   let headerhtml = `<div class="left-content">
               <a href="/dashboard" class="home-link">
                 <button class="home-button">
@@ -42,8 +40,8 @@ fetch(`http://localhost:8000/user_logo`)
               <a class="logoutlink" href="/logout">
                 <button type="submit" class="logout-button js-logout-button">Logout</button>
                 </a> 
-              <a class="userlink" href="/login">
-                <img class="profile-icon js-nav-icon" src="${personimage}">
+              <a class="userlink" href="/protected/my-profile-page">
+                <img class="profile-icon js-nav-icon" src="${data}">
                 <div class="tooltip">Profile</div></a>
             </div>
           ` ;
@@ -75,3 +73,5 @@ fetch(`http://localhost:8000/user_logo`)
   document.querySelector('.js-bottom').innerHTML = footerhtml;
 
   })
+
+  

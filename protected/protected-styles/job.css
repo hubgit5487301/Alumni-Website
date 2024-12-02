@@ -1,33 +1,18 @@
-.all-jobs {
-  display: grid;
-  background-color: transparent;
-  margin-top: 1.5vw;
-}
-
-.all-jobs::-webkit-scrollbar{
-  display: none;
-}
 
 .job-row {
   display: grid;
-  grid-template-columns: repeat(5 , 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   background-color: transparent;
   gap: 1.5vw;
   row-gap: 3vw;
-  overflow: scroll;
   padding: 2vw;
   margin-left: 1vw;
 }
 
-.job-row::-webkit-scrollbar{
-  display: none;
-}
 
 .job {
-  display: flex;
-  flex-direction: column;
-  padding: 0%;
-  background-color: transparent;
+  display: grid;
+  grid-template-columns: auto;
   gap: 0.5vw;
   transition: 0.15s;
   cursor: pointer;
@@ -45,6 +30,7 @@
  .j-job-icon {
    display: flex;
    height: 13vw;
+   width: 18vw;
    background-color: transparent;
    box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
    border-radius: 10px;
@@ -52,22 +38,34 @@
  }
  
  .job-info {
-   display: flex;
-   flex-direction: column;
    align-items: center;
    border-radius: 10px;
    background-color:  rgba(46, 45, 45, 0.596);
    padding: 1vw;
+   width: 16vw;
  }
 
  .job-info h1 {
+  text-align: center;
+  font-size: 2vw;
+  font-weight: bold;
+  margin: 0%;
+ }
+
+ .job-info h2 {
+  text-align: center;
   font-size: 1.5vw;
   font-weight: bold;
+  margin-top:1vw;
+  margin-bottom: 1vw;
  }
 
  .job-info p{
+  align-self: flex-start;
   font-size: 1vw;
-  align-self: start;
+  margin: 0%;
+  margin-top: 0.5vw;
+  text-align: center;
  }
 
  

@@ -55,7 +55,8 @@ document.querySelector('.js-submit-button').addEventListener('click', (e) => {
 
   if(!isValidEmail(job_app_email)) {
     changefieldcolor(document.querySelector('.js-app-email'));
-    alert('Enter a valid email')
+    alert('Enter a valid email');
+    return;
   }
 
   const jobdata = ({
@@ -80,7 +81,7 @@ document.querySelector('.js-submit-button').addEventListener('click', (e) => {
   })
   .then((data) => {
     alert('Form submitted successfully');
-    window.location.href = '/protected/job';
+    window.location.href = '/protected/job-directory';
   })
   
 })

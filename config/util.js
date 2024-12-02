@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const sharp = require('sharp');
 
 function hashPassword(getpassword) {
   const salt = crypto.randomBytes(16).toString('hex');
@@ -18,5 +19,35 @@ function verifyPassword(password, storedhash, salt) {
 }
 
 
+function isAuthenticated (req, res, next) {
+  if(req.isAuthenticated()) {
+    return next();
+  }
+    res.redirect('/login')
+}
 
-module.exports = { hashPassword, verifyPassword};
+async function resizeimage(inputimage, quality, format) {
+  const match = inputimage.match(/^data:image\/([a-zA-Z]*);base64,([^\"]*)/);
+
+  if(!match) {
+    throw new Error('invalid image');
+  }
+
+  const imagetype = match[1];
+  const imagebuffer = Buffer.from(match[2], 'base64');
+  
+  try {
+    const resizedbuffer = await sharp(imagebuffer)
+    .toFormat(format, {quality:quality})
+    .toBuffer();
+
+    const resizedBase64String = `data:image/${imagetype};base64,${resizedbuffer.toString('base64')}`;
+    return resizedBase64String;
+  }
+  catch(err) {
+    console.error('error resizing image', err);
+    throw err;
+  }
+}
+
+module.exports = { hashPassword, verifyPassword, isAuthenticated, resizeimage};

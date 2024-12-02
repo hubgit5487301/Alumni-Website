@@ -3,6 +3,7 @@ const path = require('path');
 
 const router = express();
 const user = require('../../models/alumni.js');
+const { isAuthenticated } = require('../util.js');
 
 
 
@@ -81,17 +82,41 @@ router.get('/alumni-search', async (req, res) => {
   }
 });
 
-router.get('/job-directory', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'jobs.html'))
-})
-
 router.get('/contact-us', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'contact-us.html'))
 })
 
-
-router.get('/job-form', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job-form.html'))
+router.get('/my-profile-page', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile.html'))
 })
+
+router.get('/my-profile', async (req, res) => {
+  if(req.isAuthenticated) {
+  const data = ({userid: req.user.userid, personname: req.user.personname, personimage: req.user.personimage, details: req.user.details });
+  res.status(200).json(data);
+  } 
+  else {
+    res.redirect(`/login?alert=not-logged-in`);
+  }
+})
+
+router.get('/my-usertype', async (req, res) => {
+  if(req.isAuthenticated()) {
+    const data = ({ usertype: req.user.usertype });
+    res.status(200).json(data);
+  }
+  else {
+    res.redirect(`/login?alert=not-logged-in`);
+  }
+})
+
+router.get('/user_logo', (req, res) => {
+  if(req.isAuthenticated()) {
+    res.status(200).json(req.user.personimage);
+  }
+  else {
+    res.redirect(`/login?alert=not-logged-in`);
+  }
+});
 
 module.exports = router;

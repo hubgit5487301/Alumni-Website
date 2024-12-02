@@ -40,7 +40,10 @@ fetch(`http://localhost:8000/protected/users`)
             window.location.href = `profile.html?userid=${userid}`;
           });
         });
-  ;});
+  })
+  .catch(err => {
+    console.log(err);
+  })
 
 const searchInput = document.querySelector('.js-search-input');
 const result = document.querySelector('.js-search-output');

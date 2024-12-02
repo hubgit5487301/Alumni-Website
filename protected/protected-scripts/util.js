@@ -117,3 +117,21 @@ export function darkMode () {
   })
 
 }
+
+
+
+
+
+export async function getdataonevent (address) {
+  try{
+    const response = await fetch(`http://localhost:8000/protected/${address}`);
+    if(!response.ok) {
+      throw new Error('response not ok');
+    }
+    const data = await response.json();
+    return data;
+  }
+  catch(err) {
+    throw err;
+  }    
+}
