@@ -1,11 +1,12 @@
-import { changefieldcolor,changefieldcolordefault,inputCheck,isValidUserid,isValidEmail,upload as profilepicupload, setBranchValue} from '/script/util.js';
+import { changefieldcolor,changefieldcolordefault,inputCheck,isValidUserid,isValidEmail,upload as profilepicupload, setBranchValue, usertypeSet} from '/script/util.js';
 
 const imagesallowed = ['image/jpeg', 'image/png'];
     
 let personimage = null;
-profilepicupload('.js-pic-input',imagesallowed,true,'.js-filename',(file64) =>{
+profilepicupload('.js-pic-input',imagesallowed,true,'.js-pic-input',(file64) =>{
   personimage = file64;
 });
+
 
 function formInput() {
   document.querySelector('.js-userid').addEventListener('input', () => {
@@ -13,6 +14,9 @@ function formInput() {
     selectbranch.disabled = false;
     setBranchValue('.js-userid', '.js-branch');
   });
+  document.querySelector('.js-userid').addEventListener('input', () => {
+    usertypeSet();
+  })
   document.querySelector('.js-submit-button').addEventListener('click', (event) => {
     event.preventDefault();
     const inputname = document.querySelector('.js-name').value;
@@ -27,6 +31,7 @@ function formInput() {
     const currentrole = document.querySelector('.js-current-role').value;
     const experience = document.querySelector('.js-experience').value;
     const contactinfo = document.querySelector('.js-contact-info').value;
+    const usertype = document.querySelector('.js-user-type').value;
     
     const fields = [
       { value: inputname, selector: '.js-name' },
@@ -36,6 +41,7 @@ function formInput() {
       { value: email, selector: '.js-email' },
       { value: password, selector: '.js-password' },
       { value: renterpassword, selector: '.js-password-recheck' },
+      { value: usertype, selector: '.js-user-type'},
     ];
     let inputcheck = inputCheck(fields);
     if (inputcheck === true)
@@ -71,6 +77,7 @@ function formInput() {
     const storedAlumni= ({
       personname: inputname,
       userid: userid,
+      usertype: usertype,
       email: email,
       getpassword: password,
       personimage: personimage,

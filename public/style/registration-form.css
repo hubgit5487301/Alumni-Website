@@ -1,10 +1,3 @@
-.form-box {
-  display: grid;
-  padding: 1.5vw;
-  gap: 2vw;
-  justify-items: center;
-  align-items: center;
-}
 
 .top-text {
   align-self: center;
@@ -15,26 +8,20 @@
 }
 
 .input-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10vw;
   justify-items: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vw;
+  padding: 2vw;
 }
 
 .profile-input {
-  width: 30vw;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 1.5vw;
 }
 
-
-.profile-input-2 {
-  width: 30vw;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5vw;
-}
 
 .js-userid {
   text-transform: uppercase;
@@ -45,17 +32,6 @@
 }
 
 
-
-.profile-input-2 input {
-  background-color: rgb(59, 59, 59);
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5vw;
-}
-.profile-input-2 .pic-input {
-  display: none;
-}
 .submit-button {
   border: none;
   color: white;
@@ -91,39 +67,31 @@
   border-radius: 5px;
 }
 
-.pic-input-box {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 1vw;
-  background-color: rgba(46, 45, 45, 0.604);
-  border-radius: 5px;
-  padding: 1vw;
+
+
+.pic-input {
+  border-radius: 8px;
+  padding: 0.5vw 0.8vw;
+  padding-top: 1.1vw;
 }
 
-.pic-input-button{
+.pic-input::-webkit-file-upload-button {
+  color: white;
   background-color: rgb(21, 101, 221);
-  padding: 0.5vw 1vw;
-  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
   transition: 0.15s;
-  border-radius: 5px;
-  text-align: center;
-  box-shadow: 0px 5px 20px 0px rgb(20, 20, 20);
+  font-size: 1.1vw;
 }
 
-.pic-input-button:hover {
-  transform: scale(1.05);
+.pic-input::-webkit-file-upload-button:hover {
+  transform: scale(1.08);
   box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
 }
 
-
-.pic-input-button:active {
+.pic-input::-webkit-file-upload-button:active {
   transform: scale(1);
   opacity: 0.8;
   box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
-}
-
-.file-name {
-  align-self: center;
-  justify-content: center;
-  text-align: center;
 }

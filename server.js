@@ -46,7 +46,7 @@ app.use(passport.session());
 
 app.post('/submit-alumni', async (req, res) => {
   try{
-    const { personname, userid, email, getpassword, personimage, details } = req.body;
+    const { personname, userid, usertype, email, getpassword, personimage, details } = req.body;
     const {salt, passwordhash} = hashPassword(getpassword);
     const image = personimage || undefined;
     const newdetails = {
@@ -61,6 +61,7 @@ app.post('/submit-alumni', async (req, res) => {
     const newUser = new user({
       personname,
       userid,
+      usertype,
       email,
       salt,
       passwordhash,

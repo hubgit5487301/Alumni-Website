@@ -13,6 +13,7 @@ const DetailsSchema = new mongoose.Schema({
 const userSchema = mongoose.Schema({
   personname: { type: String, required: true},
   userid: { type: String, required: true},
+  usertype: {type: String, required: true},
   email: { type: String, required: true},
   salt: {type: String, required: true},
   passwordhash: { type: String, required: true},
