@@ -1,8 +1,5 @@
 import {getdataonevent as getusertype} from "./util.js";
 
-
-
-
 document.querySelector('.js-post-job').addEventListener('click',async () => {
   let usertype = '';
   try{
@@ -13,10 +10,29 @@ document.querySelector('.js-post-job').addEventListener('click',async () => {
     console.log(err)
   }
 
-  if(usertype === 'alumni') {
+  if(usertype === 'alumni' || usertype ===  'admin' || usertype === 'temp_admin') {
     window.location.href = '/protected/job-form';
   }
-  else if(usertype !== 'student' || '') {
+  else {
     alert("Sorry only alumni are allowed to post requests for jobs");
+  }
+})
+
+
+document.querySelector('.js-register-event').addEventListener('click', async () =>{
+  let usertype = '';
+  try{
+    const data = getusertype('my-usertype');
+    usertype = data; 
+  }
+  catch(err) {
+    console.log(err);
+  }
+
+  if(usertype === 'admin' || usertype === 'temp_admin') {
+    window.location.href = '/protected/event-form';
+  }
+  else {
+    alert("Sorry only admins are allowed to post requests for events");
   }
 })

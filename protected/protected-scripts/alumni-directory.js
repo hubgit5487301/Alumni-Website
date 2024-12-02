@@ -9,6 +9,7 @@ fetch(`http://localhost:8000/protected/users`)
   })     
   .then(data => {
     personHtml = '';
+    console.log(data);
     data.forEach((user, index) => {
     personHtml +=`
         <div class="person js-person">

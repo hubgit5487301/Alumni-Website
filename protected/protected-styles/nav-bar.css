@@ -340,6 +340,7 @@
 
 .profile-icon {
   height: 3vw;
+  width: 3vw;
   background-color: rgba(46, 45, 45, 0.603);
   border-radius: 100%;
   align-self: center;

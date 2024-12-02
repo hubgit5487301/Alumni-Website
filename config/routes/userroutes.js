@@ -20,13 +20,28 @@ router.get('/users', async (req,res) => {
   try {
     const users = await user.find();
     users.forEach((user) => {
+      //if(user.usertype !== 'admin') {
       user._id = null;
       user.salt = null;
       user.passwordhash = null;
       user.details = null;
-      user.email = null;
-    })      
-    res.status(200).json(users);
+      user.email = null;}) 
+
+      const filteredUsers = users.filter(user => user.usertype !== 'admin');
+   // }
+     /* else if (user.usertype === 'admin') {
+        user._id = null;
+        user.salt = null;
+        user.passwordhash = null;
+        user.details = null;
+        user.email = null;
+        user.personimage = null;
+        user.userid = null;
+        user.personname = null;
+        user.usertype = null;
+      }*/
+         
+    res.status(200).json(filteredUsers);
   }
   catch (err){
     res.status(500).json(console.log('Error getting users',err))

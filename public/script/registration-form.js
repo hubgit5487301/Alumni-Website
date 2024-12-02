@@ -127,7 +127,7 @@ function passwordMatchcheck (password, renterpassword){
 
 function yearSelect () {
   const startYear = 2002;
-  const endYear = new Date().getFullYear();
+  const endYear = (new Date().getFullYear()) + 4;
   const yearSelect = document.querySelector('.js-batch');
   for (let year = startYear; year <= endYear; year++) {
     const option = document.createElement('option');
