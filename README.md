@@ -2,15 +2,13 @@
 
 to run locally follow steps
 
-1.install Vs code and nodejs use following links
+1.install nodejs use following link
 
-  VScode: <a href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a>, 
-  
   node.js: <a href="https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi">https://nodejs.org/dist/v22.11.0/node-v22.11.0-x64.msi</a>
 
 2.download and exctract project zip
 
-3.open project folder in VScode
+3.open project folder 
 
 4.create a .env file and enter follow parameters and their values
 ```bash
@@ -23,9 +21,9 @@ to run locally follow steps
   ```
   <a href ="https://myaccount.google.com/u/1/apppasswords">get gmail app passkey here</a>
 
-4.open terminal in Vscode and run following command (this will install all required dependencies)
+4.open terminal in project folder and run following command (this will install all required dependencies)
 ```bash
-npm i -D
+npm i 
 ```
 5.type following commmand in terminal to run server
 ```bash
