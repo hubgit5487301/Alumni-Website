@@ -12,12 +12,13 @@ const userRoutes = require('./config/routes/userroutes.js');
 const loginroutes = require('./config/routes/loginauthenticationroutes');
 const eventroutes = require('./config/routes/eventroutes');
 const messageroute = require('./config/routes/messageroute');
-const jobroute = require('./config/routes/jobroute')
+const jobroute = require('./config/routes/jobroute');
+const servicesroute = require('./config/routes/servicesroute');
+
 
 const passport = require('./config/passport-config');
 const user = require('./models/alumni');
-const servicesroute = require('./config/routes/servicesroute.js');
-
+const {resizeimage} = require('./config/util')
 
 const {hashPassword, verifypassword, isAuthenticated} = require('./config/util');
 
@@ -48,7 +49,7 @@ app.post('/submit-alumni', async (req, res) => {
   try{
     const { personname, userid, usertype, email, getpassword, personimage, details } = req.body;
     const {salt, passwordhash} = hashPassword(getpassword);
-    const image = personimage || undefined;
+    const image = await resizeimage(personimage, 70, 'webp', 200000) || undefined;
     const newdetails = {
       batch: details.batch,
       branch: details.branch,
