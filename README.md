@@ -10,7 +10,7 @@ to run locally follow steps
 
 3.open project folder 
 
-4.create a .env file and enter follow parameters and their values
+4.create a .env file and enter follow parameters and their values (set port to 8000 if u dont plan on using CORS) 
 ```bash
   Port = 'your port number' (a port number on which u want to run the server eg: 5000)
   mongoURI = 'your mongodb URI' (your mongo db key eg: mongoURI=mongodb+srv://<username>:<password>@cluster0.ddh4n.mongodb.net/<databasename>?retryWrites=true&w=majority&appName=Cluster0 )
