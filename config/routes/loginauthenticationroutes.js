@@ -33,10 +33,9 @@ router.get('/job-directory', (req,res) => {
 });
 
 router.get('/contact-us', (req, res) => {
-  if(req.isAuthenticated()) {
-  res.sendFile(path.join(__dirname, 'public', 'contact-us.html'))}
-  else
-  res.redirect('/login')
+  
+  res.sendFile(path.join(__dirname, '..', '..', 'public', 'contact-us.html'))
+
 })
 
 router.get('/services', (req, res) => {

@@ -1,4 +1,4 @@
-.forgot-password-box {
+.otp-box {
   display: flex;
   flex: 1;
   flex-flow: column;
@@ -11,7 +11,20 @@
   gap: 1vw;
 }
 
-.forgot-password-box-content {
+.reset-box {
+  display: none;
+  flex: 1;
+  flex-flow: column;
+  background-color: transparent;
+  border: none;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  transition: 0.15s;
+  gap: 1vw;
+}
+
+.otp-box-content {
   display: grid;
   justify-content: center;
   text-align: center;
@@ -19,9 +32,6 @@
   gap: 2vw;
 }
 
-.user-id {
-  margin-bottom: 0%;
-}
 
 .submit-button {
   margin-top: 3vw;
@@ -73,15 +83,6 @@
   text-decoration: underline;
 }
 
-.user-id-box-forgot-password{
-  font-size: 1vw;
-  border: none;
-  outline: none;
-  border-radius: 4px;
-  background-color: rgb(59, 59, 59);
-  padding: 0.5vw;
-}
 
-.user-id::placeholder {
-  opacity: 0.5;
-}
+
+

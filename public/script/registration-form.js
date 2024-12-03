@@ -1,4 +1,4 @@
-import { changefieldcolor,changefieldcolordefault,inputCheck,isValidUserid,isValidEmail,upload as profilepicupload, setBranchValue, usertypeSet} from '/script/util.js';
+import { changefieldcolor,changefieldcolordefault, passwordMatchcheck ,inputCheck,isValidUserid,isValidEmail,upload as profilepicupload, setBranchValue, usertypeSet} from '/script/util.js';
 
 const imagesallowed = ['image/jpeg', 'image/png'];
     
@@ -63,15 +63,14 @@ function formInput() {
     }
 
 
-    let check=passwordMatchcheck(password, renterpassword);
+    let check = passwordMatchcheck(password, renterpassword, '.js-password-recheck');
     if(check === false)
     {
       return;
     }
     else if (check === true)
     {
-      changefieldcolordefault
-    (document.querySelector('.js-password-recheck'));
+      changefieldcolordefault(document.querySelector('.js-password-recheck'));
     }
 
     const storedAlumni= ({
@@ -116,14 +115,7 @@ function formInput() {
     });
 });}
 
-function passwordMatchcheck (password, renterpassword){
-  if (password != renterpassword)
-  { changefieldcolor(document.querySelector('.js-password-recheck'));
-    alert("Passwords do not match!");
-    return false;
-  }
-  return true;
-}
+
 
 function yearSelect () {
   const startYear = 2002;

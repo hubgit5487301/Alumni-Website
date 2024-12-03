@@ -29,6 +29,15 @@ export function inputCheck(fields) {
   return inputcheck;
 }
 
+export function passwordMatchcheck (password, renterpassword, input1, input2){
+  if (password != renterpassword)
+  { changefieldcolor(document.querySelector(input1));
+    changefieldcolor(document.querySelector(input2));
+    alert("Passwords do not match!");
+    return false;
+  }
+  return true;
+}
 
 export function isValidUserid(userid) {
   const useridregex = /^(98|99|[0-9]{2})(CSE|ME|CE|EE|ECE)(0[1-9]|[1-9][0-9])$/

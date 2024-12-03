@@ -262,6 +262,12 @@ input,textarea,select {
   padding: 0.5vw;
   transition: 0.01s;
   border-radius: 4px;
+  
+}
+
+.input-error::placeholder {
+  color: white;
+  opacity: 0.5;
 }
 
 .input-default {
@@ -277,7 +283,15 @@ input,textarea,select {
   resize: vertical;
 }
 
+.input-default::-webkit-outer-spin-button,.input-default::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+.input-error::-webkit-outer-spin-button,.input-error::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 .star {
   color: rgb(236, 60, 60);

@@ -34,7 +34,7 @@ router.post(`/send-message`, async (req, res) => {
         return res.status({error:'failed'})
       }
       else{
-        console.log('sent:' +info.response);
+        console.log('contact us message sent:' +info.response);
       }
     })
   }

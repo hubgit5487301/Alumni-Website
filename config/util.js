@@ -71,4 +71,6 @@ async function resizeimage(inputimage, quality, format, size) {
   }
 }
 
+
+
 module.exports = { hashPassword, verifyPassword, isAuthenticated, resizeimage};

@@ -31,7 +31,7 @@ export function inputCheck(fields) {
 
 
 export function isValidUserid(userid) {
-  const useridregex = /^(98|99|[0-9]{2})(CSE|ME|CE|EE|ECE)(0[1-9]|[1-9][0-9])$/
+  const useridregex = /^(98|99|[0-9]{2})(CSE|ME|CE|EE|ECE)(0[1-9]|[1-9][0-9])$/;
   return useridregex.test(userid);
 }
 
@@ -165,3 +165,27 @@ export function usertypeSet () {
   })
 
 }*/
+
+export async function getdataonevent (address) {
+  try{
+    const response = await fetch(`http://localhost:8000/protected/${address}`);
+    if(!response.ok) {
+      throw new Error('response not ok');
+    }
+    const data = await response.json();
+    return data;
+  }
+  catch(err) {
+    throw err;
+  }    
+}
+
+export function passwordMatchcheck (password, renterpassword, input, input2){
+  if (password != renterpassword)
+  { changefieldcolor(document.querySelector(input));
+    changefieldcolor(document.querySelector(input2));
+    alert("Passwords do not match!");
+    return false;
+  }
+  return true;
+}
