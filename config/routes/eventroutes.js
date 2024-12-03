@@ -13,7 +13,7 @@ router.get('/event-form', (req, res) => {
 router.post('/submit-event', async (req, res) => {
   try{
     const {name, date, location, contact_info, event_des, event_file, event_logo} = req.body;
-    const logo = event_logo !=null ? event_logo : undefined;
+    const logo = resizeimage(event_logo, 60, 'webp', 200000) !=null ? event_logo : undefined;
     const event_date = new Date(date);
     const newEvent = new events({
       name,
