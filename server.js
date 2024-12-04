@@ -31,7 +31,6 @@ const passport = require('./config/passport-config');
 const user = require('./models/alumni');
 
 const {hashPassword, verifypassword, isAuthenticated, resizeimage} = require('./config/util');
-const { error } = require('console');
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
@@ -152,7 +151,7 @@ app.post('/change-password', async (req, res) => {
 
 app.post('/submit-alumni', async (req, res) => {
   try{
-    const { personname, userid, usertype, email, getpassword, personimage, details } = req.body;
+    const { personname, userid, usertype, email, userprivacy, getpassword, personimage, details } = req.body;
     const {salt, passwordhash} = hashPassword(getpassword);
     const image = await resizeimage(personimage, 70, 'webp', 200000) || undefined;
     const newdetails = {
@@ -169,6 +168,7 @@ app.post('/submit-alumni', async (req, res) => {
       userid,
       usertype,
       email,
+      userprivacy: userprivacy || 'public',
       salt,
       passwordhash,
       personimage: image,

@@ -52,6 +52,7 @@
   border: solid;
   border-width: 5px;
   border-color:  rgba(46, 45, 45, 0.596);
+  object-fit: cover;
 }
 
 .person-name {

@@ -14,21 +14,39 @@ if(event_id) {
   })
   .then(event => {
     const eventHtml = `
-          <div class="basic-details js-basic-details">
-            <img class="event-pic" src=${event.event_logo}>
+        <div class="first-view">
+          <img class="event-pic" src="${event.event_logo}">
+          <div class="basic-data">
             <p class="name">${event.name}</p>
-            <p class="date">${formatEventDate(event.date)}</p>
+            <div class="basic-data-details">
+              <p>Event Date & Time: ${formatEventDate(event.date)}</p>
+            </div>
           </div>
-          <div class="event-details js-event-details">
-            <h1>Event Description</h1>
-            <p>${event.event_des}</p>
-            <h1>Event Location</h1>
-            <p>${event.location}</p> 
-            <h1>Contact Information</h1>
-            <p>Email: ${event.contact_info.email}</p>
-            <p>Phone No: ${event.contact_info.phone_no}</p>
+        </div>
+        <div class="event-requirement">
+          <div class="event-req-details">
+            <div class="req-text">
+                <h2>Description:</h2> 
+                <p>${event.event_des}</p>
+            </div>
+            <div class="short-info">
+              <div class="req-text">
+                <h2>Location:</h2>
+                <p>${event.location}</p>
+              </div>
+              <div class="req-text">
+                <h2>Phone No:</h2>
+                <p>${event.contact_info.phone_no}</p>
+              </div>
+              <div class="req-text">
+                <h2>Email:</h2>
+                <p>${event.contact_info.email}</p>
+              </div>
+            </div
           </div>
-  `;         
+        </div>
+      <button class="submit-button js-submit-button">Apply</button>
+`;         
   document.querySelector('.js-event-page').innerHTML = eventHtml;
   })
   .catch(err => {

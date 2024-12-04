@@ -5,6 +5,7 @@ const router = express();
 const events = require('../../models/events');
 
 
+//const userpasschange= await user.findOne({userid}, 'salt passwordhash');
 
 router.get('/event-form', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event-form.html'))
@@ -54,16 +55,9 @@ router.post('/submit-event', async (req, res) => {
   }
 });
 
-router.get('/events', async(req, res) =>{
+router.get('/events', async (req, res) =>{
   try{
-    const send_events = await events.find().sort({ date:1});
-    send_events.forEach((event) =>{
-      event.event_file = null;
-      event.contact_info = null;
-      event.location = null;
-      event.event_des = null;
-    })
-
+    const send_events = await events.find({}, {name: 1, date:1, event_logo:1 }).sort({ date:1});
     res.status(200).json(send_events) ;
   }
   catch(err) {
@@ -120,13 +114,7 @@ router.get('/event-search', async (req, res) => {
 
 router.get('/homeevents', async (req,res) => {
   try {
-    const send_events = await events.find().sort({ date:1});
-    send_events.forEach((event) =>{
-      event.event_file = null;
-      event.contact_info = null;
-      event.location = null;
-      event.event_des = null;
-    })
+    const send_events = await events.find({}, {name: 1, date:1, event_logo:1 }).sort({ date:1});
      res.status(200).json(send_events) ;
   }
   catch(err) {

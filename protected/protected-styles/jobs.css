@@ -1,51 +1,36 @@
-.all-events {
-  display: grid;
-  background-color: transparent;
-  margin-top: 1.5vw;
-}
 
-.all-events::-webkit-scrollbar{
-  display: none;
-}
-
-.event-row {
+.job-row {
   display: grid;
-  grid-template-columns: repeat(5 , 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   background-color: transparent;
   gap: 1.5vw;
   row-gap: 3vw;
-  overflow: scroll;
   padding: 2vw;
   margin-left: 1vw;
 }
 
-.event-row::-webkit-scrollbar{
-  display: none;
-}
 
-.event {
-  display: flex;
-  flex-direction: column;
-  padding: 0%;
-  background-color: transparent;
+.job {
+  display: grid;
+  grid-template-columns: auto;
   gap: 0.5vw;
   transition: 0.15s;
   cursor: pointer;
-  width: 15.1vw;
  }
  
- .event:hover {
+ .job:hover {
    transform: scale(1.05);
  }
  
- .event:active {
+ .job:active {
    transform: scale(1);
    opacity: 0.8;
  }
  
- .e-event-icon {
+ .j-job-icon {
+   display: flex;
    height: 13vw;
-   width: 15.1vw;
+   width: 18vw;
    background-color: transparent;
    box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
    border-radius: 10px;
@@ -53,31 +38,38 @@
    object-fit: cover;
  }
  
- .event-info {
-   display: flex;
-   flex-direction: column;
+ .job-info {
    align-items: center;
    border-radius: 10px;
    background-color:  rgba(46, 45, 45, 0.596);
    padding: 1vw;
+   width: 16vw;
  }
 
- .event-info h1 {
+ .job-info h1 {
+  text-align: center;
+  font-size: 2vw;
+  font-weight: bold;
+  margin: 0%;
+ }
+
+ .job-info h2 {
+  text-align: center;
   font-size: 1.5vw;
   font-weight: bold;
+  margin-top:1vw;
+  margin-bottom: 1vw;
  }
 
- .each-event {
-  text-decoration: none;
-}
-
- .event-info p{
+ .job-info p{
+  align-self: flex-start;
   font-size: 1vw;
-  align-self: center;
-  color: rgb(187, 185, 181);
+  margin: 0%;
+  margin-top: 0.5vw;
+  text-align: center;
  }
 
-
+ 
 .search-bar {
   display: flex;
   background-color: transparent;

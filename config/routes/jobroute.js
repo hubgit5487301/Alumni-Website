@@ -43,25 +43,30 @@ router.post('/submit-job', async (req, res) => {
 
 router.get('/jobs', async(req, res) => {
   try{
-    const jobs = await job.find();
-    jobs.forEach(job => {
-      job.job_location = null;
-      job.job_des = null;
-      job.job_app_email = null;
-      job.job_salary =  null;
-      job.job_des = null;
-      job.job_edu = null;
-      job.job_exp_level = null;
-      job.job_app_email = null;
-      job.job_resume = null;
-      job.job_company_website = null;
-      job.job_company_des =null;
-      job.job_contact_info = null;
-    })
+    const jobs = await job.find({}, {job_tittle: 1, job_company_name: 1, job_company_logo: 1, job_deadline: 1, job_type: 1, job_level: 1}).sort({job_deadline: 1});
     res.status(200).json(jobs);
   }
   catch(err) {
     console.log(err);
   }
+})
+
+router.get(`/job`, (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job.html'))
+})
+
+router.get(`/job/:job_id`, async(req, res) => {
+  try{
+    const _id = req.params.job_id;
+    const find_job = await job.findOne({_id});
+    if(!find_job) {
+      return  res.status(500).json({error: 'job not found'});
+    }
+    return res.status(200).json(find_job);
+  }
+ catch(err) {
+  console.log(err);
+ }
+  
 })
 module.exports = router;

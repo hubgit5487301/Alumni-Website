@@ -3,8 +3,6 @@ const path = require('path');
 
 const router = express();
 const user = require('../../models/alumni.js');
-const { isAuthenticated } = require('../util.js');
-
 
 
 router.get('/',(req, res) => {
@@ -18,17 +16,8 @@ router.get('/alumni-directory', (req, res) =>{
 
 router.get('/users', async (req,res) => {
   try {
-    const users = await user.find();
-    users.forEach((user) => {
-      user._id = null;
-      user.salt = null;
-      user.passwordhash = null;
-      user.details = null;
-      user.email = null;}) 
-
-      const filteredUsers = users.filter(user => user.usertype !== 'admin');
-  
-         
+    const users = await user.find({}, {userid: 1, personname: 1, personimage: 1, usertype: 1 }).sort({personname: 1});
+    const filteredUsers = users.filter(user => user.usertype !== 'admin');
     res.status(200).json(filteredUsers);
   }
   catch (err){

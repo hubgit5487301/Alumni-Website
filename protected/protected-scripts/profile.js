@@ -11,27 +11,39 @@ fetch(`https://localhost:8000/protected/users/${userid}`)
   return response.json();
 })
 .then(user => {
-const profilehtml = `<div class="first-view">
-          <img class="profile-pic" src="${user.personimage}">
-          <p class="name" id="name">${user.personname}</p>
+const profilehtml = `
+        <div class="first-view">
+          <img class="user-pic" src="${user.personimage}">
           <div class="basic-data">
-            <p>Batch: </p>
-            <p>${user.details.batch}</p>
-            <p>|</p>
-            <p class="branchname">${user.details.branch}</p>
+            <p class="name">${user.personname}</p>
+            <div class="basic-data-details">
+              <p>Batch: ${user.details.batch}</p>
+              <p>Branch: ${user.details.branch}</p>
+            </div>
           </div>
         </div>
-        <div class="useral-details">
-          <h1>About Me</h1>
-          <p class="about-me">${user.details.aboutme}</p>
-          <h1>Education</h1>
-          <p class="education">${user.details.education}</p>
-          <h1>Current Role</h1>
-          <p class="current-role">${user.details.currentrole}</p>
-          <h1>Work Experience</h1>
-          <p class="experience">${user.details.experience}</p>
-          <h1>Contact Information</h1>
-          <p class="contact-information">${user.details.contactinfo}</p>
+        <div class="user-requirement">
+          <div class="req-text">
+              <h2>About Me:</h2> 
+              <p>${user.details.aboutme}</p>
+          </div>
+            <div class="req-text">
+              <h2>Education:</h2>
+              <p>${user.details.education}</p>
+            </div>
+            <div class="req-text">
+              <h2>Current Role:</h2>
+              <p>${user.details.currentrole}</p>
+            </div>
+            <div class="req-text">
+              <h2>Work Experience:</h2>
+              <p>${user.details.experience}</p>
+            </div>
+            <div class="req-text">
+              <h2>Contact Info:</h2>
+              <p>${user.details.contactinfo}</p>
+            </div>
+        </div>
   `;          
   document.querySelector('.js-profile-page').innerHTML = profilehtml;
 })

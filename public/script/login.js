@@ -9,8 +9,9 @@ if(urlParams.has('alert')) {
 
 document.querySelector('.js-login-button').addEventListener('click', (event) => {
   event.preventDefault();
-  const userid = document.querySelector('.js-userid-box').value;
+  const inputuserid = document.querySelector('.js-userid-box').value;
   const password = document.querySelector('.js-password-box').value;
+  const userid = inputuserid.toUpperCase();
   const logindata = {
     userid: userid,
     password: password,

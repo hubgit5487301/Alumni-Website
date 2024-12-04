@@ -20,7 +20,7 @@ function formInput() {
   document.querySelector('.js-submit-button').addEventListener('click', (event) => {
     event.preventDefault();
     const inputname = document.querySelector('.js-name').value;
-    const userid = document.querySelector('.js-userid').value;
+    const inputuserid = document.querySelector('.js-userid').value;
     const batch = document.querySelector('.js-batch').value;
     const branch = document.querySelector('.js-branch').value;
     const email = document.querySelector('.js-email').value;
@@ -32,6 +32,8 @@ function formInput() {
     const experience = document.querySelector('.js-experience').value;
     const contactinfo = document.querySelector('.js-contact-info').value;
     const usertype = document.querySelector('.js-user-type').value;
+    const userprivacy = document.querySelector('.js-privacy').value;
+    const userid = inputuserid.toUpperCase();
     
     const fields = [
       { value: inputname, selector: '.js-name' },
@@ -42,6 +44,7 @@ function formInput() {
       { value: password, selector: '.js-password' },
       { value: renterpassword, selector: '.js-password-recheck' },
       { value: usertype, selector: '.js-user-type'},
+      { value: userprivacy, selector: '.js-privacy'}
     ];
     let inputcheck = inputCheck(fields);
     if (inputcheck === true)
@@ -78,6 +81,7 @@ function formInput() {
       userid: userid,
       usertype: usertype,
       email: email,
+      userprivacy: userprivacy,
       getpassword: password,
       personimage: personimage,
       details:{

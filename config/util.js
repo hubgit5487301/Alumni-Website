@@ -36,9 +36,7 @@ async function resizeimage(inputimage, quality, format, size) {
 
   const base64body = match[2];
   const padlength = (base64body.match(/=+$/) || [''])[0].length;
-  console.log(padlength);
   const sizeinbytes = ((base64body.length * 3) / 4 - padlength);
-  console.log(sizeinbytes);
 
   const imagetype = match[1];
   const imagebuffer = Buffer.from(base64body, 'base64');const metadata = await sharp(imagebuffer).metadata();

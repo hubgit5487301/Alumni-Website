@@ -1,4 +1,4 @@
-//
+import { formatjobdate } from "./util.js";
 
 fetch(`https://localhost:8000/protected/jobs`)
 .then(response => {
@@ -9,7 +9,6 @@ fetch(`https://localhost:8000/protected/jobs`)
 })
 .then(jobs => {
   let jobsHtml = '';
-  console.log(jobs);
   jobs.forEach( job => {
     jobsHtml += `<div class="job js-job">
   <img class="j-job-icon js-job-icon" src="${job.job_company_logo}">
@@ -20,19 +19,15 @@ fetch(`https://localhost:8000/protected/jobs`)
     <p>Type: ${job.job_type}</p>
     <p>Last date: ${formatjobdate(job.job_deadline)}</p>
   </div>
-</div>`
-  })
-  document.querySelector('.js-job-row').innerHTML = jobsHtml;
+</div>
+`})
+document.querySelector('.js-job-row').innerHTML = jobsHtml;
+document.querySelectorAll('.js-job').forEach((job, index) => {
+job.addEventListener('click', () => {
+  const job_id = jobs[index]._id;
+  window.location.href = `job?_id=${job_id}`;
+})
+})
 
 })
 
-
-export function formatjobdate(jobdate) {
-  const date = new Date(jobdate);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  return `${day} ${date.toLocaleString('default', { month: 'long' })} ${year}`;
-}
