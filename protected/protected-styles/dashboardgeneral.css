@@ -234,12 +234,14 @@ input,textarea,select {
   font-weight: bold;
   margin: 0;
   line-height: 1.5vw;
+  font-size: 1vw;
 }
 
 .event-info-text-1 {
   font-weight: bold;
   margin: 0;
   line-height: 1.5vw;
+  font-size: 1vw;
 }
 
 .page-heading {

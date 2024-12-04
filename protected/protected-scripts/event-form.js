@@ -1,5 +1,5 @@
 
-import { upload as eventdataupload, inputCheck ,changefieldcolor,isValidEmail} from "./util.js";
+import { upload as eventdataupload, inputCheck, changefieldcolor, isValidEmail, getdataonevent as getuseridonsubmit} from "./util.js";
 
 const allowedpic =['image/jpeg','image/png'];
 const allowedfile =['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
@@ -16,7 +16,7 @@ eventdataupload('.js-event-pic', allowedpic, true, '.js-event-pic', (file64) =>{
 })
 
 function eventForm () {
-document.querySelector('.js-event-submit').addEventListener(('click'), (event) => {
+document.querySelector('.js-event-submit').addEventListener(('click'), async (event) => {
   event.preventDefault();
   const eventname = document.querySelector('.js-event-name').value;
   const eventdate = document.querySelector('.js-event-date-time').value;
@@ -46,6 +46,9 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
     return;
   }
 
+  const data = await getuseridonsubmit('/my-userid');
+  const userid = data.userid;
+
   const storedEvents = ({
     name : eventname,
     date: eventdate,
@@ -56,9 +59,11 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
     },
     event_des: eventdescription,
     event_file: eventfile,
-    event_logo: eventimage,}
+    event_logo: eventimage,
+    userid: userid}
   );
 
+ 
   fetch(`https://localhost:8000/protected/submit-event`, {
     method: 'POST',
     headers: {

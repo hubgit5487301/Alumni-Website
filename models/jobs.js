@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+const appliSchema = new mongoose.Schema({
+  applicant: {type: String, default: 'nothing'}
+})
+
+
 const jobSchema = new mongoose.Schema({
   job_tittle: {type: String, required: true},
   job_location: {type: String, required: true},
@@ -20,7 +25,11 @@ const jobSchema = new mongoose.Schema({
   job_company_des: {type: String, required: true},
   job_contact_info: {type: String, required: true},
   job_company_logo: {type: String, defualt: 'test'},
+
+  applicants: {type: appliSchema, default: () => ({})}
 })
+
+
 
 
 module.exports = mongoose.model('job', jobSchema);

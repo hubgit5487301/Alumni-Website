@@ -274,6 +274,11 @@
   text-align: end;
 }
 
+.footer-left-content p {
+  margin: 0%;
+  font-size: 1.5vw;
+}
+
 .footer p {
   margin: 0%;
   background-color: transparent;
@@ -283,6 +288,7 @@
 .footer-policy {
   text-decoration: none;
   color: white;
+  font-size: 1vw;
 }
 
 .social-links {
@@ -341,6 +347,7 @@
 .profile-icon {
   height: 3vw;
   width: 3vw;
+  object-fit: cover;
   background-color: rgba(46, 45, 45, 0.603);
   border-radius: 100%;
   align-self: center;

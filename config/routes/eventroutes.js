@@ -3,9 +3,9 @@ const path = require('path');
 
 const router = express();
 const events = require('../../models/events');
+const user = require('../../models/users');
+const { resizeimage } = require('../util')
 
-
-//const userpasschange= await user.findOne({userid}, 'salt passwordhash');
 
 router.get('/event-form', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event-form.html'))
@@ -13,8 +13,10 @@ router.get('/event-form', (req, res) => {
 
 router.post('/submit-event', async (req, res) => {
   try{
-    const {name, date, location, contact_info, event_des, event_file, event_logo} = req.body;
-    const logo = resizeimage(event_logo, 60, 'webp', 200000) !=null ? event_logo : undefined;
+    const {name, date, location, contact_info, event_des, event_file, event_logo, userid} = req.body;
+    const resizedLogo = await resizeimage(event_logo, 60, 'webp', 200000); // Await the promise
+    const logo = resizedLogo != null ? resizedLogo : undefined;
+
     const event_date = new Date(date);
     const newEvent = new events({
       name,
@@ -30,8 +32,15 @@ router.post('/submit-event', async (req, res) => {
     const findeventbyname = await events.findOne({name: name});
     if(findeventbydate) {
       if(!findeventbyname) {
-        await newEvent.save();
-        return res.status(500).json({message: 'Data submitted'});
+        
+        const saved_data = await newEvent.save();
+        const event_id = saved_data._id.toString();
+
+        await user.updateOne(
+          {"userid": userid},
+          {$push: {"data.event_ids": {event_id: event_id}}}) 
+
+          return res.status(500).json({message: 'Data submitted'});
       }
       else {
         return res.status(500).json({message: 'This event exists already'})
@@ -39,14 +48,27 @@ router.post('/submit-event', async (req, res) => {
     }
     if(findeventbyname) {
       if(!findeventbydate) {
-        await newEvent.save();
+       const saved_data = await newEvent.save();
+        const event_id = saved_data._id.toString();
+        console.log(event_id);
+        
+        await user.updateOne(
+          {"userid": userid},
+          {$push: {"data.event_ids": {event_id: event_id}}}) 
+
         return res.status(200).json({message: 'Data submitted'});
       }
       else {
         return res.status(500).json({message: 'This event exists already'})
       }
     }
-    await newEvent.save();
+    const saved_data = await newEvent.save();
+    const event_id = saved_data._id.toString();
+    console.log(event_id);
+    await user.updateOne(
+          {"userid": userid},
+          {$push: {"data.event_ids": {event_id: event_id}}}) 
+
     res.status(200).json({message: 'data submitted'});
   }
   catch(err) {

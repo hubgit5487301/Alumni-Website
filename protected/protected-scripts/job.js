@@ -1,4 +1,4 @@
-import { formatjobdate } from "./util.js";
+import { formatjobdate , getdataonevent as getuser_id} from "./util.js";
 
 const urlParam = new URLSearchParams(window.location.search);
 const job_id = urlParam.get('_id');
@@ -11,7 +11,6 @@ fetch(`https://localhost:8000/protected/job/${job_id}`)
   return response.json()
 })
 .then(data => {
-  console.log(data)
   const jobHtml = `<div class="job-page js-job-page">
         <div class="first-view">
           <img class="job-pic" src="${data.job_company_logo}">
@@ -82,4 +81,14 @@ fetch(`https://localhost:8000/protected/job/${job_id}`)
 `
   document.querySelector('.js-job-page').innerHTML = jobHtml;
   
+
+  const applyButton = document.querySelector('.js-submit-button');
+
+applyButton.addEventListener('click', async () => {
+  const data = await getuser_id('/my-userid');
+  const userid = data.userid;
+
+  fetch()
 })
+})
+
