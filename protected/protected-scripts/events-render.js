@@ -3,7 +3,7 @@ import { formatEventDate } from "./util.js";
 let eventHtml = '';
 
 
-fetch(`http://localhost:8000/protected/events`)
+fetch(`https://localhost:8000/protected/events`)
  .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');
@@ -53,7 +53,7 @@ searchInput.addEventListener('input', () =>{
     else {
       result.style.display = 'grid';
     }
-    fetch(`http://localhost:8000/protected/event-search?name=${encodeURIComponent(input)}`)
+    fetch(`https://localhost:8000/protected/event-search?name=${encodeURIComponent(input)}`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');

@@ -1,3 +1,5 @@
 /.env
 /node_modules
-./gitignore
+/.gitignore
+/ssl/server.cert
+/ssl/server.key

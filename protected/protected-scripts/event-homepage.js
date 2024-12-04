@@ -1,7 +1,7 @@
 import { formatEventDate } from "./util.js";
 let eventHtml = '';
 
-fetch(`http://localhost:8000/protected/homeevents`)
+fetch(`https://localhost:8000/protected/homeevents`)
 .then(response => {
   if(!response.ok) {
     throw new Error('response not ok')

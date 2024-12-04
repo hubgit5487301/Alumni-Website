@@ -9,7 +9,14 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
+const https = require('https');
+const fs = require('fs');
+
+const sslOptions = {
+  key: fs.readFileSync('ssl/server.key'),
+  cert: fs.readFileSync('ssl/server.cert')
+};
 
 const connectDB = require('./config/mongo');
 
@@ -243,9 +250,11 @@ app.use('/protected', isAuthenticated, eventroutes);
 app.use('/protected', isAuthenticated, userRoutes);
 
 
-app.listen(port ,() => {console.log(`server is running at port ${port}`)});
+//app.listen(port ,() => {console.log(`server is running at port ${port}`)});
 
-
+https.createServer(sslOptions, app).listen(port, () => {
+  console.log(`HTTPS server running on Port: ${port}` );
+})
 
 setInterval(() => {
   const now = Date.now();

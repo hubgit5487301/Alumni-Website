@@ -1,6 +1,6 @@
 
 
-fetch(`http://localhost:8000/protected/user_logo`)
+fetch(`https://localhost:8000/protected/user_logo`)
 .then(response => {
    if(!response.ok) {
     throw new Error('response not ok')

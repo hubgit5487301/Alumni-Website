@@ -90,7 +90,7 @@ function formInput() {
         contactinfo: contactinfo,}
     });
 
-    fetch('http://localhost:8000/submit-alumni',{
+    fetch('https://localhost:8000/submit-alumni',{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',

@@ -15,7 +15,7 @@ submitButton.addEventListener('click', (e) => {
     return;
   }
   const data = ({userid});
-  fetch('http://localhost:8000/send-otp', {
+  fetch('https://localhost:8000/send-otp', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

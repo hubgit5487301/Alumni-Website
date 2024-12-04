@@ -66,7 +66,7 @@ document.querySelector('.js-submit-button').addEventListener('click', (e) => {
     job_company_name, job_company_website, job_company_des, job_contact_info, job_company_logo,
   })
 
-  fetch(`http://localhost:8000/protected/submit-job`, {
+  fetch(`https://localhost:8000/protected/submit-job`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

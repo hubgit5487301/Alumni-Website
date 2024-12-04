@@ -5,7 +5,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const event_id = urlParams.get('_id');
 
 if(event_id) {
-  fetch(`http://localhost:8000/protected/events/${event_id}`)
+  fetch(`https://localhost:8000/protected/events/${event_id}`)
   .then( response => {
       if(!response.ok) {
         throw new ErrorCreate('response not ok');

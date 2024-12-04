@@ -22,12 +22,14 @@ document.querySelector('.js-post-job').addEventListener('click',async () => {
 document.querySelector('.js-register-event').addEventListener('click', async () =>{
   let usertype = '';
   try{
-    const data = getusertype('my-usertype');
-    usertype = data; 
+    const data = await getusertype('my-usertype');
+    usertype = data.usertype; 
   }
   catch(err) {
     console.log(err);
   }
+
+  console.log(usertype)
 
   if(usertype === 'admin' || usertype === 'temp_admin') {
     window.location.href = '/protected/event-form';

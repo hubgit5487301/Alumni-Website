@@ -2,7 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const userid = urlParams.get('userid');
 
 
-fetch(`http://localhost:8000/protected/my-profile`)
+fetch(`https://localhost:8000/protected/my-profile`)
 .then( response => {
   if(!response.ok)
   {

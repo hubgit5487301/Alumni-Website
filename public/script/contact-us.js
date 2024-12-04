@@ -32,7 +32,7 @@ document.querySelector('.js-submit-message-button').addEventListener('click', (e
     email: email,
     message: message_input
   })
-  fetch(`http://localhost:8000/send-message`, {
+  fetch(`https://localhost:8000/send-message`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

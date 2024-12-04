@@ -59,7 +59,7 @@ document.querySelector('.js-event-submit').addEventListener(('click'), (event) =
     event_logo: eventimage,}
   );
 
-  fetch(`http://localhost:8000/protected/submit-event`, {
+  fetch(`https://localhost:8000/protected/submit-event`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
