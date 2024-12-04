@@ -31,5 +31,5 @@ node server.js
 ```
 6.open a browser window and type following in address bar
 ```bash
-http://loaclhost:<your port number>/
+https://loaclhost:<your port number>/
 ```
