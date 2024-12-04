@@ -28,7 +28,7 @@ const jobroute = require('./config/routes/jobroute');
 const servicesroute = require('./config/routes/servicesroute');
 
 const passport = require('./config/passport-config');
-const user = require('./models/alumni');
+const user = require('./models/users.js');
 
 const {hashPassword, verifypassword, isAuthenticated, resizeimage} = require('./config/util');
 
@@ -163,6 +163,7 @@ app.post('/submit-alumni', async (req, res) => {
       experience: details.experience || undefined,
       contactinfo: details.contactinfo || undefined,
       };
+      
     const newUser = new user({
       personname,
       userid,
@@ -172,7 +173,7 @@ app.post('/submit-alumni', async (req, res) => {
       salt,
       passwordhash,
       personimage: image,
-      details: newdetails, 
+      details: newdetails
     });
     
     const finduserbyuserid = await user.findOne({"userid":userid});

@@ -45,7 +45,6 @@ async function resizeimage(inputimage, quality, format, size) {
   try {
     resizedbuffer = imagebuffer;
   while ( sizeinbytes >= size && quality >1) {
-    console.log(quality);
     const newWidth = Math.floor(width * 0.3);
      resizedbuffer = await sharp(resizedbuffer)
      .resize({width: newWidth})
@@ -54,7 +53,6 @@ async function resizeimage(inputimage, quality, format, size) {
 
     const newbase64 = resizedbuffer.toString('base64');
     const newsize = (newbase64.length * 3) / 4 - (newbase64.match(/=+$/) || [''])[0].length;
-    console.log(newsize);
     if(newsize <= size) {
       break;
     }

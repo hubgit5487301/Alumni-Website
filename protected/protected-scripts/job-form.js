@@ -1,4 +1,4 @@
-import {isValidEmail, inputCheck, upload as joblogoupload, changefieldcolor} from "./util.js"
+import {isValidEmail, inputCheck, upload as joblogoupload, changefieldcolor, getdataonevent as getuseridonsubmit} from "./util.js"
 
 const allowedpic =['image/jpeg','image/png'];
 
@@ -8,7 +8,7 @@ joblogoupload('.js-company-logo', allowedpic, true, '.js-company-logo', (file64)
   job_company_logo = file64;
 })
 
-document.querySelector('.js-submit-button').addEventListener('click', (e) => {
+document.querySelector('.js-submit-button').addEventListener('click', async (e) => {
   e.preventDefault();
   
   //job details input
@@ -59,12 +59,15 @@ document.querySelector('.js-submit-button').addEventListener('click', (e) => {
     return;
   }
 
-  const jobdata = ({
+  const data = await getuseridonsubmit('/my-userid');
+  const userid = data.userid; 
+  const jobdata = ({userid,
     job_tittle, job_location, job_salary, job_type, job_level, job_des,
     job_edu, job_exp_level,
     job_deadline, job_app_email, job_resume,
     job_company_name, job_company_website, job_company_des, job_contact_info, job_company_logo,
   })
+
 
   fetch(`https://localhost:8000/protected/submit-job`, {
     method: 'POST',

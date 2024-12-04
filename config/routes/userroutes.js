@@ -2,12 +2,11 @@ const express = require('express');
 const path = require('path');
 
 const router = express();
-const user = require('../../models/alumni.js');
+const user = require('../../models/users.js');
 
 
 router.get('/',(req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
-  console.log('alumni')
 });
 
 router.get('/alumni-directory', (req, res) =>{
@@ -95,6 +94,16 @@ router.get('/my-profile', async (req, res) => {
 router.get('/my-usertype', async (req, res) => {
   if(req.isAuthenticated()) {
     const data = ({ usertype: req.user.usertype });
+    res.status(200).json(data);
+  }
+  else {
+    res.redirect(`/login?alert=not-logged-in`);
+  }
+})
+
+router.get('/my-userid', async (req, res) => {
+  if(req.isAuthenticated()) {
+    const data = ({ userid: req.user.userid });
     res.status(200).json(data);
   }
   else {
