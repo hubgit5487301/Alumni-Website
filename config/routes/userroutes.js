@@ -85,7 +85,7 @@ router.get('/my-profile-page', (req, res) => {
 
 router.get('/my-profile', async (req, res) => {
   if(req.isAuthenticated) {
-  const data = ({userid: req.user.userid, personname: req.user.personname, personimage: req.user.personimage, details: req.user.details });
+  const data = ({userid: req.user.userid, personname: req.user.personname, personimage: req.user.personimage, details: req.user.details, usertype: req.user.usertype});
   res.status(200).json(data);
   } 
   else {
@@ -126,16 +126,17 @@ router.get(`/myprofile-appli`, async (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-appli.html'));
 })
 
-router.get('/my-jobs-events/:userid', async (req, res) => {
+router.get(`/myprofile-posts`, async (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-posts.html'));
+})
+
+router.get('/my-jobs-events-applied/:userid', async (req, res) => {
   try{
     const userid = req.params.userid;
-    /*const finddata = await user.findOne({"userid": userid}, {data: 1});
-    console.log(finddata.data)*/
-
+    
     const all_jobs = await jobs.find({'applicants.applicant': userid }).select('_id');
     const all_events = await events.find({'applicants.applicant': userid }).select('_id');
     const data = ({all_jobs, all_events});
-    //console.log(data);
     res.status(200).json(data);
   }
   catch(err) {
@@ -143,5 +144,17 @@ router.get('/my-jobs-events/:userid', async (req, res) => {
     return res.status(500).json({error: 'internal server error'});
   }
 })
+
+router.get('/my-jobs-events-posts/:userid', async (req, res) => {
+  try{ 
+  const userid = req.params.userid;
+  const finduser = await user.findOne({userid}, {data: 1, usertype:1})
+  res.status(201).json(finduser);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+}),
 
 module.exports = router;

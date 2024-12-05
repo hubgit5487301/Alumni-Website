@@ -1,0 +1,95 @@
+import {getdataonevent as getjob_event, formatEventDate} from './util.js';
+
+const urlParams = new URLSearchParams(window.location.search); 
+const userid = urlParams.get('userid');
+const data = await getjob_event(`my-jobs-events-posts/${userid}`);
+
+const job_ids = data.data.job_ids;
+const event_ids = data.data.event_ids;
+const usertype = data.usertype;
+
+let jobHtml = '';
+
+if(job_ids.length > 0) {
+  job_ids.forEach(async job => {
+    const data = await getjob_event(`job/${job.job_id}`);
+    jobHtml += `
+              <div class="job js-job" job-id="${job.job_id}">
+                <img class="job-pic" src="${data.job_company_logo}">
+                <div class="job-text">
+                  <p>Job: ${data.job_tittle}</p>
+                  <p>Employer: ${data.job_company_name}</p>
+                </div>
+              </div>
+              <div>
+                <img class="delete-button js-delete-button" src="/images/delete.svg">
+              </div>
+  `;
+
+    document.querySelector('.js-data-jobs').innerHTML = jobHtml;
+
+    const jobButton = document.querySelectorAll('.js-job');
+    jobButton.forEach(jobButton => {
+        jobButton.addEventListener('click', () => {
+        const job_id = jobButton.getAttribute('job-id')
+        window.location.href = `/protected/job?_id=${job_id}`;
+        })
+      })
+  })
+}
+
+
+else {
+  jobHtml = `
+  <div class="j">
+      <p class="no-data">You have not posted any Jobs</p>
+  </div>
+`;
+
+document.querySelector('.js-data-jobs').innerHTML = jobHtml;
+}
+
+let eventHtml = '';
+if (data.usertype === 'admin') {
+  const box = document.querySelector('.js-event-box');
+  box.style.display = 'flex';
+  const main_box = document.querySelector('.js-profile-appli-page');
+  main_box.classList.remove('profile-appli-page-1');
+  main_box.classList.add('profile-appli-page-2');
+
+  if(event_ids.length >0) {
+    event_ids.forEach( async event => {
+      const data =  await getjob_event(`events/${event.event_id}`);
+      eventHtml += `
+                  <div class="event js-event" event-id="${event.event_id}">
+                    <img class="event-pic" src="${data.event_logo}">
+                    <div class="event-text">
+                    <p>Event Name: ${data.name}</p>
+                    <p>Date & Time: ${formatEventDate(data.date)}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <img class="delete-button js-delete-button" src="/images/delete.svg">
+                  </div>
+    `
+      document.querySelector('.js-data-events').innerHTML = eventHtml;
+      const eventButton = document.querySelectorAll('.js-event');
+      eventButton.forEach(eventButton => {
+        eventButton.addEventListener('click', ()=> {
+          const event_id = eventButton.getAttribute('event-id');
+          window.location.href= `/protected/event?_id=${event_id}`;
+        })
+      })
+    })
+  }
+  else {
+    eventHtml = `
+                  <div class="e">
+                    <p class="no-data">You have not posted any Events</p>
+                  </div>
+    `
+      document.querySelector('.js-data-events').innerHTML = eventHtml;
+  }
+}
+else {
+}

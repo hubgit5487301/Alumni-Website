@@ -56,14 +56,20 @@ fetch(`https://localhost:8000/protected/my-profile`)
 
 
   const appButton = document.querySelector('.js-button-1');
-  const postButton = document.querySelector('.js-button-2');
-
   appButton.addEventListener('click', () => {
     window.location.href = `myprofile-appli/?userid=${userid}`;
   })
-  postButton.addEventListener('click', () => {
-    window.location.href = `myprofile-posts/?userid=${userid}`;
-  })
+
+  const postButton = document.querySelector('.js-button-2');
+  if(user.usertype === 'alumni' || user.usertype === 'admin') {
+    
+    postButton.addEventListener('click', () => {
+      window.location.href = `myprofile-posts/?userid=${userid}`;
+    })
+  }
+  else {
+    postButton.style.display = 'none';
+  }
 
 })
 .catch(error => 

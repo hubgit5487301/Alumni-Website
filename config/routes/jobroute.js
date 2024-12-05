@@ -39,7 +39,7 @@ router.post('/submit-job', async (req, res) => {
 
     await user.updateOne(
       {"userid": userid},
-      {$push: {"jobids": {job_id: job_id}}}
+      {$push: {"data.job_ids": {job_id: job_id}}}
     )
 
     return res.status(200).json({message: 'Data Submitted'});

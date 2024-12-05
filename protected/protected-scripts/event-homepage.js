@@ -23,7 +23,7 @@ fetch(`https://localhost:8000/protected/homeevents`)
     document.querySelectorAll('.js-bottom-second-event-box').forEach((event, index) => {
         event.addEventListener('click' ,() => {
         const event_id = data[index]._id;
-        window.location.href = `protected/event.html?_id=${event_id}`;
+        window.location.href = `protected/event?_id=${event_id}`;
     });
 });});
 
