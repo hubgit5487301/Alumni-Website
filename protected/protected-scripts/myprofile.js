@@ -11,10 +11,15 @@ fetch(`https://localhost:8000/protected/my-profile`)
   return response.json();
 })
 .then(user => {
-const profilehtml = `
+  const userid = user.userid;
+  const profilehtml = `
       <div class="user-page js-user-page">
         <div class="first-view">
           <img class="user-pic" src="${user.personimage}">
+          <div class="activity">
+            <button class="activity-button js-button-1">My Applications</button>
+            <button class="activity-button js-button-2">My Posts</button>
+          </div>
           <div class="basic-data">
             <p class="name">${user.personname}</p>
             <div class="basic-data-details">
@@ -48,5 +53,19 @@ const profilehtml = `
       </div>
   `;          
   document.querySelector('.js-profile-page').innerHTML = profilehtml;
+
+
+  const appButton = document.querySelector('.js-button-1');
+  const postButton = document.querySelector('.js-button-2');
+
+  appButton.addEventListener('click', () => {
+    window.location.href = `myprofile-appli/?userid=${userid}`;
+  })
+  postButton.addEventListener('click', () => {
+    window.location.href = `myprofile-posts/?userid=${userid}`;
+  })
+
 })
-.catch(error => console.error('error while fetching user data:',error));
+.catch(error => 
+  console.error('error while fetching user data:',error));
+

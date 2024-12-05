@@ -2,7 +2,9 @@ const express = require('express');
 const path = require('path');
 
 const router = express();
-const user = require('../../models/users.js');
+const user = require('../../models/users');
+const jobs = require('../../models/jobs');
+const events = require('../../models/events');
 
 
 router.get('/',(req, res) => {
@@ -24,7 +26,7 @@ router.get('/users', async (req,res) => {
   }
 })
 
-router.get('/profile.html', (req, res) => {
+router.get('/profile', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'profile.html'))
 })
 
@@ -119,5 +121,27 @@ router.get('/user_logo', (req, res) => {
     res.redirect(`/login?alert=not-logged-in`);
   }
 });
+
+router.get(`/myprofile-appli`, async (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-appli.html'));
+})
+
+router.get('/my-jobs-events/:userid', async (req, res) => {
+  try{
+    const userid = req.params.userid;
+    /*const finddata = await user.findOne({"userid": userid}, {data: 1});
+    console.log(finddata.data)*/
+
+    const all_jobs = await jobs.find({'applicants.applicant': userid }).select('_id');
+    const all_events = await events.find({'applicants.applicant': userid }).select('_id');
+    const data = ({all_jobs, all_events});
+    //console.log(data);
+    res.status(200).json(data);
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'});
+  }
+})
 
 module.exports = router;

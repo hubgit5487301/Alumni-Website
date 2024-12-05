@@ -104,7 +104,7 @@ router.get(`/events/:event_id`, async (req,res) => {
   }
 })
 
-router.get(`/event.html`, (req, res) =>{
+router.get(`/event`, (req, res) =>{
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event.html'));
 })
 

@@ -26,7 +26,7 @@ const jobSchema = new mongoose.Schema({
   job_contact_info: {type: String, required: true},
   job_company_logo: {type: String, defualt: 'test'},
 
-  applicants: {type: appliSchema, default: () => ({})}
+  applicants: {type: [appliSchema], default: []}
 })
 
 

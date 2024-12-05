@@ -7,7 +7,7 @@ const event_id = urlParams.get('_id');
   fetch(`https://localhost:8000/protected/events/${event_id}`)
   .then( response => {
       if(!response.ok) {
-        throw new ErrorCreate('response not ok');
+        throw new Error('response not ok');
       }
       return response.json();
   })
