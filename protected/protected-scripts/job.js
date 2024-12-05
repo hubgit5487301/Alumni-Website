@@ -84,11 +84,44 @@ fetch(`https://localhost:8000/protected/job/${job_id}`)
 
   const applyButton = document.querySelector('.js-submit-button');
 
-applyButton.addEventListener('click', async () => {
-  const data = await getuser_id('/my-userid');
-  const userid = data.userid;
+    applyButton.addEventListener('click', async () => {
+    const data = await getuser_id('/my-userid');
+    const userid = data.userid;
+    const send_data = ({userid, job_id})
 
-  fetch()
-})
-})
+    fetch(`https://localhost:8000/protected/job-apply`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(send_data)
+      })
+      .then(response => {
+        if(!response.ok) {
+          return response.json().then(errorData => {
+          throw new Error(errorData.error || 'response not ok')
+        })
+        }
 
+        return response.json()
+      })
+      .then( data => {
+        if(data.message === 'Applied to job')
+        { applyButton.disabled = true;
+          alert(data.message);
+        }
+        else if(data.message === 'Already applied') {
+          console.log('hi')
+          alert(data.message);
+        }
+      })
+      .catch(err => {
+        alert(err);
+        applyButton.disabled = true;
+        console.log(err);
+      })
+    })
+})
+.catch(err => {
+  console.log(err);
+})

@@ -78,4 +78,22 @@ router.get(`/job/:job_id`, async(req, res) => {
  }
   
 })
+
+router.post(`/job-apply`, async (req, res) => {
+  try {
+    const {userid, job_id} = req.body;
+    const findjob = await job.findOne({"applicants.applicant": userid, "_id": job_id});
+    
+    if(findjob) return res.status(409).json({error: 'Already applied'});
+    await job.updateOne(
+      {"_id": job_id},
+      {$push:{"applicants": {applicant: userid}}}
+    )
+    return res.status(201).json({message: 'Applied to job'});
+  }
+  catch(err) {
+    console.log(err);
+    res.status(404).json({error: 'internal server error'});
+  }
+})
 module.exports = router;

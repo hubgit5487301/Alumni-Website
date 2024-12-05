@@ -1,10 +1,9 @@
 
-import { formatEventDate } from "./util.js";
+import { formatEventDate, getdataonevent as getuser_id } from "./util.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const event_id = urlParams.get('_id');
 
-if(event_id) {
   fetch(`https://localhost:8000/protected/events/${event_id}`)
   .then( response => {
       if(!response.ok) {
@@ -48,14 +47,42 @@ if(event_id) {
       <button class="submit-button js-submit-button">Apply</button>
 `;         
   document.querySelector('.js-event-page').innerHTML = eventHtml;
+  
+  
+  const applyButton = document.querySelector('.js-submit-button');
+  applyButton.addEventListener('click', async () => {
+    const data = await getuser_id('/my-userid');
+    const userid = data.userid;
+    const send_data = ({userid, event_id});
+    fetch('https://localhost:8000/protected/apply-event', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(send_data)
+    })
+    .then(response => {
+      if(!response.ok) {
+        return response.json().then( errorData => {
+          throw new Error(errorData.error || 'reponse not ok')
+        })
+      }
+      return response.json()
+    })
+    .then(data => {
+      if(data.message === 'Applied to event'){ 
+        alert(data.message);
+        applyButton.disabled = true;
+      }
+    })
+    .catch(err => {
+      alert(err);
+      console.log(err);
+      applyButton.disabled = true;
+    }) 
   })
+})
   .catch(err => {
     console.error('error while fetching event:',err);
   })
-}
-
-else {
-  console.error('no event_id given');
-}
-
 

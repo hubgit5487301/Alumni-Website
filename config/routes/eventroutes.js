@@ -148,4 +148,22 @@ router.get('/homeevents', async (req,res) => {
 router.get('/event-directory', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event-directory.html'))
 })
+
+router.post('/apply-event', async (req, res) => {
+  try{
+    const { userid, event_id} = req.body;
+    const findevent = await events.findOne({"applicants.applicant": userid, "_id": event_id});
+    if(findevent) return res.status(409).json({error: 'Already applied'});
+
+    await events.updateOne(
+      {"_id": event_id},
+      {$push: {"applicants": {applicant: userid}}}
+    )
+    return res.status(201).json({message: 'Applied to event'})
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'})
+  }
+})
 module.exports = router;
