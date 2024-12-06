@@ -213,6 +213,7 @@ input,textarea,select {
   border-radius: 10px;
   transition: 0.15s;
   cursor: pointer;
+  object-fit: cover;
 }
 
 .event-info {

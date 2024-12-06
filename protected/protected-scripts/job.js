@@ -111,7 +111,6 @@ fetch(`https://localhost:8000/protected/job/${job_id}`)
           alert(data.message);
         }
         else if(data.message === 'Already applied') {
-          console.log('hi')
           alert(data.message);
         }
       })

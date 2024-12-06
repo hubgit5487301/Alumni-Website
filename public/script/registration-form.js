@@ -1,4 +1,4 @@
-import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputCheck,isValidUserid, isValidEmail, upload as profilepicupload, setBranchValue, usertype_and_batchSet} from '/script/util.js';
+import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputCheck,isValidUserid, isValidEmail, upload as profilepicupload, setBranchValue, usertype_and_batchSet, yearSelect} from '/script/util.js';
 
 const imagesallowed = ['image/jpeg', 'image/png'];
     
@@ -7,6 +7,7 @@ profilepicupload('.js-pic-input',imagesallowed,true,'.js-pic-input',(file64) =>{
   personimage = file64;
 });
 
+yearSelect('.js-batch');
 
 function formInput() {
   document.querySelector('.js-userid').addEventListener('input', () => { 
@@ -108,7 +109,6 @@ function formInput() {
     return response.json()
   })
     .then((data) => {
-      console.log(data);
       alert('Form submitted successfully!');
       window.location.href = '/login';})
     .catch((error) => {
@@ -119,21 +119,9 @@ function formInput() {
 
 
 
-function yearSelect () {
-  const startYear = 2002;
-  const endYear = (new Date().getFullYear()) + 4;
-  const yearSelect = document.querySelector('.js-batch');
-  for (let year = startYear; year <= endYear; year++) {
-    const option = document.createElement('option');
-    option.value = year;
-    option.textContent = year;
-    yearSelect.appendChild(option);
-  }
-};
 
 
 
-yearSelect();
 formInput();
 
 

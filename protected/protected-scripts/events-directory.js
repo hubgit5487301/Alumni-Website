@@ -36,24 +36,33 @@ fetch(`https://localhost:8000/protected/events`)
 
 
 
-const searchInput = document.querySelector('.js-search-input');
+
+
+
+
+const searchButton = document.querySelector('.js-search-button')
+
 const result = document.querySelector('.js-search-output');
 
 let searchHtml = '';
-searchInput.addEventListener('input', () =>{
-  const input = document.querySelector('.js-search-input').value.trim();
+searchButton.addEventListener('click', () =>{
+  const name = document.querySelector('.js-search-input').value.trim();
+  let date = document.querySelector('.js-search-input-date').value;
+  const query = new URLSearchParams({
+    name, date
+  });
   let debounce = '';
   clearTimeout(debounce);
 
   debounce = setTimeout(() => {
-    if(input.trim() === '') {
-      result.innerHTML = '';
-      result.style.display = 'none';
-    }
-    else {
-      result.style.display = 'grid';
-    }
-    fetch(`https://localhost:8000/protected/event-search?name=${encodeURIComponent(input)}`)
+  if(!name && !date) {
+    result.classList.add('show');
+    result.innerHTML = `<div class="text js-text">Please provide at least one search parameter.</div> `;
+    document.querySelector('.js-text').classList.add('show');
+    return;
+  }
+
+  fetch(`https://localhost:8000/protected/event-search?${query}`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');
@@ -64,7 +73,7 @@ searchInput.addEventListener('input', () =>{
     searchHtml = '';
     if(data.length === 0) {
         result.classList.add('show');
-        result.innerHTML = `<div class="text js-text">No event with name "${input}" found</div> `;
+        result.innerHTML = `<div class="text js-text">No event found</div> `;
         document.querySelector('.js-text').classList.add('show');
      }
     data.forEach(event =>{

@@ -39,7 +39,6 @@ fetch(`https://localhost:8000/login`, {
 .then((data) => {
   alert(data.message);
   window.location.href = '/dashboard';
-  console.log('login successful')
   })
 .catch((error) => {
   alert(error.message);

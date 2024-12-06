@@ -29,7 +29,6 @@ document.querySelector('.js-register-event').addEventListener('click', async () 
     console.log(err);
   }
 
-  console.log(usertype)
 
   if(usertype === 'admin' || usertype === 'temp_admin') {
     window.location.href = '/protected/event-form';

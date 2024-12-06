@@ -1,9 +1,9 @@
 
 .job-row {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr ;
   background-color: transparent;
-  gap: 1.5vw;
+  gap: 1vw;
   row-gap: 3vw;
   padding: 2vw;
   margin-left: 1vw;
@@ -12,7 +12,7 @@
 
 .job {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 1fr 2fr;
   gap: 0.5vw;
   transition: 0.15s;
   cursor: pointer;
@@ -29,43 +29,42 @@
  
  .j-job-icon {
    display: flex;
-   height: 13vw;
-   width: 18vw;
+   height: 10vw;
+   width: 10vw;
    background-color: transparent;
    box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-   border-radius: 10px;
+   border-radius: 100%;
    transition: 0.15s;
    object-fit: cover;
  }
  
  .job-info {
+   display: grid;
    align-items: center;
    border-radius: 10px;
    background-color:  rgba(46, 45, 45, 0.596);
-   padding: 1vw;
-   width: 16vw;
+   box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+   padding: 0.1vw;
  }
 
 h1 {
   text-align: center;
-  font-size: 2vw;
+  font-size: 1.5vw;
   font-weight: bold;
   margin: 0%;
  }
 
  h2 {
   text-align: center;
-  font-size: 1.5vw;
+  font-size: 1vw;
   font-weight: bold;
-  margin-top:1vw;
-  margin-bottom: 1vw;
+  margin: 0%;
  }
 
  p{
   align-self: flex-start;
-  font-size: 1vw;
+  font-size: 0.9vw;
   margin: 0%;
-  margin-top: 0.5vw;
   text-align: center;
  }
 
@@ -78,90 +77,13 @@ h1 {
   margin-right: 2vw;
 }
 
-.search-input {
-  height: 2vw;
-  flex: 15;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  gap: 1.5vw;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  background-color: rgb(59, 59, 59);
-  margin-left: 0%;
-  padding-left: 1vw;
-  font-size: 1.1vw;
-}
-
-.search-input::placeholder {
-  opacity: 0.5;
-}
-
-.search-button {
-  flex: 1;
-  border-radius: 5px;
-  border: none;
-  border: none;
-  background-color: rgb(21, 101, 221);
-  color: white;
-  font-weight: bold;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.10s;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1.1vw;
-}
-
-.search-icon {
-  height: 1.1vw;
-  background-color: transparent;
-  padding: 0.5vw;
-  border-radius: 10px;
-  align-self: center;
-  transition: 0.15s;
-  cursor: pointer;
-  padding: 0%;
-  padding-top: 0.2vw;
-  margin: 0%;
-}
-
-.search-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
-}
-
-.search-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
-}
-
 
 .search-box {
   display: grid;
   grid-template-rows: auto;
 }
 
-.search-output{
-  display: none;
-  grid-template-columns: repeat(5, 1fr);
-  padding: 1.5vw;
-  gap: 1.5vw;
-  background-color:  rgba(46, 45, 45, 0.596);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  margin-top: 1vw;
-  margin-left: 2vw;
-  margin-right: 2vw;
-  border-radius: 5px;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
 
-.search-output.show {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 .text {
   margin-left: 31vw;
@@ -173,7 +95,7 @@ h1 {
 
 .job-search {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 1fr 2fr;
   gap: 0.5vw;
   transition: 0.15s;
   cursor: pointer;
@@ -189,34 +111,26 @@ h1 {
  }
  
  .j-job-icon-search {
-   display: flex;
-   height: 13vw;
-   width: 18vw;
-   background-color: transparent;
-   box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-   border-radius: 10px;
-   transition: 0.15s;
-   object-fit: cover;
+  display: flex;
+  height: 10vw;
+  width: 10vw;
+  background-color: transparent;
+  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+  border-radius: 100%;
+  transition: 0.15s;
+  object-fit: cover;
  }
  
  .job-info-search {
-   align-items: center;
-   border-radius: 10px;
-   background-color:  rgba(46, 45, 45, 0.596);
-   padding: 1vw;
-   width: 16vw;
+  display: grid;
+  align-items: center;
+  border-radius: 10px;
+  background-color:  rgba(46, 45, 45, 0.596);
+  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+  padding: 0.1vw;
  }
 
 
- 
-
-.search-bar {
-  display: flex;
-  background-color: transparent;
-  gap: 1.5vw;
-  margin-left: 2vw;
-  margin-right: 2vw;
-}
 
 .search-input {
   height: 2vw;
@@ -237,7 +151,7 @@ h1 {
 }
 
 .search-button {
-  flex: 1;
+  display: flex;
   border-radius: 5px;
   border: none;
   border: none;
@@ -248,7 +162,6 @@ h1 {
   transition: 0.10s;
   cursor: pointer;
   font-weight: bold;
-  font-size: 1.1vw;
 }
 
 .search-icon {
@@ -260,7 +173,6 @@ h1 {
   transition: 0.15s;
   cursor: pointer;
   padding: 0%;
-  padding-top: 0.2vw;
   margin: 0%;
 }
 
@@ -276,22 +188,17 @@ h1 {
 }
 
 
-.search-box {
-  display: grid;
-  grid-template-rows: auto;
-}
-
 .search-output{
-  display: none;
-  grid-template-columns: repeat(4, 1fr);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   padding: 1.5vw;
-  gap: 1.5vw;
+  gap: 1vw;
   background-color:  rgba(46, 45, 45, 0.596);
   box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
   margin-top: 1vw;
   margin-left: 2vw;
   margin-right: 2vw;
-  border-radius: 5px;
+  border-radius: 8px;
   text-align: center;
   opacity: 0;
   transform: translateY(10px);

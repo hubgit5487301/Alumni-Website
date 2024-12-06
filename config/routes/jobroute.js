@@ -7,7 +7,7 @@ const router = express();
 const user = require('../../models/users')
 
 router.get('/job-directory', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'jobs.html'))
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job-directory.html'))
 })
 
 router.post('/submit-job', async (req, res) => {
@@ -65,9 +65,15 @@ router.get(`/job`, (req, res) => {
 })
 
 router.get(`/job-search`, async (req, res) => {
-  const input = req.query.name;
+  const {job_tittle, job_type, job_level, job_company_name } = req.query;
   try{
-    const results = await job.find({ job_tittle: { $regex: `^${input}`, $options: 'i' }},{job_tittle: 1, job_company_name: 1, job_level: 1, job_type: 1, job_deadline: 1, job_company_logo: 1});
+    const results = await job.find(
+      { job_tittle: { $regex: `^${job_tittle}`, $options: 'i' },
+        job_type: { $regex: `^${job_type}`, $options: 'i' },
+        job_level: { $regex: `^${job_level}`, $options: 'i' },
+        job_company_name: { $regex: `^${job_company_name}`, $options: 'i' }
+      },
+      {job_tittle: 1, job_company_name: 1, job_level: 1, job_type: 1, job_deadline: 1, job_company_logo: 1});
     if(results.length === 0) {
       return res.status(200).json([]);
     }

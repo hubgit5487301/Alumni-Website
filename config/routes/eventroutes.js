@@ -50,7 +50,6 @@ router.post('/submit-event', async (req, res) => {
       if(!findeventbydate) {
        const saved_data = await newEvent.save();
         const event_id = saved_data._id.toString();
-        console.log(event_id);
         
         await user.updateOne(
           {"userid": userid},
@@ -64,7 +63,6 @@ router.post('/submit-event', async (req, res) => {
     }
     const saved_data = await newEvent.save();
     const event_id = saved_data._id.toString();
-    console.log(event_id);
     await user.updateOne(
           {"userid": userid},
           {$push: {"data.event_ids": {event_id: event_id}}}) 
@@ -72,8 +70,8 @@ router.post('/submit-event', async (req, res) => {
     res.status(200).json({message: 'data submitted'});
   }
   catch(err) {
-    res.status(500).json({error:'failed to save data'});
     console.log(err);
+    res.status(500).json({error:'failed to save data'});
   }
 });
 
@@ -83,7 +81,8 @@ router.get('/events', async (req, res) =>{
     res.status(200).json(send_events) ;
   }
   catch(err) {
-    res.status(500).json(console.log('error getting events',err));
+    console.log(err);
+    res.status(500).json({error: 'error getting events',err});
   }
 })
 
@@ -109,18 +108,31 @@ router.get(`/event`, (req, res) =>{
 })
 
 router.get('/event-search', async (req, res) => {
-  const input = req.query.name;
+  let {name, date} = req.query;
+  let results;
   try{
-    const results = await events.find({
-      name: { $regex: `^${input}`, $options: 'i' }}, {name: 1, date:1, event_logo:1 }
-    );
+  if(date && !isNaN(Date.parse(date))) {
+  const startDate = new Date(date + 'T00:00:00'); 
+  const endDate = new Date(date + 'T23:59:59');  
+  results = await events.find({
+      name: { $regex: `^${name}`, $options: 'i' },
+      date: { $gte: startDate, $lte: endDate}}, 
+      {name: 1, date:1, event_logo:1 }
+    );}
+    else {
+      results = await events.find({
+        name: { $regex: `^${name}`, $options: 'i' }}, 
+        {name: 1, date:1, event_logo:1 }
+      );}
     
+
   if(results.length === 0){
     return res.status(200).json([]);
   }
   res.status(200).json(results);
   }
   catch(err) {
+    console.log(err);
     res.status(500).json({error: 'internal servor error'});
   }
 });

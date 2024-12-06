@@ -22,7 +22,7 @@ router.get('/users', async (req,res) => {
     res.status(200).json(filteredUsers);
   }
   catch (err){
-    res.status(500).json(console.log('Error getting users',err))
+    res.status(500).json({error: 'Error getting users',err})
   }
 })
 
@@ -41,7 +41,7 @@ router.get(`/users/:userid`, async (req,res) =>{
       res.status(200).json(founduser);
     }
     else {
-      res.status(404).json(console.log('user not found'));
+      res.status(404).json({message: 'user not found'});
     }
   }
   catch (err){
@@ -51,12 +51,18 @@ router.get(`/users/:userid`, async (req,res) =>{
 })
 
 router.get('/alumni-search', async (req, res) => {
-  const input = req.query.name;
+  const {personname, batch, branch } = req.query;
+  if(!personname && !batch && !branch) {
+    return res.status(200).json([]);
+  }
   try{
-    const results = await user.find(
-      {personname: { $regex: `^${input}`, $options: 'i' }}, {personname: 1, personimage: 1,userid: 1 }
+    const results = await user.find({
+      personname: { $regex: `^${personname}`, $options: 'i' },
+      "details.batch": {$regex: `^${batch}`, $options: 'i' },
+      "details.branch": {$regex: `^${branch}`, $options: 'i'}},
+      {personname: 1, personimage: 1,userid: 1 }
     );
-  if(results.length === 0){
+  if(results === undefined){
     return res.status(200).json([]);
   }
   res.status(200).json(results);

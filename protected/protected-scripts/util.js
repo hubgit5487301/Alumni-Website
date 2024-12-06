@@ -172,3 +172,16 @@ export async function deletedataonevent (address) {
     throw err;
   }    
 }
+
+
+export function yearSelect (input) {
+  const startYear = 1998;
+  const endYear = (new Date().getFullYear()) + 4;
+  const yearSelect = document.querySelector(input);
+  for (let year = startYear; year <= endYear; year++) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearSelect.appendChild(option);
+  }
+};

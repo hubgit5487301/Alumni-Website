@@ -1,3 +1,7 @@
+import { yearSelect } from "./util.js";
+yearSelect('.js-search-input-year');
+
+
 let personHtml = '';
 
 fetch(`https://localhost:8000/protected/users`)
@@ -9,7 +13,6 @@ fetch(`https://localhost:8000/protected/users`)
   })     
   .then(data => {
     personHtml = '';
-    console.log(data);
     data.forEach((user, index) => {
     personHtml +=`
         <div class="person js-person">
@@ -46,24 +49,33 @@ fetch(`https://localhost:8000/protected/users`)
     console.log(err);
   })
 
-const searchInput = document.querySelector('.js-search-input');
-const result = document.querySelector('.js-search-output');
+let debounce = '';
 
+const result = document.querySelector('.js-search-output');
+const searchButton = document.querySelector('.js-search-button');
 let searchHtml = '';
-searchInput.addEventListener('input', () =>{
-  const input = document.querySelector('.js-search-input').value.trim();
-  let debounce = '';
+searchButton.addEventListener('click', () =>{
+  const textinput = document.querySelector('.js-search-input').value.trim();
+  const batchinput = document.querySelector('.js-search-input-year').value;
+  const branchinput = document.querySelector('.js-search-input-branch').value;
+
+  const query = new  URLSearchParams({
+    personname: textinput,
+    batch: batchinput, 
+    branch: branchinput
+  });
+
+
   clearTimeout(debounce);
 
   debounce = setTimeout(() => {
-    if(input.trim() === '') {
-      result.innerHTML = '';
-      result.style.display = 'none';
+    if (!textinput && !batchinput && !branchinput) {
+      result.innerHTML = `<div class="text-1 js-text-1">Please provide at least one search parameter.</div>`;
+      result.classList.add('show');
+      return;
     }
-    else {
-      result.style.display = 'grid';
-    }
-    fetch(`https://localhost:8000/protected/alumni-search?name=${encodeURIComponent(input)}`)
+    
+  fetch(`https://localhost:8000/protected/alumni-search?${query}`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');
@@ -71,40 +83,45 @@ searchInput.addEventListener('input', () =>{
     return response.json();
   })
   .then(data => {
-    searchHtml = '';
     if(data.length === 0) {
-        result.classList.add('show');
-        result.innerHTML = `<div class="text js-text">No user with name "${input}" found</div> `;
-        document.querySelector('.js-text').classList.add('show');
-     }
+      result.innerHTML = `<div class="text-1 js-text-1">No user found</div> `;
+      result.classList.add('show');
+          return;
+   }
+    searchHtml = '';
     data.forEach(user =>{
       searchHtml +=`
-        <div class="person js-person">
-            <img class="person-image" src="${user.personimage}">
+        <div class="person-1 js-person-1">
+            <img class="person-image-1" src="${user.personimage}">
             <div class="person-name">
               <h>${user.personname}</h>
             </div>
         </div>
-`     
+` 
+    })    
       result.innerHTML = searchHtml;
-      setTimeout(() => {
-        document.querySelectorAll('.js-person').forEach(person => {
-          person.classList.add('show');
-        });
-      }, 10);
       result.classList.add('show');
-      document.querySelectorAll('.js-person').forEach((user, index) => {
+
+      setTimeout(() => {
+          document.querySelectorAll('.js-person-1').forEach((person, index) => {
+            person.classList.add('show'); 
+          });
+        }, 10);
+
+      document.querySelectorAll('.js-person-1').forEach((user, index) => {
         user.addEventListener('click' ,() => {
           const userid = data[index].userid;
           window.location.href = `profile?userid=${userid}`;
         });
       });
     })
+
+.catch(err=> {
+  console.error('error fetching data',err);
+  result.innerHTML = '<div>There was an error fetching the data please reload the webpage</div>';
 })
-  .catch(err=> {
-    console.error('error fetching data',err);
-    result.innerHTML = '<div>There was an error fetching the data please reload the webpage</div>';
-  })
- 
-}, 250)})
+})
+}, 250)
+
+
 

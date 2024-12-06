@@ -12,7 +12,6 @@ const router = express();
 router.post(`/send-message`, async (req, res) => {
   try {
     const {name, email, message} = req.body;
-    console.log(message);
     const transporter = nodemailer.createTransport({
       service: service,
       auth: {

@@ -32,25 +32,33 @@ fetch(`https://localhost:8000/protected/jobs`)
 
 })
 
-
-const searchInput = document.querySelector('.js-search-input');
+const searchButton = document.querySelector('.js-search-button');
 const result = document.querySelector('.js-search-output');
 
 let searchHtml = '';
-searchInput.addEventListener('input', () =>{
-  const input = document.querySelector('.js-search-input').value.trim();
+searchButton.addEventListener('click', () =>{
+  const job_tittle = document.querySelector('.js-search-input').value.trim();
+  const job_type = document.querySelector('.js-search-input-type').value;
+  const job_level = document.querySelector('.js-search-input-level').value;
+  const job_company_name = document.querySelector('.js-search-input-emp').value;
+
+  const query = new URLSearchParams({
+    job_tittle, job_type, job_level, job_company_name
+  })
+
   let debounce = '';
   clearTimeout(debounce);
 
   debounce = setTimeout(() => {
-    if(input.trim() === '') {
-      result.innerHTML = '';
-      result.style.display = 'none';
+
+    if(!job_tittle && !job_company_name && job_level === '' && job_type ==='') {
+      result.classList.add('show');
+        result.innerHTML = `<div class="text js-text">No Please provide at least one search parameter.</div> `;
+        document.querySelector('.js-text').classList.add('show');
+      return;
     }
-    else {
-      result.style.display = 'grid';
-    }
-    fetch(`https://localhost:8000/protected/job-search?name=${encodeURIComponent(input)}`)
+    
+    fetch(`https://localhost:8000/protected/job-search?${query}`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');
@@ -61,7 +69,7 @@ searchInput.addEventListener('input', () =>{
     searchHtml = '';
     if(data.length === 0) {
         result.classList.add('show');
-        result.innerHTML = `<div class="text js-text">No job with name "${input}" found</div> `;
+        result.innerHTML = `<div class="text js-text">No job found</div> `;
         document.querySelector('.js-text').classList.add('show');
      }
     data.forEach(job =>{
@@ -76,7 +84,7 @@ searchInput.addEventListener('input', () =>{
       </div>
       </div>
 `;
-       result.innerHTML = searchHtml;
+      result.innerHTML = searchHtml;
       setTimeout(() => {
         document.querySelectorAll('.js-job').forEach(job => {
           job.classList.add('show');
