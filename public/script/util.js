@@ -117,9 +117,10 @@ export function setBranchValue (textinput, selectinput) {
 export function usertypeSet () {
   const userid = document.querySelector('.js-userid').value;
   const usertype = document.querySelector('.js-user-type');
-  const admissionyear = parseInt(userid.substring(0, 2));
+  const test = document.querySelector('.js-batch');
+  let admissionyear = parseInt(userid.substring(0, 2));
   const currentyear = parseInt((new Date().getFullYear()).toString().slice(-2));
-
+  if(admissionyear) {
   if(currentyear >= admissionyear+4) {
     usertype.value = 'alumni';
     usertype.disabled = true;
@@ -128,7 +129,14 @@ export function usertypeSet () {
     usertype.value = 'student';
     usertype.disabled = true;
   }
-
+  admissionyear = admissionyear + 2000;
+  test.value = (admissionyear).toString();
+  test.disabled = true;
+  }
+  else { 
+    usertype.disabled = false;
+    test.disabled = false;
+  }
 }
 
 

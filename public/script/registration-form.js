@@ -1,4 +1,4 @@
-import { changefieldcolor,changefieldcolordefault, passwordMatchcheck ,inputCheck,isValidUserid,isValidEmail,upload as profilepicupload, setBranchValue, usertypeSet} from '/script/util.js';
+import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputCheck,isValidUserid, isValidEmail, upload as profilepicupload, setBranchValue, usertypeSet} from '/script/util.js';
 
 const imagesallowed = ['image/jpeg', 'image/png'];
     
@@ -9,10 +9,7 @@ profilepicupload('.js-pic-input',imagesallowed,true,'.js-pic-input',(file64) =>{
 
 
 function formInput() {
-  let userid = '';
-  document.querySelector('.js-userid').addEventListener('input', () => {
-    userid = (document.querySelector('.js-userid').value).toUpperCase();
-    console.log(userid);
+  document.querySelector('.js-userid').addEventListener('input', () => { 
     const selectbranch = document.querySelector('.js-branch');
     selectbranch.disabled = false;
     setBranchValue('.js-userid', '.js-branch');
@@ -23,7 +20,7 @@ function formInput() {
   document.querySelector('.js-submit-button').addEventListener('click', (event) => {
     event.preventDefault();
     const inputname = document.querySelector('.js-name').value;
-    const inputuserid = document.querySelector('.js-userid').value.toUpperCase();
+    const userid = document.querySelector('.js-userid').value.toUpperCase();
     const batch = document.querySelector('.js-batch').value;
     const branch = document.querySelector('.js-branch').value;
     const email = document.querySelector('.js-email').value;
