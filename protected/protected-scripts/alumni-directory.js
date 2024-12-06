@@ -96,7 +96,7 @@ searchInput.addEventListener('input', () =>{
       document.querySelectorAll('.js-person').forEach((user, index) => {
         user.addEventListener('click' ,() => {
           const userid = data[index].userid;
-          window.location.href = `profile.html?userid=${userid}`;
+          window.location.href = `profile?userid=${userid}`;
         });
       });
     })

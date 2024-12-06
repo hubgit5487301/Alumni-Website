@@ -86,7 +86,7 @@ searchInput.addEventListener('input', () =>{
       document.querySelectorAll('.js-event').forEach((event, index) => {
         event.addEventListener('click' ,() => {
           const event_id = data[index]._id;
-          window.location.href =  `event.html?_id=${event_id}`;
+          window.location.href =  `event?_id=${event_id}`;
         });
       });
     })
