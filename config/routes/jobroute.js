@@ -96,4 +96,26 @@ router.post(`/job-apply`, async (req, res) => {
     res.status(404).json({error: 'internal server error'});
   }
 })
+
+
+router.delete(`/myprofile-posts/:userid/delete-job/:job_id`, async (req, res) => {
+  try{
+    const {userid, job_id } = req.params;
+    const deletejob = await job.deleteOne({_id: job_id});
+    const deletejobuser = await user.updateOne(
+      {"userid": userid},
+      {$pull: {"data.job_ids": {"job_id": job_id}}}
+    )
+    if(deletejob && deletejobuser) {
+      return res.status(200).json({message: 'Job post deleted'})
+    }
+    return res.status(404).json({error: 'Job not found'})
+  }
+  catch (err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'})
+  }
+})
+
+
 module.exports = router;

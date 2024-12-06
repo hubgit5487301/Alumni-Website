@@ -151,3 +151,24 @@ export async function getdataonevent (address) {
     throw err;
   }    
 }
+
+
+export async function deletedataonevent (address) {
+  try{
+    const response = await fetch(`https://localhost:8000/protected/${address}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if(!response.ok) {
+      throw new Error('response not ok');
+    }
+    const data = await response.json();
+    return data;
+  }
+  catch(err) {
+    throw err;
+  }    
+}

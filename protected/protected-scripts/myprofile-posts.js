@@ -1,4 +1,4 @@
-import {getdataonevent as getjob_event, formatEventDate} from './util.js';
+import {getdataonevent as getjob_event, formatEventDate, deletedataonevent} from './util.js';
 
 const urlParams = new URLSearchParams(window.location.search); 
 const userid = urlParams.get('userid');
@@ -21,13 +21,12 @@ if(job_ids.length > 0) {
                   <p>Employer: ${data.job_company_name}</p>
                 </div>
               </div>
-              <div>
-                <img class="delete-button js-delete-button" src="/images/delete.svg">
+              <div class="delete-button-job js-delete-button-job" button-id="${job.job_id}">
+                <img class="delete-button"  src="/images/delete.svg">
               </div>
   `;
-
+    
     document.querySelector('.js-data-jobs').innerHTML = jobHtml;
-
     const jobButton = document.querySelectorAll('.js-job');
     jobButton.forEach(jobButton => {
         jobButton.addEventListener('click', () => {
@@ -35,6 +34,19 @@ if(job_ids.length > 0) {
         window.location.href = `/protected/job?_id=${job_id}`;
         })
       })
+
+    const deleteButton = document.querySelectorAll('.js-delete-button-job');
+    deleteButton.forEach(deleteButton => {
+      deleteButton.addEventListener('click', async () => {
+        const job_id = deleteButton.getAttribute('button-id');
+        const data = await deletedataonevent(`myprofile-posts/${userid}/delete-job/${job_id}`);
+        if(data.message === 'Job post deleted')
+          alert('Job post deleted');
+        window.location.reload();
+        
+      })
+  })
+
   })
 }
 
@@ -68,11 +80,12 @@ if (data.usertype === 'admin') {
                     <p>Date & Time: ${formatEventDate(data.date)}</p>
                     </div>
                   </div>
-                  <div>
+                  <div class="delete-button-event js-delete-button-event" button-id="${event.event_id}">
                     <img class="delete-button js-delete-button" src="/images/delete.svg">
                   </div>
     `
       document.querySelector('.js-data-events').innerHTML = eventHtml;
+
       const eventButton = document.querySelectorAll('.js-event');
       eventButton.forEach(eventButton => {
         eventButton.addEventListener('click', ()=> {
@@ -80,6 +93,18 @@ if (data.usertype === 'admin') {
           window.location.href= `/protected/event?_id=${event_id}`;
         })
       })
+
+      const deleteButton = document.querySelectorAll('.js-delete-button-event');
+      deleteButton.forEach(deleteButton => {
+        deleteButton.addEventListener('click', async () => {
+          const event_id = deleteButton.getAttribute('button-id');
+          const data = await deletedataonevent(`myprofile-posts/${userid}/delete-event/${event_id}`);
+          if(data.message === 'event post deleted')
+            alert('event post deleted');
+          window.location.reload();
+          
+        })
+    })
     })
   }
   else {

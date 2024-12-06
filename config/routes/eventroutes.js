@@ -95,7 +95,7 @@ router.get(`/events/:event_id`, async (req,res) => {
       res.status(200).json(found_event);
     }
     else {
-      res.status(402).json(console.log('event not found'));
+      res.status(402).json({error: 'event not found'});
     }
   }
   catch(err) {
@@ -166,4 +166,24 @@ router.post('/apply-event', async (req, res) => {
     return res.status(500).json({error: 'internal server error'})
   }
 })
+
+router.delete(`/myprofile-posts/:userid/delete-event/:event_id`, async (req, res) => {
+  try{
+    const {userid, event_id } = req.params;
+    const deletejob = await events.deleteOne({_id: event_id});
+    const deletejobuser = await user.updateOne(
+      {"userid": userid},
+      {$pull: {"data.event_ids": {"event_id": event_id}}}
+    )
+    if(deletejob && deletejobuser) {
+      return res.status(200).json({message: 'event post deleted'})
+    }
+    return res.status(404).json({error: 'event not found'})
+  }
+  catch (err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'})
+  }
+})
+
 module.exports = router;
