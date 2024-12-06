@@ -1,4 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
+
 if(urlParams.has('alert')) {
   const amessage = urlParams.get('alert');
   if(amessage === 'not-logged-in') {

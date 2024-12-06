@@ -27,9 +27,11 @@ function isAuthenticated (req, res, next) {
 }
 
 async function resizeimage(inputimage, quality, format, size) {
-  const match = inputimage.match(/^data:image\/([a-zA-Z]*);base64,([^\"]*)/);
-  
+  if(!inputimage) {
+    return null;
+  }
 
+  const match = inputimage.match(/^data:image\/([a-zA-Z]*);base64,([^\"]*)/);
   if(!match) {
     throw new Error('invalid image');
   }

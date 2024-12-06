@@ -90,23 +90,23 @@ export function formatEventDate(eventdate) {
 export function setBranchValue (textinput, selectinput) {
   const branch = document.querySelector(textinput).value;
   const selectbranch = document.querySelector(selectinput);
-  const match = branch.match((/\d([A-Z]+)\d/));
+  const match = branch.match((/\d([A-Z]|[a-z]+)\d/));
 
   if (match && match[1]) {
     const idbranch = match[1];
-    if(idbranch === 'CSE') {
+    if(idbranch === 'CSE' || idbranch === 'cse') {
       selectbranch.value = 'CSE';
     }
-    else if ( idbranch === 'ME') {
+    else if ( idbranch === 'ME' || idbranch === 'me') {
       selectbranch.value = 'ME';
     }
-    else if ( idbranch === 'CE') {
+    else if ( idbranch === 'CE' || idbranch === 'ce') {
       selectbranch.value = 'CE';
     }
-    else if ( idbranch === 'EE') {
+    else if ( idbranch === 'EE' || idbranch === 'ee') {
       selectbranch.value = 'EE';
     }
-    else if ( idbranch === 'ECE') {
+    else if ( idbranch === 'ECE' || idbranch === 'ece') {
       selectbranch.value = 'ECE';
     }
     selectbranch.disabled = true;
@@ -122,9 +122,11 @@ export function usertypeSet () {
 
   if(currentyear >= admissionyear+4) {
     usertype.value = 'alumni';
+    usertype.disabled = true;
   }
   else {
     usertype.value = 'student';
+    usertype.disabled = true;
   }
 
 }

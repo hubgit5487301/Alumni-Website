@@ -100,7 +100,7 @@ if (data.usertype === 'admin') {
           const event_id = deleteButton.getAttribute('button-id');
           const data = await deletedataonevent(`myprofile-posts/${userid}/delete-event/${event_id}`);
           if(data.message === 'event post deleted')
-            alert('event post deleted');
+            alert('Event post deleted');
           window.location.reload();
           
         })
