@@ -64,6 +64,21 @@ router.get(`/job`, (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job.html'))
 })
 
+router.get(`/job-search`, async (req, res) => {
+  const input = req.query.name;
+  try{
+    const results = await job.find({ job_tittle: { $regex: `^${input}`, $options: 'i' }},{job_tittle: 1, job_company_name: 1, job_level: 1, job_type: 1, job_deadline: 1, job_company_logo: 1});
+    if(results.length === 0) {
+      return res.status(200).json([]);
+    }
+    return res.status(200).json(results);
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'})
+  }
+})
+
 router.get(`/job/:job_id`, async(req, res) => {
   try{
     const _id = req.params.job_id;
@@ -96,7 +111,6 @@ router.post(`/job-apply`, async (req, res) => {
     res.status(404).json({error: 'internal server error'});
   }
 })
-
 
 router.delete(`/myprofile-posts/:userid/delete-job/:job_id`, async (req, res) => {
   try{

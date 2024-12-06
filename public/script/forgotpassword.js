@@ -6,7 +6,7 @@ const submitButton = document.querySelector('.js-submit-button');
 submitButton.addEventListener('click', (e) => {
   submitButton.disabled = true;
   e.preventDefault();                    
-  const userid = document.querySelector('.js-user-id-box').value;
+  const userid = document.querySelector('.js-user-id-box').value.toUpperCase();
 
   if(!isValidUserid(userid)) {
     changefieldcolor(document.querySelector('.js-user-id-box'));

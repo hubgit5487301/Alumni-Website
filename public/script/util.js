@@ -114,7 +114,7 @@ export function setBranchValue (textinput, selectinput) {
 }
 
 
-export function usertypeSet () {
+export function usertype_and_batchSet () {
   const userid = document.querySelector('.js-userid').value;
   const usertype = document.querySelector('.js-user-type');
   const test = document.querySelector('.js-batch');

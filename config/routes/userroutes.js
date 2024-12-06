@@ -53,18 +53,9 @@ router.get(`/users/:userid`, async (req,res) =>{
 router.get('/alumni-search', async (req, res) => {
   const input = req.query.name;
   try{
-    const results = await user.find({
-      personname: { $regex: input, $options: 'i' }
-    });
-    results.forEach((user, index) => {
-      const user_search = user.toObject();
-      user_search._id = null;
-      user_search.salt = null;
-      user_search.passwordhash = null;
-      user_search.details = null;
-      user_search.email = null;
-      results[index] = user_search;
-    });
+    const results = await user.find(
+      {personname: { $regex: `^${input}`, $options: 'i' }}, {personname: 1, personimage: 1,userid: 1 }
+    );
   if(results.length === 0){
     return res.status(200).json([]);
   }

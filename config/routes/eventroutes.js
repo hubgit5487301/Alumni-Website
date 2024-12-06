@@ -112,18 +112,9 @@ router.get('/event-search', async (req, res) => {
   const input = req.query.name;
   try{
     const results = await events.find({
-      name: { $regex: input, $options: 'i' }
-    });
-    results.forEach((events, index) => {
-      const events_search = events.toObject();
-      events_search.details = null;
-      events_search.contact_info = null;
-      events_search.location = null;
-      events_search.event_des = null;
-      events_search.event_file = null; 
-
-      results[index] = events_search;
-    });
+      name: { $regex: `^${input}`, $options: 'i' }}, {name: 1, date:1, event_logo:1 }
+    );
+    
   if(results.length === 0){
     return res.status(200).json([]);
   }

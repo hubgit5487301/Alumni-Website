@@ -1,4 +1,4 @@
-import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputCheck,isValidUserid, isValidEmail, upload as profilepicupload, setBranchValue, usertypeSet} from '/script/util.js';
+import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputCheck,isValidUserid, isValidEmail, upload as profilepicupload, setBranchValue, usertype_and_batchSet} from '/script/util.js';
 
 const imagesallowed = ['image/jpeg', 'image/png'];
     
@@ -15,7 +15,7 @@ function formInput() {
     setBranchValue('.js-userid', '.js-branch');
   });
   document.querySelector('.js-userid').addEventListener('input', () => {
-    usertypeSet();
+    usertype_and_batchSet();
   })
   document.querySelector('.js-submit-button').addEventListener('click', (event) => {
     event.preventDefault();
