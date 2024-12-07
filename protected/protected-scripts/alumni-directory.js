@@ -94,13 +94,14 @@ searchButton.addEventListener('click', () =>{
       searchHtml +=`
         <div class="person-1 js-person-1">
             <img class="person-image-1" src="${user.personimage}">
-            <div class="person-name">
+            <div class="person-name" id="${user.userid}">
               <h>${user.personname}</h>
             </div>
         </div>
 ` 
     })    
       result.innerHTML = searchHtml;
+      
       result.classList.add('show');
 
       setTimeout(() => {
@@ -108,7 +109,20 @@ searchButton.addEventListener('click', () =>{
             person.classList.add('show'); 
           });
         }, 10);
-
+        data.forEach(user => {
+          const personback = document.getElementById(`${user.userid}`);
+          if(user.usertype) {
+            if(user.usertype === 'alumni') {
+              personback.style.backgroundColor = 'rgba(255, 0, 0, 0.59)';
+            }
+            else if(user.usertype === 'student') {
+              personback.style.backgroundColor = 'rgba(43, 167, 221, 0.59)';
+            }
+          }
+          else {
+            personback.style.backgroundColor = 'rgba(46, 45, 45, 0.596)';
+          }
+        })
       document.querySelectorAll('.js-person-1').forEach((user, index) => {
         user.addEventListener('click' ,() => {
           const userid = data[index].userid;

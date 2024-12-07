@@ -23,7 +23,7 @@
   height: 16vw;
   width: 16vw;
   background-color: transparent;
-  border-radius: 10px;
+  border-radius: 100%;
   align-self: center;
   justify-self: center;
   cursor: pointer;

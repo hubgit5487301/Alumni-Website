@@ -60,12 +60,13 @@ router.get('/alumni-search', async (req, res) => {
       personname: { $regex: `^${personname}`, $options: 'i' },
       "details.batch": {$regex: `^${batch}`, $options: 'i' },
       "details.branch": {$regex: `^${branch}`, $options: 'i'}},
-      {personname: 1, personimage: 1,userid: 1 }
+      {personname: 1, personimage: 1,userid: 1 , usertype: 1}
     );
   if(results === undefined){
     return res.status(200).json([]);
   }
-  res.status(200).json(results);
+  const filteredUsers = results.filter(user => user.usertype !== 'admin');
+  res.status(200).json(filteredUsers);
   }
   catch(err) {
     res.status(500).json({error: 'internal servor error'});

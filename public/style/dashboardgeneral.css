@@ -262,6 +262,7 @@ input,textarea,select {
   padding: 0.5vw;
   transition: 0.01s;
   border-radius: 4px;
+  font-size: 1vw;
   
 }
 
@@ -282,6 +283,7 @@ input,textarea,select {
   padding: 0.5vw;
   transition: 0.01s;
   resize: vertical;
+  font-size: 1vw;
 }
 
 .input-default::placeholder {

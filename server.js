@@ -11,14 +11,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const nodemailer = require('nodemailer');
-const http = require('http');
-const fs = require('fs');
-/*
-const sslOptions = {
-  key: fs.readFileSync('ssl/server.key'),
-  cert: fs.readFileSync('ssl/server.cert')
-};
-*/
+
+
 const connectDB = require('./config/mongo');
 
 const userRoutes = require('./config/routes/userroutes.js');
@@ -158,11 +152,11 @@ app.post('/submit-alumni', async (req, res) => {
     const newdetails = {
       batch: details.batch,
       branch: details.branch,
-      aboutme: details.aboutme || undefined,
-      education: details.education || undefined,
-      currentrole: details.currentrole || undefined,
-      experience: details.experience || undefined,
-      contactinfo: details.contactinfo || undefined,
+      aboutme:  undefined,
+      education:  undefined,
+      currentrole: undefined,
+      experience:  undefined,
+      contactinfo: undefined,
       };
 
     const newUser = new user({
@@ -253,11 +247,8 @@ app.use('/protected', isAuthenticated, userRoutes);
 
 
 app.listen(port ,() => {console.log(`server is running at port ${port}`)});
-/*
-http.createServer(sslOptions, app).listen(port, () => {
-  console.log(`http server running on Port: ${port}` );
-})
-*/
+
+
 setInterval(() => {
   const now = Date.now();
   console.log('deleting expired otps');
