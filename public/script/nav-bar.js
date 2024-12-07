@@ -1,4 +1,4 @@
-
+import { API_BASE_URL } from "./config.js";
 //import { darkMode} from "/script/util.js";
 let headerhtml = `
           <div class="left-content">

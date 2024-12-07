@@ -1,4 +1,4 @@
-
+import { API_BASE_URL } from "./config.js";
 import {getdataonevent as getjob_event, formatEventDate} from './util.js';
 
 const urlParams = new URLSearchParams(window.location.search); 

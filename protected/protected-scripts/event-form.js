@@ -1,4 +1,4 @@
-
+import { API_BASE_URL } from "./config.js";
 import { upload as eventdataupload, inputCheck, changefieldcolor, isValidEmail, getdataonevent as getuseridonsubmit} from "./util.js";
 
 const allowedpic =['image/jpeg','image/png'];
@@ -64,7 +64,7 @@ document.querySelector('.js-event-submit').addEventListener(('click'), async (ev
   );
 
  
-  fetch(`http://localhost:8000/protected/submit-event`, {
+  fetch(`http://${API_BASE_URL}:8000/protected/submit-event`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

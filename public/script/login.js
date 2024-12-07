@@ -1,4 +1,4 @@
-
+import { API_BASE_URL } from "./config.js";
 const urlParams = new URLSearchParams(window.location.search);
 
 
@@ -20,7 +20,7 @@ document.querySelector('.js-login-button').addEventListener('click', (event) => 
     password: password,
   }
   
-fetch(`http://localhost:8000/login`, {
+fetch(`http://${API_BASE_URL}:8000/login`, {
   method: 'POST',
   headers:{
     'Content-Type': 'application/json',

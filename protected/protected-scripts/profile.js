@@ -1,9 +1,9 @@
-
+import { API_BASE_URL } from "./config.js";
 const urlParams = new URLSearchParams(window.location.search);
 const userid = urlParams.get('userid');
 
 if(userid){
-fetch(`http://localhost:8000/protected/users/${userid}`)
+fetch(`http://${API_BASE_URL}:8000/protected/users/${userid}`)
 .then( response => {
   if(!response.ok)
   {

@@ -1,4 +1,4 @@
-
+import { API_BASE_URL } from "./config.js";
 import { inputCheck, changefieldcolor,isValidEmail } from "./util.js"; 
 
 document.querySelector('.js-submit-message-button').addEventListener('click', (event) => {
@@ -33,7 +33,7 @@ document.querySelector('.js-submit-message-button').addEventListener('click', (e
     email: email,
     message: message_input
   })
-  fetch(`http://localhost:8000/protected/send-message`, {
+  fetch(`http://${API_BASE_URL}:8000/protected/send-message`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

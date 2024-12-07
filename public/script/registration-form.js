@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "./config.js";
 import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputCheck,isValidUserid, isValidEmail, upload as profilepicupload, setBranchValue, usertype_and_batchSet, yearSelect} from '/script/util.js';
 
 const imagesallowed = ['image/jpeg', 'image/png'];
@@ -93,7 +94,7 @@ function formInput() {
         contactinfo: contactinfo,}
     });
 
-    fetch(`http://localhost:8000/submit-alumni`,{
+    fetch(`http://${API_BASE_URL}:8000/submit-alumni`,{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',

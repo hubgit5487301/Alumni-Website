@@ -1,4 +1,4 @@
-
+import { API_BASE_URL } from "./config.js";
 import {isValidUserid, changefieldcolor} from "./util.js"
 
 
@@ -16,7 +16,7 @@ submitButton.addEventListener('click', (e) => {
     return;
   }
   const data = ({userid});
-  fetch(`http://localhost:8000/send-otp`, {
+  fetch(`http://${API_BASE_URL}:8000/send-otp`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

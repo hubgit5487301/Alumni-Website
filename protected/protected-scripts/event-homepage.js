@@ -1,8 +1,8 @@
-
+import { API_BASE_URL } from "./config.js";
 import { formatEventDate } from "./util.js";
 let eventHtml = '';
 
-fetch(`http://localhost:8000/protected/homeevents`)
+fetch(`http://${API_BASE_URL}:8000/protected/homeevents`)
 .then(response => {
   if(!response.ok) {
     throw new Error('response not ok')
