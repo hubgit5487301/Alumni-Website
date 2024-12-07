@@ -15,15 +15,16 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
   const profilehtml = `
       <div class="user-page js-user-page">
         <div class="first-view">
-        <div class="pic-box js-pic-box">
-          <img class="user-pic" src="${user.personimage}">
-          <label for="input-image" class="click">
-            <div for="input-image" class="edit-pic js-edit-pic">
-              <img class="user-pic-edit js-user-pic-edit" src="/images/edit.svg">
-            </div>
-            <input type="file" id="input-image" class="image-upload js-image-upload" accept=".jpg,.png" style="display: none"> 
-          </label>
-        </div>
+          <div class="pic-box js-pic-box">
+            <img class="user-pic" src="${user.personimage}">
+            <label for="input-image" class="pic-label">
+              <div for="input-image" class="edit-pic js-edit-pic">
+                <img class="user-pic-edit js-user-pic-edit" src="/images/edit.svg">
+              </div>
+              <div class="edit-tooltip-pic">Change Profile Pic</div>
+              <input type="file" id="input-image" class="image-upload js-image-upload" accept=".jpg,.png" style="display: none"> 
+            </label>
+          </div>
           <div class="activity">
             <button class="activity-button js-button-1">My Applications</button>
             <button class="activity-button js-button-2">My Posts</button>
@@ -37,6 +38,10 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
           </div>
         </div>
         <div class="user-requirement">
+        <div class="info-change js-info-change">
+          <img class="user-info-edit js-user-pic-edit" src="/images/edit.svg">
+          <div class="edit-tooltip-info">Edit Info</div>
+        </div>
           <div class="req-text">
               <h2>About Me:</h2> 
               <p>${user.details.aboutme}</p>
@@ -79,8 +84,10 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
     postButton.style.display = 'none';
   }
 
-
- 
+  const editinfoButton = document.querySelector('.js-info-change');
+  editinfoButton.addEventListener('click', () => {
+    window.location.href = `edit_profile_info/userid=?${userid}`;
+})
 
   document.querySelector('.js-image-upload').addEventListener('click', () => {
 
