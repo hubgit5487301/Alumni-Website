@@ -4,7 +4,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const userid = urlParams.get('userid');
 
 
-fetch(`http://${API_BASE_URL}:8000/protected/my-profile`)
+fetch(`http://${API_BASE_URL}/protected/my-profile`)
 .then( response => {
   if(!response.ok)
   {

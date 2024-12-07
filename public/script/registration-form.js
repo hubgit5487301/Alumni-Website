@@ -94,7 +94,7 @@ function formInput() {
         contactinfo: contactinfo,}
     });
 
-    fetch(`http://${API_BASE_URL}:8000/submit-alumni`,{
+    fetch(`http://${API_BASE_URL}/submit-alumni`,{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',

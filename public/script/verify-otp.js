@@ -20,7 +20,7 @@ submitButton.addEventListener('click', (e) => {
     return;
   }
   const send_data = ({userid,otpinput});
-  fetch(`http://${API_BASE_URL}:8000/verify-otp-input`, {
+  fetch(`http://${API_BASE_URL}/verify-otp-input`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ submitButton.addEventListener('click', (e) => {
       }
 
       const data = ({userid, pass});
-      fetch(`http://${API_BASE_URL}:8000/change-password`, {
+      fetch(`http://${API_BASE_URL}/change-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

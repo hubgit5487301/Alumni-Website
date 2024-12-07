@@ -141,7 +141,7 @@ export function darkMode () {
 
 export async function getdataonevent (address) {
   try{
-    const response = await fetch(`http://${API_BASE_URL}:8000/protected/${address}`);
+    const response = await fetch(`http://${API_BASE_URL}/protected/${address}`);
     if(!response.ok) {
       throw new Error('response not ok');
     }
@@ -156,7 +156,7 @@ export async function getdataonevent (address) {
 
 export async function deletedataonevent (address) {
   try{
-    const response = await fetch(`http://${API_BASE_URL}:8000/protected/${address}`, {
+    const response = await fetch(`http://${API_BASE_URL}/protected/${address}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'

@@ -20,7 +20,7 @@ document.querySelector('.js-login-button').addEventListener('click', (event) => 
     password: password,
   }
   
-fetch(`http://${API_BASE_URL}:8000/login`, {
+fetch(`http://${API_BASE_URL}/login`, {
   method: 'POST',
   headers:{
     'Content-Type': 'application/json',
