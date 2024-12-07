@@ -1,11 +1,11 @@
-import {API_BASE_URL} from "../env.js";
+
 import { yearSelect } from "./util.js";
 yearSelect('.js-search-input-year');
 
 
 let personHtml = '';
 
-fetch(`https://${API_BASE_URL}:8000/protected/users`)
+fetch(`http://localhost:8000/protected/users`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');
@@ -76,7 +76,7 @@ searchButton.addEventListener('click', () =>{
       return;
     }
     
-  fetch(`https://${API_BASE_URL}:8000/protected/alumni-search?${query}`)
+  fetch(`http://localhost:8000/protected/alumni-search?${query}`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');

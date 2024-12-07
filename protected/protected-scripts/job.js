@@ -1,10 +1,10 @@
-import {API_BASE_URL} from "../env.js";
+
 import { formatjobdate , getdataonevent as getuser_id} from "./util.js";
 
 const urlParam = new URLSearchParams(window.location.search);
 const job_id = urlParam.get('_id');
 
-fetch(`https://${API_BASE_URL}:8000/protected/job/${job_id}`)
+fetch(`http://localhost:8000/protected/job/${job_id}`)
 .then(response => {
   if(!response.ok) {
     throw new Error('response not ok');
@@ -90,7 +90,7 @@ fetch(`https://${API_BASE_URL}:8000/protected/job/${job_id}`)
     const userid = data.userid;
     const send_data = ({userid, job_id})
 
-    fetch(`https://${API_BASE_URL}:8000/protected/job-apply`, {
+    fetch(`http://localhost:8000/protected/job-apply`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

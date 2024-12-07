@@ -1,10 +1,10 @@
-import {API_BASE_URL} from "../env.js";
+
 import { formatEventDate, getdataonevent as getuser_id } from "./util.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const event_id = urlParams.get('_id');
 
-  fetch(`https://${API_BASE_URL}:8000/protected/events/${event_id}`)
+  fetch(`http://localhost:8000/protected/events/${event_id}`)
   .then( response => {
       if(!response.ok) {
         throw new Error('response not ok');
@@ -54,7 +54,7 @@ const event_id = urlParams.get('_id');
     const data = await getuser_id('/my-userid');
     const userid = data.userid;
     const send_data = ({userid, event_id});
-    fetch(`https://${API_BASE_URL}:8000/protected/apply-event`, {
+    fetch(`http://localhost:8000/protected/apply-event`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

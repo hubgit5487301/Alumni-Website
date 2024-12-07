@@ -1,6 +1,6 @@
-import {API_BASE_URL} from "../env.js";
 
-fetch(`https://${API_BASE_URL}:8000/protected/user_logo`)
+
+fetch(`http://localhost:8000/protected/user_logo`)
 .then(response => {
    if(!response.ok) {
     throw new Error('response not ok')
@@ -57,11 +57,11 @@ fetch(`https://${API_BASE_URL}:8000/protected/user_logo`)
               </div>
               <div class="footer-middle-content">
                 <div class="social-links">
-                  <a href="https://www.linkedin.com/company/ietagra/?originalSubdomain=in" >
+                  <a href="http://www.linkedin.com/company/ietagra/?originalSubdomain=in" >
                   <img class="social-icon" src="/images/linkedin.svg" alt="linkedin"></a>
-                  <a href="https://www.instagram.com/iet_khandari_agra_official/" >
+                  <a href="http://www.instagram.com/iet_khandari_agra_official/" >
                   <img class="social-icon" src="/images/instagram.svg" alt="linkedin"></a>
-                  <a href="https://www.facebook.com/IETDBRAUAGRA/" >
+                  <a href="http://www.facebook.com/IETDBRAUAGRA/" >
                   <img class="social-icon" src="/images/facebook.svg" alt="linkedin"></a>
                   <!--<button class='dark-mode-button js-dark-mode-button'>mode</button>-->
                 </div>

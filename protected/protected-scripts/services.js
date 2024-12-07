@@ -1,4 +1,4 @@
-import {API_BASE_URL} from "../env.js";
+
 import {getdataonevent as getusertype} from "./util.js";
 
 document.querySelector('.js-post-job').addEventListener('click',async () => {
