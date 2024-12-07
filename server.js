@@ -3,6 +3,7 @@ const port = process.env.PORT;
 const emailuser = process.env.user;
 const pass = process.env.pass;
 const service = process.env.service;
+const key = process.env.key;
 const otps = {};
 
 const express = require('express');
@@ -44,7 +45,7 @@ app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 app.use(session({
-  secret: process.env.KEY,
+  secret: key,
   resave: false,
   saveUninitialized: false,
 }));
@@ -163,7 +164,7 @@ app.post('/submit-alumni', async (req, res) => {
       experience: details.experience || undefined,
       contactinfo: details.contactinfo || undefined,
       };
-      
+
     const newUser = new user({
       personname,
       userid,
