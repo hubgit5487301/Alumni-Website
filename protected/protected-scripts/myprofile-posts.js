@@ -1,3 +1,4 @@
+import {API_BASE_URL} from "../env.js";
 import {getdataonevent as getjob_event, formatEventDate, deletedataonevent} from './util.js';
 
 const urlParams = new URLSearchParams(window.location.search); 

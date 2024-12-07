@@ -1,9 +1,10 @@
+import {API_BASE_URL} from "../env.js";
 import { formatEventDate } from "./util.js";
 
 let eventHtml = '';
 
 
-fetch(`https://localhost:8000/protected/events`)
+fetch(`https://${API_BASE_URL}:8000/protected/events`)
  .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');
@@ -62,7 +63,7 @@ searchButton.addEventListener('click', () =>{
     return;
   }
 
-  fetch(`https://localhost:8000/protected/event-search?${query}`)
+  fetch(`https://${API_BASE_URL}:8000/protected/event-search?${query}`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');

@@ -1,4 +1,6 @@
+import {API_BASE_URL} from "../env.js";
 const urlParams = new URLSearchParams(window.location.search);
+
 
 if(urlParams.has('alert')) {
   const amessage = urlParams.get('alert');
@@ -18,7 +20,7 @@ document.querySelector('.js-login-button').addEventListener('click', (event) => 
     password: password,
   }
   
-fetch(`https://localhost:8000/login`, {
+fetch(`https://${API_BASE_URL}:8000/login`, {
   method: 'POST',
   headers:{
     'Content-Type': 'application/json',

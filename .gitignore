@@ -3,3 +3,4 @@
 /.gitignore
 /ssl/server.cert
 /ssl/server.key
+/env.js

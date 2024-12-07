@@ -3,7 +3,7 @@ const port = process.env.PORT;
 const emailuser = process.env.user;
 const pass = process.env.pass;
 const service = process.env.service;
-const key = process.env.key;
+const key = process.env.KEY;
 const otps = {};
 
 const express = require('express');

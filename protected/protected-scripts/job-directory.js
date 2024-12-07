@@ -1,6 +1,7 @@
+import {API_BASE_URL} from "../env.js";
 import { formatjobdate } from "./util.js";
 
-fetch(`https://localhost:8000/protected/jobs`)
+fetch(`https://${API_BASE_URL}:8000/protected/jobs`)
 .then(response => {
   if(!response.ok) {
     throw new Error('response not ok');
@@ -58,7 +59,7 @@ searchButton.addEventListener('click', () =>{
       return;
     }
     
-    fetch(`https://localhost:8000/protected/job-search?${query}`)
+    fetch(`https://${API_BASE_URL}:8000/protected/job-search?${query}`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');

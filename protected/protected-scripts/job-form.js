@@ -1,3 +1,4 @@
+import {API_BASE_URL} from "../env.js";
 import {isValidEmail, inputCheck, upload as joblogoupload, changefieldcolor, getdataonevent as getuseridonsubmit} from "./util.js"
 
 const allowedpic =['image/jpeg','image/png'];
@@ -69,7 +70,7 @@ document.querySelector('.js-submit-button').addEventListener('click', async (e) 
   })
 
 
-  fetch(`https://localhost:8000/protected/submit-job`, {
+  fetch(`https://${API_BASE_URL}:8000/protected/submit-job`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
