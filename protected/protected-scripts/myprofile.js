@@ -17,13 +17,12 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
         <div class="first-view">
           <div class="pic-box js-pic-box">
             <img class="user-pic" src="${user.personimage}">
-            <label for="input-image" class="pic-label">
-              <div for="input-image" class="edit-pic js-edit-pic">
+            <div class="pic-label">
+              <label for="input-image">
                 <img class="user-pic-edit js-user-pic-edit" src="/images/edit.svg">
-              </div>
-              <div class="edit-tooltip-pic">Change Profile Pic</div>
-              <input type="file" id="input-image" class="image-upload js-image-upload" accept=".jpg,.png" style="display: none"> 
-            </label>
+                <input type="file" id="input-image" class="image-upload js-image-upload" accept=".jpg,.png" style="display: none"> 
+              </label>
+            </div>
           </div>
           <div class="activity">
             <button class="activity-button js-button-1">My Applications</button>

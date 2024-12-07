@@ -17,6 +17,7 @@
   padding: 2vw;
   background-color:  rgba(0, 0, 0, 0.356);
   box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+  position: relative;
 }
 
 .user-pic {
@@ -29,65 +30,33 @@
   cursor: pointer;
   box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.664);
   object-fit: cover;
-  
-  z-index: 0;
 }
 
 .pic-box {
   position: relative;
 }
 
-.pic-box .edit-tooltip-pic {
+.pic-box .pic-label {
   position: absolute;
-  right: 45px;
-  pointer-events: none;
-}
-
-
-.pic-label:hover .edit-tooltip-pic {
-  opacity: 1;
-}
-
-.edit-tooltip-pic  {
-  background-color:  rgba(0, 0, 0, 0.356);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  padding: 0.5vw;
-  border-radius: 8px;
-  opacity: 0;
-  transition: opacity 0.15s;
-}
-
-.pic-box .edit-pic {
-  position: absolute;
-  top: 200px;
-  right: 100px;
-  z-index: 10;
+  bottom: 0vw;
+  left: 11vw;
 }
 
 .user-pic-edit {
-  display: flex;
   background-color: rgb(21, 101, 221);
   box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
   height: 2.5vw;
   border-radius: 100%;
-}
-
-.edit-pic {
-  display: flex;
-  background-color: rgb(21, 101, 221);
-  border-radius: 100%;
-  align-items: center;
-  justify-items: center;
   transition: 0.15s;
   cursor: pointer;
 }
 
-.edit-pic:hover {
+.user-pic-edit:hover {
   transform: scale(1.01);
   box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
 }
 
-.edit-pic:active {
+.user-pic-edit:active {
   transform: scale(1);
   opacity: 0.8;
   box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
@@ -183,8 +152,8 @@
 
 .info-change .edit-tooltip-info {
   position: absolute;
-  bottom: -40px;
-  left: -22.5px;
+  bottom: -3vw;
+  left: -1.5vw;
   pointer-events: none;
 }
 
@@ -216,8 +185,8 @@
 
 .user-requirement .info-change {
   position: absolute;
-  right: -15px;
-  top: -15px;
+  right: -1vw;
+  top: -1vw;
 }
 
 .info-change {
