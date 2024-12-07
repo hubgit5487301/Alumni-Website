@@ -63,7 +63,6 @@ export function isValidUserid(userid) {
 
 export function upload (input, allowed, value, name, callback) {
   document.querySelector(input).addEventListener('change', (event) => {
-    const filename = event.target.files[0] ? event.target.files[0].name : 'No file chosen';
     const file =event.target.files[0];
     if (file) {
       

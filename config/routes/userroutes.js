@@ -5,7 +5,7 @@ const router = express();
 const user = require('../../models/users');
 const jobs = require('../../models/jobs');
 const events = require('../../models/events');
-
+const { resizeimage } = require('../util');
 
 router.get('/',(req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -154,5 +154,16 @@ router.get('/my-jobs-events-posts/:userid', async (req, res) => {
     res.status(500).json({error: 'internal server error'})
   }
 }),
+
+router.patch('/my-profile/edit-profile-pic', async (req, res) => {
+  const {file64, userid} = req.body;
+  const new_profile_pic = await resizeimage(file64, 60, 'webp', 100000)
+  await user.updateOne(
+    {"userid": userid},
+    {$set: {"personimage": new_profile_pic}}
+  ) ;
+  res.status(200).json({message: 'Profile picture changed'});
+
+})
 
 module.exports = router;

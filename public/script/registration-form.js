@@ -12,7 +12,7 @@ let batch = '';
 let branch = '';
 let usertype = '';
 
-function formInput() {
+
   document.querySelector('.js-userid').addEventListener('input', () => { 
      branch = setBranchValue('.js-userid');
      const {user_type, year} = usertype_and_batchSet();
@@ -111,13 +111,6 @@ function formInput() {
       console.error(error.message);
       alert(error.message);
     });
-});}
-
-
-
-
-
-
-formInput();
+});
 
 

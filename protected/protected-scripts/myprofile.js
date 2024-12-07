@@ -1,7 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-
-const urlParams = new URLSearchParams(window.location.search);
-const userid = urlParams.get('userid');
+import {upload as editprofilepic} from "./util.js";
 
 
 fetch(`${API_BASE_URL}/protected/my-profile`)
@@ -12,12 +10,20 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
   }
   return response.json();
 })
-.then(user => {
+.then((user) => {
   const userid = user.userid;
   const profilehtml = `
       <div class="user-page js-user-page">
         <div class="first-view">
+        <div class="pic-box js-pic-box">
           <img class="user-pic" src="${user.personimage}">
+          <label for="input-image" class="click">
+            <div for="input-image" class="edit-pic js-edit-pic">
+              <img class="user-pic-edit js-user-pic-edit" src="/images/edit.svg">
+            </div>
+            <input type="file" id="input-image" class="image-upload js-image-upload" accept=".jpg,.png" style="display: none"> 
+          </label>
+        </div>
           <div class="activity">
             <button class="activity-button js-button-1">My Applications</button>
             <button class="activity-button js-button-2">My Posts</button>
@@ -73,7 +79,48 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
     postButton.style.display = 'none';
   }
 
+
+ 
+
+  document.querySelector('.js-image-upload').addEventListener('click', () => {
+
+    const imagesallowed = ['image/jpeg', 'image/png'];
+     editprofilepic('.js-image-upload', imagesallowed, true, '.js-image-upload', (file64) => {
+      const data = ({
+        file64, userid
+      })
+      fetch(`${API_BASE_URL}/protected/my-profile/edit-profile-pic`,{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+      })
+      .then(response => {
+        if(!response.ok) {
+          throw new Error('response not ok');
+        }
+        return response.json()
+      })
+      .then(data => {
+        if(data.message === 'Profile picture changed') {
+          alert(data.message);
+          window.location.reload();
+        }
+        else {
+          alert('An error has occured please try later')
+        }
+      })
+  });
+    
+}) 
+
 })
 .catch(error => 
-  console.error('error while fetching user data:',error));
+  console.error('error while fetching user data:',error)
+);
+
+
+
+
 
