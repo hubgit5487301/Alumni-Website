@@ -3,7 +3,7 @@ import { formatjobdate } from "./util.js";
 
 
 
-fetch(`http://${API_BASE_URL}/protected/jobs`)
+fetch(`${API_BASE_URL}/protected/jobs`)
 .then(response => {
   if(!response.ok) {
     throw new Error('response not ok');
@@ -61,7 +61,7 @@ searchButton.addEventListener('click', () =>{
       return;
     }
     
-    fetch(`http://${API_BASE_URL}/protected/job-search?${query}`)
+    fetch(`${API_BASE_URL}/protected/job-search?${query}`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');

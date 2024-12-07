@@ -268,6 +268,7 @@ input,textarea,select {
 .input-error::placeholder {
   color: white;
   opacity: 0.5;
+  font-size: 1vw;
 }
 
 .input-default {
@@ -281,6 +282,11 @@ input,textarea,select {
   padding: 0.5vw;
   transition: 0.01s;
   resize: vertical;
+}
+
+.input-default::placeholder {
+  
+  font-size: 1vw;
 }
 
 .input-default::-webkit-outer-spin-button,.input-default::-webkit-inner-spin-button{

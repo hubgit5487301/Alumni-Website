@@ -1,6 +1,6 @@
 import { API_BASE_URL } from "./config.js";
 
-fetch(`http://${API_BASE_URL}/protected/user_logo`)
+fetch(`${API_BASE_URL}/protected/user_logo`)
 .then(response => {
    if(!response.ok) {
     throw new Error('response not ok')

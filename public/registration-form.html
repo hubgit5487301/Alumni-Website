@@ -21,24 +21,15 @@
           <input class="input-default js-name" type="text" placeholder="Your name">
           <label for="roll-no">College Roll No (eg:for 2021 computer science 05 = 21CSE05 )<text class="star">*</text></label>
           <input class="input-default js-userid" type="text" placeholder="Roll no (will be used as your user-id)">
-          <label for="user type">User Type<text class="star">*</text></label>
-          <select class="input-default js-user-type" name="user type">
+          
+          <select class="input js-user-type" name="user type">
             <option value="" selected disabled hidden>User type</option>
             <option value="alumni">Alumni</option>
             <option value="student">Student</option>
           </select>
-          <label for="batch">Batch<text class="star">*</text></label>
-          <select class="input-default js-batch" name="year">
+
+          <select class="input js-batch" name="year">
             <option value="" disabled selected hidden>Select your batch admission year</option>
-          </select>
-          <label for="branch">Branch<text class="star">*</text></label>
-          <select class="input-default js-branch" name="branch">
-            <option value="" disabled selected hidden>Select your branch</option>
-            <option  value="CSE">Computer Science Engineering</option>
-            <option  value="ME">Mechanical Engineering</option>
-            <option  value="CE">Civil Engineering</option>
-            <option  value="EE">Electrical Engineering</option>
-            <option  value="ECE">Electrical communication Engineering</option>
           </select>
           <label for="Email">Email<text class="star">*</text></label>
           <input class="input-default js-email" autocomplete="email" type="email" placeholder="Your email">
@@ -48,22 +39,12 @@
             <option value="public">Public</option>
             <option value="private">Private</option>
           </select>-->
+          <label class="custom-pic-input" type="file">Profile picture</label>
+          <input id="file-upload" type="file" class="pic-input js-pic-input" accept=".jpg, .png"> 
           <label for="Password">Password<text class="star">*</text></label>
           <input class="input-default js-password" maxlength="16" minlength="8" autocomplete="new-password" type="password" placeholder="Your password">
           <label for="Password">Re-Enter Password<text class="star">*</text></label>
           <input class="input-default js-password-recheck" maxlength="16" minlength="8" autocomplete="new-password" type="password" placeholder="Enter your password again">
-          <label for="about-me">About you</label>
-          <textarea class="about-you js-about-me" type="text" placeholder="About you"></textarea>
-          <label for="education">Education</label>
-          <textarea class="education js-education" type="text" placeholder="Education"></textarea>
-          <label for="current-role">Current work of place</label>
-          <textarea class="current-role js-current-role" type="text" placeholder="Current role"></textarea>
-          <label for="experience">Work experience</label>
-          <textarea class="experience js-experience" type="text" placeholder="Work experience"></textarea>
-          <label for="contact-info">Contact information</label>
-          <textarea class="contact-info js-contact-info" type="text" placeholder="Contact information"></textarea>
-          <label class="custom-pic-input" type="file">Profile picture</label>
-          <input id="file-upload" type="file" class="pic-input js-pic-input" accept=".jpg, .png"> 
         </form>
         <button class="submit-button js-submit-button">Submit</button>
       </div>

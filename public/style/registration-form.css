@@ -4,6 +4,7 @@
   background-color: rgba(46, 45, 45, 0.604);
   box-shadow: rgba(20, 20, 20, 0.663) 0px 18px 16px 0px;
   padding: 1vw 2vw;
+  font-size: 1.8vw;
   border-radius: 5px;
 }
 
@@ -18,10 +19,13 @@
 
 .profile-input {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 1.5vw;
 }
 
+label {
+  font-size: 1vw;
+}
 
 .js-userid {
   text-transform: uppercase;
@@ -72,7 +76,7 @@
 .pic-input {
   border-radius: 8px;
   padding: 0.5vw 0.8vw;
-  padding-top: 1.1vw;
+  padding: 1.1vw;
 }
 
 .pic-input::-webkit-file-upload-button {
@@ -94,4 +98,9 @@
   transform: scale(1);
   opacity: 0.8;
   box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+}
+
+
+.input {
+  display: none;
 }

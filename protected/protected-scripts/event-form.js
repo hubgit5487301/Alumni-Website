@@ -64,7 +64,7 @@ document.querySelector('.js-event-submit').addEventListener(('click'), async (ev
   );
 
  
-  fetch(`http://${API_BASE_URL}/protected/submit-event`, {
+  fetch(`${API_BASE_URL}/protected/submit-event`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

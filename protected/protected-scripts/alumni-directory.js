@@ -5,7 +5,7 @@ yearSelect('.js-search-input-year');
 
 let personHtml = '';
 
-fetch(`http://${API_BASE_URL}/protected/users`)
+fetch(`${API_BASE_URL}/protected/users`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');
@@ -76,7 +76,7 @@ searchButton.addEventListener('click', () =>{
       return;
     }
     
-  fetch(`http://${API_BASE_URL}/protected/alumni-search?${query}`)
+  fetch(`${API_BASE_URL}/protected/alumni-search?${query}`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');

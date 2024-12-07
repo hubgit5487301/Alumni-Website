@@ -70,7 +70,7 @@ document.querySelector('.js-submit-button').addEventListener('click', async (e) 
   })
 
 
-  fetch(`http://${API_BASE_URL}/protected/submit-job`, {
+  fetch(`${API_BASE_URL}/protected/submit-job`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

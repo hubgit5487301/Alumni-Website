@@ -1,4 +1,6 @@
 import { API_BASE_URL } from "./config.js";
+
+
 export function changefieldcolor(input) {
   input.classList.add('input-error');
   input.classList.remove('input-default');
@@ -88,57 +90,49 @@ export function formatEventDate(eventdate) {
   return `${day} ${date.toLocaleString('default', { month: 'long' })} ${year}, ${hours}:${minutes}`;
 }
 
-export function setBranchValue (textinput, selectinput) {
-  const branch = document.querySelector(textinput).value;
-  const selectbranch = document.querySelector(selectinput);
-  const match = branch.match((/\d([A-Z]|[a-z]+)\d/));
+export function setBranchValue (textinput) {
+  const userid = document.querySelector(textinput).value;
+  const match = userid.match((/\d([A-Z]|[a-z]+)\d/));
 
   if (match && match[1]) {
     const idbranch = match[1];
     if(idbranch === 'CSE' || idbranch === 'cse') {
-      selectbranch.value = 'CSE';
+      return 'CSE';
     }
     else if ( idbranch === 'ME' || idbranch === 'me') {
-      selectbranch.value = 'ME';
+      return 'ME';
     }
     else if ( idbranch === 'CE' || idbranch === 'ce') {
-      selectbranch.value = 'CE';
+      return 'CE';
     }
     else if ( idbranch === 'EE' || idbranch === 'ee') {
-      selectbranch.value = 'EE';
+      return 'EE';
     }
     else if ( idbranch === 'ECE' || idbranch === 'ece') {
-      selectbranch.value = 'ECE';
+      return 'ECE';
     }
-    selectbranch.disabled = true;
   }
 }
 
 
 export function usertype_and_batchSet () {
   const userid = document.querySelector('.js-userid').value;
-  const usertype = document.querySelector('.js-user-type');
-  const test = document.querySelector('.js-batch');
   let admissionyear = parseInt(userid.substring(0, 2));
   const currentyear = parseInt((new Date().getFullYear()).toString().slice(-2));
-  if(admissionyear) {
+  let user_type = '';
+
   if(currentyear >= admissionyear+4) {
-    usertype.value = 'alumni';
-    usertype.disabled = true;
+    user_type = 'alumni';
   }
   else {
-    usertype.value = 'student';
-    usertype.disabled = true;
+    user_type = 'student';
   }
   admissionyear = admissionyear + 2000;
-  test.value = (admissionyear).toString();
-  test.disabled = true;
+  const year = admissionyear.toString();
+   
+  return {user_type, year};
   }
-  else { 
-    usertype.disabled = false;
-    test.disabled = false;
-  }
-}
+
 
 
 
@@ -179,7 +173,7 @@ export function usertype_and_batchSet () {
 
 export async function getdataonevent (address) {
   try{
-    const response = await fetch(`http://${API_BASE_URL}/protected/${address}`);
+    const response = await fetch(`${API_BASE_URL}/protected/${address}`);
     if(!response.ok) {
       throw new Error('response not ok');
     }
@@ -201,6 +195,8 @@ export function passwordMatchcheck (password, renterpassword, input, input2){
   return true;
 }
 
+
+/*
 export function yearSelect (input) {
   const startYear = 1998;
   const endYear = (new Date().getFullYear()) + 4;
@@ -212,3 +208,4 @@ export function yearSelect (input) {
     yearSelect.appendChild(option);
   }
 };
+*/
