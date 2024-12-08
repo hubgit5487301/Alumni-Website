@@ -8,7 +8,9 @@ const { resizeimage } = require('../util')
 
 
 router.get('/event-form', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event-form.html'))
+  const usertype = req.user.usertype;
+  if(usertype === 'admin') return res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event-form.html'));
+  else return res.redirect(`/protected/services`)
 })
 
 router.post('/submit-event', async (req, res) => {

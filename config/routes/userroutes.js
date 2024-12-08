@@ -125,7 +125,9 @@ router.get(`/myprofile-appli`, async (req, res) => {
 })
 
 router.get(`/myprofile-posts`, async (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-posts.html'));
+  const usertype = req.user.usertype;
+  if(usertype === 'alumni' || usertype === 'admin') return res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-posts.html'));
+  else return res.redirect(`/protected/my-profile-page`)
 })
 
 router.get('/my-jobs-events-applied/:userid', async (req, res) => {

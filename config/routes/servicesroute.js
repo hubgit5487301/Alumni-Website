@@ -9,7 +9,9 @@ router.get('/services', (req,res) => {
 })
 
 router.get('/job-form', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job-form.html'))
+  const usertype = req.user.usertype;
+  if(usertype === 'alumni') return res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job-form.html'))
+  else return res.redirect(`/protected/services`)
 })
 
 

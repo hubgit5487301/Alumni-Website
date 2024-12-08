@@ -9,6 +9,8 @@
   "author": "Vikas Yadav",
   "license": "MIT",
   "dependencies": {
+    "connect-mongo": "^5.1.0",
+    "cookie-parser": "^1.4.7",
     "express": "^4.21.1",
     "express-session": "^1.18.1",
     "mongoose": "^8.8.2",

@@ -4,6 +4,7 @@ const emailuser = process.env.user;
 const pass = process.env.pass;
 const service = process.env.service;
 const key = process.env.KEY;
+const mongoURI = process.env.mongoURI; 
 const otps = {};
 
 const express = require('express');
@@ -11,6 +12,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const nodemailer = require('nodemailer');
+const cookieparser = require('cookie-parser');
+const MongoStore = require('connect-mongo')
 
 
 const connectDB = require('./config/mongo');
@@ -33,15 +36,24 @@ app.use('/protected-styles', express.static(path.join(__dirname, 'protected', 'p
 app.use('/protected-scripts', express.static(path.join(__dirname, 'protected', 'protected-scripts')));
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
-connectDB();
 
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+
+connectDB();
 
 app.use(session({
   secret: key,
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: mongoURI,
+    ttl: 24 * 60 * 60
+  }),
+  cookie: {
+    secure: false,
+    maxAge: 6000,
+  }
 }));
 
 
@@ -204,6 +216,7 @@ app.get('/login', async (req, res) => {
 app.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({ message: 'Server error' });
     }
     if (!user) {
@@ -211,6 +224,7 @@ app.post('/login', (req, res, next) => {
     }
     req.logIn(user, (err) => {
       if (err) {
+        console.log(err);
         return res.status(500).json({ message: 'Login failed' });
       }
       return res.status(200).json({ message: 'Login successful' });
