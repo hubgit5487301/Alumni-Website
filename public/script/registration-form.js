@@ -30,11 +30,7 @@ let usertype = '';
     const password = document.querySelector('.js-password').value;
     const renterpassword = document.querySelector('.js-password-recheck').value;
 
-    //const aboutme = document.querySelector('.js-about-me').value;
-    //const education = document.querySelector('.js-education').value;
-    //const currentrole = document.querySelector('.js-current-role').value;
-    //const experience = document.querySelector('.js-experience').value;
-    //const contactinfo = document.querySelector('.js-contact-info').value;
+   
     //const userprivacy = document.querySelector('.js-privacy').value;
     
     const fields = [

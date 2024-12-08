@@ -173,6 +173,33 @@ export async function deletedataonevent (address) {
   }    
 }
 
+export async function updatedataonevent (address, data) {
+  try{
+    const response = await fetch(`${API_BASE_URL}/protected/${address}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    if(!response.ok) {
+      throw new Error('response not ok');
+    }
+    const datarecieve = await response.json();
+    return datarecieve;
+  }
+  catch(err) {
+    throw err;
+  }    
+}
+
+
+
+
+
+
+
+
 
 export function yearSelect (input) {
   const startYear = 1998;

@@ -85,7 +85,7 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
 
   const editinfoButton = document.querySelector('.js-info-change');
   editinfoButton.addEventListener('click', () => {
-    window.location.href = `edit_profile_info/userid=?${userid}`;
+    window.location.href = `edit_profile_info`;
 })
 
   document.querySelector('.js-image-upload').addEventListener('click', () => {

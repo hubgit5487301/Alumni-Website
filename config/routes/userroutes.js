@@ -120,6 +120,16 @@ router.get('/user_logo', (req, res) => {
   }
 });
 
+router.get('/user_info', (req, res) => {
+  if(req.isAuthenticated()) {
+    const data = ({aboutme: req.user.details.aboutme, education: req.user.details.education, currentrole: req.user.details.currentrole, experience: req.user.details.experience, contactinfo: req.user.details.contactinfo})
+    res.status(200).json(data);
+  }
+  else {
+    res.redirect(`/login?alert=not-logged-in`);
+  }
+});
+
 router.get(`/myprofile-appli`, async (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-appli.html'));
 })
@@ -166,6 +176,43 @@ router.patch('/my-profile/edit-profile-pic', async (req, res) => {
   ) ;
   res.status(200).json({message: 'Profile picture changed'});
 
+})
+
+router.get('/edit_profile_info', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-info-edit.html'));
+})
+
+router.patch('/update_details', async (req, res) => {
+  try {
+    const data = req.body;
+    if(req.isAuthenticated()){
+      const userid = req.user.userid;
+      const update = await user.updateOne(
+      {userid: userid},
+      {
+          $set: {
+          "details.aboutme": data.aboutme,
+          "details.education": data.education,
+          "details.currentrole": data.currentrole,
+          "details.experience": data.experience,
+          "details.contactinfo": data.contactinfo
+          }
+      });
+      if(update.modifiedCount>0) {
+        return res.status(200).json({message: 'New details added successfully'})
+      }
+      else {
+        return res.status(200).json({message: 'No changes made'});
+      }
+    }
+    else {
+      return res.redirect(`/login?alert=not-logged-in`);
+    }
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal servor error', err});
+  }
 })
 
 module.exports = router;
