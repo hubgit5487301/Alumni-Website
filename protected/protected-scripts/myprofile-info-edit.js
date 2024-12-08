@@ -23,12 +23,13 @@ const submitButton = document.querySelector('.js-submit-button');
 
 submitButton.addEventListener('click', async (e) => {
   e.preventDefault();
+  console.log(data.aboutme, aboutme.value);
   if( 
-    aboutme.value !== data.aboutme &&
-    education.value !== data.education &&
-    currentrole.value !== data.currentrole &&
-    experience.value !== data.experience &&
-    contactinfo.value !== data.contactinfo) {
+    data.aboutme !== aboutme.value ||
+    data.education !== education.value ||
+    data.currentrole !== currentrole.value ||
+    data.experience !== experience.value ||
+    data.contactinfo !== contactinfo.value) {
     const newdetails = ({
       aboutme: aboutme.value,
       education: education.value,
@@ -40,7 +41,7 @@ submitButton.addEventListener('click', async (e) => {
     const data = await updatedetails(`update_details`, newdetails);
     if(data.message === 'New details added successfully') {
       alert('New details added successfully');
-      window.location.reload();
+      window.location.href = '/protected/my-profile-page';
     }
     else if(data.message === 'No changes made') {
       alert(data.message);
