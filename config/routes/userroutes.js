@@ -12,7 +12,7 @@ router.get('/',(req, res) => {
 });
 
 router.get('/alumni-directory', (req, res) =>{
-  res.sendFile(path.join(__dirname, '..','..', 'protected', 'alumni-directory.html'));
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'alumni-directory.html'));
 })
 
 router.get('/users', async (req,res) => {

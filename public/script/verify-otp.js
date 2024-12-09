@@ -12,7 +12,6 @@ submitButton.addEventListener('click', (e) => {
   const otpinput = document.querySelector('.js-otp-input-box').value;
   const fields = [{value: otpinput, selector: '.js-otp-input-box'}]
   const isInvalid = inputCheck(fields);
-  
   if(isInvalid) {
     changefieldcolor(document.querySelector('.js-otp-input-box'))
     submitButton.disabled = false;
@@ -34,7 +33,8 @@ submitButton.addEventListener('click', (e) => {
     return response.json();
   })
   .then(data =>{
-    alert(data.message)
+    if(data.message === 'Verfied'){
+    alert(data.message);
     document.querySelector('.js-otp-box').style.display = 'none';
     document.querySelector('.js-reset-box').style.display = 'flex';
 
@@ -88,7 +88,11 @@ submitButton.addEventListener('click', (e) => {
           window.location.href = '/login';
         }
       })
-    })
+    })}
+    else {
+      alert(data.error);
+      window.location.reload();
+    }
   })
   .catch(err=> {
     console.log(err);

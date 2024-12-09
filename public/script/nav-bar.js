@@ -29,7 +29,7 @@ let headerhtml = `
                 <div class="tooltip">Contact us</div></a>
             </div>
           <div class="right-content">
-            <a class="login-link" href="login.html">
+            <a class="login-link" href="login">
               <p class="Hi js-Hi" >Login</p></a>
           </div>
         ` ;
