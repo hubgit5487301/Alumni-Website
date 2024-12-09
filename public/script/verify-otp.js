@@ -90,7 +90,7 @@ submitButton.addEventListener('click', (e) => {
       })
     })}
     else {
-      alert(data.error);
+      alert(data.error || data.message);
       window.location.reload();
     }
   })

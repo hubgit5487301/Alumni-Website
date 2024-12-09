@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const otpsSchema = ({
+const otpsSchema = new mongoose.Schema({
   data: {
     userid: {type: String, required: true},
     otp: {type: String, required: true}
@@ -10,4 +10,4 @@ const otpsSchema = ({
 
 otpsSchema.index({createdAt: 1}, {expireAfterSecons: 600});
 
-module.exports = ('otps', otpsSchema);
+module.exports = mongoose.model('otps', otpsSchema);

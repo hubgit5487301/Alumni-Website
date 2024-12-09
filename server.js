@@ -8,8 +8,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const cookieparser = require('cookie-parser');
-const MongoStore = require('connect-mongo')
+const MongoStore = require('connect-mongo');
 
 
 const connectDB = require('./config/mongo');
@@ -24,7 +23,8 @@ const servicesroute = require('./config/routes/servicesroute');
 
 const passport = require('./config/passport-config');
 
-const {hashPassword, verifypassword, isAuthenticated, resizeimage} = require('./config/util');
+const {isAuthenticated} = require('./config/util');
+const otps = require('./models/otps.js');
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
@@ -71,15 +71,13 @@ app.use('/protected', isAuthenticated, userRoutes);
 app.listen(port ,() => {console.log(`server is running at port ${port}`)});
 
 
-setInterval(() => {
-  const now = Date.now();
-  console.log('deleting expired otps');
-  
-  for(const userid in otps) {
-    const storedotp = otps[userid];
-    if(storedotp.expiresAt < now) {
-      delete otps[userid];
-      console.log(`otp for ${userid} deleted`);
-    }
+setInterval( async() => {
+  const now = new Date(Date.now() - 10 * 60 * 1000);
+  try{
+    const result = await otps.deleteMany({createdAt: {$lt: now}});
+    console.log(`Deleted ${result.deletedCount} expired otps`);
   }
-}, 6000000);
+catch(err) {
+  console.log(err);
+}
+}, 1000 * 60 * 10);
