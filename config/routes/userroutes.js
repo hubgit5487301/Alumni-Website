@@ -238,8 +238,9 @@ router.get('/my-profile/download-resume', async (req, res) => {
   try{
     const userid = req.user.userid;
     const result = await user.findOne({userid: userid}, {"details.resume": 1, personname: 1});
-    if(result) {
-      return res.status(200).json({result, message: 'Starting Download'});
+
+    if(!result.details.resume === 'empty') {
+      return res.status(200).json({result, message: 'File Found'});
     }
     else {
       return res.status(200).json({error: 'File not found'})

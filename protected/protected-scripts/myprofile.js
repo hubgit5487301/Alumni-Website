@@ -170,10 +170,14 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
   const file_download_button = document.querySelector('.js-download-div');
   file_download_button.addEventListener('click', async () => {
     const data = await downloadfile(`my-profile/download-resume`);
-    const file64 = data.result.details.resume;
-    if(data.message === 'Starting Download') {
+    
+    if(data.message === 'File Found') {
+      const file64 = data.result.details.resume;
       const filetype = 'application/pdf'
       downloadresume(file64, filetype, `${data.result.personname} Resume.pdf`);
+    }
+    else if(data.error === 'File not found') {
+      alert('No file was found')
     }
   })
 
