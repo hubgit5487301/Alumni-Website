@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import {upload as editprofilepic} from "./util.js";
+import {upload as uploadfile, getdataonevent as downloadfile, download as downloadresume} from "./util.js";
 
 
 fetch(`${API_BASE_URL}/protected/my-profile`)
@@ -61,6 +61,16 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
               <h2>Contact Info:</h2>
               <p>${user.details.contactinfo}</p>
             </div>
+            <div class="req-text">
+              <h2>Resume:</h2>
+              <div class="file-upload-download">
+                <label class="upload-label js-upload-label" for="upload-resume">
+                  <input type="file" id="upload-resume" class="resume-upload js-resume-upload" style="display: none" accept=".pdf">
+                  <div class="upload-div">Upload Resume</div>
+                </label>
+                <div class="download-div js-download-div">Download Resume</div>
+                </div>
+            </div>
         </div>
       </div>
   `;          
@@ -85,13 +95,13 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
 
   const editinfoButton = document.querySelector('.js-info-change');
   editinfoButton.addEventListener('click', () => {
-    window.location.href = `edit_profile_info`;
+    window.location.href = `my-profile/edit_profile_info`;
 })
 
   document.querySelector('.js-image-upload').addEventListener('click', () => {
 
     const imagesallowed = ['image/jpeg', 'image/png'];
-     editprofilepic('.js-image-upload', imagesallowed, true, '.js-image-upload', (file64) => {
+     uploadfile('.js-image-upload', imagesallowed, true, '.js-image-upload', (file64) => {
       const data = ({
         file64, userid
       })
@@ -118,8 +128,54 @@ fetch(`${API_BASE_URL}/protected/my-profile`)
         }
       })
   });
-    
-}) 
+      
+  }) 
+
+  const file_upload_button = document.querySelector('.js-resume-upload');
+
+  file_upload_button.addEventListener('click', async ()=> {
+    const fileallowed = ['application/pdf']
+    uploadfile('.js-resume-upload', fileallowed, true, '.js-resume-upload', async (file64) => {
+      const data = ({file64})
+
+      fetch(`${API_BASE_URL}/protected/my-profile/upload-resume`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+      })
+      .then((response) => {
+        if(!response.ok) {
+          throw new Error('response not ok');
+        }
+      return response.json()
+      })
+      .then( data => {
+        if(data.message === 'Uploaded Resume') {
+          alert(data.message);
+          window.location.reload();
+        }
+        else if(data.error) {
+          alert(data.error)
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+    })
+  })
+
+  const file_download_button = document.querySelector('.js-download-div');
+  file_download_button.addEventListener('click', async () => {
+    const data = await downloadfile(`my-profile/download-resume`);
+    const file64 = data.result.details.resume;
+    if(data.message === 'Starting Download') {
+      const filetype = 'application/pdf'
+      downloadresume(file64, filetype, `${data.result.personname} Resume.pdf`);
+    }
+  })
 
 })
 .catch(error => 

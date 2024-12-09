@@ -178,7 +178,7 @@ router.patch('/my-profile/edit-profile-pic', async (req, res) => {
 
 })
 
-router.get('/edit_profile_info', (req, res) => {
+router.get('/my-profile/edit_profile_info', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-info-edit.html'));
 })
 
@@ -212,6 +212,42 @@ router.patch('/update_details', async (req, res) => {
   catch(err) {
     console.log(err);
     res.status(500).json({error: 'internal servor error', err});
+  }
+})
+
+router.post('/my-profile/upload-resume', async (req, res) => {
+  const user_id = req.user.userid;
+  const file_64 = req.body.file64;
+  const match = file_64.match(/^data:(.*);base64,/);
+  if(match[1] == 'application/pdf')
+  { const result = await user.updateOne(
+      {userid: user_id}, 
+      {$set: {"details.resume": file_64}
+    })
+    if(result) {
+      return res.status(201).json({message: 'Uploaded Resume'})
+    }
+    else {
+      return res.status(401).json({error: 'something went wrong'})
+    }
+  }
+  else return res.status(500).json({error: 'file type not pdf'})
+})
+
+router.get('/my-profile/download-resume', async (req, res) => {
+  try{
+    const userid = req.user.userid;
+    const result = await user.findOne({userid: userid}, {"details.resume": 1, personname: 1});
+    if(result) {
+      return res.status(200).json({result, message: 'Starting Download'});
+    }
+    else {
+      return res.status(200).json({error: 'File not found'})
+    }
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({err, error: 'internal server error'})
   }
 })
 

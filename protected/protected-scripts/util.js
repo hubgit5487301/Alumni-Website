@@ -67,7 +67,7 @@ export function upload (input, allowed, value, name, callback) {
     if (file) {
       
       if (!allowed.includes(file.type)) {
-        alert('invalid file ');
+        alert('invalid file type');
         return;
       }
     }
@@ -85,6 +85,34 @@ export function upload (input, allowed, value, name, callback) {
       }
     }
   })}
+
+
+export function download(base64, mimeType, fileName) {
+  
+  const base64Data = base64.startsWith('data:') ? base64.split(',')[1] : base64;
+  const byteCharacters = atob(base64Data); 
+  const byteArrays = [];
+
+  for (let offset = 0; offset < byteCharacters.length; offset += 1024) {
+    const slice = byteCharacters.slice(offset, offset + 1024);
+    const byteNumbers = new Array(slice.length);
+
+    for (let i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i); 
+    }
+
+    byteArrays.push(new Uint8Array(byteNumbers)); 
+  }
+
+  const blob = new Blob(byteArrays, { type: mimeType });
+
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = fileName; 
+  link.click();  
+}
+
+
 
 export function formatEventDate(eventdate) {
   const date = new Date(eventdate);

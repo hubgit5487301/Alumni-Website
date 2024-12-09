@@ -7,7 +7,8 @@ const DetailsSchema = new mongoose.Schema({
   education: {type: String, default: 'No input provided'},
   currentrole: {type: String, default: 'No input provided'},
   experience: {type: String, default: 'No input provided'},
-  contactinfo: {type: String, default: 'No input provided'}
+  contactinfo: {type: String, default: 'No input provided',},
+  resume: {type: String, default: 'empty'}
 })
 
 const job_ids = new mongoose.Schema({

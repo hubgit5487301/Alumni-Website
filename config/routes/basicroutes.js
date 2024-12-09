@@ -148,6 +148,7 @@ router.post('/submit-alumni', async (req, res) => {
       currentrole: undefined,
       experience:  undefined,
       contactinfo: undefined,
+      resume: undefined,
       };
 
     const newUser = new user({

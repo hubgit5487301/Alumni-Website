@@ -18,6 +18,8 @@ let usertype = '';
      const {user_type, year} = usertype_and_batchSet();
      usertype = user_type;
      batch = year;
+     console.log(branch)
+     console.log(batch)
   });
   document.querySelector('.js-userid').addEventListener('input', () => {
     
@@ -32,7 +34,7 @@ let usertype = '';
 
    
     //const userprivacy = document.querySelector('.js-privacy').value;
-    
+ 
     const fields = [
       { value: inputname, selector: '.js-name' },
       { value: userid, selector: '.js-userid' },
@@ -70,8 +72,7 @@ let usertype = '';
     else if (check === true)
     {
       changefieldcolordefault(document.querySelector('.js-password-recheck'));
-    }
-
+    }(branch)
     const storedAlumni= ({
       personname: inputname,
       userid: userid,
