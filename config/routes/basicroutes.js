@@ -32,7 +32,7 @@ router.post('/send-otp' ,async (req, res) => {
       return res.status(200).json({message: 'User not found'});
     }
     const random = Math.floor(100000 + Math.random() * 900000);
-    //const expireTime = Date.now() + 10 * 60 * 1000;
+
     const findoldotp = await otps.find({"data.userid": userid});
     if(findoldotp) {
       await otps.deleteMany(
@@ -47,7 +47,10 @@ router.post('/send-otp' ,async (req, res) => {
     if(result) {
       const useremail = resetuser.email;
       const transporter = nodemailer.createTransport({
-        service: service,
+        //service: service,
+        host: service,
+      port: 465,
+      secure: true,
         auth: {
           user: emailuser,
           pass: pass,
@@ -55,10 +58,10 @@ router.post('/send-otp' ,async (req, res) => {
       })
 
       const mailoption = {
-        from: 'IET alumni portal',
+        from: emailuser,
         to: useremail,
-        subject: 'OTP',
-        text: `here is your otp to reset your password ${random}. It will expire in 10 minutes`
+        subject: 'Reset Password',
+        text: `Your otp to reset your account password is ${random}. It will expire in 10 minutes`
       }
       transporter.sendMail(mailoption, (err, info) => {
         if(err) {
