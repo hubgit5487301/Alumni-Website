@@ -49,8 +49,8 @@ router.post('/send-otp' ,async (req, res) => {
       const transporter = nodemailer.createTransport({
         //service: service,
         host: service,
-      port: 465,
-      secure: true,
+        port: 465,
+        secure: true,
         auth: {
           user: emailuser,
           pass: pass,

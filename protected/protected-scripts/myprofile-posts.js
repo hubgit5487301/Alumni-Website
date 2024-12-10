@@ -32,7 +32,7 @@ if(job_ids.length > 0) {
     jobButton.forEach(jobButton => {
         jobButton.addEventListener('click', () => {
         const job_id = jobButton.getAttribute('job-id')
-        window.location.href = `/protected/job?_id=${job_id}`;
+        window.location.href = `/protected/applicants/job?job_id=${job_id}`;
         })
       })
 
@@ -91,7 +91,7 @@ if (data.usertype === 'admin') {
       eventButton.forEach(eventButton => {
         eventButton.addEventListener('click', ()=> {
           const event_id = eventButton.getAttribute('event-id');
-          window.location.href= `/protected/event?_id=${event_id}`;
+          window.location.href= `/protected/applicants/event?_id=${event_id}`;
         })
       })
 

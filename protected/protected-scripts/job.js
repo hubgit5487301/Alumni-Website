@@ -114,6 +114,9 @@ fetch(`${API_BASE_URL}/protected/job/${job_id}`)
         else if(data.message === 'Already applied') {
           alert(data.message);
         }
+        else if(data.error === 'Please upload a resume first to your account') {
+          alert(data.error);
+        }
       })
       .catch(err => {
         alert(err);

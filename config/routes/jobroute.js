@@ -4,7 +4,8 @@ const path = require('path');
 const job = require('../../models/jobs');
 const { resizeimage } = require('../util');
 const router = express();
-const user = require('../../models/users')
+const user = require('../../models/users');
+const { error } = require('console');
 
 router.get('/job-directory', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job-directory.html'))
@@ -103,13 +104,18 @@ router.get(`/job/:job_id`, async(req, res) => {
 router.post(`/job-apply`, async (req, res) => {
   try {
     const {userid, job_id} = req.body;
+    const resume_check = await user.findOne({userid: userid, "details.resume": { $ne: 'empty' }, "details.resume": {$ne: null}, "details.resume": {$ne: ''}}, {details: 0, personimage:0, data: 0, passwordhash: 0, salt: 0, personname: 0, _id: 0, usertype: 0, email: 0, userprivacy: 0, personresume: 0 });
     const findjob = await job.findOne({"applicants.applicant": userid, "_id": job_id});
     
+    if(resume_check) {
     if(findjob) return res.status(409).json({error: 'Already applied'});
     await job.updateOne(
       {"_id": job_id},
       {$push:{"applicants": {applicant: userid}}}
-    )
+    )}
+    else if(!resume_check) {
+      return res.status(404).json({error: 'Please upload a resume first to your account to apply for jobs'})
+    }
     return res.status(201).json({message: 'Applied to job'});
   }
   catch(err) {
@@ -137,5 +143,27 @@ router.delete(`/myprofile-posts/:userid/delete-job/:job_id`, async (req, res) =>
   }
 })
 
+router.get('/applicants/job/:job_id', async (req,res) => {
+  try{
+    const job_id = req.params.job_id;
+    const applicants_data = await job.find({_id: job_id}, {applicants: 1});
+    const job_data = await job.findOne({_id: job_id}, {job_company_logo: 1, job_tittle: 1, job_company_name: 1, job_deadline: 1, job_location: 1, job_level: 1, job_app_email: 1, job_salary: 1});
+    if(applicants_data.length > 0) {
+      const message = 'applicants found';
+      data = ({job_data, applicants_data, message})
+      return res.status(200).json(data);
+    }
+    else {
+      return res.status(205).json({error: 'no applicants found'});
+    }
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'})
+  }
+})
 
+router.get('/applicants/job', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', '/protected', 'job-applicants.html'))
+})
 module.exports = router;

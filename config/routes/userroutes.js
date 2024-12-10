@@ -30,13 +30,14 @@ router.get('/profile', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'profile.html'))
 })
 
+router.get('/users/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'profile.html'))
+})
+
 router.get(`/users/:userid`, async (req,res) =>{
   try {
     const userid = req.params.userid;
-    const founduser = await user.findOne({userid});
-    founduser._id = null;
-    founduser.salt = null;
-    founduser.passwordhash = null;
+    const founduser = await user.findOne({userid}, {_id: 0, salt: 0, passwordhash: 0});
     if (founduser) {
       res.status(200).json(founduser);
     }
@@ -239,7 +240,7 @@ router.get('/my-profile/download-resume', async (req, res) => {
     const userid = req.user.userid;
     const result = await user.findOne({userid: userid}, {"details.resume": 1, personname: 1});
 
-    if(!result.details.resume === 'empty') {
+    if(result.details.resume !== 'empty') {
       return res.status(200).json({result, message: 'File Found'});
     }
     else {
@@ -252,4 +253,63 @@ router.get('/my-profile/download-resume', async (req, res) => {
   }
 })
 
-module.exports = router;
+router.get(`/job_users/:userid`, async (req,res) =>{
+  try {
+    const userid = req.params.userid;
+    const founduser = await user.findOne({userid}, {personname: 1, "details.branch": 1, _id: 0});
+    if (founduser) {
+      res.status(200).json(founduser);
+    }
+    else {
+      res.status(404).json({message: 'user not found'});
+    }
+  }
+  catch (err){
+    console.error('error fetching user:',err);
+    res.status(501).json({error: 'internal server error'});
+  }
+})
+
+router.get('/download-resume/:user_id', async (req, res) => {
+  try{
+    const userid = req.params.user_id
+    const result = await user.findOne({userid: userid}, {"details.resume": 1, personname: 1});
+
+    if(result.details.resume !== 'empty') {
+      return res.status(200).json({result, message: 'File Found'});
+    }
+    else {
+      return res.status(200).json({error: 'File not found'})
+    }
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({err, error: 'internal server error'})
+  }
+})
+
+
+/*
+router.get('/my-userdata', async (req, res) => {
+  if(req.isAuthenticated()) {
+    const userid = req.user.userid;
+    const resume_check = await user.findOne({userid: userid, "details.resume": { $ne: 'empty' }, "details.resume": {$ne: null}, "details.resume": {$ne: ''}}, {details: 0, personimage:0, data: 0, passwordhash: 0, salt: 0, personname: 0, _id: 0, usertype: 0, email: 0, userprivacy: 0, personresume: 0 });
+    let check = undefined;
+
+    if(resume_check) {
+      check = true; //uploaded resume
+    }
+    else {
+      check = false;
+    }
+
+    const data = ({userid, check});
+    res.status(200).json(data);
+  }
+  else {
+    res.redirect(`/login?alert=not-logged-in`);
+  }
+})
+*/
+
+module.exports = router;  
