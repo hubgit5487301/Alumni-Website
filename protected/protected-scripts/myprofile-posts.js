@@ -4,7 +4,6 @@ import {getdataonevent as getjob_event, formatEventDate, deletedataonevent} from
 const urlParams = new URLSearchParams(window.location.search); 
 const userid = urlParams.get('userid');
 const data = await getjob_event(`my-jobs-events-posts/${userid}`);
-
 const job_ids = data.data.job_ids;
 const event_ids = data.data.event_ids;
 const usertype = data.usertype;
@@ -72,6 +71,7 @@ if (data.usertype === 'admin') {
 
   if(event_ids.length >0) {
     event_ids.forEach( async event => {
+      try {
       const data =  await getjob_event(`events/${event.event_id}`);
       eventHtml += `
                   <div class="event js-event" event-id="${event.event_id}">
@@ -91,7 +91,7 @@ if (data.usertype === 'admin') {
       eventButton.forEach(eventButton => {
         eventButton.addEventListener('click', ()=> {
           const event_id = eventButton.getAttribute('event-id');
-          window.location.href= `/protected/applicants/event?_id=${event_id}`;
+          window.location.href= `/protected/event?_id=${event_id}`;
         })
       })
 
@@ -105,7 +105,10 @@ if (data.usertype === 'admin') {
           window.location.reload();
           
         })
-    })
+    })}
+    catch(err){
+      console.log(err);
+    }
     })
   }
   else {

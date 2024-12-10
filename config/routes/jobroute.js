@@ -5,7 +5,6 @@ const job = require('../../models/jobs');
 const { resizeimage } = require('../util');
 const router = express();
 const user = require('../../models/users');
-const { error } = require('console');
 
 router.get('/job-directory', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job-directory.html'))

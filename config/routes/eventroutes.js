@@ -93,10 +93,10 @@ router.get(`/events/:event_id`, async (req,res) => {
     const _id = req.params.event_id;
     const found_event = await events.findOne({_id});
     if(found_event) {
-      res.status(200).json(found_event);
+      return res.status(200).json(found_event);
     }
     else {
-      res.status(402).json({error: 'event not found'});
+      return res.status(402).json({error: 'event not found'});
     }
   }
   catch(err) {

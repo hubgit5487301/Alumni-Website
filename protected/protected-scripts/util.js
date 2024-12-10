@@ -176,6 +176,7 @@ export async function getdataonevent (address) {
     return data;
   }
   catch(err) {
+    console.log(err)
     throw err;
   }    
 }
