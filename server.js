@@ -29,6 +29,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/protected-styles', express.static(path.join(__dirname, 'protected', 'protected-styles')));
 app.use('/protected-scripts', express.static(path.join(__dirname, 'protected', 'protected-scripts')));
+app.use('/protected', express.static(path.join(__dirname, 'protected')));
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 

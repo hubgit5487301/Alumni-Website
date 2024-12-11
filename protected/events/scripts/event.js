@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "./config.js";
-import { formatEventDate, getdataonevent, download as download_event_file } from "./util.js";
+import { API_BASE_URL } from "../../protected-scripts/config.js";
+import { formatEventDate, getdataonevent, download as download_event_file } from "../../protected-scripts/util.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const event_id = urlParams.get('_id');

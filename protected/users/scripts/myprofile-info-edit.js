@@ -1,4 +1,4 @@
-import {getdataonevent as getuserdetails, updatedataonevent as updatedetails} from "./util.js"
+import {getdataonevent as getuserdetails, updatedataonevent as updatedetails} from "../../protected-scripts/util.js"
 
 const data = await getuserdetails(`user_info`);
 

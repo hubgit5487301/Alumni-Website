@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "./config.js";
-import { formatjobdate } from "./util.js";
+import { API_BASE_URL } from "../../protected-scripts/config.js";
+import { formatjobdate } from "../../protected-scripts/util.js";
 
 
 

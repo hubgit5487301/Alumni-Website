@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "./config.js";
-import { formatjobdate , getdataonevent as getdata, download as resume_download} from "./util.js";
+import { API_BASE_URL } from "../../protected-scripts/config.js";
+import { formatjobdate , getdataonevent as getdata, download as resume_download} from "../../protected-scripts/util.js";
 
 const urlParam = new URLSearchParams(window.location.search);
 const job_id = urlParam.get('job_id');

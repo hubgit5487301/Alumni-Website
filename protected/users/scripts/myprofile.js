@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "./config.js";
-import {upload as uploadfile, getdataonevent as downloadfile, download as downloadresume} from "./util.js";
+import { API_BASE_URL } from "../../protected-scripts/config.js";
+import {upload as uploadfile, getdataonevent as downloadfile, download as downloadresume} from "../../protected-scripts/util.js";
 
 
 fetch(`${API_BASE_URL}/protected/my-profile`)

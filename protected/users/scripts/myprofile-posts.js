@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "./config.js";
-import {getdataonevent as getjob_event, formatEventDate, deletedataonevent} from './util.js';
+import { API_BASE_URL } from "../../protected-scripts/config.js";
+import {getdataonevent as getjob_event, formatEventDate, deletedataonevent} from '../../protected-scripts/util.js';
 
 const urlParams = new URLSearchParams(window.location.search); 
 const userid = urlParams.get('userid');

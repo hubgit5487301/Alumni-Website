@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "./config.js";
-import {isValidEmail, inputCheck, upload as joblogoupload, changefieldcolor, getdataonevent as getuseridonsubmit} from "./util.js"
+import { API_BASE_URL } from "../../protected-scripts/config.js";
+import {isValidEmail, inputCheck, upload as joblogoupload, changefieldcolor, getdataonevent as getuseridonsubmit} from "../../protected-scripts/util.js"
 
 const allowedpic =['image/jpeg','image/png'];
 

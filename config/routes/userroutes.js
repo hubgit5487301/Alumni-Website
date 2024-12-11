@@ -12,7 +12,11 @@ router.get('/',(req, res) => {
 });
 
 router.get('/alumni-directory', (req, res) =>{
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'alumni-directory.html'));
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'alumni-directory.html'));
+})
+
+router.get('/user', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'profile.html'))
 })
 
 router.get('/users', async (req,res) => {
@@ -27,11 +31,23 @@ router.get('/users', async (req,res) => {
 })
 
 router.get('/profile', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'profile.html'))
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'profile.html'))
 })
 
-router.get('/users/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'profile.html'))
+router.get('/contact-us', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'contact-us.html'))
+})
+
+router.get('/my-profile-page', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'myprofile.html'))
+})
+
+router.get(`/myprofile-appli`, async (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'myprofile-appli.html'));
+})
+
+router.get('/my-profile/edit_profile_info', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'myprofile-info-edit.html'));
 })
 
 router.get(`/users/:userid`, async (req,res) =>{
@@ -73,14 +89,6 @@ router.get('/alumni-search', async (req, res) => {
     res.status(500).json({error: 'internal servor error'});
   }
 });
-
-router.get('/contact-us', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'contact-us.html'))
-})
-
-router.get('/my-profile-page', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile.html'))
-})
 
 router.get('/my-profile', async (req, res) => {
   if(req.isAuthenticated) {
@@ -131,13 +139,9 @@ router.get('/user_info', (req, res) => {
   }
 });
 
-router.get(`/myprofile-appli`, async (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-appli.html'));
-})
-
 router.get(`/myprofile-posts`, async (req, res) => {
   const usertype = req.user.usertype;
-  if(usertype === 'alumni' || usertype === 'admin') return res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-posts.html'));
+  if(usertype === 'alumni' || usertype === 'admin') return res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'myprofile-posts.html'));
   else return res.redirect(`/protected/my-profile-page`)
 })
 
@@ -177,10 +181,6 @@ router.patch('/my-profile/edit-profile-pic', async (req, res) => {
   ) ;
   res.status(200).json({message: 'Profile picture changed'});
 
-})
-
-router.get('/my-profile/edit_profile_info', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'myprofile-info-edit.html'));
 })
 
 router.patch('/update_details', async (req, res) => {
@@ -286,7 +286,6 @@ router.get(`/event_users/:userid`, async (req,res) =>{
     res.status(501).json({error: 'internal server error'});
   }
 })
-
 
 router.get('/download-resume/:user_id', async (req, res) => {
   try{

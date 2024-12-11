@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "./config.js";
-import { formatEventDate } from "./util.js";
+import { API_BASE_URL } from "../../protected-scripts/config.js";
+import { formatEventDate } from "../../protected-scripts/util.js";
 
 let eventHtml = '';
 

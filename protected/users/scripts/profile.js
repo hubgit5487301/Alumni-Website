@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "./config.js";
+import { API_BASE_URL } from "../../protected-scripts/config.js";
 const urlParams = new URLSearchParams(window.location.search);
 const userid = urlParams.get('userid');
 

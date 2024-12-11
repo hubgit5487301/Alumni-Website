@@ -7,7 +7,7 @@ const router = express();
 const user = require('../../models/users');
 
 router.get('/job-directory', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job-directory.html'))
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'jobs', 'job-directory.html'))
 })
 
 router.post('/submit-job', async (req, res) => {
@@ -61,7 +61,7 @@ router.get('/jobs', async(req, res) => {
 })
 
 router.get(`/job`, (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'job.html'))
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'jobs', 'job.html'))
 })
 
 router.get(`/job-search`, async (req, res) => {
@@ -165,7 +165,7 @@ router.get('/applicants/job/:job_id', async (req,res) => {
 })
 
 router.get('/applicants/job', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', '/protected', 'job-applicants.html'))
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'jobs', 'job-applicants.html'))
 })
 
 module.exports = router;

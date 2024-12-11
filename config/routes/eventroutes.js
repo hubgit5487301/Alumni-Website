@@ -9,7 +9,7 @@ const { resizeimage } = require('../util')
 
 router.get('/event-form', (req, res) => {
   const usertype = req.user.usertype;
-  if(usertype === 'admin') return res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event-form.html'));
+  if(usertype === 'admin') return res.sendFile(path.join(__dirname, '..', '..', 'protected', 'events', 'event-form.html'));
   else return res.redirect(`/protected/services`)
 })
 
@@ -107,7 +107,7 @@ router.get(`/events/:event_id`, async (req,res) => {
 })
 
 router.get(`/event`, (req, res) =>{
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event.html'));
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'events', 'event.html'));
 })
 
 router.get('/event-file/:event_id', async (req, res) => {
@@ -169,7 +169,7 @@ router.get('/homeevents', async (req,res) => {
 })
 
 router.get('/event-directory', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event-directory.html'))
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'events', 'event-directory.html'))
 })
 
 router.post('/apply-event', async (req, res) => {
@@ -210,7 +210,7 @@ router.delete(`/myprofile-posts/:userid/delete-event/:event_id`, async (req, res
 })
 
 router.get('/applicants/event', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', '/protected', 'event-applicants.html'))
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'events', 'event-applicants.html'))
 })
 
 router.get('/applicants/event/:event_id', async (req,res) => {
