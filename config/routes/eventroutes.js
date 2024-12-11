@@ -175,12 +175,12 @@ router.post('/apply-event', async (req, res) => {
 router.delete(`/myprofile-posts/:userid/delete-event/:event_id`, async (req, res) => {
   try{
     const {userid, event_id } = req.params;
-    const deletejob = await events.deleteOne({_id: event_id});
-    const deletejobuser = await user.updateOne(
+    const deleteevent = await events.deleteOne({_id: event_id});
+    const deleteeventuser = await user.updateOne(
       {"userid": userid},
       {$pull: {"data.event_ids": {"event_id": event_id}}}
     )
-    if(deletejob && deletejobuser) {
+    if(deleteevent && deleteeventuser) {
       return res.status(200).json({message: 'event post deleted'})
     }
     return res.status(404).json({error: 'event not found'})
@@ -190,5 +190,30 @@ router.delete(`/myprofile-posts/:userid/delete-event/:event_id`, async (req, res
     return res.status(500).json({error: 'internal server error'})
   }
 })
+
+router.get('/applicants/event', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', '/protected', 'event-applicants.html'))
+})
+
+router.get('/applicants/event/:event_id', async (req,res) => {
+  try{
+    const event_id = req.params.event_id;
+    const applicants_data = await events.find({_id: event_id}, {applicants: 1});
+    const event_data = await events.findOne({_id: event_id},{event_file: 0});
+    if(applicants_data.length > 0) {
+      const message = 'applicants found';
+      data = ({event_data, applicants_data, message})
+      return res.status(200).json(data);
+    }
+    else {
+      return res.status(205).json({error: 'no applicants found'});
+    }
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'})
+  }
+})
+
 
 module.exports = router;

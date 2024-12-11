@@ -91,7 +91,7 @@ if (data.usertype === 'admin') {
       eventButton.forEach(eventButton => {
         eventButton.addEventListener('click', ()=> {
           const event_id = eventButton.getAttribute('event-id');
-          window.location.href= `/protected/event?_id=${event_id}`;
+          window.location.href= `/protected/applicants/event?event_id=${event_id}`;
         })
       })
 

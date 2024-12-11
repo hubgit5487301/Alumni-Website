@@ -270,6 +270,24 @@ router.get(`/job_users/:userid`, async (req,res) =>{
   }
 })
 
+router.get(`/event_users/:userid`, async (req,res) =>{
+  try {
+    const userid = req.params.userid;
+    const founduser = await user.findOne({userid}, {personname: 1, "details.branch": 1, _id: 0});
+    if (founduser) {
+      res.status(200).json(founduser);
+    }
+    else {
+      res.status(404).json({message: 'user not found'});
+    }
+  }
+  catch (err){
+    console.error('error fetching user:',err);
+    res.status(501).json({error: 'internal server error'});
+  }
+})
+
+
 router.get('/download-resume/:user_id', async (req, res) => {
   try{
     const userid = req.params.user_id

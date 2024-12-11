@@ -220,11 +220,10 @@ router.post('/login', (req, res, next) => {
 });
  
 router.get('/logout', (req, res) => {
-  req.logOut((err) => {
+  req.session.destroy((err) => {
     if(err) {
       return res.status(500).send("failed to logout")
     }
-  
     res.redirect('/login')
   })
 })

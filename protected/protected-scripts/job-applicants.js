@@ -13,6 +13,7 @@ fetch(`${API_BASE_URL}/protected/applicants/job/${job_id}`)
 })
 .then(data => {
   const applicants = data.applicants_data[0].applicants;
+  console.log(applicants.length)
   const jobHtml = `<div class="job-page js-job-page">
         <div class="first-view">
           <img class="job-pic" src="${data.job_data.job_company_logo}">
@@ -24,7 +25,8 @@ fetch(`${API_BASE_URL}/protected/applicants/job/${job_id}`)
               <p>Location: ${data.job_data.job_location}</p>
               <p>Job Type: ${data.job_data.job_level}</p>
               <p>Application Email: ${data.job_data.job_app_email}</p>
-              <p>Salary: ${data.job_data.job_salary}</p>
+              <p>Salary (Monthly): ${data.job_data.job_salary} Rs</p>
+              <p>Total Applicants: ${applicants.length}</p>
             </div>
           </div>
         </div>

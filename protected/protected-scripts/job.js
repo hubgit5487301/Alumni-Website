@@ -23,7 +23,7 @@ fetch(`${API_BASE_URL}/protected/job/${job_id}`)
               <p>Location: ${data.job_location}</p>
               <p>Job Type: ${data.job_level}</p>
               <p>Application Email: ${data.job_app_email}</p>
-              <p>Salary: ${data.job_salary}</p>
+              <p>Salary(Monthly): ${data.job_salary} Rs</p>
             </div>
           </div>
         </div>

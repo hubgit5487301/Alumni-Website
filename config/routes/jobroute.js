@@ -167,4 +167,5 @@ router.get('/applicants/job/:job_id', async (req,res) => {
 router.get('/applicants/job', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', '/protected', 'job-applicants.html'))
 })
+
 module.exports = router;

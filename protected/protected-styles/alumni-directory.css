@@ -126,7 +126,7 @@
 
 
 .person-name h {
-  font-size: vw;
+  font-size: 1vw;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
