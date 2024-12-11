@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import { formatEventDate, getdataonevent as getuser_id } from "./util.js";
+import { formatEventDate, getdataonevent, download as download_event_file } from "./util.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const event_id = urlParams.get('_id');
@@ -19,6 +19,7 @@ const event_id = urlParams.get('_id');
             <p class="name">${event.name}</p>
             <div class="basic-data-details">
               <p>Event Date & Time: ${formatEventDate(event.date)}</p>
+              <div class="download-button js-download-button">Download Event Details</div>
             </div>
           </div>
         </div>
@@ -51,7 +52,7 @@ const event_id = urlParams.get('_id');
   
   const applyButton = document.querySelector('.js-submit-button');
   applyButton.addEventListener('click', async () => {
-    const data = await getuser_id('/my-userid');
+    const data = await getdataonevent('/my-userid');
     const userid = data.userid;
     const send_data = ({userid, event_id});
     fetch(`${API_BASE_URL}/protected/apply-event`, {
@@ -81,6 +82,20 @@ const event_id = urlParams.get('_id');
       applyButton.disabled = true;
     }) 
   })
+
+  const download_Button = document.querySelector('.js-download-button');
+  download_Button.addEventListener('click', async () => {
+    const data = await getdataonevent(`event-file/${event._id}`)
+    if(data.error) {
+      alert(data.error)
+    }
+    else {
+      download_event_file(data, 'application/pdf', formatEventDate(event.date))
+    }
+  })
+
+
+
 })
   .catch(err => {
     console.error('error while fetching event:',err);

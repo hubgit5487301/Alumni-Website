@@ -45,21 +45,6 @@ export function isValidUserid(userid) {
   return useridregex.test(userid);
 }
 
-/*export function upload(input, callback) {
-  document.querySelector(input).addEventListener('input', () => {
-
-    const personimage = document.querySelector(input).files[0];
-    const imagesallowed = ['image/jpeg', 'image/png'];
-    if(!imagesallowed.includes(personimage.type)) {
-        alert('Invalid file type');
-        return;
-    }
-    else {
-      callback(personimage);
-    }
-  })
-}*/
-
 
 export function upload (input, allowed, value, name, callback) {
   document.querySelector(input).addEventListener('change', (event) => {
@@ -67,7 +52,7 @@ export function upload (input, allowed, value, name, callback) {
     if (file) {
       
       if (!allowed.includes(file.type)) {
-        alert('invalid file type');
+        alert(`invalid file type please provide file of type ${allowed}`);
         return;
       }
     }
@@ -134,7 +119,7 @@ export function formatjobdate(jobdate) {
   return `${day} ${date.toLocaleString('default', { month: 'long' })} ${year}`;
 }
 
-
+/*
 export function darkMode () {
   document.querySelector('.js-dark-mode-button').addEventListener('click', () => {
   const generaldashboard = document.querySelector('.general-dashboard');
@@ -164,7 +149,7 @@ export function darkMode () {
   })
 
 }
-
+*/
 
 export async function getdataonevent (address) {
   try{
@@ -221,11 +206,6 @@ export async function updatedataonevent (address, data) {
     throw err;
   }    
 }
-
-
-
-
-
 
 
 

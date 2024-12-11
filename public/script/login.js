@@ -39,7 +39,7 @@ fetch(`${API_BASE_URL}/login`, {
   return response.json();
   })
 .then((data) => {
-  alert(data.message);
+  console.log(data.message);
   window.location.href = '/dashboard';
   })
 .catch((error) => {

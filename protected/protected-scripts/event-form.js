@@ -2,16 +2,15 @@ import { API_BASE_URL } from "./config.js";
 import { upload as eventdataupload, inputCheck, changefieldcolor, isValidEmail, getdataonevent as getuseridonsubmit} from "./util.js";
 
 const allowedpic =['image/jpeg','image/png'];
-const allowedfile =['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+const allowedfile ='application/pdf';
 
 let eventfile = null;
-eventdataupload('.js-event-file',allowedfile, true, '.js-event-file', (file64) => {
+eventdataupload('.js-event-file',allowedfile, false, '.js-event-file', (file64) => {
   eventfile = file64;
 })
 
-
 let eventimage = null;
-eventdataupload('.js-event-pic', allowedpic, true, '.js-event-pic', (file64) =>{
+eventdataupload('.js-event-pic', allowedpic, false, '.js-event-pic', (file64) =>{
   eventimage = file64;
 })
 
@@ -73,7 +72,7 @@ document.querySelector('.js-event-submit').addEventListener(('click'), async (ev
   })
   .then((response) => {
     if(!response.ok) {
-        throw new Error(errorData.message || 'error submitting data')
+        throw new Error('error submitting data please reload the page')
     }
     return response.json()
   })

@@ -18,6 +18,7 @@ router.post('/submit-event', async (req, res) => {
     const {name, date, location, contact_info, event_des, event_file, event_logo, userid} = req.body;
     const resizedLogo = await resizeimage(event_logo, 60, 'webp', 200000); // Await the promise
     const logo = resizedLogo != null ? resizedLogo : undefined;
+    console.log(event_file)
 
     const event_date = new Date(date);
     const newEvent = new events({
@@ -91,7 +92,7 @@ router.get('/events', async (req, res) =>{
 router.get(`/events/:event_id`, async (req,res) => {
   try{
     const _id = req.params.event_id;
-    const found_event = await events.findOne({_id});
+    const found_event = await events.findOne({_id},{event_file: 0, applicants: 0});
     if(found_event) {
       return res.status(200).json(found_event);
     }
@@ -107,6 +108,23 @@ router.get(`/events/:event_id`, async (req,res) => {
 
 router.get(`/event`, (req, res) =>{
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'event.html'));
+})
+
+router.get('/event-file/:event_id', async (req, res) => {
+  const event_id = req.params.event_id;
+  try{
+    const data = await events.findOne({_id: event_id}, {event_file: 1});
+    if(data.event_file !== 'temp' && data.event_file !== null) {
+      return res.status(200).json(data.event_file)
+    }
+    else {
+      res.status(200).json({error: 'No event file was provided'})
+    }
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error '})
+  }
 })
 
 router.get('/event-search', async (req, res) => {
