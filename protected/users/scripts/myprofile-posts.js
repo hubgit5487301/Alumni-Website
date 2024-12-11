@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../../protected-scripts/config.js";
+
 import {getdataonevent as getjob_event, formatEventDate, deletedataonevent} from '../../protected-scripts/util.js';
 
 const urlParams = new URLSearchParams(window.location.search); 
@@ -6,26 +6,39 @@ const userid = urlParams.get('userid');
 const data = await getjob_event(`my-jobs-events-posts/${userid}`);
 const job_ids = data.data.job_ids;
 const event_ids = data.data.event_ids;
-const usertype = data.usertype;
 
 let jobHtml = '';
 
 if(job_ids.length > 0) {
-  job_ids.forEach(async job => {
+
+  const jobPromises = job_ids.map(async (job) => {
     const data = await getjob_event(`job/${job.job_id}`);
+    return {
+      job_id: job.job_id,
+      job_tittle: data.job_tittle,
+      job_company_name: data.job_company_name,
+      job_company_logo: data.job_company_logo,
+      job_description: data.job_description
+    };
+    });
+
+  const allJobsData = await Promise.all(jobPromises);
+  const sortedJobsData = allJobsData.sort((a, b) => new Date(b.job_deadline) - new Date(a.job_deadline));
+  
+  sortedJobsData.forEach(async job => {
     jobHtml += `
               <div class="job js-job" job-id="${job.job_id}">
-                <img class="job-pic" src="${data.job_company_logo}">
+                <img class="job-pic" src="${job.job_company_logo}">
                 <div class="job-text">
-                  <p>Job: ${data.job_tittle}</p>
-                  <p>Employer: ${data.job_company_name}</p>
+                  <p>Job: ${job.job_tittle}</p>
+                  <p>Employer: ${job.job_company_name}</p>
                 </div>
               </div>
               <div class="delete-button-job js-delete-button-job" button-id="${job.job_id}">
                 <img class="delete-button"  src="/images/delete.svg">
               </div>
   `;
-    
+  })  
     document.querySelector('.js-data-jobs').innerHTML = jobHtml;
     const jobButton = document.querySelectorAll('.js-job');
     jobButton.forEach(jobButton => {
@@ -46,11 +59,7 @@ if(job_ids.length > 0) {
         
       })
   })
-
-  })
 }
-
-
 else {
   jobHtml = `
   <div class="j">
@@ -70,21 +79,37 @@ if (data.usertype === 'admin') {
   main_box.classList.add('profile-appli-page-2');
 
   if(event_ids.length >0) {
-    event_ids.forEach( async event => {
-      try {
-      const data =  await getjob_event(`events/${event.event_id}`);
+
+    const eventPromises = event_ids.map(async (event) => {
+      const data = await getjob_event(`events/${event.event_id}`);
+      return {
+        event_id: event.event_id,
+        name: data.name,
+        event_logo: data.event_logo,
+        event_date: data.date,
+      };
+    });
+  
+    const allEventsData = await Promise.all(eventPromises);
+  
+    const sortedEventsData = allEventsData.sort((a, b) => new Date(a.event_date) - new Date(b.event_date));
+  
+
+
+    sortedEventsData.forEach( event => {
       eventHtml += `
                   <div class="event js-event" event-id="${event.event_id}">
-                    <img class="event-pic" src="${data.event_logo}">
+                    <img class="event-pic" src="${event.event_logo}">
                     <div class="event-text">
-                    <p>Event Name: ${data.name}</p>
-                    <p>Date & Time: ${formatEventDate(data.date)}</p>
+                    <p>Event Name: ${event.name}</p>
+                    <p>Date & Time: ${formatEventDate(event.event_date)}</p>
                     </div>
                   </div>
                   <div class="delete-button-event js-delete-button-event" button-id="${event.event_id}">
                     <img class="delete-button js-delete-button" src="/images/delete.svg">
                   </div>
     `
+    })
       document.querySelector('.js-data-events').innerHTML = eventHtml;
 
       const eventButton = document.querySelectorAll('.js-event');
@@ -105,10 +130,6 @@ if (data.usertype === 'admin') {
           window.location.reload();
           
         })
-    })}
-    catch(err){
-      console.log(err);
-    }
     })
   }
   else {

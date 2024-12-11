@@ -149,8 +149,8 @@ router.get('/my-jobs-events-applied/:userid', async (req, res) => {
   try{
     const userid = req.params.userid;
     
-    const all_jobs = await jobs.find({'applicants.applicant': userid }).select('_id');
-    const all_events = await events.find({'applicants.applicant': userid }).select('_id');
+    const all_jobs = await jobs.find({'applicants.applicant': userid },{_id: 1});
+    const all_events = await events.find({'applicants.applicant': userid },{_id: 1});
     const data = ({all_jobs, all_events});
     res.status(200).json(data);
   }

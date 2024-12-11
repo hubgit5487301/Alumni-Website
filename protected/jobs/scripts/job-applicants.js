@@ -11,9 +11,8 @@ fetch(`${API_BASE_URL}/protected/applicants/job/${job_id}`)
   }
   return response.json();
 })
-.then(data => {
+.then( async data => {
   const applicants = data.applicants_data[0].applicants;
-  console.log(applicants.length)
   const jobHtml = `<div class="job-page js-job-page">
         <div class="first-view">
           <img class="job-pic" src="${data.job_data.job_company_logo}">
@@ -30,28 +29,36 @@ fetch(`${API_BASE_URL}/protected/applicants/job/${job_id}`)
             </div>
           </div>
         </div>
-        <div class="job-requirement js-applicants">
          <div class="job-headings">
             <h1>Applicants</h1>
           </div>
+        <div class="job-requirement js-applicants">
           </div>
 `;
 
   document.querySelector('.js-job-page').innerHTML = jobHtml;
 
+  const sortedApplicantsData = await Promise.all(
+    Object.values(applicants).map(async (applicant) => {
+      const data = await getdata(`job_users/${applicant.applicant}`);
+      return { applicant: applicant.applicant, ...data };
+    })
+  );
+  sortedApplicantsData.sort((a, b) => a.personname.localeCompare(b.personname));
+
   let applicant_Html = '';
-  applicants.forEach(async (applicants) => {
-    applicant_Html = '';
-    const data = await getdata(`job_users/${applicants.applicant}`);
+  sortedApplicantsData.forEach(async (applicants) => {
+    
     applicant_Html += `
             <div class="req-text">
-              <p class="job-des-text-id">${data.personname}</p>
+              <p class="job-des-text-id">${applicants.personname}</p>
               <p class="job-des-text-id">${applicants.applicant}</p>
-              <p class="job-des-text-id">${data.details.branch}</p>  
+              <p class="job-des-text-id">${applicants.details.branch}</p>  
               <p class="resume-download js-view-profile" view-profile-id="${applicants.applicant}">View Profile</p>
               <div class="resume-download js-resume-download" download-resume="${applicants.applicant}"> Download Resume</div>
             </div>
 `
+  })
     document.querySelector('.js-applicants').innerHTML = applicant_Html;
     
     const profile_Button = document.querySelectorAll('.js-view-profile');
@@ -78,8 +85,6 @@ fetch(`${API_BASE_URL}/protected/applicants/job/${job_id}`)
       })
     }) 
   })
-
-})
 .catch(err => {
   console.log(err);
 })

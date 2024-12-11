@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "./config.js";
-import { upload as eventdataupload, inputCheck, changefieldcolor, isValidEmail, getdataonevent as getuseridonsubmit} from "./util.js";
+import { API_BASE_URL } from "../../protected-scripts/config.js";
+import { upload as eventdataupload, inputCheck, changefieldcolor, isValidEmail, getdataonevent as getuseridonsubmit} from "../../protected-scripts/util.js";
 
 const allowedpic =['image/jpeg','image/png'];
 const allowedfile ='application/pdf';

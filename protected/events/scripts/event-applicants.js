@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "../../protected-scripts/config.js";
-import { formatEventDate , getdataonevent as getdata, download as resume_download} from "../../protected-scripts/util.js";
+import { formatEventDate , getdataonevent as getdata} from "../../protected-scripts/util.js";
 
 const urlParam = new URLSearchParams(window.location.search);
 const event_id = urlParam.get('event_id');
@@ -11,7 +11,7 @@ fetch(`${API_BASE_URL}/protected/applicants/event/${event_id}`)
   }
   return response.json();
 })
-.then(data => {
+.then( async data => {
   const applicants = data.applicants_data[0].applicants;
   const eventHtml = `<div class="event-page js-event-page">
         <div class="first-view">
@@ -28,27 +28,35 @@ fetch(`${API_BASE_URL}/protected/applicants/event/${event_id}`)
             </div>
           </div>
         </div>
+        <div class="event-headings">
+          <h1>Applicants</h1>
+        </div>
         <div class="event-requirement js-applicants">
-         <div class="event-headings">
-            <h1>Applicants</h1>
-          </div>
+         
           </div>
 `;
 
   document.querySelector('.js-event-page').innerHTML = eventHtml;
 
+  const sortedApplicantsData = await Promise.all(
+    Object.values(applicants).map(async (applicant) => {
+      const data = await getdata(`event_users/${applicant.applicant}`);
+      return { applicant: applicant.applicant, ...data };
+    })
+  );
+  sortedApplicantsData.sort((a, b) => a.personname.localeCompare(b.personname));
+  
   let applicant_Html = '';
-  applicants.forEach(async (applicants) => {
-    applicant_Html = '';
-    const data = await getdata(`event_users/${applicants.applicant}`);
+  sortedApplicantsData.forEach(async (applicants) => {
     applicant_Html += `
             <div class="req-text">
-              <p class="event-des-text-id">Name: ${data.personname}</p>
+              <p class="event-des-text-id">Name: ${applicants.personname}</p>
               <p class="event-des-text-id">Userid: ${applicants.applicant}</p>
-              <p class="event-des-text-id">Branch: ${data.details.branch}</p>  
+              <p class="event-des-text-id">Branch: ${applicants.details.branch}</p>  
               <p class="view-profile js-view-profile" view-profile-id="${applicants.applicant}">View Profile</p>
             </div>
 `
+  })
     document.querySelector('.js-applicants').innerHTML = applicant_Html;
     
     const profile_Button = document.querySelectorAll('.js-view-profile');
@@ -59,7 +67,6 @@ fetch(`${API_BASE_URL}/protected/applicants/event/${event_id}`)
       })
     })
   })
-})
 .catch(err => {
   console.log(err);
 })
