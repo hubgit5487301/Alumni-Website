@@ -103,16 +103,18 @@ router.get(`/job/:job_id`, async(req, res) => {
 router.post(`/job-apply`, async (req, res) => {
   try {
     const {userid, job_id} = req.body;
-    const resume_check = await user.findOne({userid: userid, "details.resume": { $ne: 'empty' }, "details.resume": {$ne: null}, "details.resume": {$ne: ''}}, {details: 0, personimage:0, data: 0, passwordhash: 0, salt: 0, personname: 0, _id: 0, usertype: 0, email: 0, userprivacy: 0, personresume: 0 });
-    const findjob = await job.findOne({"applicants.applicant": userid, "_id": job_id});
+
+    const resume_check = await user.findOne({userid: '21CSE32'},{"details.resume": 1}) ;
+
     
-    if(resume_check) {
-    if(findjob) return res.status(409).json({error: 'Already applied'});
-    await job.updateOne(
+    if(resume_check.details.resume !== 'empty' && resume_check.details.resume !== null && resume_check.details.resume !== '') {
+      const findjob = await job.findOne({"applicants.applicant": userid, "_id": job_id});
+      if(findjob) return res.status(409).json({error: 'Already applied'});
+      await job.updateOne(
       {"_id": job_id},
       {$push:{"applicants": {applicant: userid}}}
     )}
-    else if(!resume_check) {
+    else {
       return res.status(404).json({error: 'Please upload a resume first to your account to apply for jobs'})
     }
     return res.status(201).json({message: 'Applied to job'});

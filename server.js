@@ -56,6 +56,11 @@ app.set('trust proxy', 1);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+  //console.log(`Visitor IP: ${req.ip}, URL: ${req.url}`);
+  next();
+});
+
 
 app.use(basicroutes)
 app.use(loginroutes);
