@@ -37,3 +37,7 @@ document.querySelector('.js-register-event').addEventListener('click', async () 
     alert("Sorry only admins are allowed to post requests for events");
   }
 })
+
+document.querySelector('.js-resources').addEventListener('click', () => {
+  window.location.href = "/protected/resources"
+})

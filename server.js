@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
-
 const connectDB = require('./config/mongo');
 
 const basicroutes = require('./config/routes/basicroutes.js')
@@ -19,6 +18,7 @@ const eventroutes = require('./config/routes/eventroutes');
 const messageroute = require('./config/routes/messageroute');
 const jobroute = require('./config/routes/jobroute');
 const servicesroute = require('./config/routes/servicesroute');
+const resourcesroute = require('./config/routes/resourcesroute')
 
 const passport = require('./config/passport-config');
 
@@ -71,6 +71,7 @@ app.use('/protected', isAuthenticated, servicesroute);
 app.use('/protected', isAuthenticated, messageroute);
 app.use('/protected', isAuthenticated, eventroutes);
 app.use('/protected', isAuthenticated, userRoutes);
+app.use('/protected', isAuthenticated, resourcesroute);
 
 
 app.listen(port ,() => {console.log(`server is running at port ${port}`)});
