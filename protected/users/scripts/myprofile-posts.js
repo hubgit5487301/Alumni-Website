@@ -28,14 +28,14 @@ if(job_ids.length > 0) {
   sortedJobsData.forEach(async job => {
     jobHtml += `
               <div class="job js-job" job-id="${job.job_id}">
-                <img class="job-pic" src="${job.job_company_logo}">
+                <img class="job-pic" src="${job.job_company_logo}" loading="lazy">
                 <div class="job-text">
                   <p>Job: ${job.job_tittle}</p>
                   <p>Employer: ${job.job_company_name}</p>
                 </div>
               </div>
               <div class="delete-button-job js-delete-button-job" button-id="${job.job_id}">
-                <img class="delete-button"  src="/images/delete.svg">
+                <img class="delete-button"  src="/images/delete.svg" loading="lazy">
               </div>
   `;
   })  
@@ -99,14 +99,14 @@ if (data.usertype === 'admin') {
     sortedEventsData.forEach( event => {
       eventHtml += `
                   <div class="event js-event" event-id="${event.event_id}">
-                    <img class="event-pic" src="${event.event_logo}">
+                    <img class="event-pic" src="${event.event_logo}" loading="lazy">
                     <div class="event-text">
                     <p>Event Name: ${event.name}</p>
                     <p>Date & Time: ${formatEventDate(event.event_date)}</p>
                     </div>
                   </div>
                   <div class="delete-button-event js-delete-button-event" button-id="${event.event_id}">
-                    <img class="delete-button js-delete-button" src="/images/delete.svg">
+                    <img class="delete-button js-delete-button" src="/images/delete.svg" loading="lazy">
                   </div>
     `
     })

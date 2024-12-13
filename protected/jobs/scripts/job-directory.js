@@ -15,7 +15,7 @@ fetch(`${API_BASE_URL}/protected/jobs`)
   jobs.forEach( job => {
     jobsHtml += `
     <div class="job js-job">
-      <img class="j-job-icon js-job-icon" src="${job.job_company_logo}">
+      <img class="j-job-icon js-job-icon" src="${job.job_company_logo}" loading="lazy">
       <div class="job-info js-job-info">
         <h1>${job.job_tittle}</h1>
         <h2>${job.job_company_name}</h2>
@@ -61,7 +61,7 @@ searchButton.addEventListener('click', () =>{
       return;
     }
     
-    fetch(`${API_BASE_URL}/protected/job-search?${query}`)
+  fetch(`${API_BASE_URL}/protected/job-search?${query}`)
   .then(response => {
     if(!response.ok) {
       throw new Error('response not ok');
@@ -77,7 +77,7 @@ searchButton.addEventListener('click', () =>{
      }
     data.forEach(job =>{
       searchHtml +=`<div class="job-search js-job">
-      <img class="j-job-icon-search js-job-icon" src="${job.job_company_logo}">
+      <img class="j-job-icon-search js-job-icon" src="${job.job_company_logo}"  loading="lazy">
       <div class="job-info-search js-job-info">
         <h1>${job.job_tittle}</h1>
         <h2>${job.job_company_name}</h2>

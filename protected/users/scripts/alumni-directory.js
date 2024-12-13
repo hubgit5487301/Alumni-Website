@@ -18,7 +18,7 @@ fetch(`${API_BASE_URL}/protected/users`)
     data.forEach((user, index) => {
     personHtml +=`
         <div class="person js-person">
-            <img class="person-image" src="${user.personimage}">
+            <img class="person-image" src="${user.personimage}"  loading="lazy">
             <div class="person-name js-person-name" id="${user.userid}">
               <h>${user.personname}</h>
             </div>
@@ -94,7 +94,7 @@ searchButton.addEventListener('click', () =>{
     data.forEach(user =>{
       searchHtml +=`
         <div class="person-1 js-person-1">
-            <img class="person-image-1" src="${user.personimage}">
+            <img class="person-image-1" src="${user.personimage}"  loading="lazy">
             <div class="person-name" id="${user.userid}">
               <h>${user.personname}</h>
             </div>

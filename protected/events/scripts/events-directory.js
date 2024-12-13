@@ -15,7 +15,7 @@ fetch(`${API_BASE_URL}/protected/events`)
   data.forEach((event) => {
     eventHtml += 
     `<div class="event js-event">
-            <img class="e-event-icon" src=${event.event_logo}>
+            <img class="e-event-icon" src=${event.event_logo} loading="lazy">
             <div class="event-info js-event-info">
               <h1>${event.name}</h1>
               <p class="event-date js-event-date" id="${event.date}">${formatEventDate(event.date)}</p>
@@ -79,7 +79,7 @@ searchButton.addEventListener('click', () =>{
      }
     data.forEach(event =>{
       searchHtml +=`<div class="event js-event">
-                <img class="e-event-icon" src=${event.event_logo}>
+                <img class="e-event-icon" src=${event.event_logo} loading="lazy">
                 <div class="event-info js-event-info">
                   <h1>${event.name}</h1>
                   <p class="event-date js-event-date" id="${event.date}">${formatEventDate(event.date)}</p>

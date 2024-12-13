@@ -15,7 +15,7 @@ fetch(`${API_BASE_URL}/protected/applicants/job/${job_id}`)
   const applicants = data.applicants_data[0].applicants;
   const jobHtml = `<div class="job-page js-job-page">
         <div class="first-view">
-          <img class="job-pic" src="${data.job_data.job_company_logo}">
+          <img class="job-pic" src="${data.job_data.job_company_logo}" loading="lazy">
           <div class="basic-data">
             <p class="name">${data.job_data.job_tittle}</p>
             <div class="basic-data-details">

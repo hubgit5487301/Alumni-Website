@@ -15,7 +15,7 @@ if(job_ids.length > 0) {
     const data = await getjob_event(`job/${job._id}`);
     jobHtml += `
               <div class="job js-job" job-id="${job._id}">
-                <img class="job-pic" src="${data.job_company_logo}">
+                <img class="job-pic" src="${data.job_company_logo}" loading="lazy">
                 <div class="job-text">
                   <p>Job: ${data.job_tittle}</p>
                   <p>Employer: ${data.job_company_name}</p>
@@ -50,7 +50,7 @@ let eventHtml = '';
     const data =  await getjob_event(`events/${event._id}`);
     eventHtml += `
                 <div class="event js-event" event-id="${event._id}">
-                  <img class="event-pic" src="${data.event_logo}">
+                  <img class="event-pic" src="${data.event_logo}"  loading="lazy">
                   <div class="event-text">
                   <p>Event Name: ${data.name}</p>
                   <p>Date & Time: ${formatEventDate(data.date)}</p>

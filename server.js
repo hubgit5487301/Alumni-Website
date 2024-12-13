@@ -16,7 +16,7 @@ const userRoutes = require('./config/routes/userroutes.js');
 const loginroutes = require('./config/routes/loginauthenticationroutes');
 const eventroutes = require('./config/routes/eventroutes');
 const messageroute = require('./config/routes/messageroute');
-const jobroute = require('./config/routes/jobroute');
+const jobroute = require('./config/routes/jobroutes');
 const servicesroute = require('./config/routes/servicesroute');
 const resourcesroute = require('./config/routes/resourcesroute')
 

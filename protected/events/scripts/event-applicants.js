@@ -15,7 +15,7 @@ fetch(`${API_BASE_URL}/protected/applicants/event/${event_id}`)
   const applicants = data.applicants_data[0].applicants;
   const eventHtml = `<div class="event-page js-event-page">
         <div class="first-view">
-          <img class="event-pic" src="${data.event_data.event_logo}">
+          <img class="event-pic" src="${data.event_data.event_logo}" loading="lazy">
           <div class="basic-data">
             <p class="name">${data.event_data.name}</p>
             <div class="basic-data-details">

@@ -14,7 +14,7 @@ fetch(`${API_BASE_URL}/protected/homeevents`)
   data.forEach((event) => {
     eventHtml +=`
       <div class="bottom-second-event-box js-bottom-second-event-box">
-        <img class="event-image" src="${event.event_logo}">
+        <img class="event-image" src="${event.event_logo}"  loading="lazy">
         <div class="event-info">
           <p class="event-info-text">${event.name}</p>
           <p class="event-info-text-1 js-event-info-text-1" id="${event.date}">${formatEventDate(event.date)}</p>

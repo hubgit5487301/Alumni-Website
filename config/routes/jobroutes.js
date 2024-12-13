@@ -104,7 +104,7 @@ router.post(`/job-apply`, async (req, res) => {
   try {
     const {userid, job_id} = req.body;
 
-    const resume_check = await user.findOne({userid: '21CSE32'},{"details.resume": 1}) ;
+    const resume_check = await user.findOne({userid: userid},{"details.resume": 1}) ;
 
     
     if(resume_check.details.resume !== 'empty' && resume_check.details.resume !== null && resume_check.details.resume !== '') {
