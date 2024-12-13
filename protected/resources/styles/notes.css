@@ -98,9 +98,11 @@ label {
 }
 
 
+
 .file {
   border: none;
   text-align: center;
+  justify-items: center;
   width: 2vw;
   color: white;
   font-size: 1vw;
@@ -123,4 +125,16 @@ label {
   transform: scale(1);
   opacity: 0.8;
   box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+}
+
+.search-output {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  margin-top: 1vw;
+  gap: 1vw;
+}
+
+.no-input {
+width: 20vw;
+margin-inline: 37.5vw;
 }

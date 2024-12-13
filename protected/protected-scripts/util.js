@@ -220,3 +220,58 @@ export function yearSelect (input) {
     yearSelect.appendChild(option);
   }
 };
+
+export function load_content(data, sem, content, address) {
+  let file_html = '';
+  const file_selector = document.querySelector(content);
+  const filtered_data = data.filter(item => item.semester === sem);
+  if(filtered_data.length >0) {
+    filtered_data.forEach(data => {
+        file_html += `<div class="file js-file" id="${data._id}">${data.name}</div>`;
+      })  
+      file_selector.innerHTML = file_html;
+      const file_button = file_selector.querySelectorAll('.js-file');
+      download_search_file(file_button, 'resources/download');
+    }
+    else {
+      file_selector.innerHTML = `<div class="no-file">No files found</div>`;
+    }   
+}
+
+export async function download_search_file(file_button, address) {
+  file_button.forEach(file_button => {
+        file_button.addEventListener('click', async () => {
+          const _id = file_button.getAttribute('id');
+          const file64 = await getdataonevent(`${address}/${_id}`);
+          download(file64.file, 'application/pdf', file64.name)
+        })
+      })
+}
+
+export async function search(type, input1, input2, input3, address, branch) {
+  const name = document.querySelector(input1).value;
+  const semester= document.querySelector(input2).value;
+  const subject= document.querySelector(input3).value;
+  let search_html = '';
+  const query = new URLSearchParams({
+      name, semester, subject, type: type, branch:branch
+    });
+  const search_result = document.querySelector('.js-search-output');
+  if(!name && !semester && !subject) {
+    search_result.style.justifyItems= 'center';
+    search_html += `<div class="no-input">Please provide at least one parameter</div>`
+    search_result.innerHTML = search_html;
+    return;
+  }
+  const search_data = await getdataonevent(`${address}?${query}`);
+  if(search_data.length > 0) {
+  search_data.forEach(data => {
+    search_html += `<div class="file js-file" id="${data._id}"><div>${data.name}</div></div>`
+  });}
+  else {
+    search_html += `<div class="no-input">No file found with provided paramenters</div>`
+  }
+  search_result.innerHTML = search_html;
+  const file_button = document.querySelectorAll('.js-file');
+  download_search_file(file_button, 'resources/download');
+}
