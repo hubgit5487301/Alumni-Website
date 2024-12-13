@@ -47,8 +47,8 @@ async function resizeImage(inputImage, quality, format, maxSize) {
 
       const newBase64 = resizedBuffer.toString('base64');
       const newSize = (newBase64.length * 3) / 4 - (newBase64.match(/=+$/) || [''])[0].length;
-      const newsize = (newbase64.length * 3) / 4 - (newbase64.match(/=+$/) || [''])[0].length;
-      const progress = ((initialSize - newsize) / initialSize) * 100;
+      const progress = ((initialSize - newSize) / initialSize) * 100;
+      console.log(`Progress: ${Math.round(progress)}%`);
       if (newSize <= maxSize) {
         break;
       }
