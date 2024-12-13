@@ -19,10 +19,10 @@
 }
 
 .event-pic {
-  height: 12.5vw;
-  width: 12.5vw;
+  height: 17vw;
+  width: 17vw;
   background-color: transparent;
-  border-radius: 100%;
+  border-radius: 1vw;
   align-self: center;
   justify-self: center;
   cursor: pointer;

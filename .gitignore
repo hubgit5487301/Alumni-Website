@@ -1,9 +1,3 @@
 /.env
 /node_modules
-/.gitignore
-/ssl/server.cert
-/ssl/server.key
-/env.js
-/mockdata
-package.json
-package-lock.json
+

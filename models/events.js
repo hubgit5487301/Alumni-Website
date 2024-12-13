@@ -11,7 +11,7 @@ const EventSchema = new mongoose.Schema({
   location: {type: String, required: true},
   contact_info: {
     email: {type: String, required: true},
-    phone_no: {type: Number, required: true},
+    phone_no: {type: String, required: true},
   },
   event_des: {type: String, required: true},
   event_file: {type: String, default:"temp"},

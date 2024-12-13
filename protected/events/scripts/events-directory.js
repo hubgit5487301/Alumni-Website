@@ -22,12 +22,12 @@ fetch(`${API_BASE_URL}/protected/events`)
             </div>
           </div>
 `;
+  });  
   document.querySelector('.js-events-row').innerHTML = eventHtml;
   document.querySelectorAll('.js-event').forEach((event, index) => {
     event.addEventListener('click' ,() => {
       const event_id = data[index]._id;
       window.location.href =  `event?_id=${event_id}`;
-      });
     });
   });
 })
