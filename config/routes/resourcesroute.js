@@ -27,10 +27,12 @@ router.get('/upload_resources', (req, res) => {
   else return res.redirect(`/dashboard?alert=Unauthorized-access-attempt`)
 })
 
-router.get('/notes/:branch', async (req, res) => {
+router.get('/notes/:branch&:type', async (req, res) => {
   const branch = req.params.branch;
+  const type = req.params.type;
   try {
-    return res.status(200).json(branch);
+    const data = await resource.find({branch: branch, type: type}, {file:0});
+    return res.status(200).json(data);
   }
   catch(err) {
     console.log(err);
@@ -38,10 +40,23 @@ router.get('/notes/:branch', async (req, res) => {
   }
 })
 
+router.get('/notes/download/:_id', async (req, res) => {
+  try{
+    const _id = req.params._id;
+    const notes_file = await resource.findOne({_id: _id},{name: 1, file: 1});
+    res.status(200).json(notes_file);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
 router.get('/ques_papers/:branch', async (req, res) => {
   const branch = req.params.branch;
   try {
-    return res.status(200).json(branch);
+    const data = await resource.find({branch: branch});
+    console.log(data)
   }
   catch(err) {
     console.log(err);

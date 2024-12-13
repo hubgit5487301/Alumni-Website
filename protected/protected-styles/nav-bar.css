@@ -1,6 +1,6 @@
 .top-box {
   display: flex;
-  border-radius: 10px;
+  border-radius: 0.4vw;
   height: 4vw;
   justify-content: space-between;
   background-color:  rgba(46, 45, 45, 0.3);
@@ -9,8 +9,8 @@
   padding-bottom: 0.5vw;
   position: fixed;
   z-index: 100;
-  left: 4vw;
-  right: 4vw;
+  left: 1vw;
+  right: 1vw;
   top: 0.3vw;
 }
 
