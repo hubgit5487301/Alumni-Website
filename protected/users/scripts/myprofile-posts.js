@@ -35,7 +35,7 @@ if(job_ids.length > 0) {
                 </div>
               </div>
               <div class="delete-button-job js-delete-button-job" button-id="${job.job_id}">
-                <img class="delete-button"  src="/images/delete.svg" loading="lazy">
+                <img class="delete-button"  src="/images/delete.svg" >
               </div>
   `;
   })  
@@ -106,7 +106,7 @@ if (data.usertype === 'admin') {
                     </div>
                   </div>
                   <div class="delete-button-event js-delete-button-event" button-id="${event.event_id}">
-                    <img class="delete-button js-delete-button" src="/images/delete.svg" loading="lazy">
+                    <img class="delete-button js-delete-button" src="/images/delete.svg">
                   </div>
     `
     })
