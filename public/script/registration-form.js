@@ -2,12 +2,7 @@ import { API_BASE_URL } from "./config.js";
 import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputCheck,isValidUserid, isValidEmail, upload as profilepicupload, setBranchValue, usertype_and_batchSet} from '/script/util.js';
 
 const imagesallowed = ['image/jpeg', 'image/png'];
-    
-let personimage = null;
-profilepicupload('.js-pic-input',imagesallowed,true,'.js-pic-input',(file64) =>{
-  personimage = file64;
-});
-
+  
 let batch = '';
 let branch = '';
 let usertype = '';
@@ -77,7 +72,6 @@ let usertype = '';
       usertype: usertype,
       email: email,
       getpassword: password,
-      personimage: personimage,
       details:{
         batch:batch,
         branch:branch,
@@ -100,7 +94,7 @@ let usertype = '';
     return response.json()
   })
     .then((data) => {
-      alert('Form submitted successfully!');
+      alert('Check Your email for verification link');
       window.location.href = '/login';})
     .catch((error) => {
       console.error(error.message);

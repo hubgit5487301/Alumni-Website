@@ -115,8 +115,6 @@ router.get('/forgot-password', (req, res) => {
   res.sendFile(path.join(__dirname,'..', '..',  'public', 'forgot-password.html'));
 })
 
-
-
 router.post('/verify-otp-input', async (req, res) => {
   try {
     if(!req.body) {
@@ -172,10 +170,8 @@ router.post('/change-password', async (req, res) => {
 
 router.post('/submit-alumni', async (req, res) => {
   try{
-    const { personname, userid, usertype, email, userprivacy, getpassword, personimage, details } = req.body;
+    const { personname, userid, usertype, email, userprivacy, getpassword, details } = req.body;
     const {salt, passwordhash} = hashPassword(getpassword);
-    console.log(details.branch)
-    const image = await resizeimage(personimage, 70, 'webp', 200000) || undefined;
     const newdetails = {
       batch: details.batch,
       branch: details.branch,
@@ -195,7 +191,6 @@ router.post('/submit-alumni', async (req, res) => {
       userprivacy: userprivacy || 'public',
       salt,
       passwordhash,
-      personimage: image,
       details: newdetails,
       verified: false,
     });
