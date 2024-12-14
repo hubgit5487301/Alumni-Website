@@ -15,6 +15,9 @@ passport.use(new localStrategy(
       if(!verifyPassword(password, user.passwordhash, user.salt)) {
         return done(null, false, {message: 'Incorrect password'});
       }
+      if(!user.verified) {
+        return done(null, false, {message: 'Verify your account first'})
+      }
       return done(null, user)
     }
     catch(err) {

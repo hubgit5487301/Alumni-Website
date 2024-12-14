@@ -12,16 +12,39 @@ const otps = require('../../models/otps');
 const passport = require('../../config/passport-config');
 
 
-const {hashPassword, resizeimage} = require('../util');
+const {hashPassword, resizeimage, generatetoken, sendlink} = require('../util');
 
 const nodemailer = require('nodemailer');
+const verificationtoken = require('../../models/verificationtoken');
 
-router.get('/verify-otp', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..',  'public', 'reset-password.html'));
-})
-
-router.get('/forgot-password', (req, res) => {
-  res.sendFile(path.join(__dirname,'..', '..',  'public', 'forgot-password.html'));
+router.get('/verify_account', async (req, res) => {
+  try{
+    const token = req.query.token;
+    const findtoken = await verificationtoken.findOne({token: token}, {userId: 1, createdAt: 1});
+    console.log(findtoken);
+    if(findtoken === null) {
+      return res.redirect('/login?alert=Link-not-found');
+    }
+    if((new Date(findtoken.createdAt).getTime() + 60 * 10 * 1000) < Date.now()) {
+      await verificationtoken.deleteOne({token: token});
+      const userdata = await user.findOne({userid: findtoken.userId}, {email: 1, userid:1});
+      const newtoken = await generatetoken(userdata.userid);
+      await sendlink(userdata.email, newtoken);
+      return res.redirect('/login?alert=Link-expired');
+    }
+    const update_verified = await user.updateOne(
+      {userid: findtoken.userId},
+      {$set: {verified: true}})
+      if (update_verified.matchedCount === 0){
+        return res.redirect('/login?alert=User-not-found')
+      }
+      await verificationtoken.deleteOne({token: token});
+      return res.redirect('/login?alert=account-verified')
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(5000).json('internal server error')
+  }
 })
 
 router.post('/send-otp' ,async (req, res) => {
@@ -47,7 +70,6 @@ router.post('/send-otp' ,async (req, res) => {
     if(result) {
       const useremail = resetuser.email;
       const transporter = nodemailer.createTransport({
-        //service: service,
         host: service,
         port: 465,
         secure: true,
@@ -84,6 +106,16 @@ router.post('/send-otp' ,async (req, res) => {
     res.status(500).json({error: 'internal server error'})
   }
 })
+
+router.get('/verify-otp', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..',  'public', 'reset-password.html'));
+})
+
+router.get('/forgot-password', (req, res) => {
+  res.sendFile(path.join(__dirname,'..', '..',  'public', 'forgot-password.html'));
+})
+
+
 
 router.post('/verify-otp-input', async (req, res) => {
   try {
@@ -142,6 +174,7 @@ router.post('/submit-alumni', async (req, res) => {
   try{
     const { personname, userid, usertype, email, userprivacy, getpassword, personimage, details } = req.body;
     const {salt, passwordhash} = hashPassword(getpassword);
+    console.log(details.branch)
     const image = await resizeimage(personimage, 70, 'webp', 200000) || undefined;
     const newdetails = {
       batch: details.batch,
@@ -163,13 +196,16 @@ router.post('/submit-alumni', async (req, res) => {
       salt,
       passwordhash,
       personimage: image,
-      details: newdetails
+      details: newdetails,
+      verified: false,
     });
     
     const finduserbyuserid = await user.findOne({"userid":userid});
     const finduserbyuseremail = await user.findOne({"email":email});
     if(!finduserbyuserid && !finduserbyuseremail) {
       await newUser.save();
+      const token = await generatetoken(userid);
+      sendlink(email, token);
       res.status(200).json({message:'Data submitted'});
     }
     

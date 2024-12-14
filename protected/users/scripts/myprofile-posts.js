@@ -141,5 +141,3 @@ if (data.usertype === 'admin') {
       document.querySelector('.js-data-events').innerHTML = eventHtml;
   }
 }
-else {
-}

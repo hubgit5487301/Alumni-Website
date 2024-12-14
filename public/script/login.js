@@ -3,10 +3,22 @@ const urlParams = new URLSearchParams(window.location.search);
 
 
 if(urlParams.has('alert')) {
-  const amessage = urlParams.get('alert');
-  if(amessage === 'not-logged-in') {
+  const message = urlParams.get('alert');
+  if(message === 'not-logged-in') {
     alert('You need to login first!');
     window.location.href = '/login';
+  }
+  else if(message === 'account-verified'){
+    alert('Account Verfied');
+  }
+  else if(message === 'User-not-found'){
+    alert('Invalid Token');
+  }
+  else if(message === 'Link-expired'){
+    alert('Link expired. New link sent to registered email');
+  }
+  else if(message === 'Link-not-found') {
+    alert('Link not found')
   }
 }
 

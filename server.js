@@ -24,6 +24,8 @@ const passport = require('./config/passport-config');
 
 const {isAuthenticated} = require('./config/util');
 const otps = require('./models/otps.js');
+const token = require('./models/verificationtoken.js');
+const verificationtoken = require('./models/verificationtoken.js');
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
@@ -81,7 +83,9 @@ setInterval( async() => {
   const now = new Date(Date.now() - 10 * 60 * 1000);
   try{
     const result = await otps.deleteMany({createdAt: {$lt: now}});
+    const token = await verificationtoken.deleteMany({createdAt: {$lt: now}})
     console.log(`Deleted ${result.deletedCount} expired otps`);
+    console.log(`Deleted ${token.deletedCount} expired tokens`);
   }
 catch(err) {
   console.log(err);

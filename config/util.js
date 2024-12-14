@@ -1,5 +1,12 @@
 const crypto = require('crypto');
 const sharp = require('sharp');
+const emailuser = process.env.user;
+const pass = process.env.pass;
+const service = process.env.service;
+const verificationtoken = require('../models/verificationtoken');
+const user = require('../models/users');
+const nodemailer = require('nodemailer');
+const { API_BASE_URL } = require('../protected/protected-scripts/config');
 
 function hashPassword(getpassword) {
   const salt = crypto.randomBytes(16).toString('hex');
@@ -69,6 +76,55 @@ async function resizeimage(inputimage, quality, format, size) {
   }
 }
 
+async function generatetoken(userid) {
+  try{
+    const newuser = await user.findOne({userid: userid});
+    if(!newuser) {
+      console.log('no user found');
+      throw new Error('user not found');
+    }
+
+    const token = crypto.randomBytes(16).toString('hex');
+    const newverificationtoken = new verificationtoken({
+      userId: userid,
+      token: token
+    });
+    await newverificationtoken.save();
+    return token;
+  }
+  catch(err) {
+    console.log(err);
+    throw err;
+  }
+  
+}
+
+async function sendlink(email, token) {
+  try{
+    const transporter = nodemailer.createTransport({
+      host: service,
+      port: 465,
+      secure: true,
+      auth: {
+        user: emailuser,
+        pass: pass,
+      }
+    })
+    const mailoption = {
+      from: emailuser,
+      to: email,
+      subject: 'Account Verfication',
+      text: `Your acount verfiaction link is ${API_BASE_URL}/verify_account?token=${token}. It will expire in 10 minutes`,
+    }
+    const info = await transporter.sendMail(mailoption);
+    console.log('Email sent: %s', info.messageId);
+  }
+  catch(err) {
+    console.log(err);
+    throw err;
+  }
+}
 
 
-module.exports = { hashPassword, verifyPassword, isAuthenticated, resizeimage};
+
+module.exports = { hashPassword, verifyPassword, isAuthenticated, resizeimage, generatetoken, sendlink};

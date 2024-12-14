@@ -18,8 +18,6 @@ let usertype = '';
      const {user_type, year} = usertype_and_batchSet();
      usertype = user_type;
      batch = year;
-     console.log(branch)
-     console.log(batch)
   });
   document.querySelector('.js-userid').addEventListener('input', () => {
     
