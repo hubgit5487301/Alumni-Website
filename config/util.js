@@ -6,7 +6,7 @@ const service = process.env.service;
 const verificationtoken = require('../models/verificationtoken');
 const user = require('../models/users');
 const nodemailer = require('nodemailer');
-const { API_BASE_URL } = require('../protected/protected-scripts/config');
+const API_BASE_URL = process.env.API_BASE_URL;
 
 function hashPassword(getpassword) {
   const salt = crypto.randomBytes(16).toString('hex');
