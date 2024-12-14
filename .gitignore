@@ -1,4 +1,4 @@
 /.env
 /node_modules
-/protectd/protectd-scripts/config.js
-/public/script/config.js
+protected/protected-scripts/config.js
+public/script/config.js
