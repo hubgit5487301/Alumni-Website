@@ -1,3 +1,4 @@
 /.env
 /node_modules
-
+/protectd/protectd-scripts/config.js
+/public/script/config.js
