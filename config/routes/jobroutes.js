@@ -85,6 +85,8 @@ router.get(`/job-search`, async (req, res) => {
   }
 })
 
+
+
 router.get(`/job/:job_id`, async(req, res) => {
   try{
     const _id = req.params.job_id;

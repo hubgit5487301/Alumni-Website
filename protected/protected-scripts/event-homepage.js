@@ -32,4 +32,4 @@ fetch(`${API_BASE_URL}/protected/homeevents`)
 let wheel = document.querySelector('.js-bottom-second-event-boxes');
 wheel.addEventListener('wheel', (event) => {
   event.preventDefault(); 
-  wheel.scrollLeft += event.deltaY; })
+  wheel.scrollLeft += event.deltaY; }, { passive: false })
