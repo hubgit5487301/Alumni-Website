@@ -12,7 +12,7 @@ const otps = require('../../models/otps');
 const passport = require('../../config/passport-config');
 
 
-const {hashPassword, resizeimage, generatetoken, sendlink} = require('../util');
+const {hashPassword, setBranchValue, generatetoken, sendlink, usertype_and_batchSet} = require('../util');
 
 const nodemailer = require('nodemailer');
 const verificationtoken = require('../../models/verificationtoken');
@@ -21,7 +21,6 @@ router.get('/verify_account', async (req, res) => {
   try{
     const token = req.query.token;
     const findtoken = await verificationtoken.findOne({token: token}, {userId: 1, createdAt: 1});
-    console.log(findtoken);
     if(findtoken === null) {
       return res.redirect('/login?alert=Link-not-found');
     }
@@ -38,8 +37,8 @@ router.get('/verify_account', async (req, res) => {
       if (update_verified.matchedCount === 0){
         return res.redirect('/login?alert=User-not-found')
       }
-      await verificationtoken.deleteOne({token: token});
-      return res.redirect('/login?alert=account-verified')
+    await verificationtoken.deleteOne({token: token});
+    return res.redirect('/login?alert=account-verified')
   }
   catch(err) {
     console.log(err);
@@ -170,11 +169,13 @@ router.post('/change-password', async (req, res) => {
 
 router.post('/submit-alumni', async (req, res) => {
   try{
-    const { personname, userid, usertype, email, userprivacy, getpassword, details } = req.body;
+    const { personname, userid, email, getpassword } = req.body;
     const {salt, passwordhash} = hashPassword(getpassword);
+    const branch =  setBranchValue(userid);
+    const {usertype, batch} =  usertype_and_batchSet(userid);
     const newdetails = {
-      batch: details.batch,
-      branch: details.branch,
+      batch: batch,
+      branch: branch,
       aboutme:  undefined,
       education:  undefined,
       currentrole: undefined,
@@ -186,9 +187,9 @@ router.post('/submit-alumni', async (req, res) => {
     const newUser = new user({
       personname,
       userid,
-      usertype,
+      usertype: usertype,
       email,
-      userprivacy: userprivacy || 'public',
+      userprivacy: 'public',
       salt,
       passwordhash,
       details: newdetails,

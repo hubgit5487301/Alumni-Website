@@ -90,48 +90,8 @@ export function formatEventDate(eventdate) {
   return `${day} ${date.toLocaleString('default', { month: 'long' })} ${year}, ${hours}:${minutes}`;
 }
 
-export function setBranchValue (textinput) {
-  const userid = document.querySelector(textinput).value;
-  const match = userid.match((/\d([A-Z]|[a-z]+)\d/));
-
-  if (match && match[1]) {
-    const idbranch = match[1];
-    if(idbranch === 'CSE' || idbranch === 'cse') {
-      return 'CSE';
-    }
-    else if ( idbranch === 'ME' || idbranch === 'me') {
-      return 'ME';
-    }
-    else if ( idbranch === 'CE' || idbranch === 'ce') {
-      return 'CE';
-    }
-    else if ( idbranch === 'EE' || idbranch === 'ee') {
-      return 'EE';
-    }
-    else if ( idbranch === 'ECE' || idbranch === 'ece') {
-      return 'ECE';
-    }
-  }
-}
 
 
-export function usertype_and_batchSet () {
-  const userid = document.querySelector('.js-userid').value;
-  let admissionyear = parseInt(userid.substring(0, 2));
-  const currentyear = parseInt((new Date().getFullYear()).toString().slice(-2));
-  let user_type = '';
-
-  if(currentyear >= admissionyear+4) {
-    user_type = 'alumni';
-  }
-  else {
-    user_type = 'student';
-  }
-  admissionyear = admissionyear + 2000;
-  const year = admissionyear.toString();
-   
-  return {user_type, year};
-  }
 
 
 

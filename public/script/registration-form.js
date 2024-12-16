@@ -1,22 +1,6 @@
 import { API_BASE_URL } from "./config.js";
-import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputCheck,isValidUserid, isValidEmail, upload as profilepicupload, setBranchValue, usertype_and_batchSet} from '/script/util.js';
-
-const imagesallowed = ['image/jpeg', 'image/png'];
+import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputCheck,isValidUserid, isValidEmail} from '/script/util.js';
   
-let batch = '';
-let branch = '';
-let usertype = '';
-
-
-  document.querySelector('.js-userid').addEventListener('input', () => { 
-     branch = setBranchValue('.js-userid');
-     const {user_type, year} = usertype_and_batchSet();
-     usertype = user_type;
-     batch = year;
-  });
-  document.querySelector('.js-userid').addEventListener('input', () => {
-    
-  })
   document.querySelector('.js-submit-button').addEventListener('click', (event) => {
     event.preventDefault();
     const inputname = document.querySelector('.js-name').value;
@@ -65,17 +49,12 @@ let usertype = '';
     else if (check === true)
     {
       changefieldcolordefault(document.querySelector('.js-password-recheck'));
-    }(branch)
+    }
     const storedAlumni= ({
       personname: inputname,
       userid: userid.trim(),
-      usertype: usertype,
       email: email.trim(),
       getpassword: password.trim(),
-      details:{
-        batch:batch,
-        branch:branch,
-       }
     });
 
     fetch(`${API_BASE_URL}/submit-alumni`,{

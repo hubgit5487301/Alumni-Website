@@ -126,5 +126,46 @@ async function sendlink(email, token) {
 }
 
 
+function setBranchValue (textinput) {
+  const match = textinput.match((/\d([A-Z]+)\d/));
+  if (match && match[1]) {
+    const idbranch = match[1];
+    if(idbranch === 'CSE' || idbranch === 'cse') {
+      return 'CSE';
+    }
+    else if ( idbranch === 'ME' || idbranch === 'me') {
+      return 'ME';
+    }
+    else if ( idbranch === 'CE' || idbranch === 'ce') {
+      return 'CE';
+    }
+    else if ( idbranch === 'EE' || idbranch === 'ee') {
+      return 'EE';
+    }
+    else if ( idbranch === 'ECE' || idbranch === 'ece') {
+      return 'ECE';
+    }
+  }
+}
 
-module.exports = { hashPassword, verifyPassword, isAuthenticated, resizeimage, generatetoken, sendlink};
+
+
+function usertype_and_batchSet (input) {
+  let admissionyear = parseInt(input.substring(0, 2));
+  const currentyear = parseInt((new Date().getFullYear()).toString().slice(-2));
+  let usertype = '';
+
+  if(currentyear >= admissionyear+4) {
+    usertype = 'alumni';
+  }
+  else {
+    usertype = 'student';
+  }
+  admissionyear = admissionyear + 2000;
+  const batch = admissionyear.toString();
+   
+  return {usertype, batch};
+  }
+
+
+module.exports = { hashPassword, setBranchValue, verifyPassword, isAuthenticated, resizeimage, generatetoken, sendlink, usertype_and_batchSet};
