@@ -24,8 +24,8 @@ if(urlParams.has('alert')) {
 
 document.querySelector('.js-login-button').addEventListener('click', (event) => {
   event.preventDefault();
-  const inputuserid = document.querySelector('.js-userid-box').value;
-  const password = document.querySelector('.js-password-box').value;
+  const inputuserid = (document.querySelector('.js-userid-box').value).trim();
+  const password = (document.querySelector('.js-password-box').value).trim();
   const userid = inputuserid.toUpperCase();
   const logindata = {
     userid: userid,

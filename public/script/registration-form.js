@@ -68,10 +68,10 @@ let usertype = '';
     }(branch)
     const storedAlumni= ({
       personname: inputname,
-      userid: userid,
+      userid: userid.trim(),
       usertype: usertype,
-      email: email,
-      getpassword: password,
+      email: email.trim(),
+      getpassword: password.trim(),
       details:{
         batch:batch,
         branch:branch,
