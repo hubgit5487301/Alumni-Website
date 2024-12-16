@@ -11,8 +11,9 @@ const MongoStore = require('connect-mongo');
 
 const connectDB = require('./config/mongo');
 
-const basicroutes = require('./config/routes/basicroutes.js')
-const userRoutes = require('./config/routes/userroutes.js');
+const adminroute = require('./config/routes/adminroutes')
+const basicroutes = require('./config/routes/basicroutes')
+const userRoutes = require('./config/routes/userroutes');
 const loginroutes = require('./config/routes/loginauthenticationroutes');
 const eventroutes = require('./config/routes/eventroutes');
 const messageroute = require('./config/routes/messageroute');
@@ -24,10 +25,12 @@ const passport = require('./config/passport-config');
 
 const {isAuthenticated} = require('./config/util');
 const otps = require('./models/otps.js');
-const token = require('./models/verificationtoken.js');
 const verificationtoken = require('./models/verificationtoken.js');
 
 const app = express();
+app.use('/styles', express.static(path.join(__dirname, 'admin_console', 'styles')));
+app.use('/scripts', express.static(path.join(__dirname, 'admin_console', 'scripts')));
+app.use('/admin_console', express.static(path.join(__dirname, 'admin_console')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/protected-styles', express.static(path.join(__dirname, 'protected', 'protected-styles')));
 app.use('/protected-scripts', express.static(path.join(__dirname, 'protected', 'protected-scripts')));
@@ -64,10 +67,10 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use(basicroutes)
 app.use(loginroutes);
 app.use(messageroute);
+app.use('/admin', isAuthenticated, adminroute)
 app.use('/protected', isAuthenticated, jobroute);
 app.use('/protected', isAuthenticated, servicesroute);
 app.use('/protected', isAuthenticated, messageroute);

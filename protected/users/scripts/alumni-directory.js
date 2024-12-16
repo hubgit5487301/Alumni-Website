@@ -13,7 +13,6 @@ fetch(`${API_BASE_URL}/protected/users`)
     return response.json();
   })     
   .then(data => {
-    console.log(data)
     personHtml = '';
     data.forEach((user, index) => {
     personHtml +=`

@@ -1,0 +1,48 @@
+
+.stats-div {
+  display: flex;
+  gap: 1vw;
+  justify-content: space-between;
+}
+
+.stats {
+  background-color: rgba(0, 0, 0, 0.357);
+  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+  font-size: 1vw;
+  padding: 1vw;
+  border-radius: 0.4vw;
+}
+
+.today-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2vw;
+  padding: 1vw;
+  font-size: 1vw;
+}
+
+.stat-info {
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  padding: 0.3vw;
+  border-radius: 0.4vw;
+  background-color: rgba(0, 0, 0, 0.357);
+  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+}
+
+.heading {
+  font-size: 1vw;
+  text-align: center;
+}
+
+.stat-box {
+  text-align: center;
+  font-size: 1vw;
+  height: 10vw;
+  overflow-y: scroll;
+}
+
+.stat-box::-webkit-scrollbar {
+  display: none;
+}
