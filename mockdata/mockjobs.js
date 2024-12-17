@@ -85,7 +85,7 @@ async function generateMockData() {
   await connectDB();
 
   
-  const mockJobs = Array.from({ length: 100 }, () => ({
+  const mockJobs = Array.from({ length: 5 }, () => ({
     job_tittle: faker.person.jobTitle(),
     job_location: faker.location.city(),
     job_salary: faker.finance.amount(300000, 1000000, 5000, '₹'),

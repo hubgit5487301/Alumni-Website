@@ -169,7 +169,7 @@ export async function getdataonevent (address) {
 
 export async function deletedataonevent (address) {
   try{
-    const response = await fetch(`${API_BASE_URL}/protected/${address}`, {
+    const response = await fetch(`${API_BASE_URL}/admin/${address}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -187,14 +187,14 @@ export async function deletedataonevent (address) {
   }    
 }
 
-export async function updatedataonevent (address, data) {
+export async function updatedataonevent (address) {
   try{
-    const response = await fetch(`${API_BASE_URL}/protected/${address}`, {
+    const response = await fetch(`${API_BASE_URL}/admin/${address}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify()
     });
     if(!response.ok) {
       throw new Error('response not ok');

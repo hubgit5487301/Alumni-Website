@@ -305,28 +305,4 @@ router.get('/download-resume/:user_id', async (req, res) => {
   }
 })
 
-
-/*
-router.get('/my-userdata', async (req, res) => {
-  if(req.isAuthenticated()) {
-    const userid = req.user.userid;
-    const resume_check = await user.findOne({userid: userid, "details.resume": { $ne: 'empty' }, "details.resume": {$ne: null}, "details.resume": {$ne: ''}}, {details: 0, personimage:0, data: 0, passwordhash: 0, salt: 0, personname: 0, _id: 0, usertype: 0, email: 0, userprivacy: 0, personresume: 0 });
-    let check = undefined;
-
-    if(resume_check) {
-      check = true; //uploaded resume
-    }
-    else {
-      check = false;
-    }
-
-    const data = ({userid, check});
-    res.status(200).json(data);
-  }
-  else {
-    res.redirect(`/login?alert=not-logged-in`);
-  }
-})
-*/
-
 module.exports = router;  

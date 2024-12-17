@@ -85,7 +85,7 @@ async function generateMockDataForEvents() {
   await connectDB();
 
   
-  const mockEvents = Array.from({ length: 100 }, () => ({
+  const mockEvents = Array.from({ length: 10 }, () => ({
     name: faker.commerce.productName(),
     date: faker.date.future(),
     location: faker.location.city(),

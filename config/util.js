@@ -7,6 +7,7 @@ const verificationtoken = require('../models/verificationtoken');
 const user = require('../models/users');
 const nodemailer = require('nodemailer');
 const API_BASE_URL = process.env.API_BASE_URL;
+const mongoose = require('mongoose')
 
 function hashPassword(getpassword) {
   const salt = crypto.randomBytes(16).toString('hex');
@@ -148,8 +149,6 @@ function setBranchValue (textinput) {
   }
 }
 
-
-
 function usertype_and_batchSet (input) {
   let admissionyear = parseInt(input.substring(0, 2));
   const currentyear = parseInt((new Date().getFullYear()).toString().slice(-2));
@@ -165,7 +164,16 @@ function usertype_and_batchSet (input) {
   const batch = admissionyear.toString();
    
   return {usertype, batch};
-  }
+}
+
+const startOfToday = new Date();
+startOfToday.setHours(0, 0, 0, 0);
+
+const endOfToday = new Date();
+endOfToday.setHours(23, 59, 59, 999);
+
+const startObjectId = mongoose.Types.ObjectId.createFromTime(startOfToday / 1000);
+const endObjectId = mongoose.Types.ObjectId.createFromTime(endOfToday / 1000);
 
 
-module.exports = { hashPassword, setBranchValue, verifyPassword, isAuthenticated, resizeimage, generatetoken, sendlink, usertype_and_batchSet};
+module.exports = { hashPassword, setBranchValue, verifyPassword, isAuthenticated, resizeimage, generatetoken, sendlink, usertype_and_batchSet, startObjectId, endObjectId};
