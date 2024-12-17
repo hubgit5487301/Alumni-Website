@@ -248,30 +248,33 @@ export async function download_search_file(file_button, address) {
       })
 }
 
-export async function search(type, input1, input2, input3, address, branch) {
-  const name = document.querySelector(input1).value;
-  const semester= document.querySelector(input2).value;
-  const subject= document.querySelector(input3).value;
+export async function search(input1, input2, address) {
+  const personname = document.querySelector(input1).value;
+  const userid= document.querySelector(input2).value;
   let search_html = '';
   const query = new URLSearchParams({
-      name, semester, subject, type: type, branch:branch
+      personname, userid
     });
-  const search_result = document.querySelector('.js-search-output');
-  if(!name && !semester && !subject) {
+  const search_result = document.querySelector('.js-list-users');
+  if(!personname && !userid) {
     search_result.style.justifyItems= 'center';
     search_html += `<div class="no-input">Please provide at least one parameter</div>`
     search_result.innerHTML = search_html;
     return;
   }
   const search_data = await getdataonevent(`${address}?${query}`);
+  console.log(search_data)
   if(search_data.length > 0) {
   search_data.forEach(data => {
-    search_html += `<div class="file js-file" id="${data._id}"><div>${data.name}</div></div>`
+    search_html += `
+    <div class="user js-user" id="${data.userid}">
+      <div>${data.personname}</div>
+      <div>${data.userid}</div>
+      <
+      </div>`
   });}
   else {
-    search_html += `<div class="no-input">No file found with provided paramenters</div>`
+    search_html += `<div class="no-input">No user found with provided paramenters</div>`
   }
   search_result.innerHTML = search_html;
-  const file_button = document.querySelectorAll('.js-file');
-  download_search_file(file_button, 'resources/download');
 }

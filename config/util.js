@@ -115,7 +115,7 @@ async function sendlink(email, token) {
       from: emailuser,
       to: email,
       subject: 'Account Verfication',
-      text: `Your acount verfiaction link is ${API_BASE_URL}/verify_account?token=${token}. It will expire in 10 minutes`,
+      text: `Your acount verifiction link is ${API_BASE_URL}/verify_account?token=${token}. It will expire in 10 minutes`,
     }
     const info = await transporter.sendMail(mailoption);
     console.log('Email sent: %s', info.messageId);

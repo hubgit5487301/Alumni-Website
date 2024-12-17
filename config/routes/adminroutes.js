@@ -11,18 +11,25 @@ const {usertype_and_batchSet, startObjectId, endObjectId} = require('../util');
 const events = require('../../models/events');
 
 router.get('/manage_jobs', (req, res) => {
+  if(req.user.usertype === 'admin')
   res.sendFile(path.join(__dirname, '..', '..', 'admin_console', 'jobs.html'))
   })
 
 router.get('/manage_users', (req, res) => {
+  if(req.user.usertype === 'admin')
   res.sendFile(path.join(__dirname, '..', '..', 'admin_console', 'users.html'))
   })
 
 router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'admin_console', 'admin.html'))
+  if(req.user.usertype === 'admin')
+    return res.sendFile(path.join(__dirname, '..', '..', 'admin_console', 'admin.html'))
+  else {
+    return res.redirect(`/dashboard`) 
+  }
   })
 
 router.get('/manage_events', (req, res) => {
+  if(req.user.usertype === 'admin')
 res.sendFile(path.join(__dirname, '..', '..', 'admin_console', 'events.html'))
 })
 
@@ -175,6 +182,25 @@ router.delete('/remove_job', async (req, res) => {
       await job.deleteOne({_id:_id});
       return res.status(200).json({message: 'job deleted'})
     }
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
+router.get('/search_users', async (req, res) => {
+  try{
+    if(req.user.usertype === 'admin') {
+      const query = req.query;
+      console.log(query);
+      const result = await user.find({
+        personname: { $regex: `^${query.personname}`, $options: 'i' },
+        userid: {$regex: `^${query.userid}`,  $options: 'i'}
+      }, {userid: 1, personname: 1, usertype: 1, personimage: 1})
+      return res.status(200).json(result); 
+    }
+
   }
   catch(err) {
     console.log(err);

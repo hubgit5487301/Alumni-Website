@@ -10,7 +10,7 @@ fetch(`${API_BASE_URL}/protected/user_logo`)
 
 .then(data => {
   let headerhtml = `<div class="left-content">
-              <a href="/dashboard" class="home-link">
+              <a href="/admin" class="home-link">
                 <button class="home-button">
                   <img src="/images/logo.webp" class="logo-icon">
                   Alumni Portal</button> 

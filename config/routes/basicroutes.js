@@ -26,9 +26,13 @@ router.get('/verify_account', async (req, res) => {
     }
     if((new Date(findtoken.createdAt).getTime() + 60 * 10 * 1000) < Date.now()) {
       await verificationtoken.deleteOne({token: token});
-      const userdata = await user.findOne({userid: findtoken.userId}, {email: 1, userid:1});
-      const newtoken = await generatetoken(userdata.userid);
-      await sendlink(userdata.email, newtoken);
+      const userdata = await user.findOne(
+        {userid: findtoken.userId},
+        {email: 1, userid:1});
+      if(userdata) {
+        const newtoken = await generatetoken(userdata.userid);
+        await sendlink(userdata.email, newtoken);
+      }
       return res.redirect('/login?alert=Link-expired');
     }
     const update_verified = await user.updateOne(

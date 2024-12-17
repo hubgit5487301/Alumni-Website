@@ -61,7 +61,7 @@ input,textarea,select {
   font-size: 1vw;
 }
 
-.admin-welcome-page {
+.admin-page {
   display: grid;
   grid-template-rows: 1fr 11fr;
   gap: 1vw;
@@ -75,7 +75,7 @@ input,textarea,select {
   gap: 1vw;
 }
 
-.welcome-admin-text  {
+.header-admin  {
   font-size: 2vw;
   font-weight: bold;
   background-color: rgba(0, 0, 0, 0.357);
@@ -118,6 +118,10 @@ input,textarea,select {
   border-radius: 0.4vw;
   padding: 1vw;
 }
+
+
+
+
 
 
 
