@@ -54,20 +54,23 @@ else if(admin_data.length > 0) {
   user_button.forEach(button => {
     button.addEventListener('click', () => {
       const userid = button.getAttribute('admin-id');
-      window.location.href = `/protected/profile?userid=${userid}`
+      window.location.href = `/protected/profile?userid=${userid}`;
     })
   })
 
   const revoke_button = document.querySelectorAll('.js-revoke-button');
   revoke_button.forEach(button => {
     button.addEventListener('click', async () => {
-      const userid = button.getAttribute('revoke-button');
-      const data = await revokedata(`revoke?userid=${userid}`, '');
-      if(data.message === 'admin rights revoked') {
-        const adminelement = document.querySelector(`.data.js-admin-data[admin-id="${userid}"]`)
-        const revokeelement = document.querySelector(`.revoke-button.js-revoke-button[revoke-button="${userid}"]`);
-        if(adminelement)  adminelement.remove();
-        if(revokeelement) revokeelement.remove();
+      const userResponse = confirm('Revoke Admin Rights');
+      if (userResponse) {
+        const userid = button.getAttribute('revoke-button');
+        const data = await revokedata(`revoke?userid=${userid}`, '');
+        if(data.message === 'admin rights revoked') {
+          const adminelement = document.querySelector(`.data.js-admin-data[admin-id="${userid}"]`)
+          const revokeelement = document.querySelector(`.revoke-button.js-revoke-button[revoke-button="${userid}"]`);
+          if(adminelement)  adminelement.remove();
+          if(revokeelement) revokeelement.remove();
+        } 
       }
     })
   })
@@ -110,14 +113,17 @@ else if(today_new_users.length > 0) {
   const remove_button = document.querySelectorAll('.js-remove-button');
   remove_button.forEach(button => {
     button.addEventListener('click', async () => {
-      const userid = button.getAttribute('remove-button');
-      const data = await deletedata(`remove_user?userid=${userid}`, '');
-      if(data.message === 'user deleted') {
-        const userelement = document.querySelector(`.data.js-user-data[user-id="${userid}"]`);
-        const removeelement = document.querySelector(`.revoke-button.js-remove-button[remove-button="${userid}"]`);
-        if(userelement) userelement.remove();
-        if(removeelement) removeelement.remove();
-        regis_users.innerHTML = `<div class="text-info">No new users today</div>`
+      const userResponse = confirm('Delete User')
+      if(userResponse) {
+        const userid = button.getAttribute('remove-button');
+        const data = await deletedata(`remove_user?userid=${userid}`, '');
+        if(data.message === 'user deleted') {
+          const userelement = document.querySelector(`.data.js-user-data[user-id="${userid}"]`);
+          const removeelement = document.querySelector(`.revoke-button.js-remove-button[remove-button="${userid}"]`);
+          if(userelement) userelement.remove();
+          if(removeelement) removeelement.remove();
+          regis_users.innerHTML = `<div class="text-info">No new users today</div>`
+        }
       }
     })
   })
@@ -162,15 +168,18 @@ else if(today_new_events.length > 0){
   const remove_button = document.querySelectorAll('.js-remove-event');
   remove_button.forEach(button => {
     button.addEventListener('click', async () => {
-      const _id = button.getAttribute('remove-event');
-      const data = await deletedata(`remove_event?_id=${_id}`, '');
-      if(data.message === 'event deleted') {
-        const eventelement = document.querySelector(`.data.js-event-data[event-id="${_id}"]`);
-        const removeevent = document.querySelector(`.revoke-button.js-remove-event[remove-event="${_id}"]`);
-        if(eventelement) eventelement.remove();
-        if(removeevent) removeevent.remove();
-        if(regis_events.innerHTML.trim() === '') {
-          regis_events.innerHTML = '<div class="text-info">No new events today</div>' }
+      const userResponse = confirm('Delete Event');
+      if(userResponse) {  
+        const _id = button.getAttribute('remove-event');
+        const data = await deletedata(`remove_event?_id=${_id}`, '');
+        if(data.message === 'event deleted') {
+          const eventelement = document.querySelector(`.data.js-event-data[event-id="${_id}"]`);
+          const removeevent = document.querySelector(`.revoke-button.js-remove-event[remove-event="${_id}"]`);
+          if(eventelement) eventelement.remove();
+          if(removeevent) removeevent.remove();
+          if(regis_events.innerHTML.trim() === '') {
+            regis_events.innerHTML = '<div class="text-info">No new events today</div>' }
+        }
       }
     })
   })
@@ -213,15 +222,18 @@ else if(today_new_jobs.length > 0) {
   const remove_button = document.querySelectorAll('.js-remove-job');
   remove_button.forEach(button => {
     button.addEventListener('click', async () => {
-      const _id = button.getAttribute('remove-job');
-      const data = await deletedata(`remove_job?_id=${_id}`, '');
-      if(data.message === 'job deleted') {
-        const jobelement = document.querySelector(`.data.js-job-data[job-id="${_id}"]`);
-        const removejob = document.querySelector(`.revoke-button.js-remove-job[remove-job="${_id}"]`);
-        if(jobelement) jobelement.remove();
-        if(removejob) removejob.remove();
-        if(regis_jobs.innerHTML.trim() === '') {
-          regis_jobs.innerHTML = '<div class="text-info">No new jobs today</div>' }
+      const userResponse = confirm(`Delete Job`);
+      if(userResponse) {
+        const _id = button.getAttribute('remove-job');
+        const data = await deletedata(`remove_job?_id=${_id}`, '');
+        if(data.message === 'job deleted') {
+          const jobelement = document.querySelector(`.data.js-job-data[job-id="${_id}"]`);
+          const removejob = document.querySelector(`.revoke-button.js-remove-job[remove-job="${_id}"]`);
+          if(jobelement) jobelement.remove();
+          if(removejob) removejob.remove();
+          if(regis_jobs.innerHTML.trim() === '') {
+            regis_jobs.innerHTML = '<div class="text-info">No new jobs today</div>' }
+        }
       }
     })
   })
