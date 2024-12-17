@@ -28,12 +28,11 @@ today_jobs.innerHTML = `Jobs posted today: ${stats_data.today_jobs}`;
 
 
 
-
 const admin_data = await getdata('admin_data');
 const admin_div = document.querySelector('.js-admin-info');
 
 if(admin_data.length === 0) {
-  admin_div.innerHTML = 'No data found';
+  admin_div.innerHTML = '<div class="text-info">No data found</div>';
 }
 
 else if(admin_data.length > 0) {
@@ -83,7 +82,7 @@ else if(admin_data.length > 0) {
 const today_new_users = await getdata('today_new_users_data');
 const regis_users = document.querySelector('.js-regis-users')
 if(today_new_users.length === 0) {
-  regis_users.innerHTML = `No new users today`;
+  regis_users.innerHTML = `<div class="text-info">No new users today</div>`;
 }
 else if(today_new_users.length > 0) {
   let regisHtml = '';
@@ -118,7 +117,7 @@ else if(today_new_users.length > 0) {
         const removeelement = document.querySelector(`.revoke-button.js-remove-button[remove-button="${userid}"]`);
         if(userelement) userelement.remove();
         if(removeelement) removeelement.remove();
-        regis_users.innerHTML = `No new users today`
+        regis_users.innerHTML = `<div class="text-info">No new users today</div>`
       }
     })
   })
@@ -134,7 +133,7 @@ const today_new_events = await getdata('today_new_events_data');
 const regis_events = document.querySelector('.js-regis-events');
 
 if(today_new_events.length === 0) {
-  regis_events.innerHTML = 'No events posted today'
+  regis_events.innerHTML = '<div class="text-info">No new events today</div>'
 }
 else if(today_new_events.length > 0){
   let eventsHtml = '';
@@ -171,7 +170,7 @@ else if(today_new_events.length > 0){
         if(eventelement) eventelement.remove();
         if(removeevent) removeevent.remove();
         if(regis_events.innerHTML.trim() === '') {
-          regis_events.innerHTML = 'No events posted today' }
+          regis_events.innerHTML = '<div class="text-info">No new events today</div>' }
       }
     })
   })
@@ -186,7 +185,7 @@ const today_new_jobs = await getdata('today_new_jobs_data')
 const regis_jobs = document.querySelector('.js-regis-jobs');
 
 if(today_new_jobs.length === 0) {
-  regis_jobs.innerHTML = 'No jobs posted today';
+  regis_jobs.innerHTML = '<div class="text-info">No new jobs today</div>';
 }
 else if(today_new_jobs.length > 0) {
   let jobsHtml = '';
@@ -222,7 +221,7 @@ else if(today_new_jobs.length > 0) {
         if(jobelement) jobelement.remove();
         if(removejob) removejob.remove();
         if(regis_jobs.innerHTML.trim() === '') {
-          regis_jobs.innerHTML = 'No jobs posted today' }
+          regis_jobs.innerHTML = '<div class="text-info">No new jobs today</div>' }
       }
     })
   })

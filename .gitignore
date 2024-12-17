@@ -2,3 +2,4 @@
 /node_modules
 protected/protected-scripts/config.js
 public/script/config.js
+admin_console/scripts/config.js
