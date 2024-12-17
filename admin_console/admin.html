@@ -12,13 +12,7 @@
   </head>
   <body class="general-dashboard">
     <div class="bottom-box">
-      <div class="menu">
-        <img class="college-logo" src="/images/logo.png">
-        <a href="/admin" class="nav js-admin-page">Admin</a>
-        <a href="/admin/manage_users" class="nav js-users-page">Manage Users</a>
-        <a href="/admin/manage_events" class="nav js-events-page">Manage Events</a>
-        <a href="/admin/manage_jobs" class="nav js-jobs-page">Manage Jobs</a>
-      </div>
+      <div class="menu js-menu"></div>
       <div class="admin-welcome-page">
         <div class="upper-div">
           <div class="welcome-admin-text js-welcome-admin-text">Welcome Admin</div>
@@ -26,12 +20,12 @@
         </div>
         <div class="lower-div">
           <div class="stats-div">
-            <div class="stats js-users-stats">Total Users: 500</div>
-            <div class="stats js-active-users-stats">Active Users: 500</div>
-            <div class="stats js-events-stats">Total Events: 500</div>
-            <div class="stats js-today-events-stats">Events posted today: 500</div>
-            <div class="stats js-job-stats">Total Jobs: 500</div>
-            <div class="stats js-today-job-stats">Jobs posted today: 500</div>
+            <div class="stats js-users-stats"></div>
+            <div class="stats js-active-users-stats"></div>
+            <div class="stats js-events-stats"></div>
+            <div class="stats js-today-events-stats"></div>
+            <div class="stats js-jobs-stats"></div>
+            <div class="stats js-today-job-stats"></div>
           </div>
           <div class="today-stats">
             <div class="stat-info">
@@ -54,6 +48,7 @@
         </div>
       </div>
     </div>
-    <script type="module" src="/admin_console/scripts/admin.js"></script>
+    <script type="module" src="/scripts/nav.js"></script>
+    <script type="module" src="/scripts/admin.js"></script>
   </body>
 </html>
