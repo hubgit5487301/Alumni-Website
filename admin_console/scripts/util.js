@@ -279,7 +279,7 @@ export async function search(input1, input2, address) {
     <div class="revoke-button js-remove-button" remove-button="${user.userid}">Remove</div>`
   });}
   else {
-    search_html += `<div class="no-input">No user found with provided paramenters</div>`
+    search_html += `<div class="no-input">No user found with provided parameters</div>`
   }
   search_result.innerHTML = search_html;
 }

@@ -269,7 +269,7 @@ export async function search(type, input1, input2, input3, address, branch) {
     search_html += `<div class="file js-file" id="${data._id}"><div>${data.name}</div></div>`
   });}
   else {
-    search_html += `<div class="no-input">No file found with provided paramenters</div>`
+    search_html += `<div class="no-input">No file found with provided parameters</div>`
   }
   search_result.innerHTML = search_html;
   const file_button = document.querySelectorAll('.js-file');

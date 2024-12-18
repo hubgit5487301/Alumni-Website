@@ -185,7 +185,8 @@ router.get('/search_users', async (req, res) => {
       const query = req.query;
       const result = await user.find({
         personname: { $regex: `^${query.personname}`, $options: 'i' },
-        userid: {$regex: `^${query.userid}`,  $options: 'i'}
+        userid: {$regex: `^${query.userid}`,  $options: 'i'},
+        usertype: {$ne: 'admin'}
       }, {userid: 1, personname: 1, usertype: 1, personimage: 1})
       return res.status(200).json(result); 
     }
