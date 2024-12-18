@@ -266,4 +266,34 @@ router.get('/search_events', async (req, res) => {
   }
 });
 
+router.get('/jobs', async(req, res) => {
+  try{
+    const jobs = await job.find({}, {job_tittle: 1, job_company_name: 1, job_company_logo: 1, job_deadline: 1, job_type: 1, job_level: 1}).sort({job_deadline: 1});
+    res.status(200).json(jobs);
+  }
+  catch(err) {
+    console.log(err);
+  }
+})
+
+router.get(`/search_jobs`, async (req, res) => {
+  const {jobname, company } = req.query;
+  try{
+    const results = await job.find(
+      { job_tittle: { $regex: `^${jobname}`, $options: 'i' },
+        job_company_name: { $regex: `^${company}`, $options: 'i' }
+      },
+      {job_tittle: 1, job_company_name: 1, job_level: 1, job_type: 1, job_deadline: 1, job_company_logo: 1});
+    if(results.length === 0) {
+      return res.status(200).json([]);
+    }
+    return res.status(200).json(results);
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'})
+  }
+})
+
+
 module.exports = router;

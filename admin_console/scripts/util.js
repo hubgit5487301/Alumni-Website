@@ -318,3 +318,40 @@ export async function event_search(input1, input2, address) {
   }
   search_result.innerHTML = search_html;
 }
+
+
+export async function job_search(input1, input2, address) {
+  const jobname = document.querySelector(input1).value;
+  const company= document.querySelector(input2).value;
+  let search_html = '';
+  const query = new URLSearchParams({
+      jobname, company
+    });
+  const search_result = document.querySelector('.js-list-search-jobs');
+  if(!jobname && !company) {
+    search_result.style.display= 'grid';
+    search_html += `<div class="no-input">Please provide at least one parameter</div>`
+    search_result.innerHTML = search_html;
+    return;
+  }
+  const search_data = await getdataonevent(`${address}?${query}`);
+  if(search_data.length > 0) {
+    search_result.style.display= 'grid';
+    search_data.forEach(job => {
+      search_html += `
+    <div class="data js-job-data" job-id="${job._id}">
+      <img class="image" src="${job.job_company_logo}">
+      <div class="name">${job.job_tittle}
+      </div>
+      <div class="name">${job.job_company_name}
+      </div>
+      <div class="name">${formatjobdate(job.job_deadline)}
+      </div>
+    </div>
+    <div class="revoke-button js-remove-button" remove-button="${job._id}">Remove</div>`
+  });}
+  else {
+    search_html += `<div class="no-input">No job found with provided parameters</div>`
+  }
+  search_result.innerHTML = search_html;
+}
