@@ -33,16 +33,6 @@ router.get('/manage_events', (req, res) => {
 res.sendFile(path.join(__dirname, '..', '..', 'admin_console', 'events.html'))
 })
 
-router.get('/users', async (req, res) => {
-  const usertype = req.user.usertype;
-  try{
-    console.log(usertype)
-  }
-  catch(err) {
-    console.log(err);
-    res.status(500).json({error: 'internal server error'})
-  }
-})
 
 router.get('/get_stats', async (req, res) => {
   try{
@@ -193,7 +183,6 @@ router.get('/search_users', async (req, res) => {
   try{
     if(req.user.usertype === 'admin') {
       const query = req.query;
-      console.log(query);
       const result = await user.find({
         personname: { $regex: `^${query.personname}`, $options: 'i' },
         userid: {$regex: `^${query.userid}`,  $options: 'i'}
@@ -203,6 +192,33 @@ router.get('/search_users', async (req, res) => {
 
   }
   catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
+router.get('/users', async (req,res) => {
+  try {
+    const users = await user.find({}, {userid: 1, personname: 1, personimage: 1, usertype: 1 }).sort({personname: 1});
+    const filteredUsers = users.filter(user => user.usertype !== 'admin');
+    res.status(200).json(filteredUsers);
+  }
+  catch (err){
+    console.log(err);
+    res.status(500).json({error: 'Error getting users',err})
+  }
+})
+
+router.patch('/set_admin', async (req, res) => {
+  try{
+    if(req.user.usertype === 'admin') {
+      const userid = req.query.userid;
+      await user.updateOne({userid: userid},{
+        $set: {usertype: 'admin'}
+      })
+      return res.status(200).json({message: 'made admin'});
+    }
+  }catch (err){
     console.log(err);
     res.status(500).json({error: 'internal server error'})
   }

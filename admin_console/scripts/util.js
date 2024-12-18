@@ -255,23 +255,28 @@ export async function search(input1, input2, address) {
   const query = new URLSearchParams({
       personname, userid
     });
-  const search_result = document.querySelector('.js-list-users');
+  const search_result = document.querySelector('.js-list-search-users');
   if(!personname && !userid) {
-    search_result.style.justifyItems= 'center';
+    search_result.style.justifyItems= 'center'
     search_html += `<div class="no-input">Please provide at least one parameter</div>`
     search_result.innerHTML = search_html;
     return;
   }
   const search_data = await getdataonevent(`${address}?${query}`);
-  console.log(search_data)
   if(search_data.length > 0) {
-  search_data.forEach(data => {
+  search_data.forEach(user => {
     search_html += `
-    <div class="user js-user" id="${data.userid}">
-      <div>${data.personname}</div>
-      <div>${data.userid}</div>
-      <
-      </div>`
+    <div class="data js-user-data" user-id="${user.userid}">
+      <img class="image" src="${user.personimage}">
+      <div class="name">${user.userid}
+      </div>
+      <div class="name">${user.personname}
+      </div>
+      <div class="name">${user.usertype}
+      </div>
+    </div>
+    <div class="set-admin js-set-admin" user-admin="${user.userid}">Make Admin</div>
+    <div class="revoke-button js-remove-button" remove-button="${user.userid}">Remove</div>`
   });}
   else {
     search_html += `<div class="no-input">No user found with provided paramenters</div>`
