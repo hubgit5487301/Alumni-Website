@@ -1,4 +1,4 @@
-import {search, getdataonevent as getdata, deletedataonevent as deletedata, updatedataonevent as patchdata} from './util.js'
+import {user_search as search, getdataonevent as getdata, deletedataonevent as deletedata, updatedataonevent as patchdata} from './util.js'
 
 const list_users = document.querySelector('.js-list-users');
 
@@ -25,9 +25,6 @@ else if(all_users.length > 0) {
     <div class="revoke-button js-remove-button" remove-button="${user.userid}">Remove</div>`    
   });
   list_users.innerHTML = userHtml;
-
-  
-
       
   const search_button = document.querySelector('.js-search-button');
   search_button.addEventListener('click', () => {

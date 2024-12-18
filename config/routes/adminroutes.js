@@ -225,4 +225,45 @@ router.patch('/set_admin', async (req, res) => {
   }
 })
 
+router.get('/events', async (req, res) =>{
+  try{
+    const send_events = await events.find({}, {name: 1, date:1, event_logo:1 }).sort({ date:1});
+    res.status(200).json(send_events) ;
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'error getting events',err});
+  }
+})
+
+router.get('/search_events', async (req, res) => {
+  let {eventname, date} = req.query;
+  let results;
+  try{
+  if(date && !isNaN(Date.parse(date))) {
+  const startDate = new Date(date + 'T00:00:00'); 
+  const endDate = new Date(date + 'T23:59:59');  
+  results = await events.find({
+      name: { $regex: `^${eventname}`, $options: 'i' },
+      date: { $gte: startDate, $lte: endDate}}, 
+      {name: 1, date:1, event_logo:1 }
+    );}
+    else {
+      results = await events.find({
+        name: { $regex: `^${eventname}`, $options: 'i' }}, 
+        {name: 1, date:1, event_logo:1 }
+      );}
+    
+
+  if(results.length === 0){
+    return res.status(200).json([]);
+  }
+  res.status(200).json(results);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal servor error'});
+  }
+});
+
 module.exports = router;

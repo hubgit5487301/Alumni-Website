@@ -248,7 +248,7 @@ export async function download_search_file(file_button, address) {
       })
 }
 
-export async function search(input1, input2, address) {
+export async function user_search(input1, input2, address) {
   const personname = document.querySelector(input1).value;
   const userid= document.querySelector(input2).value;
   let search_html = '';
@@ -280,6 +280,41 @@ export async function search(input1, input2, address) {
   });}
   else {
     search_html += `<div class="no-input">No user found with provided parameters</div>`
+  }
+  search_result.innerHTML = search_html;
+}
+
+
+export async function event_search(input1, input2, address) {
+  const eventname = document.querySelector(input1).value;
+  const date= document.querySelector(input2).value;
+  let search_html = '';
+  const query = new URLSearchParams({
+      eventname, date
+    });
+  const search_result = document.querySelector('.js-list-search-events');
+  if(!eventname && !date) {
+    search_result.style.display= 'grid';
+    search_html += `<div class="no-input">Please provide at least one parameter</div>`
+    search_result.innerHTML = search_html;
+    return;
+  }
+  const search_data = await getdataonevent(`${address}?${query}`);
+  if(search_data.length > 0) {
+    search_result.style.display= 'grid';
+    search_data.forEach(event => {
+      search_html += `
+      <div class="data js-event-data" event-id="${event._id}">
+        <img class="image" src="${event.event_logo}">
+        <div class="name">${event.name}
+        </div>
+        <div class="name">${formatEventDate(event.date)}
+        </div>
+      </div>
+      <div class="revoke-button js-remove-button" remove-button="${event._id}">Remove</div>`
+  });}
+  else {
+    search_html += `<div class="no-input">No event found with provided parameters</div>`
   }
   search_result.innerHTML = search_html;
 }
