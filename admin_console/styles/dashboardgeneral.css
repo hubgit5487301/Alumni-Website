@@ -119,7 +119,9 @@ input,textarea,select {
   padding: 1vw;
 }
 
-
+label {
+  font-size: 1vw;
+}
 
 
 
@@ -326,6 +328,7 @@ input,textarea,select {
 .input-default {
   display: flex;
   flex: 1;
+  font-size: 1vw;
   background-color: rgb(59, 59, 59);
   outline: none;
   border-color: rgb(59, 59, 59);
