@@ -32,6 +32,7 @@ input,textarea,select {
   padding: 1.5vw;
   min-height: 27.5vw;
   gap: 1vw;
+  backdrop-filter: blur(8px);
 }
 
 .menu {

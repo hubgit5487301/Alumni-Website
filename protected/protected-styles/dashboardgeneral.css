@@ -35,6 +35,7 @@ input,textarea,select {
   padding: 1.5vw 1.5vw 1.5vw 1.5vw;
   margin-bottom: 1.5vw;
   min-height: 27.5vw;
+  backdrop-filter: blur(8px);
 }
 
 .bottom-first-box {

@@ -12,6 +12,7 @@
   left: 1vw;
   right: 1vw;
   top: 0.3vw;
+  backdrop-filter: blur(8px);
 }
 
 .left-content {
@@ -268,6 +269,7 @@
   padding: 1.5vw;
   margin-bottom: 1vw;
   align-items: center;
+  backdrop-filter: blur(8px);
 }
 
 .footer-right-content {
