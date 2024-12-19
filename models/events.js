@@ -6,6 +6,7 @@ const appliSchema = new mongoose.Schema({
 })
 
 const EventSchema = new mongoose.Schema({
+  userid: {type: String, required: true},
   name: {type: String, required: true},
   date: {type: Date, required: true},
   location: {type: String, required: true},

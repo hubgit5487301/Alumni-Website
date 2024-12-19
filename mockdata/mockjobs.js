@@ -86,6 +86,7 @@ async function generateMockData() {
 
   
   const mockJobs = Array.from({ length: 5 }, () => ({
+    userid: '248650',
     job_tittle: faker.person.jobTitle(),
     job_location: faker.location.city(),
     job_salary: faker.finance.amount(300000, 1000000, 5000, '₹'),

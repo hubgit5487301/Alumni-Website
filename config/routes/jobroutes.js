@@ -13,9 +13,11 @@ router.get('/job-directory', (req, res) => {
 router.post('/submit-job', async (req, res) => {
   try{
     const { job_tittle, job_location, job_salary, job_type, job_level, job_des,
-      job_edu, job_exp_level, job_deadline, job_app_email, job_resume,job_company_name, job_company_website, job_company_des, job_contact_info, job_company_logo,userid } = req.body;
+      job_edu, job_exp_level, job_deadline, job_app_email, job_resume,job_company_name, job_company_website, job_company_des, job_contact_info, job_company_logo } = req.body;
+      const userid = req.user.userid;
     const new_job_company_logo = await resizeimage(job_company_logo, 70, 'webp', 200000)
     const new_job = new job({
+      userid,
       job_tittle, 
       job_location, 
       job_salary: job_salary || "Not mentioned",
@@ -84,8 +86,6 @@ router.get(`/job-search`, async (req, res) => {
     return res.status(500).json({error: 'internal server error'})
   }
 })
-
-
 
 router.get(`/job/:job_id`, async(req, res) => {
   try{

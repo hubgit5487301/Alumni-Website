@@ -142,6 +142,12 @@ router.delete('/remove_event', async (req, res) => {
   try {
     const _id = req.query._id;
     if(req.user.usertype === 'admin') {
+      const data = await events.findOne({_id:_id},{userid: 1});
+      const userid = data.userid;
+
+      await user.updateOne(
+        {userid: userid},
+        {$pull: {"data.event_ids": {event_id: _id}}})
       await events.deleteOne({_id:_id});
       return res.status(200).json({message: 'event deleted'})
     }
@@ -168,9 +174,16 @@ router.get('/today_new_jobs_data', async (req, res) => {
 router.delete('/remove_job', async (req, res) => {
   try {
     const _id = req.query._id;
+    const data = await job.findOne({_id:_id},{userid: 1});
+    const userid = data.userid;
+    
     if(req.user.usertype === 'admin') {
+      await user.updateOne(
+        {userid: userid},
+        {$pull: {"data.job_ids": {job_id: _id}}})
+
       await job.deleteOne({_id:_id});
-      return res.status(200).json({message: 'job deleted'})
+      return res.status(200).json({message: 'job deleted'});
     }
   }
   catch(err) {

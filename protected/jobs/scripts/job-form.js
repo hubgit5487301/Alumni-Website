@@ -60,9 +60,7 @@ document.querySelector('.js-submit-button').addEventListener('click', async (e) 
     return;
   }
 
-  const data = await getuseridonsubmit('/my-userid');
-  const userid = data.userid; 
-  const jobdata = ({userid,
+  const jobdata = ({
     job_tittle, job_location, job_salary, job_type, job_level, job_des,
     job_edu, job_exp_level,
     job_deadline, job_app_email, job_resume,

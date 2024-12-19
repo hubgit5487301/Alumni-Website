@@ -6,6 +6,7 @@ const appliSchema = new mongoose.Schema({
 
 
 const jobSchema = new mongoose.Schema({
+  userid: {type: String, required: true},
   job_tittle: {type: String, required: true},
   job_location: {type: String, required: true},
   job_salary: {type: String, defualt: "Not mentioned"},
