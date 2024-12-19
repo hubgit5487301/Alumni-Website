@@ -26,7 +26,7 @@ else if(all_jobs.length > 0) {
       
   const search_button = document.querySelector('.js-search-button');
   search_button.addEventListener('click', () => {
-    search('.js-search-jobname','.js-search-date','/search_jobs');
+    search('.js-search-jobname','.js-search-company','/search_jobs');
   })
   const search_jobname = document.querySelector('.js-search-jobname');
 

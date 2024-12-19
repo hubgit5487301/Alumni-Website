@@ -9,8 +9,8 @@
   padding-bottom: 0.5vw;
   position: fixed;
   z-index: 100;
-  left: 4vw;
-  right: 4vw;
+  left: 1vw;
+  right: 1vw;
   top: 0.3vw;
   backdrop-filter: blur(8px);
 }

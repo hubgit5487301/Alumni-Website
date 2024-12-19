@@ -41,8 +41,8 @@
 }
 
 .job-data {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr;
   gap: 1vw;
 }
 
@@ -51,7 +51,7 @@
   grid-template-columns: 8fr 1fr;
   text-align: center;
   font-size: 1vw;
-  height: 30vw;
+  height: max-content;
   overflow-y: scroll;
   padding: 1vw;
   gap: 1vw;
