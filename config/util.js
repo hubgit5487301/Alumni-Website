@@ -88,9 +88,12 @@ async function generatetoken(userid) {
     const token = crypto.randomBytes(16).toString('hex');
     const newverificationtoken = new verificationtoken({
       userId: userid,
-      token: token
+      token: token,
+      createdAt: Date.now(),
     });
-    await newverificationtoken.save();
+    console.log(newverificationtoken);
+    const result = await newverificationtoken.save();
+    console.log(result)
     return token;
   }
   catch(err) {
