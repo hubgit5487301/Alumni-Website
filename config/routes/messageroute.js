@@ -13,7 +13,8 @@ router.post(`/send-message`, async (req, res) => {
   try {
     const {name, email, message} = req.body;
     const transporter = nodemailer.createTransport({
-      service: service,
+      host: service,
+      port: 465,
       auth: {
         user: user,
         pass: pass,
@@ -21,7 +22,7 @@ router.post(`/send-message`, async (req, res) => {
     })
 
     const mailoption = {
-      from: email,
+      from: user,
       to: user,
       subject: name,
       text: message,
