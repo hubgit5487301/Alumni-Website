@@ -122,7 +122,7 @@ else if(today_new_users.length > 0) {
           const removeelement = document.querySelector(`.revoke-button.js-remove-button[remove-button="${userid}"]`);
           if(userelement) userelement.remove();
           if(removeelement) removeelement.remove();
-          if(regisHtml.innerHTML.trim() === '')
+          if(regis_users.innerHTML.trim() === '')
           regis_users.innerHTML = `<div class="text-info">No new users today</div>`
         }
       }

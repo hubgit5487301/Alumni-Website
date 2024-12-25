@@ -249,6 +249,7 @@ export async function download_search_file(file_button, address) {
 }
 
 export async function user_search(input1, input2, address) {
+  console.log('hi');
   const personname = document.querySelector(input1).value;
   const userid= document.querySelector(input2).value;
   let search_html = '';
@@ -263,6 +264,7 @@ export async function user_search(input1, input2, address) {
     return;
   }
   const search_data = await getdataonevent(`${address}?${query}`);
+  console.log(search_data);
   if(search_data.length > 0) {
   search_data.forEach(user => {
     search_html += `
@@ -285,6 +287,7 @@ export async function user_search(input1, input2, address) {
 }
 
 
+
 export async function event_search(input1, input2, address) {
   const eventname = document.querySelector(input1).value;
   const date= document.querySelector(input2).value;
@@ -295,6 +298,7 @@ export async function event_search(input1, input2, address) {
   const search_result = document.querySelector('.js-list-search-events');
   if(!eventname && !date) {
     search_result.style.display= 'grid';
+    search_result.style.gridTemplateColumns= '1fr';
     search_html += `<div class="no-input">Please provide at least one parameter</div>`
     search_result.innerHTML = search_html;
     return;
@@ -314,7 +318,9 @@ export async function event_search(input1, input2, address) {
       <div class="revoke-button js-remove-button" remove-button="${event._id}">Remove</div>`
   });}
   else {
-    search_html += `<div class="no-input">No event found with provided parameters</div>`
+    search_result.style.display= 'grid';
+    search_result.style.gridTemplateColumns= '1fr';
+    search_html = `<div class="no-input">No event found with provided parameters</div>`
   }
   search_result.innerHTML = search_html;
 }
@@ -330,6 +336,7 @@ export async function job_search(input1, input2, address) {
   const search_result = document.querySelector('.js-list-search-jobs');
   if(!jobname && !company) {
     search_result.style.display= 'grid';
+    search_result.style.gridTemplateColumns= '1fr';
     search_html += `<div class="no-input">Please provide at least one parameter</div>`
     search_result.innerHTML = search_html;
     return;
@@ -351,7 +358,9 @@ export async function job_search(input1, input2, address) {
     <div class="revoke-button js-remove-button" remove-button="${job._id}">Remove</div>`
   });}
   else {
-    search_html += `<div class="no-input">No job found with provided parameters</div>`
+    search_result.style.display= 'grid';
+    search_result.style.gridTemplateColumns= '1fr';
+    search_html = `<div class="no-input">No job found with provided parameters</div>`
   }
   search_result.innerHTML = search_html;
 }
