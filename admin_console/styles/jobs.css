@@ -50,7 +50,7 @@
   grid-template-columns: 8fr 1fr;
   text-align: center;
   font-size: 1vw;
-  height: auto;
+  max-height: 30vw;
   overflow-y: scroll;
   padding: 1vw;
   gap: 1vw;
@@ -69,7 +69,7 @@
   grid-template-columns: 8fr 1fr;
   text-align: center;
   font-size: 1vw;
-  height: 20vw;
+  max-height: 30vw;
   overflow-y: scroll;
   padding: 1vw;
   gap: 1vw;
