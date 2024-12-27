@@ -1,60 +1,38 @@
-import { API_BASE_URL } from "./config.js";
-//import { darkMode} from "/script/util.js";
-let headerhtml = `
-          <div class="left-content">
-              <a href="/dashboard" class="home-link">
-                <button class="home-button">
-                  <img src="/images/logo.webp" class="logo-icon">
-                  Alumni Portal</button> 
-              </a>
-            </div>
-            <div class="middle-content">
-              <a class="dashlink" href="/dashboard">
-                <img class="home-icon js-nav-icon" src="/images/home.svg">
-                <div class="tooltip">Dashboard</div></a>
-              <a class="serviceslink" href="/services">
-                <img class="services-icon js-services-icon" src="/images/services.svg">
-                <div class="tooltip">Services</div></a>
-              <a class="alumnilink" href="/alumni-directory">
-                <img class="friends-icon js-nav-icon" src="/images/friends.svg">
-                <div class="tooltip">ALumni directory</div></a>
-              <a class="eventlink" href="/event-directory">
-                <img class="events-icon js-nav-icon" src="/images/events.svg">
-                <div class="tooltip">Event directory</div></a>
-              <a class="joblink" href="/job-directory">
-                <img class="job-icon js-nav-icon" src="/images/job.svg">
-                <div class="tooltip">Career services</div></a>
-              <a class="contactlink" href="/contact-us">
-                <img class="contact-us-icon js-nav-icon" src="/images/contact-us.svg">
-                <div class="tooltip">Contact us</div></a>
-            </div>
-          <div class="right-content">
-            <a class="login-link" href="login">
-              <p class="Hi js-Hi" >Login</p></a>
-          </div>
-        ` ;
+document.querySelector('nav').innerHTML = `
+  <li><a href="/dashboard"><img src="/images/logo.webp">Alumni-Portal</a></li>
+  <li class="hideonmobile"><a href="/dashboard">Dashboard</a></li>
+  <li class="hideonmobile"><a href="/services">Services</a></li>
+  <li class="hideonmobile"><a href="/protected/alumni-directory">Users</a></li>
+  <li class="hideonmobile"><a href="/protected/event-directory">Events</a></li>
+  <li class="hideonmobile"><a href="/protected/job-directory">Jobs</a></li>
+  <li class=""><a href="/login">Login</a></li>
+  <li class=""><a href="/registration-form">SignUp</a></li>
+  <li class="menu-button"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+`;
 
-document.querySelector('.js-top-box').innerHTML = headerhtml;
+document.querySelector('aside').innerHTML = `
+    <li><a href="/dashboard"><img src="/images/logo.webp"></a></li>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/protected/services">Services</a></li>
+    <li><a href="/protected/alumni-directory">Users</a></li>
+    <li><a href="/protected/event-directory">Events</a></li>
+    <li><a href="/protected/job-directory">Jobs</a></li>
+    <li class="close-button"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>`
 
-const footerhtml =
-      `
-            <div class="footer-left-content">
-                <p>Copyright <span>&#169;</span> 2024</p>
-            </div>
-            <div class="footer-middle-content">
-              <div class="social-links">
-                <a href="http://www.linkedin.com/company/ietagra/?originalSubdomain=in" >
-                <img class="social-icon" src="images/linkedin.svg" alt="linkedin"></a>
-                <a href="http://www.instagram.com/iet_khandari_agra_official/" >
-                <img class="social-icon" src="images/instagram.svg" alt="linkedin"></a>
-                <a href="http://www.facebook.com/IETDBRAUAGRA/" >
-                <img class="social-icon" src="images/facebook.svg" alt="linkedin"></a>
-                <!--<button class='dark-mode-button js-dark-mode-button'>mode</button>-->
-              </div>
-            </div>
-            <div class="footer-right-content">
-              <a class="footer-policy" href="">Terms | Privacy Policy</a>
-            </div> `
-        
-document.querySelector('.js-bottom').innerHTML = footerhtml;
+document.querySelector('footer').innerHTML = `
+      <li><a href="#">Copyright <span>&#169;</span> 2024</a></li>
+      <div>
+        <li><a href="http://www.linkedin.com/company/ietagra/?originalSubdomain=in"><img src="/images/linkedin.svg"></a></li>
+        <li><a href="http://www.instagram.com/iet_khandari_agra_official/"><img src="/images/instagram.svg"></a></li>
+        <li><a href="http://www.facebook.com/IETDBRAUAGRA/"><img src="/images/facebook.svg"></a></li></div>
+      <li><a href="#">Terms | Privacy Policy</a></li>
+    `
 
+
+document.querySelector('.menu-button').addEventListener('click', () => {
+  document.querySelector('aside').style.display = 'block';
+})
+
+document.querySelector('.close-button').addEventListener('click', ()=> {
+  document.querySelector('aside').style.display = 'none'
+})

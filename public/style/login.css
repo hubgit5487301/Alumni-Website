@@ -1,128 +1,112 @@
-.left-box {
+main{
     display: flex;
-    flex: 1;
-    flex-flow: column;
-    background-color: transparent;
-    border: none;
-    border-radius: 10px;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    transition: 0.15s;
 }
 
-.login-form {
-    display: grid;
-    align-items: center;
+main a{
+    text-decoration: none;
+    color: black;
 }
 
-.left-box-content {
+main a:hover {
+    text-decoration: underline;
+}
+
+.wrapper {
+    padding: 25px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.315);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
-
-.username-box,.password-box {
-    font-size: 1vw;
-    border: none;
-    outline: none;
-    border-radius: 4px;
-    background-color: rgb(59, 59, 59);
-    padding: 0.5vw;
+form a {
+    align-self: center;
+    margin-top: 8px;
 }
 
-.username-box {
-    text-transform: uppercase;
+.wrapper p {
+    margin-bottom: 50px;
+    font-weight: bolder;
+    font-size: 3em;
+    text-align: center;
 }
 
-.username-box::placeholder {
-    text-transform: none;
-}
-
-.header {
-    background-color: rgb(59, 59, 59,0.663);
+form button {
+    margin-top: 30px;
+    padding: 5px 0;
+    background-color: rgb(52, 156, 225);
+    border: solid;
+    border-color: rgb(52, 156, 225);
+    color: white;
     border-radius: 8px;
-    padding: 0.5vw;
-    box-shadow: 0px 9px 20px 0px rgba(20, 20, 20);
+    cursor: pointer;
+    transition: 0.15s;
+    font-size: 15px;
+    width: 100px;
+    align-self: center;
 }
 
-.text1 {
-    font-size: 1.4vw;
+form button:hover {
+    opacity: 0.8;
 }
 
-.text3,.text2 {
-    font-size: 1vw;
-}
-
-.username-box::placeholder,.password-box::placeholder {
+form button:active {
     opacity: 0.5;
 }
 
-.forgot-password-button {
-    margin-top: 0.3vw;
-    border-radius: 4px;
-    border: none;
-    background: transparent;
-    font-size: 10px;
-    font-size: 1vw;
-    cursor: pointer;
-    padding: 0%;
-    text-align: center;
-    text-decoration: none;
-}
-
-.forgot-password-button:hover {
-    text-decoration: underline;
-}
-
-.login-button {
-    margin-top: 1vw;
+input {
+    height: 30px;
+    width: 250px;
+    align-self: center;
+    outline: none;
     border-radius: 10px;
-    border: none;
-    background-color: rgb(21, 101, 221);
-    color: white;
+    border: solid;
+    border-color: white;
+    padding-left: 10px;
+}
+
+.input-user-id {
+    text-transform: uppercase;
+}
+
+.input-user-id::placeholder {
+    text-transform: none;
+}
+
+label {
+    margin-top: 8px;
+    margin-bottom: 5px;
     font-weight: bold;
-    padding: 0.3vw 1vw;
-    font-size: 1.2vw ;
-    box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-    transition: 0.15s;
-    cursor: pointer;
 }
 
-.login-button:hover {
-    transform: scale(1.08);
-    box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
+form span {
+    margin-top: 8px;
+    align-self: center;
 }
-
-.login-button:active {
-    transform: scale(1);
-    opacity: 0.8;
-    box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
-}
-
-.register-account {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3vw;
-}
-
-.text4 {
-    font-size: 1vw;
-}
-
-.register-button {
-    padding: 0;
-    margin: 0;
-    max-width: 4.5vw;
-    background-color: transparent;
-    border: none;
-    font-size:1vw ;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.register-button:hover {
-    text-decoration: underline;
+@media(max-width:412px) {
+    .wrapper {
+        height: calc(100vh - 211.2px);
+    }
+    .wrapper p {
+        margin: 0;
+    }
+    input, label {
+        width: 80vw;
+        align-self: center;
+        margin-bottom: 5px;
+    }
 }
