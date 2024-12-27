@@ -1,106 +1,113 @@
-
-.top-text {
-  align-self: center;
-  background-color: rgba(46, 45, 45, 0.604);
-  box-shadow: rgba(20, 20, 20, 0.663) 0px 18px 16px 0px;
-  padding: 1vw 2vw;
-  font-size: 1.8vw;
-  border-radius: 5px;
+main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.input-form {
-  justify-items: center;
+main a{
+  text-decoration: none;
+  color: black;
+}
+
+main a:hover {
+  text-decoration: underline;
+}
+
+.wrapper {
+  padding: 25px 100px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.315);
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form {
   display: flex;
   flex-direction: column;
-  gap: 1.5vw;
-  padding: 2vw;
+  align-items: flex-start;
 }
 
-.profile-input {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5vw;
+form a {
+  align-self: center;
+  margin-top: 8px;
 }
 
-label {
-  font-size: 1vw;
+.wrapper p {
+  margin: 0;
+  font-weight: bolder;
+  font-size: 3em;
+  text-align: center;
 }
 
-.js-userid {
+form button {
+  margin-top: 30px;
+  padding: 5px 0;
+  background-color: rgb(52, 156, 225);
+  border: solid;
+  border-color: rgb(52, 156, 225);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.15s;
+  font-size: 15px;
+  width: 100px;
+  align-self: center;
+}
+
+form button:hover {
+  opacity: 0.8;
+}
+
+form button:active {
+  opacity: 0.5;
+}
+
+input {
+  height: 30px;
+  width: 250px;
+  align-self: center;
+  outline: none;
+  border-radius: 10px;
+  border: solid;
+  border-color: white;
+  padding-left: 10px;
+}
+
+.input-user-id {
   text-transform: uppercase;
 }
 
-.js-userid::placeholder {
+.input-user-id::placeholder {
   text-transform: none;
 }
 
-
-.submit-button {
-  border: none;
-  color: white;
-  font-size: 1vw;
-  padding: 0.4vw;
-  padding-inline: 5vw;
-  border-radius: 10px;  
-  background-color: rgb(21, 101, 221);
+label {
+  margin-top: 8px;
+  margin-bottom: 5px;
   font-weight: bold;
-  font-size:1.5vw ;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.15s;
-  cursor: pointer;
-}
-.submit-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
 }
 
-.submit-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+form span {
+  margin-top: 8px;
+  align-self: center;
 }
-
-.about-you,.education,.current-role,.experience,.contact-info {
-  height: 2.8vw;
-  resize: none;
-  padding: 0.5vw;
-  outline: none;
-  background-color: rgb(59, 59, 59);
-  border: 1.5px solid rgb(59, 59, 59);
-  border-radius: 5px;
-}
-
-
-
-.pic-input {
-  border-radius: 8px;
-  padding: 0.5vw 0.8vw;
-  padding: 1.1vw;
-}
-
-.pic-input::-webkit-file-upload-button {
-  color: white;
-  background-color: rgb(21, 101, 221);
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.15s;
-  font-size: 1.1vw;
-}
-
-.pic-input::-webkit-file-upload-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
-}
-
-.pic-input::-webkit-file-upload-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
-}
-
-
-.input {
-  display: none;
+@media(max-width:412px) {
+  .wrapper {
+      height: calc(100vh - 211.2px);
+      padding: 25px;
+  }
+  .wrapper p {
+      margin: 0;
+  }
+  input, label {
+      width: 80vw;
+      align-self: center;
+      margin-bottom: 5px;
+  }
 }

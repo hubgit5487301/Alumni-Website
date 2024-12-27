@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputCheck,isValidUserid, isValidEmail} from '/script/util.js';
+import { passwordMatchcheck, inputCheck,isValidUserid, isValidEmail} from '/script/util.js';
   
   document.querySelector('.js-submit-button').addEventListener('click', (event) => {
     event.preventDefault();
@@ -29,26 +29,19 @@ import { changefieldcolor,changefieldcolordefault, passwordMatchcheck, inputChec
       }
     
     if(!isValidUserid(userid)) {
-      changefieldcolor(document.querySelector('.js-userid'));
       alert('Userid is not valid enter your college roll no of format 21cse__');
       return;
     }
 
-    if(!isValidEmail(email)) {
-      changefieldcolor(document.querySelector('.js-email'));
-      alert('Enter a valid email');
+    if(!isValidEmail()) {
+      alert('Invalid Email');
       return;
     }
-
 
     let check = passwordMatchcheck(password, renterpassword, '.js-password-recheck');
     if(check === false)
     {
       return;
-    }
-    else if (check === true)
-    {
-      changefieldcolordefault(document.querySelector('.js-password-recheck'));
     }
     const storedAlumni= ({
       personname: inputname,

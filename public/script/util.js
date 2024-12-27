@@ -20,15 +20,10 @@ export function inputCheck(fields) {
   let inputcheck = false;
 
   fields.forEach(({ value, selector }) => {
-    const field = document.querySelector(selector);
     if (!value) {
-      changefieldcolor(field);
       inputcheck = true;
-    } else {
-      changefieldcolordefault(field);
-    }
+    } 
   });
-
   return inputcheck;
 }
 
@@ -147,8 +142,7 @@ export async function getdataonevent (address) {
 
 export function passwordMatchcheck (password, renterpassword, input, input2){
   if (password != renterpassword)
-  { changefieldcolor(document.querySelector(input));
-    changefieldcolor(document.querySelector(input2));
+  { 
     alert("Passwords do not match!");
     return false;
   }
