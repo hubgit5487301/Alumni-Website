@@ -101,6 +101,8 @@ form span {
 @media(max-width:412px) {
     .wrapper {
         height: calc(100vh - 211.2px);
+        padding: 2px;
+        padding-bottom: 20px;
     }
     .wrapper p {
         margin: 0;

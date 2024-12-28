@@ -1,4 +1,4 @@
-main{
+main{ 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,6 +25,7 @@ main a:hover {
   justify-content: center;
   flex-direction: column;
   gap: 10px;
+  
 }
 
 form {
@@ -99,16 +100,30 @@ form span {
   align-self: center;
 }
 @media(max-width:412px) {
+}
+
+@media(width <= 450px) {
+  main {
+    display: inline-block;
+  }
   .wrapper {
-      height: calc(100vh - 211.2px);
-      padding: 25px;
+    height: calc(100vh - 211.2px);
+    padding: 10px;
   }
   .wrapper p {
-      margin: 0;
+    display: inline-block;
+  }
+  form button {
+    margin: 0;
+    margin-top: 10px;
+  }
+  .wrapper {
+      height: calc(100vh - 211.2px);
+      padding-bottom: 60px;
+      padding-top: 50px;
   }
   input, label {
       width: 80vw;
       align-self: center;
-      margin-bottom: 5px;
   }
 }
