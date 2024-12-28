@@ -51,6 +51,7 @@ form button {
   background-color: rgb(52, 156, 225);
   border: solid;
   border-color: rgb(52, 156, 225);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
   color: white;
   border-radius: 8px;
   cursor: pointer;

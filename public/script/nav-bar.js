@@ -5,7 +5,7 @@ document.querySelector('nav').innerHTML = `
   <li class="hideonmobile"><a href="/protected/alumni-directory">Users</a></li>
   <li class="hideonmobile"><a href="/protected/event-directory">Events</a></li>
   <li class="hideonmobile"><a href="/protected/job-directory">Jobs</a></li>
-  <li class=""><a href="/login">Login</a></li>
+  <li class="login"><a href="/login">Login</a></li>
   <li class=""><a href="/registration-form">SignUp</a></li>
   <li class="menu-button"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
 `;
