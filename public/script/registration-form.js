@@ -33,7 +33,7 @@ import { passwordMatchcheck, inputCheck,isValidUserid, isValidEmail} from '/scri
       return;
     }
 
-    if(!isValidEmail()) {
+    if(!isValidEmail(email)) {
       alert('Invalid Email');
       return;
     }
