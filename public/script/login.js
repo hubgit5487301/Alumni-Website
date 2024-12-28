@@ -22,6 +22,9 @@ if(urlParams.has('alert')) {
   }
 }
 
+document.querySelector('.login').style.display = 'none'
+document.querySelector('.sign-up').style.display = 'block'
+
 document.querySelector('.js-login-button').addEventListener('click', (event) => {
   event.preventDefault();
   const inputuserid = (document.querySelector('.js-userid-box').value).trim();

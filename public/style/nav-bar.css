@@ -72,6 +72,7 @@ nav li:first-child img {
 }
 
 nav li:nth-child(8) a {
+  padding-right: 10px;
   border-radius: 0 0 30px 0 ;
 }
 
