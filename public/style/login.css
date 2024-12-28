@@ -95,7 +95,7 @@ label {
 }
 
 form span {
-    margin-top: 8px;
+    margin-top: 20px;
     align-self: center;
 }
 @media(max-width:412px) {
@@ -105,7 +105,8 @@ form span {
         padding-bottom: 20px;
     }
     .wrapper p {
-        margin: 0;
+        margin-bottom: 10%;
+        padding-inline: 20px;
     }
     input, label {
         width: 80vw;

@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import { inputCheck, changefieldcolor, changefieldcolordefault, passwordMatchcheck } from "./util.js";
+import { inputCheck, passwordMatchcheck } from "./util.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const userid = urlParams.get('userid');
@@ -9,11 +9,10 @@ const submitButton = document.querySelector('.js-submit-button');
 submitButton.addEventListener('click', (e) => {
   submitButton.disabled = true;
   e.preventDefault();
-  const otpinput = document.querySelector('.js-otp-input-box').value;
+  const otpinput = document.querySelector('.js-otp-input-box').value.trim();
   const fields = [{value: otpinput, selector: '.js-otp-input-box'}]
   const isInvalid = inputCheck(fields);
   if(isInvalid) {
-    changefieldcolor(document.querySelector('.js-otp-input-box'))
     submitButton.disabled = false;
     alert('Enter a valid OTP');
     return;
@@ -51,8 +50,6 @@ submitButton.addEventListener('click', (e) => {
       const isInvalid = inputCheck(fields);
   
       if(isInvalid) {
-        changefieldcolor(document.querySelector('.js-passinput-box'));
-        changefieldcolor(document.querySelector('.js-repassinput-box'));
         passbutton.disabled = false;
         alert('Enter new passwords');
         return;
@@ -62,10 +59,6 @@ submitButton.addEventListener('click', (e) => {
       if(check === false) {
         passbutton.disabled = false;
         return;
-      }
-      else if (check === true) {
-        changefieldcolordefault(document.querySelector('.js-passinput-box'));
-        changefieldcolordefault(document.querySelector('.js-repassinput-box'));
       }
 
       const data = ({userid, pass});
