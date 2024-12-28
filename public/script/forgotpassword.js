@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./config.js";
-import {isValidUserid, changefieldcolor} from "./util.js"
+import {isValidUserid} from "./util.js"
 
 
 const submitButton = document.querySelector('.js-submit-button');
@@ -7,14 +7,16 @@ const submitButton = document.querySelector('.js-submit-button');
 submitButton.addEventListener('click', (e) => {
   submitButton.disabled = true;
   e.preventDefault();                    
-  const userid = document.querySelector('.js-user-id-box').value.toUpperCase();
+  const userid_input = document.querySelector('.js-user-id-box');
+  const userid = userid_input.value.toUpperCase();
 
   if(!isValidUserid(userid)) {
-    changefieldcolor(document.querySelector('.js-user-id-box'));
     alert('Userid is not valid enter your college roll no of format 21CSE__');
     submitButton.disabled = false;
     return;
   }
+  
+  submitButton.innerHTML = 'Processing...'
   const data = ({userid});
   fetch(`${API_BASE_URL}/send-otp`, {
     method: 'POST',
@@ -36,7 +38,7 @@ submitButton.addEventListener('click', (e) => {
     }
     else if(data.message === 'User not found') {
       alert('User does not exist');
-      location.reload();
+      userid_input.value = '';
     }
 
   })

@@ -133,7 +133,6 @@ router.post('/verify-otp-input', async (req, res) => {
     }
     const otp = parseInt(result.data.otp);
     if ((new Date(result.createdAt).getTime() + 10 * 60 * 1000) < Date.now()) {
-      console.log('hey')
       await otps.deleteOne({"data.userid": userid});
       return res.status(200).json({message: 'OTP has expired'});
     }

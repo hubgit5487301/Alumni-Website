@@ -91,9 +91,7 @@ async function generatetoken(userid) {
       token: token,
       createdAt: Date.now(),
     });
-    console.log(newverificationtoken);
     const result = await newverificationtoken.save();
-    console.log(result)
     return token;
   }
   catch(err) {

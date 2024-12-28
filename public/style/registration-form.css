@@ -4,6 +4,10 @@ main{
   justify-content: center;
 }
 
+nav li:nth-child(7) {
+  margin-right: 10px;
+}
+
 main a{
   text-decoration: none;
   color: black;
