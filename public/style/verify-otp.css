@@ -76,9 +76,6 @@ input {
   padding-left: 10px;
 }
 
-
-
-
 label {
   margin-top: 8px;
   margin-bottom: 5px;
@@ -90,7 +87,7 @@ label {
 }
 
 
-@media(max-width:412px) {
+@media(max-width:480px) {
   .wrapper {
       height: calc(100vh - 211.2px);
       padding: 0;

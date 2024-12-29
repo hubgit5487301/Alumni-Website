@@ -27,6 +27,8 @@ main a:hover {
     gap: 10px;
 }
 
+
+
 form {
     display: flex;
     flex-direction: column;
@@ -98,7 +100,7 @@ form span {
     margin-top: 20px;
     align-self: center;
 }
-@media(max-width:412px) {
+@media(max-width:500px) {
     .wrapper {
         height: calc(100vh - 211.2px);
         padding: 2px;
@@ -113,4 +115,7 @@ form span {
         align-self: center;
         margin-bottom: 5px;
     }
+    .sign-up{
+        border-radius: 0;
+      }
 }

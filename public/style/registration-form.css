@@ -103,10 +103,8 @@ form span {
   margin-top: 8px;
   align-self: center;
 }
-@media(max-width:412px) {
-}
 
-@media(width <= 450px) {
+@media(width <= 480px) {
   main {
     display: inline-block;
   }

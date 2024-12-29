@@ -37,6 +37,7 @@ nav {
   z-index: 999;
   margin-bottom: 8px;
   font-weight: bold;
+  padding-right: 8px
 }
 
 nav a {
@@ -44,7 +45,7 @@ nav a {
   display: flex;
   align-items: center;
   color: black;
-  height: 100%;
+  min-height: 100%;
   padding: 0 2px;
   transition: 0.15s;
 }
@@ -78,6 +79,7 @@ nav li:nth-child(9) a {
 
 .menu-button {
   display: none;
+  border-radius: 0 0 30px 0 ;
 }
 
 main {
@@ -98,7 +100,7 @@ footer {
 }
 
 aside {
-  height: 100vh;
+  min-height: 100vh;
   display: none;
   grid-area: sidebar;
   top: 0;
@@ -118,7 +120,7 @@ aside li:hover {
 }
 
 aside li {
-  height: 40px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -131,6 +133,7 @@ aside li:first-child a{
   display: flex;
   gap: 8px;
   align-items: center;
+  border-radius: 100px;
 }
 
 aside a {
@@ -200,6 +203,7 @@ gap: 5vw;
 }
 
 
+
 @media(max-width: 900px) {
   .hideonmobile{
       display: none;
@@ -207,9 +211,16 @@ gap: 5vw;
   .menu-button {
       display: block;
   }
+  nav :not(:nth-child(8)) a:hover {
+    background-color: #f0f0f0;
+    border-radius: 0;
+  }
+  .menu-button a {  
+    border-radius: 0px 0px 30px 0px;
+  }
 }
 
-@media(max-width: 450px) {
+@media(max-width: 480px) {
   aside {
     width:100%;
     border-radius: 0;
