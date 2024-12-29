@@ -1,176 +1,158 @@
-.first-box{
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  background-color: transparent;
-  gap: 1.5vw;
-  border-radius: 10px;
+main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.first-1-box {
+
+.wrapper {
+  padding: 30px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.315);
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction:row;
+  gap: 50px;
+}
+
+.address {
   display: flex;
   flex-direction: column;
-  background-color:  rgba(46, 45, 45, 0.596);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  border-radius: 10px;
-  padding: 1vw;
+  align-items: center;
+  justify-content: flex-start;
+  height: 70vh;
 }
 
-.first-1-box h1{
-  text-align: center;
-  margin: 0;
+.address label {
+  width: 35vw;
 }
 
-.first-1-box h2 {
-  text-align: center;
-  font-size: 1.1vw;
-  font-weight:100;
-  margin-top: 7vw;
+.address iframe {
+  display: flex;
+  margin-top: 10px;
+  width: 35vw;
+  height: 40vh;
+  border-radius: 20px;
 }
 
-.first-1-box p {
-  font-size: 1.3vw;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 7vw;
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 70vh;
 }
 
-.donate-button {
-  border-radius: 10px;
-  border: none;
-  background-color: rgb(21, 101, 221);
-  color: white;
-  font-weight: bold;
-  padding: 5px 15px;
-  font-size:1.2vw ;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.10s;
+
+
+form a {
   align-self: center;
+  margin-top: 8px;
+}
+
+.wrapper p {
+  margin-bottom: 25px;
+  font-weight: bolder;
+  font-size: 2.5em;
+  text-align: center;
+  display: flex;
+  align-self: center;
+  justify-self: center;
+}
+
+form label:first-of-type   {
+  margin-top: auto;
+}
+
+form button {
+  margin-top: 30px;
+  margin-bottom: 5vh;
+  padding: 5px 0;
+  background-color: rgb(52, 156, 225);
+  border: solid;
+  border-color: rgb(52, 156, 225);
+  color: white;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 5vw;
+  transition: 0.15s;
+  font-size: 15px;
+  width: 100px;
+  align-self: center;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-.donate-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
-}
-
-.donate-button:active {
-  transform: scale(1);
+form button:hover {
   opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
 }
 
-.first-2-box {
-  display: flex;
-  flex-direction: column;
-  background-color:  rgba(46, 45, 45, 0.596);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  border-radius: 10px;
-  padding: 1vw;
-  align-items: center;
+form button:active {
+  opacity: 0.5;
 }
 
-.first-2-box h1{
-  margin: 0;
-  margin-bottom: 1vw;
-}
-
-.get-in-touch {
-  display: grid;
-  background-color: transparent;
-  gap: 1.5vw;
-  grid-template-columns: 1fr 1fr;
-}
-
-.contact-info,.submit-message {
-  display: flex;
-  background-color:  rgba(46, 45, 45, 0.596);
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  padding: 1vw;
-}
-
-.contact-info H1 {
-  text-align: center;
-}
-
-.contact-info p {
-  margin: 0.5vw;
-}
-
-.map-div {
-  margin-top: 1.5vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  height: 100%;
-}
-
-.map {
-  width: 25vw;
-  flex: 1;
-  justify-content: center;
-  border-radius: 10px;
-  margin-bottom: 0;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-}
-
-.submit-message h1 {
-  text-align: center;
-  margin: 0;
-  margin-bottom: 0.3vw;
-}
-
-.message-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1vw;
-  padding: 0.1vw;
-}
-
-.message-form *{
-  border-radius: 5px;
+form input {
+  min-height: 30px;
+  min-width: 250px;
+  align-self: center;
   outline: none;
-  border: none;
+  border-radius: 10px;
+  border: solid;
+  border-color: white;
+  padding-left: 10px;
 }
 
-.fname,.lname,.email,.message {
-  background-color:  rgba(46, 45, 45, 0.596);
-  padding: 0.5vw;
-}
-
-.message {
-  height: 4vw;
+textarea {
+  min-height: 100px;
+  min-width: 250px;
+  align-self: center;
+  outline: none;
+  border-radius: 10px;
+  border: solid;
+  border-color: white;
+  padding-left: 10px;
   resize: none;
 }
 
-.submit-message-button {
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-  background-color: rgb(21, 101, 221);
-  color: white;
+form label {
+  margin-top: 8px;
+  margin-bottom: 5px;
   font-weight: bold;
-  padding: 5px 15px;
-  font-size:1.2vw ;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.10s;
-  align-self: center;
-  margin-left: -0.5vw;
-  cursor: pointer;
 }
 
-.submit-message-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
-}
 
-.submit-message-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+
+@media(max-width:660px) {
+  .wrapper {
+      min-height: 800px;
+      padding: 2px;
+      padding-bottom: 20px;
+      flex-direction: column;
+      gap: 2em;
+  }
+  .wrapper p {
+      margin-bottom: 50px;
+      padding-inline: 20px;
+  }
+  form input, label, textarea {
+      width: 80vw;
+      align-self: center;
+      margin-bottom: 5px;
+  }
+  .address {
+    padding: 1em;
+  }
+  .address label {
+    width: 90vw;
+  }
+  .address iframe{
+    width: 70vw;
+  }
+  form {
+    padding: 1em;
+    height: auto;
+  }
 }
