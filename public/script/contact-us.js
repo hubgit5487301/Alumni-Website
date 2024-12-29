@@ -1,30 +1,26 @@
 import { API_BASE_URL } from "./config.js";
-import { inputCheck, changefieldcolor,isValidEmail } from "/script/util.js"; 
+import { inputCheck, isValidEmail } from "/script/util.js"; 
 
 document.querySelector('.js-submit-message-button').addEventListener('click', (event) => {
   event.preventDefault();
-  const fname = document.querySelector('.js-fname').value;
-  const lname = document.querySelector('.js-lname').value;
-  const name = fname + lname;
-  const email = document.querySelector('.js-email').value;
+  const name = document.querySelector('.js-name').value;
+  const email = document.querySelector('.js-email').value.trim();
   const message_input = document.querySelector('.js-message').value;
   
   const fields= [
-    {value: fname, selector: '.js-fname'},
-    {value: fname, selector: '.js-lname'},
-    {value: fname, selector: '.js-email'},
-    {value: fname, selector: '.js-message'}
+    {value: name, selector: '.js-name'},
+    {value: email, selector: '.js-email'},
+    {value: message_input, selector: '.js-message'}
   ]
   
   const isInvalid = inputCheck(fields);
   if(isInvalid) {
-    alert('Please fill in all fields marked with red');
+    alert('Please fill in all fields marked.');
     return;
   }
 
   if(!isValidEmail(email)) {
-    changefieldcolor(document.querySelector('.js-email'));
-    alert('Enter a valid email');
+    alert('Enter a valid email.');
     return;
   }
 
@@ -46,9 +42,12 @@ document.querySelector('.js-submit-message-button').addEventListener('click', (e
     }
     return response.json()
   })
- .catch((err) => {
-  console.error(err.message);
-  alert(err.message);
+  .then(data => {
+    alert(data.message);
+  })
+  .catch((err) => {
+      console.error(err.message);
+      alert(err.message);
  })
 
 })

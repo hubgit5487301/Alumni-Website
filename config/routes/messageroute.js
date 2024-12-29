@@ -24,8 +24,9 @@ router.post(`/send-message`, async (req, res) => {
     const mailoption = {
       from: user,
       to: user,
-      subject: name,
+      subject: `Feedback from ${name}` ,
       text: message,
+      replyTo: email
     };
 
     transporter.sendMail(mailoption, (err, info) => {
@@ -35,6 +36,7 @@ router.post(`/send-message`, async (req, res) => {
       }
       else{
         console.log('contact us message sent:' +info.response);
+        return res.status(200).json({message: 'Message Sent'});
       }
     })
   }
