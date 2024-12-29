@@ -3,14 +3,14 @@ import { inputCheck, isValidEmail } from "/script/util.js";
 
 document.querySelector('.js-submit-message-button').addEventListener('click', (event) => {
   event.preventDefault();
-  const name = document.querySelector('.js-name').value;
-  const email = document.querySelector('.js-email').value.trim();
-  const message_input = document.querySelector('.js-message').value;
+  const name = document.querySelector('.js-name');
+  const email = document.querySelector('.js-email');
+  const message_input = document.querySelector('.js-message');
   
   const fields= [
-    {value: name, selector: '.js-name'},
-    {value: email, selector: '.js-email'},
-    {value: message_input, selector: '.js-message'}
+    {value: name.value, selector: '.js-name'},
+    {value: email.value, selector: '.js-email'},
+    {value: message_input.value, selector: '.js-message'}
   ]
   
   const isInvalid = inputCheck(fields);
@@ -19,15 +19,14 @@ document.querySelector('.js-submit-message-button').addEventListener('click', (e
     return;
   }
 
-  if(!isValidEmail(email)) {
+  if(!isValidEmail(email.value)) {
     alert('Enter a valid email.');
     return;
   }
-
   const message = ({
-    name: name,
-    email: email,
-    message: message_input
+    name: name.value,
+    email: email.value,
+    message: message_input.value
   })
   fetch(`${API_BASE_URL}/send-message`, {
     method: 'POST',
@@ -43,7 +42,10 @@ document.querySelector('.js-submit-message-button').addEventListener('click', (e
     return response.json()
   })
   .then(data => {
-    alert(data.message);
+    if(data.message === 'Message Sent') {
+      alert(data.message);
+      document.querySelector('form').reset();
+    }
   })
   .catch((err) => {
       console.error(err.message);
