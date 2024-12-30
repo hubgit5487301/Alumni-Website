@@ -255,6 +255,8 @@ footer div img:hover {
 *{
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 body{
@@ -475,21 +477,8 @@ footer div img:hover {
   .menu-button {
       display: block;
   }
-  nav :not(:nth-child(3)) a:hover {
+  nav :not(:nth-child(3)) :not(:first-child) a:hover {
     background-color: #f0f0f0;
-    border-radius: 0;
-  }
-
-  nav li:nth-child(9) a{
-    padding: 0;
-  }
-
-  nav li:nth-child(8) {
-    margin: 0;
-  }
-
-  .menu-button a {  
-    border-radius: 0px 0px 30px 0px;
   }
 }
 
