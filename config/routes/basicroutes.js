@@ -111,14 +111,14 @@ router.post('/send-otp' ,async (req, res) => {
 })
 
 router.get('/verify-otp', (req, res) => {
-  if(isAuthenticated()) {
+  if(req.isAuthenticated()) {
     return res.redirect('/dashboard?alert=logout-first');
   }
   res.sendFile(path.join(__dirname, '..', '..',  'public', 'reset-password.html'));
 })
 
 router.get('/forgot-password', (req, res) => {
-  if(isAuthenticated()) {
+  if(req.isAuthenticated()) {
     return res.redirect('/dashboard?alert=logout-first');
   }
   res.sendFile(path.join(__dirname,'..', '..',  'public', 'forgot-password.html'));
