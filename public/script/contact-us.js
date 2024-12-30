@@ -1,6 +1,8 @@
 import { API_BASE_URL } from "./config.js";
 import { inputCheck, isValidEmail } from "/script/util.js"; 
 
+document.querySelector('.help').style.display = 'none';
+
 document.querySelector('.js-submit-message-button').addEventListener('click', (event) => {
   event.preventDefault();
   const name = document.querySelector('.js-name');

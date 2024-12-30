@@ -102,7 +102,7 @@ form span {
 }
 @media(max-width:500px) {
     .wrapper {
-        height: calc(100vh - 211.2px);
+        min-height: calc(100vh - 211.2px);
         padding: 2px;
         padding-bottom: 20px;
     }
