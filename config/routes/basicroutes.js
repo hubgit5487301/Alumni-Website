@@ -12,7 +12,7 @@ const otps = require('../../models/otps');
 const passport = require('../../config/passport-config');
 
 
-const {hashPassword, setBranchValue, generatetoken, sendlink, usertype_and_batchSet} = require('../util');
+const { hashPassword, setBranchValue, generatetoken, sendlink, usertype_and_batchSet, isAuthenticated} = require('../util');
 
 const nodemailer = require('nodemailer');
 const verificationtoken = require('../../models/verificationtoken');
@@ -111,10 +111,16 @@ router.post('/send-otp' ,async (req, res) => {
 })
 
 router.get('/verify-otp', (req, res) => {
+  if(isAuthenticated()) {
+    return res.redirect('/dashboard?alert=logout-first');
+  }
   res.sendFile(path.join(__dirname, '..', '..',  'public', 'reset-password.html'));
 })
 
 router.get('/forgot-password', (req, res) => {
+  if(isAuthenticated()) {
+    return res.redirect('/dashboard?alert=logout-first');
+  }
   res.sendFile(path.join(__dirname,'..', '..',  'public', 'forgot-password.html'));
 })
 
@@ -223,15 +229,24 @@ router.post('/submit-alumni', async (req, res) => {
   }
 );
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
+  if(req.isAuthenticated()) {
+    return res.redirect('/dashboard?alert=logout-first');
+  }
   res.sendFile(path.join(__dirname,'..', '..',  'public', 'login.html'))            
 })
 
-router.get('/registration-form', async (req, res) => {
+router.get('/registration-form', (req, res) => {
+  if(req.isAuthenticated()) {
+    return res.redirect('/dashboard?alert=logout-first');
+  }
   res.sendFile(path.join(__dirname,'..', '..',  'public', 'registration-form.html'))            
 })
 
-router.get('/login', async (req, res) => {
+router.get('/login', (req, res) => {
+  if(req.isAuthenticated()) {
+    return res.redirect('/dashboard?alert=logout-first');
+  }
   res.sendFile(path.join(__dirname,'..', '..',  'public', 'login.html'))            
 })
 

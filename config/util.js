@@ -7,7 +7,7 @@ const verificationtoken = require('../models/verificationtoken');
 const user = require('../models/users');
 const nodemailer = require('nodemailer');
 const API_BASE_URL = process.env.API_BASE_URL;
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 function hashPassword(getpassword) {
   const salt = crypto.randomBytes(16).toString('hex');

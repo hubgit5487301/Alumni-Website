@@ -1,5 +1,13 @@
 import { API_BASE_URL } from "./config.js";
 
+const urlParams = new URLSearchParams(window.location.search);
+const message = urlParams.get('alert');
+if(urlParams.has('alert')) {
+  if(message === 'logout-first') {
+    alert('Please logout first. ');
+  }
+}
+
 fetch(`${API_BASE_URL}/protected/user_logo`)
 .then(response => {
    if(!response.ok) {

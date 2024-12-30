@@ -28,11 +28,18 @@ const otps = require('./models/otps.js');
 const verificationtoken = require('./models/verificationtoken.js');
 
 const app = express();
+app.use((req, res, next) => {
+  if(req.url.match(/\.html(\?.*)?$/)) {
+    return res.status(403).send('Access Denied');
+  }
+  else next();
+})
+
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/styles', express.static(path.join(__dirname, 'admin_console', 'styles')));
 app.use('/scripts', express.static(path.join(__dirname, 'admin_console', 'scripts')));
 app.use('/admin_console', express.static(path.join(__dirname, 'admin_console')));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/protected-styles', express.static(path.join(__dirname, 'protected', 'protected-styles')));
+app.use('/protected-styles',  express.static(path.join(__dirname, 'protected', 'protected-styles')));
 app.use('/protected-scripts', express.static(path.join(__dirname, 'protected', 'protected-scripts')));
 app.use('/protected', express.static(path.join(__dirname, 'protected')));
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
