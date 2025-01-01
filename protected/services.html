@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    <title>Services</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/protected-styles/dashboard.css">
-    <link rel="stylesheet" href="/protected-styles/services.css">
-    <link rel="stylesheet" href="/protected-styles/nav-bar.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" defer href="/protected-styles/services.css">
+    <link rel="stylesheet" defer href="/protected-styles/nav-bar.css">
   </head>
-  <body class="general-dashboard">
-    <div class="top-box js-top-box"></div>
-    <div class="bottom-box">
-      <div class="services-box js-services-box">
-        <div class="post-job js-post-job">Post new job</div>
-        <!--<div class="gallery js-gallery">Gallery</div>-->
-        <div class="register-event js-register-event">Register an event</div>
-        <div class="post-job js-resources">Resources</div>
-        <!--<a class="link" href=""><div class="gallery js-gallery">Gallery</div></a>
-        <a class="link" href=""><div class="register-event js-register-event">Register an event</div></a>-->
+  <body>
+    <div class="loading-page">
+      <div class="circle">
+        <div class="dot-wrapper">
+          <div class="dot"></div>
+        </div>
       </div>
     </div>
-    <footer class="bottom js-bottom"></footer>
+    <nav></nav>
+    <aside></aside>
+    <main>
+      <section class="js-post-event">
+        Post a Event
+      </section>
+      <section class="js-post-job"      >
+        Post a Job
+      </section>
+      <section class="js-resources">
+        Resources
+      </section>
+    </main>
+    <footer></footer>
     <script type="module" src="/protected-scripts/nav-bar-protected.js"></script>
     <script type="module" src="/protected-scripts/services.js"></script>
   </body>

@@ -9,11 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('.loading-page').style.opacity = 0;
     setTimeout(() => {
       document.querySelector('.loading-page').style.display = 'none';
-    },800)
+    },500)
   };
 
   window.addEventListener('load', () => {
-    setTimeout(stopLoading, 800); 
+    setTimeout(stopLoading, 500); 
   });
 });
   
@@ -53,7 +53,7 @@ function createNavLink( url, text, classname, image) {
 const nav = document.querySelector('nav');
 
 nav.append(
-  createNavLink('/dashboard', 'Alumni-Portal', null, "/images/logo.webp"),
+  createNavLink('/admin', 'Alumni-Portal', null, "/images/logo.webp"),
   createNavLink('/dashboard', 'Dashboard', 'hideonmobile', null),
   createNavLink('/services', 'Services', 'hideonmobile', null),
   createNavLink('/protected/alumni-directory', 'Users', 'hideonmobile', null),

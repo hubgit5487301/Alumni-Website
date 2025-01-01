@@ -19,7 +19,7 @@ document.querySelector('.js-post-job').addEventListener('click',async () => {
 })
 
 
-document.querySelector('.js-register-event').addEventListener('click', async () =>{
+document.querySelector('.js-post-event').addEventListener('click', async () =>{
   let usertype = '';
   try{
     const data = await getusertype('my-usertype');
