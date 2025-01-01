@@ -37,6 +37,72 @@ body::-webkit-scrollbar {
 display: none;
 }
 
+
+body.loading {
+  overflow: hidden;
+  pointer-events: none; 
+}
+
+.loading-page {
+  background-color: white;
+  position: fixed;
+  top: 0%;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.loading-finished {
+  transition: 0.15s ease-out;
+  width: 0;
+  opacity: 0.5;
+}
+
+.circle {
+  width: 2.5em;
+  height: 2.5em;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 5px solid transparent;
+  border-color: #b9b6b6;
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.dot-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: rotate 1.5s linear infinite;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--blue);
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--blue);
+}
+
+@keyframes rotate {
+  0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
 nav {
   grid-area: navbar;
   background-color: var(--main-color);
@@ -48,7 +114,7 @@ nav {
   gap: 8px;
   list-style: none;
   border-radius: 0 0 30px 30px;
-  z-index: 999;
+  z-index: 9;
   margin-bottom: 8px;
   font-weight: bold;
 }
@@ -93,21 +159,27 @@ nav li:first-child img {
 
 nav li:nth-child(8) img{
   transition: 0.15s ease-in-out;
+}
+
+nav li:nth-child(8) img:hover {
+  scale: 1.1;
   box-shadow: 0 0 5px 6px var(--main-color);
 }
 
-nav li:nth-child(8):hover {
-  img{
-    scale: 1.1;
-    box-shadow: 0 0 5px 2px var(--main-color);
-  }
+nav li:nth-child(8) img:active {
+  scale: 1;
+  box-shadow: 0 0 5px 6px var(--main-color);
+}
+
+nav li:last-child a:hover{
+  border-radius: 0 0 30px 0 ;
 }
 
 nav li:nth-child(9) a {
   border-radius: 0 0 30px 0 ;
 }
 
-.profile_pic  img {
+.profile_pic img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -115,10 +187,11 @@ nav li:nth-child(9) a {
 
 .menu-button {
   display: none;
-  border-radius: 0 0 30px 0 ;
   padding-right: 2px;
 }
 
+.menu-button:hover{
+  border-radius: 0 0 30px 0 ;}
 main {
   grid-area: main;
 }
@@ -263,18 +336,6 @@ footer img {
   }
   .menu-button {
       display: block;
-  }
-  nav :not(:nth-child(9)) a:hover {
-    background-color: #f0f0f0;
-    border-radius: 0;
-  }
-
-  nav li:nth-child(9) {
-    margin: 0;
-  }
-
-  .menu-button a {  
-    border-radius: 0px 0px 30px 0px;
   }
   .login{
     margin: 0;

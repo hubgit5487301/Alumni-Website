@@ -21,8 +21,17 @@ nav li:nth-child(2):hover {
 
 .user-name {
   color: var(--blue);
-  font-family: Pacifico , Georgia, Times, serif
+  font-family: Pacifico , Georgia, Times, serif;
+  cursor: pointer;
 } 
+
+.user-link {
+  text-decoration: none;
+}
+
+.user-name:hover {
+ text-decoration: underline;
+}
 
 main {
   min-height: 80%;
@@ -33,7 +42,7 @@ main {
   background-color: var(--main-color);
   box-shadow: var(--shadow-color);
   border-radius: var(--border-radius);
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 10px;
   padding: 1rem;

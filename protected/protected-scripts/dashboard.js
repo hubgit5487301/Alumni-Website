@@ -4,9 +4,13 @@ import { getdataonevent as getdata, formatEventDate } from "./util.js";
 
 const data = await getdata('user_name');
 const span = document.createElement('span');
+const link = document.createElement('a');
 const user = document.querySelector(".user-welcome");
-user.innerText = 'Hi,';
-user.append(span);
+user.innerText = 'Hi, ';
+user.append(link);
+link.classList.add('user-link');
+link.href = '/protected/my-profile-page';
+document.querySelector('.user-link').append(span);
 span.classList.add('user-name'); 
 span.append(' ' + data.user_name);
 
