@@ -231,9 +231,20 @@ router.post('/submit-alumni', async (req, res) => {
 
 router.get('/', (req, res) => {
   if(req.isAuthenticated()) {
-    return res.redirect('/dashboard?alert=logout-first');
+    return res.redirect('/dashboard');
   }
-  res.sendFile(path.join(__dirname,'..', '..',  'public', 'login.html'))            
+  else {
+    return res.redirect('/login?alert=not-logged-in'); 
+  }           
+})
+
+router.get('/dashboard.html', (req, res) => {
+  if(req.isAuthenticated()) {
+    return res.redirect('/dashboard');
+  }
+  else {
+    return res.redirect('/login?alert=not-logged-in'); 
+  }           
 })
 
 router.get('/registration-form', (req, res) => {
@@ -243,12 +254,15 @@ router.get('/registration-form', (req, res) => {
   res.sendFile(path.join(__dirname,'..', '..',  'public', 'registration-form.html'))            
 })
 
+
 router.get('/login', (req, res) => {
   if(req.isAuthenticated()) {
     return res.redirect('/dashboard?alert=logout-first');
   }
   res.sendFile(path.join(__dirname,'..', '..',  'public', 'login.html'))            
 })
+
+
 
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
@@ -264,7 +278,7 @@ router.post('/login', (req, res, next) => {
         console.log(err);
         return res.status(500).json({ message: 'Login failed' });
       }
-      return res.status(200).json({ message: 'Login successful' });
+      return res.json({ message: 'Login successful', redirectUrl: '/dashboard' });
     });
   })(req, res, next);
 });
@@ -281,7 +295,7 @@ router.get('/logout', (req, res) => {
 router.get('/dashboard', (req,res) => {
   if(req.isAuthenticated()) {
     res.sendFile(path.join(__dirname,'..', '..', 'protected', 'dashboard.html'));
-  }
+  } 
   else {
   res.redirect(`/login?alert=not-logged-in`);
   }

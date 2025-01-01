@@ -1,39 +1,35 @@
 import { API_BASE_URL } from "./config.js";
-import { inputCheck, changefieldcolor,isValidEmail } from "./util.js"; 
+import { inputCheck, isValidEmail } from "/script/util.js"; 
+
 
 document.querySelector('.js-submit-message-button').addEventListener('click', (event) => {
   event.preventDefault();
-  const fname = document.querySelector('.js-fname').value;
-  const lname = document.querySelector('.js-lname').value;
-  const name = fname + lname;
-  const email = document.querySelector('.js-email').value;
-  const message_input = document.querySelector('.js-message').value;
+  const name = document.querySelector('.js-name');
+  const email = document.querySelector('.js-email');
+  const message_input = document.querySelector('.js-message');
   
   const fields= [
-    {value: fname, selector: '.js-fname'},
-    {value: fname, selector: '.js-lname'},
-    {value: fname, selector: '.js-email'},
-    {value: fname, selector: '.js-message'}
+    {value: name.value, selector: '.js-name'},
+    {value: email.value, selector: '.js-email'},
+    {value: message_input.value, selector: '.js-message'}
   ]
   
   const isInvalid = inputCheck(fields);
   if(isInvalid) {
-    alert('Please fill in all fields marked with red');
+    alert('Please fill in all fields marked.');
     return;
   }
 
-  if(!isValidEmail(email)) {
-    changefieldcolor(document.querySelector('.js-email'));
-    alert('Enter a valid email');
+  if(!isValidEmail(email.value)) {
+    alert('Enter a valid email.');
     return;
   }
-
   const message = ({
-    name: name,
-    email: email,
-    message: message_input
+    name: name.value,
+    email: email.value,
+    message: message_input.value
   })
-  fetch(`${API_BASE_URL}/protected/send-message`, {
+  fetch(`${API_BASE_URL}/send-message`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -46,9 +42,15 @@ document.querySelector('.js-submit-message-button').addEventListener('click', (e
     }
     return response.json()
   })
- .catch((err) => {
-  console.error(err.message);
-  alert(err.message);
+  .then(data => {
+    if(data.message === 'Message Sent') {
+      alert(data.message);
+      document.querySelector('form').reset();
+    }
+  })
+  .catch((err) => {
+      console.error(err.message);
+      alert(err.message);
  })
 
 })

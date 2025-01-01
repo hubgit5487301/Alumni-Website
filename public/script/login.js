@@ -54,9 +54,12 @@ fetch(`${API_BASE_URL}/login`, {
   return response.json();
   })
 .then((data) => {
-  console.log(data.message);
-  window.location.href = '/dashboard';
-  })
+  if (data.redirectUrl) {
+    window.location.href = data.redirectUrl; // Redirect to the new URL
+  } else if (data.message) {
+    alert(data.message); // Display message
+  }
+})
 .catch((error) => {
   alert(error.message);
   console.log('Error',error);

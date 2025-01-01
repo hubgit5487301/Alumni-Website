@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+nav li:nth-child(2) {
+  background-color: var(--blue);
+  transition: 0.15s ease;
+  min-height: 80%;
+  align-self: center;
+  align-content: center;
+  border-radius: 10px;
+  & a{
+    color: #f0f0f0;
+  }
+}
+
+nav li:nth-child(2):hover {
+  background-color: #f0f0f0;
+  & a{
+    color: black;
+  }
+}
+
+.user-name {
+  color: var(--blue);
+  font-family: Pacifico , Georgia, Times, serif
+} 
+
+main {
+  min-height: 80%;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-areas: 
+  "welcome-box";
+  background-color: var(--main-color);
+  box-shadow: var(--shadow-color);
+  border-radius: var(--border-radius);
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 1rem;
+}
+
+
+.welcome-box {
+  grid-area: welcome-box;
+  min-height: 80%;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-areas: 
+  "welcome-img welcome-text";
+  background-color: var(--main-color);
+  box-shadow: var(--shadow-color);
+  border-radius: var(--border-radius);
+  align-items: stretch;
+  justify-content: center;
+  gap: 10px;
+  padding: 1em;
+}
+
+.welcome-text {
+  grid-area: welcome-text;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-evenly;
+  max-width: 40vw;
+  padding: 1vw;
+}
+
+.college-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-text h1:first-of-type {
+  font-size: 2em;
+} 
+.welcome-text h1:nth-child(2) {
+  font-size: 2em;
+}
+.welcome-text p:first-of-type {
+  font-size: 1rem;
+}
+
+.college-image img{
+  grid-area: welcome-img;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-color);
+}
+
+@media(width < 1000px){
+  main{
+    padding-inline: 0;
+  }
+  .welcome-box {
+    grid-template-areas: 
+    "welcome-text"
+    "welcome-img";
+    /* "events"; */
+    gap: 30px;
+    justify-content: center;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .welcome-text {
+    max-width: 100%;
+    margin-bottom: auto;
+    justify-self: center;
+    padding: 1vw;
+    background-color: var(--main-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-color);
+  }
+  .college-image img {
+    max-width: 100%;
+    height: 100%;
+    align-self: center;
+  }
+  .college-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media(width <= 425px) {
+  .welcome-box {
+    grid-template-areas: 
+    "welcome-img"
+    "welcome-text";
+    /* "events"; */
+    gap: 30px;
+    justify-content: center;
+  }
+}

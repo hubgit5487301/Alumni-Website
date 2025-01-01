@@ -139,6 +139,21 @@ router.get('/user_info', (req, res) => {
   }
 });
 
+router.get('/user_name', async (req, res) => {
+  try{
+    const user_name = req.user.personname;
+    if(!user_name) {
+      return res.status(404).json({message: 'user not found'});
+    }
+    return res.status(200).json({user_name}); 
+
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'});
+  }
+})
+
 router.get(`/myprofile-posts`, async (req, res) => {
   const usertype = req.user.usertype;
   if(usertype === 'alumni' || usertype === 'admin') return res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'myprofile-posts.html'));

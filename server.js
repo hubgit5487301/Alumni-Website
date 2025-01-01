@@ -3,12 +3,15 @@ const port = process.env.PORT;
 const key = process.env.KEY;
 const mongoURI = process.env.mongoURI;
 
+const browserSync = require('browser-sync').create();
+const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
+const logout_check = require('./config/middlewares');
 const connectDB = require('./config/mongo');
 
 const adminroute = require('./config/routes/adminroutes')
@@ -28,27 +31,15 @@ const otps = require('./models/otps.js');
 const verificationtoken = require('./models/verificationtoken.js');
 
 const app = express();
-app.use((req, res, next) => {
-  if(req.url.match(/\.html(\?.*)?$/)) {
-    return res.status(403).send('Access Denied');
-  }
-  else next();
-})
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/styles', express.static(path.join(__dirname, 'admin_console', 'styles')));
-app.use('/scripts', express.static(path.join(__dirname, 'admin_console', 'scripts')));
-app.use('/admin_console', express.static(path.join(__dirname, 'admin_console')));
-app.use('/protected-styles',  express.static(path.join(__dirname, 'protected', 'protected-styles')));
-app.use('/protected-scripts', express.static(path.join(__dirname, 'protected', 'protected-scripts')));
-app.use('/protected', express.static(path.join(__dirname, 'protected')));
-app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
-
-
+app.use(cors({
+  origin: '*'
+}));
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 connectDB();
+
+app.set('trust proxy', 1); 
 
 app.use(session({
   secret: key,
@@ -64,19 +55,27 @@ app.use(session({
   }
 }));
 
-app.set('trust proxy', 1); 
-
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  //console.log(`Visitor IP: ${req.ip}, URL: ${req.url}`);
-  next();
-});
-
-app.use(basicroutes)
+app.use(basicroutes);
 app.use(loginroutes);
 app.use(messageroute);
+
+
+app.use(logout_check);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+
+
+app.use('/styles', isAuthenticated, express.static(path.join(__dirname, 'admin_console', 'styles')));
+app.use('/scripts', isAuthenticated, express.static(path.join(__dirname, 'admin_console', 'scripts')));
+app.use('/admin_console', isAuthenticated, express.static(path.join(__dirname, 'admin_console')));
+app.use(isAuthenticated,express.static(path.join(__dirname, 'admin_console')));
+app.use('/protected-styles', isAuthenticated,  express.static(path.join(__dirname, 'protected', 'protected-styles')));
+app.use('/protected-scripts', isAuthenticated, express.static(path.join(__dirname, 'protected', 'protected-scripts')));
+app.use('/protected', isAuthenticated, express.static(path.join(__dirname, 'protected')));
+
 app.use('/admin', isAuthenticated, adminroute)
 app.use('/protected', isAuthenticated, jobroute);
 app.use('/protected', isAuthenticated, servicesroute);
@@ -85,6 +84,20 @@ app.use('/protected', isAuthenticated, eventroutes);
 app.use('/protected', isAuthenticated, userRoutes);
 app.use('/protected', isAuthenticated, resourcesroute);
 
+app.use((req, res, next) => {
+  //console.log(`Visitor IP: ${req.ip}, URL: ${req.url}`);
+  next();
+});
+
+
+
+browserSync.init({
+  proxy: 'http://localhost:8000', // your server's URL
+  files: ['public/**/*.html', 'public/**/*.css', 'public/**/*.js', 'protected/'], 
+  port: 3000, 
+  open: true, 
+  notify: true 
+});
 
 app.listen(port ,() => {console.log(`server is running at port ${port}`)});
 
