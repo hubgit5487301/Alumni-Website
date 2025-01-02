@@ -203,6 +203,25 @@ export async function updatedataonevent (address, data) {
   }    
 }
 
+export async function updloaddataonevent (address, data) {
+  try{
+    const response = await fetch(`${API_BASE_URL}/protected/${address}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    if(!response.ok) {
+      throw new Error('response not ok');
+    }
+    const datarecieve = await response.json();
+    return datarecieve;
+  }
+  catch(err) {
+    throw err;
+  }    
+}
 
 
 export function yearSelect (input) {

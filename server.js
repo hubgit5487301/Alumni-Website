@@ -94,7 +94,8 @@ app.use((req, res, next) => {
 browserSync.init({
   proxy: 'http://localhost:8000', 
   files: ['public/**/*.html', 'public/**/*.css', 'public/**/*.js', 'protected/'], 
-  port: 3000, 
+  port: 3000,
+  open: false 
 });
 
 app.listen(port ,() => {console.log(`server is running at port ${port}`)});

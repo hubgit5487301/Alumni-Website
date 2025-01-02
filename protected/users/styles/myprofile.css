@@ -13,7 +13,7 @@ main {
   "user-details"
   "resume"; */
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 1em;
   background-color: var(--main-color);
   border-radius: var(--border-radius);
@@ -33,13 +33,13 @@ main section{
   background-color: var(--main-color);
   box-shadow: var(--shadow-color);
   border-radius: var(--border-radius);
+  padding: 1em;
 }
 
 main section:first-child {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1em;
   gap: 1em;
   width: 100%;
   height: auto;
@@ -66,8 +66,6 @@ main section:first-child div .profile-pic {
   align-items: center;
 }
 
-
-
 .edit-profile-pic {
   position: absolute;
   background-color: var(--blue);
@@ -91,7 +89,6 @@ main section:first-child .user-details {
   justify-content: space-evenly;
   min-width: 33.3%;
   height: 100%;
-  padding: 1em;
 }
 
 main section:first-child .user-details h1 {
@@ -102,6 +99,7 @@ main section:first-child .user-details h1 {
   font-family: Pacifico, cursive;
   color: var(--blue);
   max-width: 32vw;
+  text-align: center;
 }
 main section:first-child .user-details div {
   display: flex;
@@ -111,6 +109,7 @@ main section:first-child .user-details div {
   min-width: 100%;
   font-weight: bolder;
   font-size: 1em;
+  text-align: center;
 }
 main section:first-child .user-posts {
   display: flex;
@@ -119,7 +118,6 @@ main section:first-child .user-posts {
   justify-content: center;
   gap: 1em;
   min-width: 33.3%;
-  padding: 1em;
   min-height: 100%;
 } 
 
@@ -149,12 +147,111 @@ main section:first-child .user-posts a:not(:first-of-type) {
   flex: 1;
 }
 
+main > section:nth-child(2) {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  min-width: 100%;
+  height: 100%;
+  height: auto;
+  position: relative;
+  transition: 0.15s ease-in-out;
+}
+
+main > section:nth-child(2) img {
+  position: absolute;
+  max-width: 40px;
+  top: -10px;
+  right: -10px;
+}
+
+details li {
+  list-style: none;
+  margin-inline: 1.2em;
+}
+
+details {
+  min-width: 100%;
+  overflow: hidden;
+}
+
+details::details-content {
+  display: block;
+  block-size: 0;
+  transition: block-size 0.15s, content-visibility 1s;
+  transition-behavior: allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;;
+}
+
+details summary {
+  text-align: start;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding-left: 3px;
+  min-width: 100%;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+summary:before {
+  content: '';
+  border-width: .4rem;
+  border-style: solid;
+  border-color: transparent transparent transparent #000000;
+  position: absolute;
+  top: 0.4em;
+  /* left: 0; */
+  transform: rotate(0);
+  transform-origin: .2rem 50%;
+  transition: .25s transform ease;
+  text-align: center;
+}
 
 
+details[open] > summary:before {
+  transform: rotate(90deg);
+}
+
+details summary {
+  list-style: none;
+}
+details ul {
+  display: flex;
+  margin-left: 1em;
+  gap: 1em;
+  flex-direction: column;
+}
 
 
+main section:last-child {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1em;
+  min-width: 100%;
+  height: 100%;
+  height: auto;
+  position: relative;
+  transition: 0.15s ease-in-out;
+}
 
-
+main section:last-child label {
+  background-color: var(--blue);
+  padding: 1em;
+  border-radius: var(--border-radius);
+  box-shadow: var(--button-shadow);
+  width: 100%;
+  text-align: center;
+  color: white;
+}
 
 @media(width < 605px) {
   main section:first-child {
@@ -167,10 +264,8 @@ main section:first-child .user-posts a:not(:first-of-type) {
     min-width: 80%;
   }
   .edit-profile-pic {
-
     right: 10%;
   }
-
   main section:first-child .user-posts {
     min-width: 100%;
     min-height: auto;
@@ -182,5 +277,12 @@ main section:first-child .user-posts a:not(:first-of-type) {
   }
   main section:first-child .user-posts a {
   padding-block: 1em;
-}
+  }
+  main section:first-child .user-details h1 {
+    min-width: 100%;
+    white-space:normal;
+  }
+  main section:last-child {
+    flex-direction: column;
+  }
 }
