@@ -1,5 +1,5 @@
 
-nav li:nth-child(3) {
+nav li:nth-child(4) {
   background-color: var(--blue);
   transition: 0.15s ease;
   min-height: 80%;
@@ -11,12 +11,17 @@ nav li:nth-child(3) {
   }
 }
 
-nav li:nth-child(3):hover {
+nav li:nth-child(4):hover {
   background-color: #f0f0f0;
   & a{
     color: black;
   }
 }
+
+nav li:nth-child(4) a:hover {
+  background-color: transparent !important;
+}
+
 
 main {
   max-height: 100%;
@@ -92,6 +97,7 @@ main ul li {
 
 main ul li img{ 
   width: 50%;
+  height: 100%;
   border-radius: 50% 0 0 50% ;
 }
 

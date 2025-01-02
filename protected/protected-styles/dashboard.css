@@ -17,6 +17,10 @@ nav li:nth-child(2):hover {
   }
 }
 
+nav li:nth-child(2) a:hover {
+  background-color: transparent !important;
+}
+
 .user-name {
   color: var(--blue);
   font-family: Pacifico , Georgia, Times, serif;

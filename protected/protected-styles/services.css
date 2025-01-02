@@ -18,6 +18,10 @@ nav li:nth-child(3):hover {
   }
 }
 
+nav li:nth-child(3) a:hover {
+  background-color: transparent !important;
+}
+
 main{
   min-height: 80%;
   display: flex;

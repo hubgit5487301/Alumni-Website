@@ -1,10 +1,31 @@
+nav li:nth-child(7) {
+  background-color: var(--blue);
+  transition: 0.15s ease;
+  min-height: 80%;
+  align-self: center;
+  align-content: center;
+  border-radius: 10px;
+  & a{
+    color: #f0f0f0;
+  }
+}
+
+nav li:nth-child(7):hover {
+  background-color: #f0f0f0;
+  & a{
+    color: black;
+  }
+}
+
+nav li:nth-child(7) a:hover {
+  background-color: transparent !important;
+}
+
 main{
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-
 
 .wrapper {
   padding: 30px;

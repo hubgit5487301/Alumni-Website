@@ -22,7 +22,6 @@ router.get('/user', (req, res) => {
 router.get('/users', async (req,res) => {
   try {
     page = req.query.page || 1;
-    console.log(req.query.page);
     limit = req.query.limit || 10;
     const skip = (page - 1) * limit;
     const users = await user.find({usertype: {$ne: 'admin'}}, {personname: 1, personimage: 1, userid: 1, usertype: 1, _id: 0}).skip(skip).limit(limit);
