@@ -46,7 +46,7 @@ export function isValidUserid(userid) {
 }
 
 
-export function upload (input, allowed, value, name, callback) {
+export function upload (input, allowed, callback) {
   document.querySelector(input).addEventListener('change', (event) => {
     const file =event.target.files[0];
     if (file) {
@@ -55,10 +55,6 @@ export function upload (input, allowed, value, name, callback) {
         alert(`invalid file type please provide file of type ${allowed}`);
         return;
       }
-    }
-    if(value)
-    {
-      document.querySelector(name).innerHTML = file.name;
     }
 
     if (file) {

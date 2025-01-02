@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
   
-let user_logo = await getdata('/user_logo');
+const user_logo = await getdata('/user_logo');
 
 const urlParams = new URLSearchParams(window.location.search);
 const message = urlParams.get('alert');
@@ -51,7 +51,6 @@ function createNavLink( url, text, classname, image) {
 }
 
 const nav = document.querySelector('nav');
-
 nav.append(
   createNavLink('/admin', 'Alumni-Portal', null, "/images/logo.webp"),
   createNavLink('/dashboard', 'Dashboard', 'hideonmobile', null),
