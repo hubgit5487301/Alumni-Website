@@ -1,6 +1,8 @@
-import {upload as uploadfile, getdataonevent as getdata, updatedataonevent as updatedata,updloaddataonevent as uploaddata, download as downloadresume} from "../../protected-scripts/util.js";
+import {getdataonevent as getdata} from "../../protected-scripts/util.js";
 
-const data = await getdata('/my-profile');
+const urlParams = new URLSearchParams(window.location.search);
+const userid = urlParams.get('userid');
+const data = await getdata(`/users/${userid}`);
 
   
 document.querySelector('.profile-pic').src = data.personimage;

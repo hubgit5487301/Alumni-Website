@@ -58,7 +58,7 @@ main section:first-child .user-details {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  min-width: 33.3%;
+  min-width: 50%;
   height: 100%;
 }
 
@@ -69,7 +69,7 @@ main section:first-child .user-details h1 {
   text-overflow: ellipsis;
   font-family: Pacifico, cursive;
   color: var(--blue);
-  max-width: 32vw;
+  max-width: 50vw;
   text-align: center;
 }
 main section:first-child .user-details div {
