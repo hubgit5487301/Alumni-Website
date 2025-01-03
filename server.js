@@ -3,8 +3,6 @@ const port = process.env.PORT;
 const key = process.env.KEY;
 const mongoURI = process.env.mongoURI;
 
-const browserSync = require('browser-sync').create();
-const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -31,9 +29,7 @@ const otps = require('./models/otps.js');
 const verificationtoken = require('./models/verificationtoken.js');
 
 const app = express();
-app.use(cors({
-  origin: '*'
-}));
+
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
@@ -50,7 +46,7 @@ app.use(session({
     ttl: 24 * 60 * 60
   }),
   cookie: {
-    secure: false,
+    secure: true,
     maxAge: 60000 * 60,
   }
 }));
@@ -91,12 +87,6 @@ app.use((req, res, next) => {
 
 
 
-browserSync.init({
-  proxy: 'http://localhost:8000', 
-  files: ['public/**/*.html', 'public/**/*.css', 'public/**/*.js', 'protected/'], 
-  port: 3000,
-  open: false 
-});
 
 app.listen(port ,() => {console.log(`server is running at port ${port}`)});
 
