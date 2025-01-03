@@ -19,29 +19,33 @@
     <nav></nav>
     <aside></aside>
     <main>
-      <form>
+      <form class="event-form">
         <div style="grid-area: box-1;">
-          <label for="eventname">Event Name</label>
-          <input required type="text" id="eventname" name="eventname" placeholder="Event Name">
-          <label for="eventdate">Event Date-Time</label>
-          <input required type="datetime-local" id="eventdate" name="eventdate">
-          <label for="eventlocation">Event Location</label>
-          <input required type="text" id="eventlocation" name="eventlocation" placeholder="Event Location">
-          <label for="eventcontactinfo">Contact Info</label>
-          <input required type="email" id="eventcontactinfo" name="eventcontactinfo" placeholder="Email">
-          <input required type="number" id="eventcontactinfo" name="eventcontactinfo" placeholder="Phone No">
+          <label for="name">Event Name</label>
+          <input required type="text" id="name" name="name" placeholder="Event Name">
+
+          <label for="date">Event Date-Time</label>
+          <input required type="datetime-local" id="date" name="date">
+
+          <label for="location">Event Location</label>
+          <input required type="text" id="location" name="location" placeholder="Event Location">
+          
+          <label>Contact Info</label>
+          <input required type="email" name="email" placeholder="Email">
+          <input required type="number" name="phone_no" placeholder="Phone No">
+        
         </div>
         <div style="grid-area: box-2;">
-          <label for="eventdescription">Event Description</label>
-          <textarea required id="eventdescription" name="eventdescription" placeholder="Event Description"></textarea>
+          <label for="event_des">Event Description</label>
+          <textarea required id="event_des" name="event_des" placeholder="Event Description"></textarea>
           <div class="event-file-box">
-            <label for="eventfile">Event File</label>
-            <input type="file" style="display: none;" id="eventfile" name="eventfile" accept=".pdf, .docx">
-            <label for="eventlogo">Event Logo</label>
-            <input type="file" style="display: none;" id="eventlogo" name="eventlogo" accept=".jpg, .png">
+            <label for="event_file">Event File</label>
+            <input type="file" style="display: none;" id="event_file" name="event_file" accept=".pdf, .docx">
+            <label for="event_logo">Event Logo</label>
+            <input type="file" style="display: none;" id="event_logo" name="event_logo" accept=".jpg, .png">
           </div>
         </div>
-        <button style="grid-area: submit;" type="submit">Submit</button>
+        <button class="submit" style="grid-area: submit;" type="submit">Submit</button>
       </form>
     </main>
     <footer></footer>

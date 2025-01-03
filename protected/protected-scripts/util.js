@@ -46,6 +46,24 @@ export function isValidUserid(userid) {
 }
 
 
+export function base64convert (allowed, file, callback) {
+  if (!allowed.includes(file.type)) {
+    console.log(file.type);
+    alert(`invalid file type please provide file of type ${allowed}`);
+    return;
+  }
+
+if (file) {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = () => {
+    const file64 = reader.result;
+    if (callback) callback(file64);
+    }
+  }
+}
+
+
 export function upload (input, allowed, callback) {
   document.querySelector(input).addEventListener('change', (event) => {
     const file =event.target.files[0];
@@ -65,7 +83,7 @@ export function upload (input, allowed, callback) {
         if (callback) callback(file64);
       }
     }
-  })}
+})}
 
 
 export function download(base64, mimeType, fileName) {
