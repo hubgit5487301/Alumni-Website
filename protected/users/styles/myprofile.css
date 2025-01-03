@@ -2,18 +2,10 @@
   box-sizing: border-box;
 }
 
-
 main {
   display: flex;
   flex-direction: column;
-  /* display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-  "user-basic-data"
-  "user-details"
-  "resume"; */
   align-items: center;
-  /* justify-content: space-between; */
   gap: 1em;
   background-color: var(--main-color);
   border-radius: var(--border-radius);
@@ -76,10 +68,15 @@ main section:first-child div .profile-pic {
   right: 10%;
   cursor: pointer;
   transition: 0.15s ease-in;
+  backdrop-filter: blur(100px);
+}
+
+.edit-profile-pic:hover {
+  opacity: 0.9;
 }
 
 .edit-profile-pic:active {
-  opacity: 0.9;
+  opacity: 0.5;
 }
 
 main section:first-child .user-details {
@@ -251,7 +248,18 @@ main section:last-child label {
   width: 100%;
   text-align: center;
   color: white;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
 }
+
+main section:last-child label:hover {
+  opacity: 0.8;
+}
+main section:last-child label:active {
+  opacity: 0.5;
+}
+
+
 
 @media(width < 605px) {
   main section:first-child {
