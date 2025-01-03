@@ -223,6 +223,7 @@ router.patch('/update_details', async (req, res) => {
           "details.contactinfo": data.contactinfo
           }
       });
+      // console.log(update);
       if(update.modifiedCount>0) {
         return res.status(200).json({message: 'New details added successfully'})
       }
