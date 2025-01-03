@@ -35,6 +35,7 @@ main{
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-color);
   padding: 1em;
+  backdrop-filter: blur(10px);
 }
 
 main section {
