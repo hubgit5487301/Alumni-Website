@@ -305,32 +305,33 @@ footer img {
     background-color: rgb(206, 204, 204);
   }
   
-.login {
-  background-color: rgb(52, 156, 225);
-  border: solid;
-  border-color: rgb(52, 156, 225);
-  color: #f0f0f0;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.15s ease-in;
-  padding: 5px 10px;
-  box-shadow: var(--button-shadow);
-  align-self: center;
-  margin-right: 10px;
-}
-
-.login:hover {
-  opacity: 0.8;
-}
-
-.login:active {
-  opacity: 0.5;
-}
-
-.login a{
-  padding: 0px;
-}
-
+  nav li:nth-child(9) {
+    align-items: center;
+    align-content: center;
+    padding-block: 0.2em;
+    margin-right: 1em;
+    background-color: transparent;
+    & a{
+      color: white;
+    }
+  }
+  
+  nav li:nth-child(9) a{
+    background-color: var(--blue);
+    transition: 0.15s ease-in-out;
+    min-height: 80%;
+    align-self: center;
+    padding-inline: 0.5em;
+    align-content: center;
+    border-radius: 8px;
+    box-shadow: var(--button-shadow);
+  }
+  
+  nav li:nth-child(9) a:hover {
+    background-color: #f0f0f0;
+    color: black;
+  }
+  
 
 @media(max-width: 900px) {
   .hideonmobile{
@@ -339,7 +340,7 @@ footer img {
   .menu-button {
       display: block;
   }
-  .login{
+  nav li:nth-child(9){
     margin: 0;
   }
 }
@@ -372,7 +373,7 @@ footer img {
     gap: 0.5em;
   }
   nav {
-    gap: 2px;
+    gap: 0.4em;
   }
   footer {
     padding: 0;

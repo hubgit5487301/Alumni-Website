@@ -1,25 +1,27 @@
-
 nav li:nth-child(4) {
+  align-items: center;
+  align-content: center;
+  padding-block: 0.1em;
+  background-color: transparent;
+  & a{
+    color: white;
+  }
+}
+
+nav li:nth-child(4) a{
   background-color: var(--blue);
-  transition: 0.15s ease;
+  transition: 0.15s ease-in-out;
   min-height: 80%;
   align-self: center;
   align-content: center;
+  padding-inline: 0.5em;
   border-radius: 10px;
-  & a{
-    color: #f0f0f0;
-  }
-}
-
-nav li:nth-child(4):hover {
-  background-color: #f0f0f0;
-  & a{
-    color: black;
-  }
+  box-shadow: var(--button-shadow);
 }
 
 nav li:nth-child(4) a:hover {
-  background-color: transparent !important;
+  background-color: #f0f0f0;
+  color: black;
 }
 
 

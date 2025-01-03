@@ -75,8 +75,15 @@ router.get('/alumni-search', async (req, res) => {
     return res.status(200).json([]);
   }
   try{
+    let regexpattern = '';
+    if(personname.length === 1) {
+      regexpattern = `^${personname}`;
+    }
+    else {
+      regexpattern = `\\b${personname}\\b`
+    }
     const results = await user.find({
-      personname: { $regex: `^${personname}`, $options: 'i' },
+      personname: { $regex: regexpattern, $options: 'i' },
       "details.batch": {$regex: `^${batch}`, $options: 'i' },
       "details.branch": {$regex: `^${branch}`, $options: 'i'}},
       {personname: 1, personimage: 1,userid: 1 , usertype: 1}

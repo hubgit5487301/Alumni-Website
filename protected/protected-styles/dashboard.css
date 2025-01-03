@@ -1,24 +1,27 @@
 nav li:nth-child(2) {
-  background-color: var(--blue);
-  transition: 0.15s ease;
-  min-height: 80%;
-  align-self: center;
+  align-items: center;
   align-content: center;
-  border-radius: 10px;
+  padding-block: 0.1em;
+  background-color: transparent;
   & a{
-    color: #f0f0f0;
+    color: white;
   }
 }
 
-nav li:nth-child(2):hover {
-  background-color: #f0f0f0;
-  & a{
-    color: black;
-  }
+nav li:nth-child(2) a{
+  background-color: var(--blue);
+  transition: 0.15s ease-in-out;
+  min-height: 80%;
+  align-self: center;
+  padding-inline: 0.5em;
+  align-content: center;
+  border-radius: 10px;
+  box-shadow: var(--button-shadow);
 }
 
 nav li:nth-child(2) a:hover {
-  background-color: transparent !important;
+  background-color: #f0f0f0;
+  color: black;
 }
 
 .user-name {
