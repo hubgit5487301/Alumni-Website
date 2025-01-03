@@ -1,6 +1,4 @@
-import { API_BASE_URL } from "./config.js";
 import { getdataonevent as getdata, formatEventDate } from "./util.js";
-
 
 const data = await getdata('user_name');
 const span = document.createElement('span');

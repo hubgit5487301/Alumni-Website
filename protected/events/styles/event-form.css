@@ -1,112 +1,116 @@
-.event-form-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5vw;
-  padding-inline: 8vw;
+main {
+  background-color: var(--main-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-color);
+  min-width: 100%;
+  box-sizing: border-box;
+  height: 100%;
+  backdrop-filter: blur(10px);
 }
 
-.event-form-box H {
-  align-self: center;
-  background-color: rgba(46, 45, 45, 0.604);
-  box-shadow: rgba(20, 20, 20, 0.663) 0px 18px 16px 0px;
-  padding: 1vw 2vw;
-  border-radius: 5px;
-}
-
-.event-form {
-  gap: 1vw;
+main form {
   display: grid;
-  grid-template-columns: 1fr;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  font-size: 1.5vw;
-  width: 45vw;
-}
-
-
-.event-file {
-  display: flex;
-  padding: 3vw 3vw;
-  background-color: rgb(59, 59, 59);
-  font-size: 1.1vw;
-  padding-right: 0%;
-  border-radius: 5px;
-}
-
-
-.files-upload {
-  display: grid;
-  align-items: center;
-  background-color: rgb(59 ,59 ,59);
-  border-radius: 8px;
-  padding-left: 8vw;
-}
-
-.js-event-description {
-  height: 100px;
-}
-
-
-.box-1,.box-2 {
-  display: grid;
-  background-color: rgb(59 ,59 ,59);
-  border-radius: 8px;
+  min-height: 100%;
+  padding: 1em;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
-  text-align: center;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: 
+  "box-1 box-2"
+  "submit submit";
+  gap: 1em;
 }
 
-.event-file-text {
-  justify-self: center;
+main form div {
+  background-color: var(--main-color);
+  min-height: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  padding: 1em;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
+.test {
+  min-height: 100%;
+}
 
-
-.event-file::-webkit-file-upload-button {
-  color: white;
-  background-color: rgb(21, 101, 221);
+main form input {
+  background-color: var(--blue);
   border: none;
-  padding: 0.5vw 0.8vw;
-  border-radius: 5px;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.15s;
-  font-size: 1.1vw;
-}
-
-.event-file::-webkit-file-upload-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
-}
-
-.event-file::-webkit-file-upload-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
-}
-
-.event-submit {
-  border: none;
+  padding: 1em;
+  border-radius: 0.8em;
   color: white;
-  font-size: 1vw;
-  padding: 0.4vw;
-  padding-inline: 5vw;
-  border-radius: 5px;  
-  background-color: rgb(21, 101, 221);
+  outline: none;
+}
+ 
+main form div:first-child label:not(:first-of-type) {
+  margin-top: 1em;
   font-weight: bold;
-  font-size:1.5vw ;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.15s;
+  font-size: 1em;
+} 
+main form label:first-of-type {
+  font-weight: bold;
+  font-size: 1em;
+}
+main form div input,textarea {
+  background-color: var(--blue);
+  box-sizing: border-box;
+  border: none;
+  padding: 0.8em;
+  border-radius: 0.8em;
+  color: white;
+  outline: none;
+  resize: none;
+}
+
+main form textarea::placeholder,input::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+
+main form div div:last-child {
+  background-color: var(--main-color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  & label {
+    background-color: var(--blue);
+    padding: 1em;
+    border-radius: 0.8em;
+    color: white;
+    font-weight: bold;
+  }
+}
+
+main form:last-child div textarea {
+  min-height: 40vh;
+}
+
+main form button {
+  background-color: var(--blue);
+  border: none;
+  min-width: 25%;
+  justify-self: center;
+  padding: 1em;
+  border-radius: 0.8em;
+  color: white;
+  outline: none;
   cursor: pointer;
 }
-.event-submit:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
-}
 
-.event-submit:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+@media(width <= 620px ) {
+  main form {
+    display: flex;
+    flex-direction: column;
+  }
+  main form div:first-of-type input:last-of-type{
+    margin-top: 1em;
+  }
 }
-
