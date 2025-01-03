@@ -85,8 +85,24 @@ main form div div:last-child {
     padding: 1em;
     border-radius: 0.8em;
     color: white;
-    font-weight: bold;
+    font-weight:900;
+    cursor: pointer;
+    transition: 0.15s ease-in-out;
   }
+}
+
+main form div:last-of-type div {
+  background-color: transparent !important;
+}
+
+main form div:last-of-type div label:hover {
+  background-color: #f0f0f0;
+  color: black;
+  
+}
+
+main form div:last-of-type div label:active {
+  opacity: 0.5;
 }
 
 main form:last-child div textarea {
