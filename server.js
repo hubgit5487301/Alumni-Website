@@ -39,7 +39,7 @@ app.set('trust proxy', 1);
 
 app.use(session({
   secret: key,
-  resave: false,
+  resave: true,
   saveUninitialized: false,
   store: MongoStore.create({
     mongoUrl: mongoURI,
@@ -81,7 +81,7 @@ app.use('/protected', isAuthenticated, userRoutes);
 app.use('/protected', isAuthenticated, resourcesroute);
 
 app.use((req, res, next) => {
-  //console.log(`Visitor IP: ${req.ip}, URL: ${req.url}`);
+  console.log(`Visitor IP: ${req.ip}, URL: ${req.url}`);
   next();
 });
 
