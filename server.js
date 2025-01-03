@@ -3,6 +3,8 @@ const port = process.env.PORT;
 const key = process.env.KEY;
 const mongoURI = process.env.mongoURI;
 
+const browserSync = require('browser-sync').create();
+const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -29,7 +31,9 @@ const otps = require('./models/otps.js');
 const verificationtoken = require('./models/verificationtoken.js');
 
 const app = express();
-
+app.use(cors({
+  origin: '*'
+}));
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
@@ -39,14 +43,14 @@ app.set('trust proxy', 1);
 
 app.use(session({
   secret: key,
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
     mongoUrl: mongoURI,
     ttl: 24 * 60 * 60
   }),
   cookie: {
-    secure: true,
+    secure: false,
     maxAge: 60000 * 60,
   }
 }));
@@ -81,12 +85,18 @@ app.use('/protected', isAuthenticated, userRoutes);
 app.use('/protected', isAuthenticated, resourcesroute);
 
 app.use((req, res, next) => {
-  console.log(`Visitor IP: ${req.ip}, URL: ${req.url}`);
+  //console.log(`Visitor IP: ${req.ip}, URL: ${req.url}`);
   next();
 });
 
 
 
+browserSync.init({
+  proxy: 'http://localhost:8000', 
+  files: ['public/**/*.html', 'public/**/*.css', 'public/**/*.js', 'protected/'], 
+  port: 3000,
+  open: false 
+});
 
 app.listen(port ,() => {console.log(`server is running at port ${port}`)});
 
