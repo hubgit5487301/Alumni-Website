@@ -66,7 +66,6 @@ function render_users(data) {
     list.append(image, name);
     list.setAttribute('userid', user.userid);
     list.classList.add('button-id');
-    // document.querySelector('.users').append(list);
     if(user.usertype === 'alumni') {
       list.style.backgroundColor = 'rgba(255, 0, 0, 0.445)';
     }
