@@ -100,51 +100,82 @@ router.get('/alumni-search', async (req, res) => {
 });
 
 router.get('/my-profile', async (req, res) => {
-  if(req.isAuthenticated) {
-  const data = ({userid: req.user.userid, personname: req.user.personname, personimage: req.user.personimage, details: req.user.details, usertype: req.user.usertype});
-  res.status(200).json(data);
-  } 
-  else {
-    res.redirect(`/login?alert=not-logged-in`);
+  try {
+    if(req.isAuthenticated()) {  
+      const data = ({userid: req.user.userid, personname: req.user.personname, personimage: req.user.personimage, details: req.user.details, usertype: req.user.usertype});
+      data.details.resume = '';
+      res.status(200).json(data);
+    } 
+    else {
+      res.redirect(`/login?alert=not-logged-in`);
+    }
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'});
   }
 })
 
 router.get('/my-usertype', async (req, res) => {
-  if(req.isAuthenticated()) {
-    const data = ({ usertype: req.user.usertype });
-    res.status(200).json(data);
+  try {
+    if(req.isAuthenticated()) {
+      const data = ({ usertype: req.user.usertype });
+      res.status(200).json(data);
+    }
+    else {
+      res.redirect(`/login?alert=not-logged-in`);
+    }
   }
-  else {
-    res.redirect(`/login?alert=not-logged-in`);
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'});
   }
 })
 
 router.get('/my-userid', async (req, res) => {
-  if(req.isAuthenticated()) {
-    const data = ({ userid: req.user.userid });
-    res.status(200).json(data);
+  try{
+    if(req.isAuthenticated()) {
+      const data = ({ userid: req.user.userid });
+      res.status(200).json(data);
+    }
+    else {
+      res.redirect(`/login?alert=not-logged-in`);
+    }
   }
-  else {
-    res.redirect(`/login?alert=not-logged-in`);
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'});
   }
 })
 
 router.get('/user_logo', (req, res) => {
-  if(req.isAuthenticated()) {
-    res.status(200).json(req.user.personimage);
+  try {
+    if(req.isAuthenticated()) {
+      res.status(200).json(req.user.personimage);
+    }
+    else {
+      res.redirect(`/login?alert=not-logged-in`);
+    }
   }
-  else {
-    res.redirect(`/login?alert=not-logged-in`);
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'});
   }
 });
 
 router.get('/user_info', (req, res) => {
-  if(req.isAuthenticated()) {
-    const data = ({aboutme: req.user.details.aboutme, education: req.user.details.education, currentrole: req.user.details.currentrole, experience: req.user.details.experience, contactinfo: req.user.details.contactinfo})
-    res.status(200).json(data);
+  try {
+    if(req.isAuthenticated()) {
+      const data = ({aboutme: req.user.details.aboutme, education: req.user.details.education, currentrole: req.user.details.currentrole, experience: req.user.details.experience, contactinfo: req.user.details.contactinfo})
+      res.status(200).json(data);
+    }
+    else {
+      res.redirect(`/login?alert=not-logged-in`);
+    }
   }
-  else {
-    res.redirect(`/login?alert=not-logged-in`);
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'});
   }
 });
 
@@ -164,16 +195,21 @@ router.get('/user_name', async (req, res) => {
 })
 
 router.get(`/myprofile-posts`, async (req, res) => {
-  const usertype = req.user.usertype;
-  if(usertype === 'alumni' || usertype === 'admin') return res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'myprofile-posts.html'));
-  else return res.redirect(`/protected/my-profile-page`)
+  try {
+    const usertype = req.user.usertype;
+    if(usertype === 'alumni' || usertype === 'admin') return res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'myprofile-posts.html'));
+    else return res.redirect(`/protected/my-profile-page`)
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'});
+  }
 })
 
 router.get('/my-jobs-events-applied/:userid', async (req, res) => {
   try{
     const userid = req.params.userid;
-    
-    const all_jobs = await jobs.find({'applicants.applicant': userid },{_id: 1});
+     const all_jobs = await jobs.find({'applicants.applicant': userid },{_id: 1});
     const all_events = await events.find({'applicants.applicant': userid },{_id: 1});
     const data = ({all_jobs, all_events});
     res.status(200).json(data);
@@ -197,14 +233,19 @@ router.get('/my-jobs-events-posts/:userid', async (req, res) => {
 }),
 
 router.patch('/my-profile/edit-profile-pic', async (req, res) => {
-  const {file64, userid} = req.body;
-  const new_profile_pic = await resizeimage(file64, 60, 'webp', 100000)
-  await user.updateOne(
-    {"userid": userid},
-    {$set: {"personimage": new_profile_pic}}
-  ) ;
-  res.status(200).json({message: 'Profile picture changed'});
-
+  try {
+    const {file64, userid} = req.body;
+    const new_profile_pic = await resizeimage(file64, 60, 'webp', 100000)
+    await user.updateOne(
+      {"userid": userid},
+      {$set: {"personimage": new_profile_pic}}
+    ) ;
+    res.status(200).json({message: 'Profile picture changed'});
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'});
+  }
 })
 
 router.patch('/update_details', async (req, res) => {
@@ -242,22 +283,28 @@ router.patch('/update_details', async (req, res) => {
 })
 
 router.post('/my-profile/upload-resume', async (req, res) => {
-  const user_id = req.user.userid;
-  const file_64 = req.body.file64;
-  const match = file_64.match(/^data:(.*);base64,/);
-  if(match[1] == 'application/pdf')
-  { const result = await user.updateOne(
-      {userid: user_id}, 
-      {$set: {"details.resume": file_64}
-    })
-    if(result) {
-      return res.status(201).json({message: 'Uploaded Resume'})
+  try {
+    const user_id = req.user.userid;
+    const file_64 = req.body.file64;
+    const match = file_64.match(/^data:(.*);base64,/);
+    if(match[1] == 'application/pdf')
+    { const result = await user.updateOne(
+        {userid: user_id}, 
+        {$set: {"details.resume": file_64}
+      })
+      if(result) {
+        return res.status(201).json({message: 'Uploaded Resume'})
+      }
+      else {
+        return res.status(401).json({error: 'something went wrong'})
+      }
     }
-    else {
-      return res.status(401).json({error: 'something went wrong'})
-    }
+    else return res.status(500).json({error: 'file type not pdf'})
   }
-  else return res.status(500).json({error: 'file type not pdf'})
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'});
+  }
 })
 
 router.get('/my-profile/download-resume', async (req, res) => {

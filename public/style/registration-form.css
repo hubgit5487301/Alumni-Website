@@ -1,3 +1,30 @@
+nav li:nth-child(4) {
+  align-items: center;
+  align-content: center;
+  padding-block: 0.1em;
+  background-color: transparent;
+  & a{
+    color: white;
+  }
+}
+
+nav li:nth-child(4) a{
+  background-color: var(--blue);
+  transition: 0.15s ease-in-out;
+  min-height: 80%;
+  align-self: center;
+  padding-inline: 0.5em;
+  align-content: center;
+  margin-right: 0.8em;
+  border-radius: 10px !important;
+  box-shadow: var(--button-shadow);
+}
+
+nav li:nth-child(4) a:hover {
+  background-color: #f0f0f0;
+  color: black;
+}
+
 main{ 
   display: flex;
   align-items: center;
@@ -132,5 +159,8 @@ form span {
   input, label {
       width: 80vw;
       align-self: center;
+  }
+  nav li:nth-child(4) {
+    border-radius: 0 30px 30px 0 !important;
   }
 }

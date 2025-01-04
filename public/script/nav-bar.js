@@ -1,3 +1,39 @@
+import {stopLoading } from "./util.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
+  document.body.classList.add("loading");
+});
+
+let imageCache = {};
+const preloadImages = async (imageUrls) => {
+  for (const url of imageUrls) {
+    try {
+      const img = await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+      });
+
+      imageCache[url] = img; 
+    } catch (error) {
+      console.error(error.message); 
+    }
+  }
+}
+
+const imageUrls = [
+  "/images/logo.webp",
+  "/images/menu.svg",
+  "/images/close.svg",
+  "/images/linkedin.svg",
+  "/images/instagram.svg",
+  "/images/facebook.svg",
+];
+
+await preloadImages(imageUrls);
+stopLoading();
+
 function createNavLink( url, text, classname, image) {
   const li = document.createElement('li');
   if(classname) classname.split(' ').forEach(cls => li.classList.add(cls));
@@ -29,16 +65,6 @@ nav.append(
   createNavLink('/login', 'Login', 'login', null),
   createNavLink('/registration-form', 'SignUp', 'sign-up', null),
 )
-
-
-
-let footer_copyright = document.createElement('li');
-let logo_div = document.createElement('div');
-let footer_terms = document.createElement('li');
-
-let footer_div_linkedin = document.createElement('li');
-let footer_div_instagram = document.createElement('li');
-let footer_div_facebook = document.createElement('li');
 
 const footer = document.querySelector('footer');
 footer.append(createNavLink('#', 'Copyright', null, null));

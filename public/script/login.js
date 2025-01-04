@@ -1,7 +1,6 @@
 import { API_BASE_URL } from "./config.js";
 const urlParams = new URLSearchParams(window.location.search);
 
-
 if(urlParams.has('alert')) {
   const message = urlParams.get('alert');
   if(message === 'not-logged-in') {
@@ -21,9 +20,6 @@ if(urlParams.has('alert')) {
     alert('Link not found')
   }
 }
-
-document.querySelector('.login').style.display = 'none'
-document.querySelector('.sign-up').style.display = 'block'
 
 document.querySelector('.js-login-button').addEventListener('click', (event) => {
   event.preventDefault();

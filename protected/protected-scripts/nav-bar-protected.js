@@ -1,51 +1,65 @@
-import { getdataonevent as getdata } from "./util.js"
+import { getdataonevent as getdata, stopLoading } from "./util.js";
+document.addEventListener("DOMContentLoaded", async () => {
+  document.body.classList.add("loading");});
 
+let imageCache = {};
+const preloadImages = async (imageUrls) => {
+  for (const url of imageUrls) {
+    try {
+      const img = await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+      });
 
-document.addEventListener("DOMContentLoaded", () => {
-  document.body.classList.add('loading'); 
-
-  const stopLoading = () => {
-    document.body.classList.remove('loading');
-    document.querySelector('.loading-page').style.opacity = 0;
-    setTimeout(() => {
-      document.querySelector('.loading-page').style.display = 'none';
-    },500)
-  };
-
-  window.addEventListener('load', () => {
-    setTimeout(stopLoading, 500); 
-  });
-});
-  
-const user_logo = await getdata('/user_logo');
-
-const urlParams = new URLSearchParams(window.location.search);
-const message = urlParams.get('alert');
-if(urlParams.has('alert')) {
-  if(message === 'logout-first') {
-    alert('Please logout first. ');
+      imageCache[url] = img; 
+    } catch (error) {
+      console.error(error.message); 
+    }
   }
 }
 
-function createNavLink( url, text, classname, image) {
-  const li = document.createElement('li');
-  if(classname) classname.split(' ').forEach(cls => li.classList.add(cls));
+const imageUrls = [
+  "/images/logo.webp",
+  "/images/menu.svg",
+  "/images/close.svg",
+  "/images/linkedin.svg",
+  "/images/instagram.svg",
+  "/images/facebook.svg",
+];
 
-  const link = document.createElement('a');
+const user_logo = await getdata("/user_logo");
+if (user_logo) imageUrls.push(user_logo); 
 
+
+await preloadImages(imageUrls);
+stopLoading();
+
+const urlParams = new URLSearchParams(window.location.search);
+const message = urlParams.get("alert");
+if (urlParams.has("alert")) {
+  if (message === "logout-first") {
+    alert("Please logout first.");
+  }
+}
+
+function createNavLink(url, text, classname, imageUrl) {
+  const li = document.createElement("li");
+  if (classname) classname.split(" ").forEach((cls) => li.classList.add(cls));
+  const link = document.createElement("a");
   link.href = url;
-
-  const img = document.createElement('img');
-  if(image) {
-    img.src = image;
+  if (imageUrl) {
+    const img = imageCache[imageUrl] ? imageCache[imageUrl].cloneNode(true) : new Image();;
+    img.src = imageUrl;
     link.append(img);
+    // console.log(link);
+  }
+  if (text) {
+    const textnode = document.createTextNode(text);
+    link.append(textnode);
   }
 
-  if(text) {
-    const textnode = document.createTextNode(text)
-    link.appendChild(textnode);
-  }
-  
   li.append(link);
   return li;
 }
@@ -105,3 +119,4 @@ document.querySelector('aside').style.transform = 'translateX(0%)';
 document.querySelector('.close-button').addEventListener('click', ()=> {
   document.querySelector('aside').style.transform = 'translateX(100%)';
 })
+

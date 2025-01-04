@@ -1,7 +1,6 @@
 import { API_BASE_URL } from "./config.js";
 import { passwordMatchcheck, inputCheck,isValidUserid, isValidEmail} from '/script/util.js';
 
-document.querySelector('.sign-up').style.display = 'none';
 
 document.querySelector('.js-submit-button').addEventListener('click', (event) => {
   event.preventDefault();

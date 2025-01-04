@@ -28,7 +28,6 @@ document.querySelector('form').addEventListener('submit', async (e) => {
 async function load_users() {
   let current_page = 1;
   const data = await getdata(`/users?page=${current_page}&limit=20`);
-
   render_users(data);
 
   const lastlistobserver = new IntersectionObserver(async (entries) => {

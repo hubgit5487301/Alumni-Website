@@ -308,3 +308,11 @@ export async function search(type, input1, input2, input3, address, branch) {
   const file_button = document.querySelectorAll('.js-file');
   download_search_file(file_button, 'resources/download');
 }
+
+export const stopLoading = () => {
+  document.body.classList.remove('loading');
+  document.querySelector('.loading-page').style.opacity = 0;
+  setTimeout(() => {
+    document.querySelector('.loading-page').style.display = 'none';
+  },500)
+};

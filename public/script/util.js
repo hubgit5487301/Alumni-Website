@@ -149,7 +149,13 @@ export function passwordMatchcheck (password, renterpassword, input, input2){
   return true;
 }
 
-
+export const stopLoading = () => {
+  document.body.classList.remove('loading');
+  document.querySelector('.loading-page').style.opacity = 0;
+  setTimeout(() => {
+    document.querySelector('.loading-page').style.display = 'none';
+  },500)
+};
 /*
 export function yearSelect (input) {
   const startYear = 1998;
