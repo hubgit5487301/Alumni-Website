@@ -27,18 +27,24 @@ document.querySelector('form').addEventListener('submit', async (e) => {
 
 async function load_users() {
   let current_page = 1;
+  let loading = false;
   const data = await getdata(`/users?page=${current_page}&limit=20`);
   render_users(data);
 
   const lastlistobserver = new IntersectionObserver(async (entries) => {
       const lastentry = entries[0];
-      if(!lastentry.isIntersecting) return;
+      if(!lastentry.isIntersecting || loading) return;
+      loading = true;
       const data = await getnewusers(current_page + 1);
-      if(data.length === 0) return;
+      if(data.length === 0) {
+        loading = false;
+        return;
+      }
       render_users(data);
       current_page++;
       lastlistobserver.unobserve(lastentry.target);
       lastlistobserver.observe(document.querySelector('.button-id:last-child'));
+      loading = false;
   },{
     rootMargin: '100px'
   });
