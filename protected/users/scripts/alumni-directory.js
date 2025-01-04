@@ -51,7 +51,8 @@ function render_users(data) {
     const list = document.createElement('li');
     const image = document.createElement('img');
     const name = document.createElement('p');
-    image.src = user.personimage;
+    if(user.personimage === 'Empty') image.src = '/images/blank_profile_pic.png';
+    else image.src = user.personimage;
     name.innerText = user.personname;
     list.append(image, name);
     list.setAttribute('userid', user.userid);

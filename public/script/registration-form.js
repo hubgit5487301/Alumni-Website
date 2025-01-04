@@ -52,6 +52,4 @@ document.querySelector('.js-submit-button').addEventListener('click', async (eve
     alert('Check Your email for verification link');
         window.location.href = '/login';
   }
-  else {
-    alert(response.message);
-  }});
+});

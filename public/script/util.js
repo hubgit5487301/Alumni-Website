@@ -4,7 +4,9 @@ export async function getdataonevent (address) {
   try{
     const response = await fetch(`${API_BASE_URL}/protected/${address}`);
     if(!response.ok) {
-      throw new Error('response not ok');
+      const errorResponse = await response.json(); 
+      alert(errorResponse.message || 'Something went wrong'); 
+      throw new Error(errorResponse.message || `Error ${response.status}`);
     }
     const data = await response.json();
     return data;
@@ -24,24 +26,10 @@ export async function uploaddataonevent (address, data) {
       },
       body: JSON.stringify(data)
     });
-    // if(!response.ok) {
-    //   throw new Error('response not ok');
-    // }
-    if (!response.ok) {
-      // Try to parse the error response as JSON if possible
-      let errorDetails = '';
-      try {
-        if (response.headers.get('Content-Type')?.includes('application/json')) {
-          const errorResponse = await response.json(); // Parse JSON error
-          errorDetails = errorResponse.message || JSON.stringify(errorResponse);
-        } else {
-          errorDetails = await response.text(); // Fallback to plain text/HTML
-        }
-      } catch {
-        errorDetails = response.statusText || 'Unknown error occurred';
-      }
-
-      throw new Error(`Server error (${response.status}): ${errorDetails}`);
+    if(!response.ok) {
+      const errorResponse = await response.json(); 
+      alert(errorResponse.message || 'Something went wrong'); 
+      throw new Error(errorResponse.message || `Error ${response.status}`);
     }
     const datarecieve = await response.json();
     return datarecieve;

@@ -103,7 +103,9 @@ export async function getdataonevent (address) {
   try{
     const response = await fetch(`${API_BASE_URL}/protected/${address}`);
     if(!response.ok) {
-      throw new Error('response not ok');
+      const errorResponse = await response.json(); 
+      alert(errorResponse.message || 'Something went wrong'); 
+      throw new Error(errorResponse.message || `Error ${response.status}`);
     }
     const data = await response.json();
     return data;
@@ -125,7 +127,9 @@ export async function deletedataonevent (address) {
     });
 
     if(!response.ok) {
-      throw new Error('response not ok');
+      const errorResponse = await response.json(); 
+      alert(errorResponse.message || 'Something went wrong'); 
+      throw new Error(errorResponse.message || `Error ${response.status}`);
     }
     const data = await response.json();
     return data;
@@ -145,7 +149,9 @@ export async function updatedataonevent (address, data) {
       body: JSON.stringify(data)
     });
     if(!response.ok) {
-      throw new Error('response not ok');
+      const errorResponse = await response.json(); 
+      alert(errorResponse.message || 'Something went wrong'); 
+      throw new Error(errorResponse.message || `Error ${response.status}`);
     }
     const datarecieve = await response.json();
     return datarecieve;
@@ -165,7 +171,9 @@ export async function uploaddataonevent (address, data) {
       body: JSON.stringify(data)
     });
     if(!response.ok) {
-      throw new Error('response not ok');
+      const errorResponse = await response.json(); 
+      alert(errorResponse.message || 'Something went wrong'); 
+      throw new Error(errorResponse.message || `Error ${response.status}`);
     }
     const datarecieve = await response.json();
     return datarecieve;

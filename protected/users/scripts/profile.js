@@ -3,8 +3,11 @@ import {getdataonevent as getdata} from "../../protected-scripts/util.js";
 const urlParams = new URLSearchParams(window.location.search);
 const userid = urlParams.get('userid');
 const data = await getdata(`/users/${userid}`);
+const img = data.personimage;
 
-document.querySelector('.profile-pic').src = data.personimage;
+if (img === 'Empty') document.querySelector('.profile-pic').src = '/images/blank_profile_pic.png';
+else document.querySelector('.profile-pic').src = data.personimage;
+
 document.querySelector('.user-name').textContent = data.personname;
 document.querySelector('.batch').textContent = `Batch: ${data.details.batch}`;
 document.querySelector('.branch').textContent = `Branch: ${data.details.branch}`;
