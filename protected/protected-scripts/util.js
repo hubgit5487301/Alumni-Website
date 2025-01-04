@@ -1,13 +1,4 @@
 import { API_BASE_URL } from "./config.js";
-export function changefieldcolor(input) {
-  input.classList.add('input-error');
-  input.classList.remove('input-default');
-}
-
-export function changefieldcolordefault(input) {
-  input.classList.remove('input-error');
-  input.classList.add('input-default');
-}
 
 export function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -20,31 +11,17 @@ export function inputCheck(fields) {
   fields.forEach(({ value, selector }) => {
     const field = document.querySelector(selector);
     if (!value) {
-      changefieldcolor(field);
       inputcheck = true;
     } else {
-      changefieldcolordefault(field);
     }
   });
-
   return inputcheck;
-}
-
-export function passwordMatchcheck (password, renterpassword, input1, input2){
-  if (password != renterpassword)
-  { changefieldcolor(document.querySelector(input1));
-    changefieldcolor(document.querySelector(input2));
-    alert("Passwords do not match!");
-    return false;
-  }
-  return true;
 }
 
 export function isValidUserid(userid) {
   const useridregex = /^(98|99|[0-9]{2})(CSE|ME|CE|EE|ECE)(0[1-9]|[1-9][0-9])$/
   return useridregex.test(userid);
 }
-
 
 export function base64convert (allowed, file, callback) {
   if (!allowed.includes(file.type)) {
@@ -63,18 +40,15 @@ if (file) {
   }
 }
 
-
 export function upload (input, allowed, callback) {
   document.querySelector(input).addEventListener('change', (event) => {
     const file =event.target.files[0];
     if (file) {
-      
       if (!allowed.includes(file.type)) {
         alert(`invalid file type please provide file of type ${allowed}`);
         return;
       }
     }
-
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -87,31 +61,23 @@ export function upload (input, allowed, callback) {
 
 
 export function download(base64, mimeType, fileName) {
-  
   const base64Data = base64.startsWith('data:') ? base64.split(',')[1] : base64;
   const byteCharacters = atob(base64Data); 
   const byteArrays = [];
-
   for (let offset = 0; offset < byteCharacters.length; offset += 1024) {
     const slice = byteCharacters.slice(offset, offset + 1024);
     const byteNumbers = new Array(slice.length);
-
     for (let i = 0; i < slice.length; i++) {
       byteNumbers[i] = slice.charCodeAt(i); 
     }
-
     byteArrays.push(new Uint8Array(byteNumbers)); 
   }
-
   const blob = new Blob(byteArrays, { type: mimeType });
-
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = fileName; 
   link.click();  
 }
-
-
 
 export function formatEventDate(eventdate) {
   const date = new Date(eventdate);
@@ -132,38 +98,6 @@ export function formatjobdate(jobdate) {
   const minutes = String(date.getMinutes()).padStart(2, '0');
   return `${day} ${date.toLocaleString('default', { month: 'long' })} ${year}`;
 }
-
-/*
-export function darkMode () {
-  document.querySelector('.js-dark-mode-button').addEventListener('click', () => {
-  const generaldashboard = document.querySelector('.general-dashboard');
-  const bottombox = document.querySelector('.bottom-box');
-  const navbar = document.querySelector('.js-top-box');
-  const bottombar = document.querySelector('.js-bottom');
-  const inputboxes = document.querySelectorAll('input');
-  const currentBgColor = getComputedStyle(navbar).backgroundColor;
-
-    if(currentBgColor === 'rgb(255, 255, 255)') {
-      generaldashboard.style.color = 'rgb(255, 255, 255)';
-      navbar.style.backgroundColor = 'black';
-      bottombar.style.backgroundColor = 'black';
-      bottombox.style.backgroundColor = 'black';
-      document.querySelectorAll('a').forEach(link => {link.style.color = 'rgb(255, 255, 255)';});
-      inputboxes.forEach(input => { input.style.backgroundColor = 'rgb(255, 255, 255)';})
-      //console.log('a' + bottombox.style.backgroundColor);
-     }
-     else {
-      generaldashboard.style.color = 'black';
-      bottombox.style.backgroundColor = 'rgb(255, 255, 255)';
-      navbar.style.backgroundColor = 'rgb(255, 255, 255)';
-      bottombar.style.backgroundColor = 'rgb(255, 255, 255)';
-      document.querySelectorAll('a').forEach(link => {link.style.color = 'black';});
-      //console.log('b' + bottombox.style.backgroundColor);
-    }
-  })
-
-}
-*/
 
 export async function getdataonevent (address) {
   try{
@@ -221,7 +155,7 @@ export async function updatedataonevent (address, data) {
   }    
 }
 
-export async function updloaddataonevent (address, data) {
+export async function uploaddataonevent (address, data) {
   try{
     const response = await fetch(`${API_BASE_URL}/protected/${address}`, {
       method: 'POST',
@@ -241,7 +175,6 @@ export async function updloaddataonevent (address, data) {
   }    
 }
 
-
 export function yearSelect (input) {
   const startYear = 1998;
   const endYear = (new Date().getFullYear()) + 4;
@@ -254,22 +187,6 @@ export function yearSelect (input) {
   }
 };
 
-export function load_content(data, sem, content, address) {
-  let file_html = '';
-  const file_selector = document.querySelector(content);
-  const filtered_data = data.filter(item => item.semester === sem);
-  if(filtered_data.length >0) {
-    filtered_data.forEach(data => {
-        file_html += `<div class="file js-file" id="${data._id}">${data.name}</div>`;
-      })  
-      file_selector.innerHTML = file_html;
-      const file_button = file_selector.querySelectorAll('.js-file');
-      download_search_file(file_button, 'resources/download');
-    }
-    else {
-      file_selector.innerHTML = `<div class="no-file">No files found</div>`;
-    }   
-}
 
 export async function download_search_file(file_button, address) {
   file_button.forEach(file_button => {

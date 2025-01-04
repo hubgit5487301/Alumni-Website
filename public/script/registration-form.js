@@ -1,8 +1,6 @@
-import { API_BASE_URL } from "./config.js";
-import { passwordMatchcheck, inputCheck,isValidUserid, isValidEmail} from '/script/util.js';
+import { passwordMatchcheck, inputCheck,isValidUserid, isValidEmail, uploaddataonevent as post_data} from '/script/util.js';
 
-
-document.querySelector('.js-submit-button').addEventListener('click', (event) => {
+document.querySelector('.js-submit-button').addEventListener('click', async (event) => {
   event.preventDefault();
   const inputname = document.querySelector('.js-name').value;
   const userid = document.querySelector('.js-userid').value.toUpperCase();
@@ -10,7 +8,6 @@ document.querySelector('.js-submit-button').addEventListener('click', (event) =>
   const password = document.querySelector('.js-password').value;
   const renterpassword = document.querySelector('.js-password-recheck').value;
 
-  
   //const userprivacy = document.querySelector('.js-privacy').value;
 
   const fields = [
@@ -30,7 +27,7 @@ document.querySelector('.js-submit-button').addEventListener('click', (event) =>
     }
   
   if(!isValidUserid(userid)) {
-    alert('Userid is not valid enter your college roll no of format 21cse__');
+    alert('Userid is not valid enter your college roll no of format 21CSE01');
     return;
   }
 
@@ -39,40 +36,22 @@ document.querySelector('.js-submit-button').addEventListener('click', (event) =>
     return;
   }
 
-  let check = passwordMatchcheck(password, renterpassword, '.js-password-recheck');
+  let check = passwordMatchcheck(password, renterpassword);
   if(check === false)
   {
     return;
   }
-  const storedAlumni= ({
+  const newUser= ({
     personname: inputname,
     userid: userid.trim(),
     email: email.trim(),
     getpassword: password.trim(),
   });
-
-  fetch(`${API_BASE_URL}/submit-alumni`,{
-    method: 'POST',
-    headers:{
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(storedAlumni),
-  })
-  .then((response) => {
-    if(!response.ok) {
-      return response.json().then((errorData) => {
-        throw new Error(errorData.message || 'error submiting data');
-    });
-  }
-  return response.json()
-})
-  .then((data) => {
+  const response = await post_data('/submit_user',newUser);
+  if(response.message === 'Data submitted') {
     alert('Check Your email for verification link');
-    window.location.href = '/login';})
-  .catch((error) => {
-    console.error(error.message);
-    alert(error.message);
-  });
-});
-
-
+        window.location.href = '/login';
+  }
+  else {
+    alert(response.message);
+  }});

@@ -1,8 +1,6 @@
-import { API_BASE_URL } from "./config.js";
-import { inputCheck, isValidEmail } from "/script/util.js"; 
+import { inputCheck, isValidEmail, uploaddataonevent as post_message } from "/script/util.js"; 
 
-
-document.querySelector('.js-submit-message-button').addEventListener('click', (event) => {
+document.querySelector('.js-submit-message-button').addEventListener('click', async (event) => {
   event.preventDefault();
   const name = document.querySelector('.js-name');
   const email = document.querySelector('.js-email');
@@ -29,33 +27,9 @@ document.querySelector('.js-submit-message-button').addEventListener('click', (e
     email: email.value,
     message: message_input.value
   })
-  fetch(`${API_BASE_URL}/send-message`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(message),
-  })
-  .then((response) => {
-    if(!response.ok) {
-      throw new Error(error.message||'error submitting data');
-    }
-    return response.json()
-  })
-  .then(data => {
-    if(data.message === 'Message Sent') {
-      alert(data.message);
-      document.querySelector('form').reset();
-    }
-  })
-  .catch((err) => {
-      console.error(err.message);
-      alert(err.message);
- })
-
+  const response = await post_message('send-message', message);
+  if(response.message === 'Message Sent') {
+    alert(response.message);
+    document.querySelector('form').reset();
+  }
 })
-
-
-
-
-

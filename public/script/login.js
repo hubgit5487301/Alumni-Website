@@ -1,4 +1,5 @@
 import { API_BASE_URL } from "./config.js";
+import { uploaddataonevent as post_login } from "./util.js";
 const urlParams = new URLSearchParams(window.location.search);
 
 if(urlParams.has('alert')) {
@@ -21,7 +22,7 @@ if(urlParams.has('alert')) {
   }
 }
 
-document.querySelector('.js-login-button').addEventListener('click', (event) => {
+document.querySelector('.js-login-button').addEventListener('click', async (event) => {
   event.preventDefault();
   const inputuserid = (document.querySelector('.js-userid-box').value).trim();
   const password = (document.querySelector('.js-password-box').value).trim();
@@ -30,35 +31,16 @@ document.querySelector('.js-login-button').addEventListener('click', (event) => 
     userid: userid,
     password: password,
   }
-  
-fetch(`${API_BASE_URL}/login`, {
-  method: 'POST',
-  headers:{
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(logindata),
-
-})
-.then((response) => {
-  
-
-  if(!response.ok) {
-    return response.json().then((data) => {
-      throw new Error(data.message);
-    });
+  try {
+  const response = await post_login('login', logindata);
+  if(response.message === 'Login successful') {
+    window.location.href = response.redirectUrl;
   }
-  return response.json();
-  })
-.then((data) => {
-  if (data.redirectUrl) {
-    window.location.href = data.redirectUrl; // Redirect to the new URL
-  } else if (data.message) {
-    alert(data.message); // Display message
+  else {
+    alert(response.error);
   }
-})
-.catch((error) => {
-  alert(error.message);
-  console.log('Error',error);
-})
-
+  }
+  catch(err) {
+    console.log(err.message);
+  }
 })

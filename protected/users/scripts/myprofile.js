@@ -1,4 +1,4 @@
-import {upload as uploadfile, getdataonevent as getdata, updatedataonevent as updatedata,updloaddataonevent as uploaddata, download as downloadresume} from "../../protected-scripts/util.js";
+import {upload as uploadfile, getdataonevent as getdata, updatedataonevent as updatedata,uploaddataonevent as uploaddata, download as downloadresume} from "../../protected-scripts/util.js";
 
 const data = await getdata('/my-profile');
 

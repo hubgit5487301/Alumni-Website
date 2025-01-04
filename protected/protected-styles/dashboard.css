@@ -40,6 +40,7 @@ nav li:nth-child(2) a:hover {
 
 main {
   min-height: 80%;
+  min-width: 100%;
   display: grid;
   grid-template-rows: auto;
   grid-template-areas: 
@@ -59,7 +60,7 @@ main {
   grid-area: welcome-box;
   min-height: 80%;
   display: grid;
-  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas: 
   "welcome-img welcome-text";
   background-color: var(--main-color);
@@ -67,7 +68,7 @@ main {
   border-radius: var(--border-radius);
   align-items: stretch;
   justify-content: center;
-  gap: 10px;
+  gap: 1em;
   padding: 1em;
 }
 
@@ -76,14 +77,17 @@ main {
   display: flex;
   flex-direction: column;
   text-align: center;
+  justify-self: flex-end;
   justify-content: space-evenly;
-  max-width: 40vw;
+  max-width: 100%;
   padding: 1vw;
 }
 
 .college-image {
   display: flex;
   align-items: center;
+  min-width: 70%;
+  height: auto;
   justify-content: center;
 }
 
@@ -111,27 +115,29 @@ main {
     padding-inline: 0;
   }
   .welcome-box {
+    grid-template-columns: auto;
     grid-template-areas: 
     "welcome-text"
     "welcome-img";
     /* "events"; */
-    gap: 30px;
+    gap: 1em;
     justify-content: center;
     background-color: transparent;
     box-shadow: none;
   }
   .welcome-text {
     max-width: 100%;
-    margin-bottom: auto;
     justify-self: center;
-    padding: 1vw;
+    padding-inline: 1vw;
+    padding-block: 5vw;
     background-color: var(--main-color);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-color);
   }
   .college-image img {
     max-width: 100%;
-    height: 100%;
+    max-height: 100%;
+    aspect-ratio: 16/9;
     align-self: center;
   }
   .college-image {

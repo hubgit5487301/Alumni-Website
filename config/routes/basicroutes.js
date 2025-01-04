@@ -176,7 +176,7 @@ router.post('/change-password', async (req, res) => {
   }
 })
 
-router.post('/submit-alumni', async (req, res) => {
+router.post('/submit_user', async (req, res) => {
   try{
     const { personname, userid, email, getpassword } = req.body;
     const {salt, passwordhash} = hashPassword(getpassword);
@@ -234,7 +234,7 @@ router.get('/', (req, res) => {
     return res.redirect('/dashboard');
   }
   else {
-    return res.redirect('/login?alert=not-logged-in'); 
+    return res.redirect('/login'); 
   }           
 })
 
@@ -262,9 +262,8 @@ router.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname,'..', '..',  'public', 'login.html'))            
 })
 
-
-
 router.post('/login', (req, res, next) => {
+  console.log(req.body);
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       console.log(err);
@@ -276,9 +275,9 @@ router.post('/login', (req, res, next) => {
     req.logIn(user, (err) => {
       if (err) {
         console.log(err);
-        return res.status(500).json({ message: 'Login failed' });
+        return res.status(500).json({ error: 'Login failed' });
       }
-      return res.json({ message: 'Login successful', redirectUrl: '/dashboard' });
+      return res.status(200).json({ message: 'Login successful', redirectUrl: '/dashboard' });
     });
   })(req, res, next);
 });
