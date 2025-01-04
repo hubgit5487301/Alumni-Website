@@ -24,8 +24,24 @@ export async function uploaddataonevent (address, data) {
       },
       body: JSON.stringify(data)
     });
-    if(!response.ok) {
-      throw new Error('response not ok');
+    // if(!response.ok) {
+    //   throw new Error('response not ok');
+    // }
+    if (!response.ok) {
+      // Try to parse the error response as JSON if possible
+      let errorDetails = '';
+      try {
+        if (response.headers.get('Content-Type')?.includes('application/json')) {
+          const errorResponse = await response.json(); // Parse JSON error
+          errorDetails = errorResponse.message || JSON.stringify(errorResponse);
+        } else {
+          errorDetails = await response.text(); // Fallback to plain text/HTML
+        }
+      } catch {
+        errorDetails = response.statusText || 'Unknown error occurred';
+      }
+
+      throw new Error(`Server error (${response.status}): ${errorDetails}`);
     }
     const datarecieve = await response.json();
     return datarecieve;

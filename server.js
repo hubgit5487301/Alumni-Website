@@ -85,9 +85,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
 app.listen(port ,() => {console.log(`server is running at port ${port}`)});
 
 
