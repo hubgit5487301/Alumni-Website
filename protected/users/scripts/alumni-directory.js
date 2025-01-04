@@ -25,6 +25,7 @@ document.querySelector('form').addEventListener('submit', async (e) => {
   }
 });
 
+
 async function load_users() {
   let current_page = 1;
   let loading = false;
@@ -49,10 +50,12 @@ async function load_users() {
     rootMargin: '100px'
   });
   const list = document.querySelector('.button-id:last-child')
-  lastlistobserver.observe(list);
+  if (list) lastlistobserver.observe(list);
 }
 
 function render_users(data) {
+  const userlist = document.querySelector('.users');
+  const fragment = new DocumentFragment();
   data.forEach(user => {
     const list = document.createElement('li');
     const image = document.createElement('img');
@@ -63,12 +66,14 @@ function render_users(data) {
     list.append(image, name);
     list.setAttribute('userid', user.userid);
     list.classList.add('button-id');
-    document.querySelector('.users').append(list);
+    // document.querySelector('.users').append(list);
     if(user.usertype === 'alumni') {
       list.style.backgroundColor = 'rgba(255, 0, 0, 0.445)';
     }
+
+    fragment.append(list);
   });
-  
+  userlist.append(fragment);
   const user_button = document.querySelectorAll('.button-id')
     user_button.forEach(button => {
     button.addEventListener('click', (e) => {
