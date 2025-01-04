@@ -47,7 +47,7 @@ document.querySelector('.js-submit-button').addEventListener('click', async (eve
     email: email.trim(),
     getpassword: password.trim(),
   });
-  const response = await post_data('/submit_user',newUser);
+  const response = await post_data('submit_user',newUser);
   if(response.message === 'Data submitted') {
     alert('Check Your email for verification link');
         window.location.href = '/login';
