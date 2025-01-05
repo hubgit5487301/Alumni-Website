@@ -51,7 +51,7 @@ main form input {
  
 main form div:first-child label:not(:first-of-type) {
   margin-top: 1em;
-  font-weight: bold;
+  font-weight: bold;  
   font-size: 1em;
 } 
 main form label:first-of-type {
@@ -76,26 +76,45 @@ main form textarea::placeholder,input::placeholder {
 
 main form div div:last-child {
   background-color: var(--main-color);
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+  backdrop-filter: none;
+  text-align: center;
   & label {
     background-color: var(--blue);
     padding: 1em;
     border-radius: 0.8em;
     color: white;
-    font-weight:900;
+    font-weight:500;
     cursor: pointer;
     transition: 0.15s ease-in-out;
   }
 }
 
+main form div:last-of-type {
+  max-width: 100%;
+  gap: 1em;
+}
+
 main form div:last-of-type div {
-  background-color: transparent !important;
+  background-color: transparent;
+  max-width: 100%;
+  
+}
+
+main form div:last-of-type div label {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: 0.15s ease-in-out;
 }
 
 main form div:last-of-type div label:hover {
+  box-shadow: var(--shadow-color);
   background-color: #f0f0f0;
   color: black;
   
@@ -138,5 +157,9 @@ main form button:active {
   }
   main form div:first-of-type input:last-of-type{
     margin-top: 1em;
+  }
+  main form div div:last-child {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 }

@@ -6,6 +6,7 @@ let eventimage = '';
 let eventfile = '';
 document.querySelector('#event_file').addEventListener('input', (e) => {
   const file = e.target.files[0];
+  document.querySelector('label[for="event_file"]').innerText = e.target.files[0].name;
   eventdataupload(allowedfile, file, (file64) => {
     eventfile = file64;
   })
@@ -13,6 +14,7 @@ document.querySelector('#event_file').addEventListener('input', (e) => {
 
 document.querySelector('#event_logo').addEventListener('change', (e) => {
   const file = e.target.files[0];
+  document.querySelector('label[for="event_logo"]').innerText = e.target.files[0].name;
   eventdataupload(allowedpic, file, (file64) => {
     eventimage = file64});
 });
