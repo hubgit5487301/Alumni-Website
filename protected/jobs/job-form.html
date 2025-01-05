@@ -1,96 +1,96 @@
 <!DOCTYPE html>
 <html>
   <head>
-        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    <title>Alumni Directory</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-   
-    <link rel="stylesheet" href="/protected/jobs/styles/job-form.css">
-    <link rel="stylesheet" href="/protected-styles/nav-bar.css">
-    <link rel="stylesheet" href="/protected-styles/dashboard.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job</title>
+    <link rel="stylesheet" defer href="/protected/jobs/styles/job-form.css">
+    <link rel="stylesheet" defer href="/protected-styles/nav-bar.css">
   </head>
-  <body class="general-dashboard">
-    <div class="top-box js-top-box"></div>
-    <div class="bottom-box">
-      <h1 class="job-heading">Job Form</h1>
-      <div class="job-form-box js-job-form-box">
-        <div class="job-form js-job-form">
-          <div class="job-details-box js-job-details-box">
-            <h1>Job Details</h1>
-            <form class="job-details js-job-details">
-              <label for="job-tittle">Job Tittle</label>
-              <input class="input-default js-job-tittle" type="text" placeholder="Job Tittle">
-              <label for="job-location">Job Location</label>
-              <input class="input-default js-job-location" type="text" placeholder="Job location">
-              <label for="job-salary">Job Salary (monthly)</label>
-              <input class="input-default js-job-salary" type="number" min="5000" placeholder="Job Salary (monthly)">
-              <label for="job-type">Job Type</label>
-              <select class="input-default js-job-type" name="job-type">
-                <option value="" disabled selected hidden>Select Job Type</option>
-                <option value="Full Time">Full-Time</option>
-                <option value="Part Time">Part-Time</option>
-                <option value="Internship">Internship</option>
-                <option value="Contract">Contract</option>
-              </select>
-              <label for="job-level">Employement Level</label>
-              <select class="input-default js-job-level" name="job level">
-                <option value="" disabled selected hidden>Select level</option>
-                <option value="Entry level">Entry Level</option>
-                <option value="Mid level">Mid Level</option>
-                <option value="Senior level">Senior Level</option>
-                <option value="Manager">Manager</option>
-              </select>
-              <label for="job-des">Job Description</label>
-              <textarea class="input-default js-job-des" type="text" placeholder="Job Description"></textarea>
-            </form>
-          </div>
-          <div class="job-quali-box js-job-quali-box">
-            <h1>Required Qualifications</h1>
-            <form class="job-quali js-job-quali">
-              <label for="edu-qual">Educational Requirement</label>
-              <input class="input-default js-edu-qual" type="text" placeholder="Educational Requirement">
-              <label for="exp-level">Experience Level (in years)</label>
-              <input class="input-default js-exp-level" type="text" placeholder="Experience Level(in years)">
-            </form>
-          </div>
-          <div class="job-appli-box js-job-appli-box">
-            <h1>Application Details</h1>
-            <form class="job-appli js-job-appli">
-              <label for="deadline">Application Deadline</label>
-              <input class="input-default js-deadline" type="date">
-              <label for="Application-email">Application Email</label>
-              <input class="input-default js-app-email" type="email" placeholder="Email">
-              <label for="resume">Resume Required</label>
-              <select class="input-default js-resume" name="resume">
-                <option value="" disabled selected hidden>Yes/No</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-              </select>
-            </form>
-          </div>
-          <div class="company-details-box js-company-details-box">
-            <h1>Company details</h1>
-            <form class="company-details js-company-details">
-              <label for="company-name">Company Name</label>
-              <input class="input-default js-company-name" type="text" placeholder="Company Name">
-              <label for="company-des">Company Description</label>
-              <textarea class="input-default js-company-des" placeholder="Company Description"></textarea>
-              <label class="company-website">Company Website</label>
-              <input class="input-default js-company-website" placeholder="Company Website" type="url">
-              <label for="contact-info">Contact Information</label>
-              <input class="input-default js-contact-info" placeholder="Contact Information" type="text">
-              <label for="company-logo">Company Logo</label>
-              <input class="job-file js-company-logo" type="file" accept=".jpg, .png">
-            </form>
-          </div>
-          <button class="submit-button js-submit-button">Submit</button>
+  <body>
+    <div class="loading-page">
+      <div class="circle">
+        <div class="dot-wrapper">
+          <div class="dot"></div>
         </div>
       </div>
     </div>
-    <footer class="bottom js-bottom"></footer>
+    <nav></nav>
+    <aside></aside>
+    <main>
+      <form>
+        <section style="grid-area: box-1;">
+          <h1>Job Details</h1>
+          <label for="job_tittle">Job Tittle  </label>
+          <input required type="text" id="job_tittle" name="job_tittle" placeholder="Tittle">
+          <label for="job_location">Job Location</label>
+          <input required type="text" id="job_location" name="job_location" placeholder="Location">
+        </section>
+        <section style="grid-area: box-2;">
+          <h1>Compensation & Type</h1>
+          <label for="job_salary">Monthly Salary</label>
+          <input required type="number" id="job_salary" name="job_salary" placeholder="Salary">
+          <label for="job_type">Job Type</label>
+          <select required id="job_type" name="job_type">
+            <option value="" disabled selected hidden>Select Job Type</option>
+            <option value="Full Time">Full-Time</option>
+            <option value="Part Time">Part-Time</option>
+            <option value="Internship">Internship</option>
+            <option value="Contract">Contract</option>
+          </select>
+        </section>
+        <section style="grid-area: box-3;">
+          <h1>Requirements</h1>
+          <label for="job_edu">Education</label>
+          <input required type="text" id="job_edu" name="job_edu" placeholder="Education">
+          <label for="job_exp_level">Experience (in years)</label>
+          <input required type="text" id="job_exp_level" name="job_exp_level" placeholder="Experience">
+        </section>
+        
+        <section style="grid-area: box-4;" class="no-back">
+          <section>
+            <h1>Job Description</h1>
+            <textarea required id="job_des" name="job_des" placeholder="Description"></textarea>
+          </section>
+          <section>
+            <h1>Employer Description</h1>
+            <textarea required id="company_des" name="job_company_des" placeholder="Description"></textarea>
+          </section>
+        </section>
+        
+        <section style="grid-area: box-5;">
+          <h1>Application Details</h1>
+          <label for="job_deadline">Application Deadline</label>
+          <input required type="date" id="job_deadline" name="job_deadline">
+          <label for="job_app_email">Application Email</label>
+          <input required type="email" id="job_app_email" name="job_app_email" placeholder="Email">
+          <label for="job_resume">Resume Requirement</label>
+          <select required id="job_resume" name="job_resume">
+            <option value="" disabled selected hidden>Yes/No</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </section>
+        <section style="grid-area: box-6;">
+          <h1>Employer Details</h1>
+          <label for="job_company_name">Employer Name</label>
+          <input required type="text" id="job_company_name" name="job_company_name" placeholder="Employer">
+          <label for="job_company_website">Employer Website</label>
+          <input type="text" id="job_company_website" name="job_company_website" placeholder="Website">
+          <label for="job_contact_info">Employer Contact INFO</label>
+          <input required type="text" id="job_contact_info" name="job_contact_info" placeholder="Contact Info">
+        </section>
+        <section style="grid-area: box-7;">
+          <h1>Employer Logo</h1>
+          <label for="job_company_logo">Logo</label>
+          <input type="file" id="job_company_logo" name="job_company_logo" style="display: none;">
+          <p id="logo_name">No file chosen</p>
+        </section>
+        <button type="submit" style="grid-area: submit;">Submit</button>
+      </form>
+    </main>
+    <footer></footer>
     <script type="module" src="/protected-scripts/nav-bar-protected.js"></script>
     <script type="module" src="/protected/jobs/scripts/job-form.js"></script>
   </body>

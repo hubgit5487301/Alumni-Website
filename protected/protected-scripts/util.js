@@ -25,7 +25,6 @@ export function isValidUserid(userid) {
 
 export function base64convert (allowed, file, callback) {
   if (!allowed.includes(file.type)) {
-    console.log(file.type);
     alert(`invalid file type please provide file of type ${allowed}`);
     return;
   }

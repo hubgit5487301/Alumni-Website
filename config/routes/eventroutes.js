@@ -19,12 +19,10 @@ router.post('/submit-event', async (req, res) => {
     const resizedLogo = await resizeimage(event_logo, 60, 'webp', 200000); 
     const logo = resizedLogo != null ? resizedLogo : undefined;
     const userid = req.user.userid;
-
-    const event_date = new Date(date);
     const newEvent = new events({
       userid,
       name,
-      date: event_date,
+      date,
       location,
       contact_info: contact_info,
       event_des,
@@ -44,7 +42,7 @@ router.post('/submit-event', async (req, res) => {
           {"userid": userid},
           {$push: {"data.event_ids": {event_id: event_id}}}) 
 
-          return res.status(500).json({message: 'Data submitted'});
+          return res.status(200).json({message: 'Data submitted'});
       }
       else {
         return res.status(500).json({message: 'This event exists already'})

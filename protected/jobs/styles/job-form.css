@@ -1,97 +1,193 @@
-.job-heading {
+*{
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  background-color: var(--main-color);
+  box-shadow: var(--shadow-color);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  padding: 1em;
+}
+
+
+main form  {
+  min-width: 100%;
+  gap: 1em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1.5fr 1fr auto;
+  grid-template-areas: 
+  "box-1 box-2 box-3"
+  "box-4 box-4 box-4"
+  "box-5 box-6 box-7"
+  "submit submit submit";
+  justify-content: center;
+}
+
+main form section h1{
+  margin-bottom: 0.5em;
+  font-size: 1.2em;
+}
+
+main form section:not(:nth-child(4))  {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  background-color: var(--main-color);
+  box-shadow: var(--shadow-color);
+  flex-direction: column;
+  border-radius: 0.8em;
+  padding: 1em;
+  backdrop-filter: blur(10px);
+  gap: 0.1em;
+}
+
+main form section:nth-child(4) {
+  display: flex;
+  min-width: 100%;
+  justify-content: space-around;
+  gap: 1em;
+  flex-direction: row;
+  border-radius: 0.8em;
+  padding: 0;
+}
+
+main form section:nth-child(4) section {
+  display: flex;
+  max-width: 50%;
+  height: auto;
+  flex-shrink: 0;
+  flex-grow: 1;
+  background-color: var(--main-color);
+  flex-direction: column;
+  border-radius: 0.8em;
+  justify-content: center;
+  padding: 1em;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-color);
+}
+
+textarea {
+  background-color: var(--blue);
+  border-radius: 0.8em;
+  border: none;
+  min-width: 100%;
+  /* min-height: 60%; */
+  height: auto;
+  resize: none;
+  padding: 0.5em;
+  flex-grow: 1;
+  color: white;
+}
+input,select {
+  background-color: var(--blue);
+  border-radius: 0.8em;
+  border: none;
+  resize: none;
+  padding: 0.5em;
+  color: white;
+}
+
+textarea::placeholder,input::placeholder {
+  color: white;
+  opacity: 0.7;
+}
+
+textarea:focus,input:focus {
+  outline: 2px solid var(--dark-blue);
+}
+
+
+main form section:last-of-type label:first-of-type {
+  background-color: var(--blue);
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 0.8em;
+  text-align: center;
+}
+
+main form section:last-of-type p {
+  background-color: var(--main-color);
+  padding: 0.5em 1em;
+  text-align: center;
   align-self: center;
-  background-color: rgba(46, 45, 45, 0.604);
-  box-shadow: rgba(20, 20, 20, 0.663) 0px 18px 16px 0px;
-  padding: 1vw 2vw;
-  border-radius: 8px;
-  margin: 0%;
+  min-width: 20.5vw;
+  border-radius: 0.8em;
+  box-shadow: var(--shadow-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
-.job-form {
-  display: grid;
-  grid-template-rows: 2fr 1fr 1fr 2fr;
-  align-items: center;
-  padding: 0%;
-  margin: 0;
-  padding-inline: 5vw;
-}
-
-.job-details {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-  gap: 1vw;
-}
-
-.job-quali {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-  gap: 1vw;
-}
-
-.job-appli {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-  gap: 1vw;
-}
-
-.company-details {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-  gap: 1vw;
-}
-
-.submit-button {
+main form button {
+  background-color: var(--blue);
   border: none;
+  min-width: 25%;
+  justify-self: center;
+  padding: 1em;
+  border-radius: 0.8em;
   color: white;
-  font-size: 1vw;
-  padding: 0.4vw;
-  padding-inline: 5vw;
-  border-radius: 5px;  
-  background-color: rgb(21, 101, 221);
-  font-weight: bold;
-  font-size:1.5vw ;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.15s;
+  outline: none;
   cursor: pointer;
-}
-.submit-button:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
+  transition: 0.15s ease-in-out;
 }
 
-.submit-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+main form button:hover {
+  background-color: #f0f0f0;
+  color: black;
 }
 
-.job-file {
-  border-radius: 8px;
-  padding: 0.5vw 0.8vw;
+main form button:active {
+  opacity: 0.5;
 }
 
-.job-file::-webkit-file-upload-button {
-  color: white;
-  background-color: rgb(21, 101, 221);
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.15s;
-  font-size: 1.1vw;
+@media(width < 700px) {
+  main form{
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr auto;
+    grid-template-areas: 
+    "box-1 box-2" 
+    "box-3 box-5" 
+    "box-4 box-4" 
+    "box-6 box-7"
+    "submit submit";
+  }
+  main form section:last-of-type p {
+    min-width: 40vw;
+  } 
 }
 
-.job-file::-webkit-file-upload-button:hover {
-  transform: scale(1.08);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
+@media(width< 500px) {
+  main form {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 2fr 1fr 1fr auto;
+    grid-template-areas: 
+    "box-1" "box-2" "box-3" "box-4" "box-5" "box-6" "box-7" "submit";
+  }
+  main form section:nth-child(4) {
+    flex-direction: column;
+  }
+  main form section:nth-child(4) section {
+    min-width: 100%;
+  }
+  main form section:last-of-type {
+    gap: 1em;
+  }
+  main form section:last-of-type p {
+    min-width: 80vw;
+  }
 }
 
-.job-file::-webkit-file-upload-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+@media(width > 1150px) {
+  main form {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr auto;
+    grid-template-areas: 
+    "box-1 box-2 box-3 box-7" 
+    "box-4 box-4 box-5 box-6" 
+    "submit submit submit submit";
+  }
 }
