@@ -15,7 +15,7 @@ router.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'resources', 'notes.html'))
 })
 
-router.get('/ques_papers', (req, res) => {
+router.get('/paper', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'resources', 'papers.html'))
 })
 

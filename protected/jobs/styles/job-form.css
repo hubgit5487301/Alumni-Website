@@ -4,13 +4,22 @@
 
 main {
   display: flex;
+  flex-direction: column;
   background-color: var(--main-color);
   box-shadow: var(--shadow-color);
   border-radius: var(--border-radius);
   backdrop-filter: blur(10px);
   padding: 1em;
+  gap: 1em;
+  align-items: center;
 }
 
+#heading{
+  background-color: var(--blue);
+  color: white;
+  border-radius: 0.5em;
+  padding: 0.1em 1em;
+}
 
 main form  {
   min-width: 100%;
