@@ -19,23 +19,23 @@
   <nav></nav>
   <aside></aside>
   <main>
-    <div class="wrapper">
+    <div>
       <p>SignUp</p>
-      <form action="submit" class="login-form">
-        <label>Name</label>
-        <input required type="text" class="input-username js-name" placeholder="User Name">
-        <label>UserID</label>
-        <input type="text" required class="input-user-id js-userid" autocomplete="username" placeholder="UserID">
-        <label>Email</label>
-        <input type="email" required class="input-email js-email" placeholder="Email" autocomplete="email">
-        <label>Password</label>
-        <input type="password" required autocomplete="new-password" class="input-password js-password" placeholder="Password">
-        <label>Re-enter Password</label>
-        <input type="password" required class="input-re-password js-password-recheck" autocomplete="new-password" placeholder="Re-enter Password">
-        <button class="submit-button js-submit-button">Submit</button>
+      <form>
+        <label for="user_name">Name</label>
+        <input required type="text" id="user_name" name="personname" placeholder="User Name">
+        <label for="userid">UserID</label>
+        <input type="text" id="userid" name="userid" required autocomplete="username" placeholder="UserID">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="Email" autocomplete="email">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="getpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least one number, one lowercase letter, one uppercase letter, and be at least 8 characters long." required autocomplete="new-password" placeholder="Password">
+        <label for="renterpassword">Re-enter Password</label>
+        <input type="password" id="renterpassword" name="repassword" required autocomplete="new-password" placeholder="Re-enter Password">
+        <button type="submit">Submit</button>
         <span>
-          <label class="text4">Have an account?</label>
-          <a href="/login" class="register-button js-login-button">Login</a>
+          <span>Have an account?</span>
+          <a href="/login">Login</a>
         </span>  
       </form>
     </div>

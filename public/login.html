@@ -19,18 +19,18 @@
   <nav></nav>
   <aside ></aside>
   <main>
-    <div class="wrapper">
+    <div>
       <p>IET Alumni Portal</p>
       <form action="submit" class="login-form">
-        <label>UserID</label>
-        <input type="text" required class="input-user-id js-userid-box" autocomplete="username" placeholder="UserID">
-        <label>Password</label>
-        <input type="password" required autocomplete="current-password" class="input-password js-password-box" placeholder="Password">
+        <label for="userid">UserID</label>
+        <input type="text" required id="userid" name="userid" autocomplete="username" placeholder="UserID">
+        <label for="password">Password</label>
+        <input type="password" required autocomplete="current-password" id="password" name="password" placeholder="Password">
         <a href="forgot-password">Forgot Password?</a>
-        <button class="login-button js-login-button">Login</button>
+        <button type="submit">Login</button>
         <span>
-          <label class="text4">Need an account?</label>
-          <a href="registration-form" class="register-button js-register-button">SignUp</a>
+          <span>Need an account?</span>
+          <a href="registration-form">SignUp</a>
         </span>  
       </form>
     </div>

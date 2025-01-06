@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "./config.js";
 import { uploaddataonevent as post_login } from "./util.js";
 const urlParams = new URLSearchParams(window.location.search);
 
@@ -9,7 +8,7 @@ if(urlParams.has('alert')) {
     window.location.href = '/login';
   }
   else if(message === 'account-verified'){
-    alert('Account Verfied');
+    alert('Account Verified');
   }
   else if(message === 'User-not-found'){
     alert('Invalid Token');
@@ -22,25 +21,15 @@ if(urlParams.has('alert')) {
   }
 }
 
-document.querySelector('.js-login-button').addEventListener('click', async (event) => {
-  event.preventDefault();
-  const inputuserid = (document.querySelector('.js-userid-box').value).trim();
-  const password = (document.querySelector('.js-password-box').value).trim();
-  const userid = inputuserid.toUpperCase();
-  const logindata = {
-    userid: userid,
-    password: password,
-  }
-  try {
-  const response = await post_login('login', logindata);
-  if(response.message === 'Login successful') {
-    window.location.href = response.redirectUrl;
-  }
-  else {
-    alert(response.error);
-  }
-  }
-  catch(err) {
-    console.log(err.message);
-  }
+const form = document.querySelector('form');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  form.querySelectorAll('input').forEach(input => {
+    input.value =  input.value.replace(/\s+/g, ''); 
+  })
+  const form_data = new FormData(form);
+  const login_data = Object.fromEntries(form_data.entries());
+  const response = await post_login('login', login_data);
+  if(response.message === 'Login successful') window.location.href = response.redirectUrl;
 })

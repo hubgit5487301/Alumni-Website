@@ -9,6 +9,11 @@ const nodemailer = require('nodemailer');
 const API_BASE_URL = process.env.API_BASE_URL;
 const mongoose = require('mongoose');
 
+function isValidUserid(userid) {
+  const useridregex = /^(98|99|[0-9]{2})(CSE|ME|CE|EE|ECE)(0[1-9]|[1-9][0-9])$/;
+  return useridregex.test(userid);
+}
+
 function hashPassword(getpassword) {
   const salt = crypto.randomBytes(16).toString('hex');
   const passwordhash = crypto.pbkdf2Sync(getpassword, salt, 1000, 64, 'sha256').toString('hex');
@@ -177,4 +182,4 @@ const startObjectId = mongoose.Types.ObjectId.createFromTime(startOfToday / 1000
 const endObjectId = mongoose.Types.ObjectId.createFromTime(endOfToday / 1000);
 
 
-module.exports = { hashPassword, setBranchValue, verifyPassword, isAuthenticated, resizeimage, generatetoken, sendlink, usertype_and_batchSet, startObjectId, endObjectId};
+module.exports = { hashPassword, setBranchValue, verifyPassword, isAuthenticated, resizeimage, generatetoken, sendlink, usertype_and_batchSet, startObjectId, endObjectId, isValidUserid};

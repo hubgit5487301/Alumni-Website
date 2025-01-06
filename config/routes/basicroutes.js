@@ -12,7 +12,7 @@ const otps = require('../../models/otps');
 const passport = require('../../config/passport-config');
 
 
-const { hashPassword, setBranchValue, generatetoken, sendlink, usertype_and_batchSet, isAuthenticated} = require('../util');
+const { hashPassword, isValidUserid, setBranchValue, generatetoken, sendlink, usertype_and_batchSet, isAuthenticated} = require('../util');
 
 const nodemailer = require('nodemailer');
 const verificationtoken = require('../../models/verificationtoken');
@@ -182,6 +182,9 @@ router.post('/submit_user', async (req, res) => {
     const {salt, passwordhash} = hashPassword(getpassword);
     const branch =  setBranchValue(userid);
     const {usertype, batch} =  usertype_and_batchSet(userid);
+    if(!isValidUserid(userid)) {
+      return res.status(400).json({message: 'Userid is not valid enter your college roll no of format 21CSE01'})
+    }
     const newdetails = {
       batch: batch,
       branch: branch,

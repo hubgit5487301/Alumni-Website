@@ -49,7 +49,7 @@ main a:hover {
 }
 
 
-.wrapper {
+main div {
   padding: 25px 100px;
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.315);
@@ -75,7 +75,7 @@ form a {
   margin-top: 8px;
 }
 
-.wrapper p {
+main div p {
   margin: 0;
   font-weight: bolder;
   font-size: 3em;
@@ -117,12 +117,16 @@ input {
   padding-left: 10px;
 }
 
-.input-user-id {
+main div form>input:nth-of-type(2) {
   text-transform: uppercase;
 }
 
-.input-user-id::placeholder {
+main div form>input::placeholder {
   text-transform: none;
+}
+
+main div form span>span {
+  font-weight: 600;
 }
 
 label {
@@ -140,18 +144,18 @@ form span {
   main {
     display: inline-block;
   }
-  .wrapper {
+  main div {
     height: calc(100vh - 211.2px);
     padding: 10px;
   }
-  .wrapper p {
+  main div p {
     display: inline-block;
   }
   form button {
     margin: 0;
     margin-top: 10px;
   }
-  .wrapper {
+  main div {
       height: calc(100vh - 211.2px);
       padding-bottom: 60px;
       padding-top: 50px;
@@ -159,8 +163,5 @@ form span {
   input, label {
       width: 80vw;
       align-self: center;
-  }
-  nav li:nth-child(4) {
-    border-radius: 0 30px 30px 0 !important;
   }
 }

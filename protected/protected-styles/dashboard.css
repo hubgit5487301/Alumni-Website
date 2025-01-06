@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 nav li:nth-child(2) {
   align-items: center;
   align-content: center;
@@ -39,7 +43,7 @@ nav li:nth-child(2) a:hover {
 }
 
 main {
-  min-height: 80%;
+  max-height: 100%;
   min-width: 100%;
   display: grid;
   grid-template-rows: auto;
@@ -48,7 +52,6 @@ main {
   background-color: var(--main-color);
   box-shadow: var(--shadow-color);
   border-radius: var(--border-radius);
-  align-items: center;
   justify-content: space-between;
   gap: 10px;
   padding: 1rem;
