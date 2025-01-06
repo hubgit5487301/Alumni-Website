@@ -94,7 +94,7 @@ router.post('/submit_resource', async (req, res) => {
   }
   catch(err) {
     console.log(err);
-    return res.status(500).json({error: 'internal server error'})
+    return res.status(500).json({messsage: 'internal server error'})
   }
 })
 router.get

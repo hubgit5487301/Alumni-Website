@@ -1,4 +1,4 @@
-import { isValidUserid, uploaddataonevent as post_data} from '/script/util.js';
+import {uploaddataonevent as post_data} from '/script/util.js';
 
 const form = document.querySelector('form');
 form.addEventListener('submit',async (e) => {

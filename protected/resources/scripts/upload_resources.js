@@ -1,67 +1,47 @@
-import { API_BASE_URL } from "../../protected-scripts/config.js";
-import { upload, inputCheck } from "../../protected-scripts/util.js";
+import { base64convert as resource_file, uploaddataonevent as upload_resource } from "../../protected-scripts/util.js";
+
+const urlParams = new URLSearchParams(window.location.search);
+const type = urlParams.get('type');
+const file_type = document.querySelector('#file_type');
+let new_type = '';
+if(type) {
+  if (type === 'notes') {
+    file_type.value = 'Notes';
+    new_type = 'Notes'; 
+  }
+  else {
+    file_type.value = 'qpapers';
+    new_type = 'qpapers';
+  }
+  file_type.disabled = true;
+  file_type.style.display = 'none';
+  document.querySelector(`label[for="${file_type.id}"]`).style.display = 'none'
+}
 
 let file = undefined;
-
 const allowed_files = 'application/pdf'
-upload('.js-file-input', allowed_files, false, '.js-file-input', (file64) => {
-  file = file64;
+
+document.querySelector('#file').addEventListener('input', (e) => {
+  const temp_file = e.target.files[0];
+  document.querySelector('label[for="file"').innerText = temp_file.name;
+  resource_file(allowed_files, temp_file, (file64) => {
+    file = file64;
+  })
 })
 
-
-document.querySelector('.js-submit-button').addEventListener('click', (e) => {
+const form = document.querySelector('form');
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const file_name= document.querySelector('.js-file-name').value;
-  const tags = document.querySelector('.js-search-tags').value;
-  const branch= document.querySelector('.js-branch').value;
-  const file_type = document.querySelector('.js-file-type').value;
-  const sem = document.querySelector('.js-sem').value;
-  const subject = document.querySelector('.js-subject').value;
-
-  const fields = [
-    {value: file_name, selector: '.js-file-name'},
-    {value: tags, selector: '.js-search-tags'},
-    {value: branch, selector: '.js-branch'},
-    {value: file_type, selector: '.js-file-type'},
-    {value: sem, selector: '.js-sem'},
-    {value: subject, selector: '.js-subject'},
-    {value: file, selector: '.js-file-input'}
-  ]
-  
-  const inputcheck = inputCheck(fields);
-  if(inputcheck === true ) {
-    alert('provide all details');
-    return;
+  console.group(file_type.value);
+  const form_data = new FormData(form);
+  const resource_data = Object.fromEntries(form_data.entries());
+  if(type) resource_data.file_type = new_type; 
+  delete resource_data.file;
+  resource_data.file = file;
+  const response = await upload_resource('submit_resource' ,resource_data);
+  if(response.message.toLowerCase() === 'file uploaded') {
+    alert(response.message);
+    document.querySelector('label[for="file"').innerText = 'Upload File'
+    form.reset();
   }
-
-  const data = ({
-    file_name, tags, branch, file_type, sem, subject, file
-  })
-
-  fetch(`${API_BASE_URL}/protected/submit_resource`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => {
-    if(!response.ok) {
-      throw new Error('Response not ok')
-    }
-    return response.json()
-  })
-  .then(data=> {
-    if(data.message = 'File Uploaded') {
-      alert(data.message);
-    }
-    else {
-      alert('something went wrong')
-    }
-  })
-  .catch(err => {
-    console.log(err)
-  })
-
-
 })
