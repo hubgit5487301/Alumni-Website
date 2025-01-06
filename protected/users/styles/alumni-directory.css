@@ -136,13 +136,13 @@ main ul li p {
   }
 }
 
-@media(hover: none) {
-  main ul li:hover {
+/* @media(hover: none) {
+  /* main ul li:hover {
     border-radius: 50% 10px 10px 50%;
   }
   
   main ul li:hover img {
     scale: 1;
     border-radius: 50% 0 0 50% ;
-  }
-}
+  } 
+} */
