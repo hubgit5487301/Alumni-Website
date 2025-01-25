@@ -1,158 +1,299 @@
-.top-heading {
-  text-align: center;
+*{
+  box-sizing: border-box;
+}
+
+main h1 {
+  display: flex;
+  justify-self: center;
   align-self: center;
-  margin: 0%;
-  border-radius: 0.4vw;
-  padding: 0.5vw;
-  background-color:  rgba(46, 45, 45, 0.596);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  font-size: 2.5vw;
-  width: 30vw;
-  margin-bottom: 1vw;
+  padding: 0.2em 1em;
+  color: white;
+  border-radius: 0.5em;
+  background-color: var(--blue);
+  text-align: center;
 }
 
-.search-box {
-  background-color:  rgba(46, 45, 45, 0.596);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  padding: 1vw;
-  border-radius: 0.5vw;
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--main-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-color);
+  backdrop-filter: blur(10px);
+  max-height: 100%;
+  max-width: 100%;
+  padding: 1em;
+  align-items: center;
+  gap: 1em;
 }
 
-.search-input {
-  height: 2vw;
-  flex: 15;
-  outline: none;
+main search form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+  "input-1 input-2 input-3 submit";
+  align-self: center;
+  justify-self: center;
+  justify-content: space-between;
+  max-width: 100%;
+  width: 90%;
+  max-height: 100%;
+  background-color: var(--main-color);
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  gap: 0.5em;
+  box-shadow: var(--shadow-color);
+}
+
+main search form div {
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+main search input,select{
+  background-color: var(--blue);
   border: none;
-  border-radius: 5px;
-  gap: 1.5vw;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  background-color: rgb(59, 59, 59);
-  margin-left: 0%;
-  padding-left: 1vw;
-  font-size: 1.1vw;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  color: white;
+  min-width: 100%;
 }
 
-.search-input::placeholder {
+main search form select {
+  white-space: nowrap ;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+main search input:focus, select:focus{
+  outline: 2px solid var(--dark-blue);
+}
+
+main search input::placeholder {
+  color: white;
   opacity: 0.5;
 }
 
-.search-input-box {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  align-items: center;
-  justify-items: center;
-}
-
-.submit-button {
+main search form button {
+  background-color: var(--blue);
+  padding: 0.5em 1em;
   border: none;
+  border-radius: 0.5em;
   color: white;
-  font-size: 1vw;
-  padding: 0.4vw;
-  padding-inline: 5vw;
-  border-radius: 0.5vw;  
-  background-color: rgb(21, 101, 221);
-  font-weight: bold;
-  font-size:1.5vw ;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.15s;
   cursor: pointer;
+  transition: 0.15s linear;
 }
-.submit-button:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
-}
-
-.submit-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+main search form button:focus {
+  outline: 2px solid var(--dark-blue);
 }
 
-label {
-  font-size: 1.2vw;
+main search form button:hover {
+  background-color: white;
+  color: black;
 }
 
-.papers-div {
+main search form button:active {
+  opacity: 0.5;
+}
+
+
+main>section {
   display: grid;
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 0.5fr 0.5fr ;
+  grid-template-areas: 
+  "box-1 box-2 box-3 box-4"
+  "box-5 box-6 box-7 box-8";
+  max-width: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  gap: 1em;
+}
+
+main section>section {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: var(--main-color);
+  box-shadow: var(--shadow-color);
+  border-radius: 0.5em;
+  gap: 1em;
+  text-align: center;
+  padding: 1em;
+}
+
+main section section>section {
+  height: 35vh;
+  overflow-y: scroll;
+  max-width: 100%;
+}
+
+main section>section::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: transparent;
+}
+
+main section>section::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 0.5em;
+}
+
+main section section div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  justify-items: center;
-  margin-top: 1vw;
-  gap: 1vw;
-  padding: 1vw;
-  border-radius: 0.4vw;
-  background-color:  rgba(46, 45, 45, 0.596);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+  justify-content: center;
+  gap: 1em;
+  background-color: var(--main-color);
+  box-shadow: var(--shadow-color);
+  padding: 0.4em 1em;
+  border-radius: 0.5em;
 }
 
-.sem-heading {
-  text-align: center;
-  align-self: center;
-  margin: 0%;
-  margin-inline: 38vw;
-  border-radius: 0.4vw;
-  padding: 0.5vw;
-  background-color:  rgba(46, 45, 45, 0.596);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  font-size: 1.5vw;
-  width: 15vw;
-  margin-bottom: 1vw;
+main section section div p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-
-
-.sem-default {
-  width:100%;
-}
-
-.sem-content {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 1vw;
-  background-color:  rgba(46, 45, 45, 0.596);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  border-radius: 0.4vw;
-  padding: 1vw;
-  width: 85vw;
-}
-
-
-.file {
-  border: none;
-  text-align: center;
-  justify-items: center;
-  width: 2vw;
+main section section div button {
+  background-color: var(--blue);
   color: white;
-  font-size: 1vw;
-  padding: 0.4vw;
-  padding-inline: 5vw;
-  border-radius: 0.5vw;  
-  background-color: rgb(21, 101, 221);
-  font-weight: bold;
-  font-size:1.5vw ;
-  box-shadow: 0px 9px 20px 0px rgb(20, 20, 20);
-  transition: 0.15s;
+  border-radius: 0.5em;
+  border: none;
+  padding: 0.5em 1em;
   cursor: pointer;
-}
-.file:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 16px 20px 0px rgb(20, 20, 20);
+  transition: 0.15s linear;
 }
 
-.file:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 7px 20px 0px rgb(20, 20, 20);
+main section section div button:focus {
+  outline: 2px solid var(--dark-blue);
 }
 
-.search-output {
-  margin-top: 1vw;
+main section section div button:hover {
+  background-color: white;
+  color: black;
+}
+
+main section section div button:active {
+  outline: 2px solid white;
+  opacity: 0.5;
+}
+
+.search-result {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 1vw;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  background-color: var(--main-color);
+  box-shadow: var(--shadow-color);
+  padding: 0.4em 1em;
+  border-radius: 0.5em;
 }
 
-.no-input {
-  width: 20vw;
-  margin-inline: 37.5vw;
+.search-result p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result button {
+  background-color: var(--blue);
+  color: white;
+  border-radius: 0.5em;
+  border: none;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  transition: 0.15s linear;
+}
+
+.search-result button:focus {
+  outline: 2px solid var(--dark-blue);
+}
+
+.search-result button:hover {
+  background-color: white;
+  color: black;
+}
+
+.search-result button:active {
+  outline: 2px solid white;
+  opacity: 0.5;
+}
+
+@media(width < 820px) {
+  main search {
+    min-width: 100%;
   }
+  main search form {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: 
+    "input-1 input-1"
+    "input-2 input-3"
+    "submit submit";
+  }
+}
+@media(width < 900px) {
+main section {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: 
+  "box-1 box-2 box-3"
+  "box-4 box-5 box-6"
+  "box-7 box-8 .";
+}
+}
+
+@media(width < 750px) {
+  main section {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "box-1 box-2"
+    "box-3 box-4"
+    "box-5 box-6"
+    "box-7 box-8";
+  }
+}
+
+@media(width < 425px){  
+  main search {
+    min-width: 100%;
+  }
+  main search form {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "input-1"
+    "input-2"
+    "input-3"
+    "submit";
+    min-width: 100%;
+  }
+}
+
+@media(width < 400px) {
+  main section {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "box-1"
+    "box-2"
+    "box-3"
+    "box-4"
+    "box-5"
+    "box-6"
+    "box-7"
+    "box-8";
+  }
+  main section section {
+    width: 90vw;
+  }
+}

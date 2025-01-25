@@ -59,9 +59,19 @@ main search form input,select {
   min-width: 25%;
   border-radius: 10px;
   background-color: var(--blue);
+  color: white;
   padding: 0.5em;
   outline: none;
   border: none;
+}
+
+main search form input::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+
+main search form input:focus,select:focus {
+  outline: solid 2px var(--dark-blue);
 }
 
 main search form input{
@@ -71,11 +81,29 @@ main search form input{
 main search form button {
   background-color: var(--blue);
   border-radius: 10px;
-  border: solid;
-  border-color: var(--blue);
+  border: none;
   color: #f0f0f0;
   padding: 0.5em;
+  cursor: pointer;
+  transition: 0.15s linear;
+  outline: solid 2px var(--blue);
 }
+
+main search form button:hover {
+  outline: none;
+  background-color: #f0f0f0;
+  color: black;
+}
+
+main search form button:focus {
+  outline: solid 2px var(--dark-blue);
+}
+
+main search form button:active {
+  outline: solid 2px var(--dark-blue);
+  opacity: 0.5;
+}
+
 .users {
   max-width: 100%;
   display: grid;
@@ -135,14 +163,3 @@ main ul li p {
     min-width: 100%;
   }
 }
-
-/* @media(hover: none) {
-  /* main ul li:hover {
-    border-radius: 50% 10px 10px 50%;
-  }
-  
-  main ul li:hover img {
-    scale: 1;
-    border-radius: 50% 0 0 50% ;
-  } 
-} */
