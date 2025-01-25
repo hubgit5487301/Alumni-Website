@@ -1,13 +1,42 @@
 import { getdataonevent as get_data, formatEventDate} from "../../protected-scripts/util.js";
 
+const form = document.querySelector('form');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form_data = new FormData(form);
+  const query = Object.fromEntries(form_data.entries());
+  const query_string = new URLSearchParams(query).toString();
+  const response = await get_data(`event_search?${query_string}`);
+  if(response.length === 0) return;
+  if(response.length !== 0) { 
+    document.querySelector('.events').replaceChildren();
+    document.querySelector('.events').style.gridTemplateColumns = "repeat(auto-fit, minmax(clamp(170px, 20%, 250px), 1fr))";
+    render_events(response);
+  }
+  if(response.length === 1) document.querySelector('.events').style.gridTemplateColumns = "30%";
+});
+
+const name = document.querySelector('#name');
+const date = document.querySelector('#date');
+
+async function form_state() {
+  const form_data = new FormData(form);
+  const data = Object.fromEntries(form_data.entries());
+  if(data.name === '' && data.date === '') {
+    document.querySelector('.events').innerText = '';
+    load_events();
+  }
+}
+
+name.addEventListener('input', form_state);
+date.addEventListener('change', form_state);
+
 async function get_new_events(page) {
-  const data = await get_data(`events?page=${page}&limit=10`);
-  console.log(data);
-  return data;
+  return await get_data(`events?page=${page}&limit=10`);
 }
 
 async function load_events() {
-  {
     let current_page = 1;
     let loading = false;
     const data = await get_data(`/events?page=${current_page}&limit=10`);
@@ -32,9 +61,7 @@ async function load_events() {
     });
     const list = document.querySelector('.event:last-child');
     if (list) lastlistobserver.observe(list);
-  }
 }
-
 
 function render_events(data) {
   const event_window = document.querySelector('.events');

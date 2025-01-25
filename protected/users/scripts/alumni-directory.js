@@ -25,6 +25,23 @@ document.querySelector('form').addEventListener('submit', async (e) => {
   }
 });
 
+const input_Element = document.querySelector('input');
+const year_Element = document.querySelector('.search-input-year');
+const branch_Element = document.querySelector('.search-input-branch');
+
+input_Element.addEventListener('input', formState);
+branch_Element.addEventListener('change', formState);
+year_Element.addEventListener('change', formState);
+
+async function formState() {
+  const formdata = new FormData (document.querySelector('form'));
+  const data = Object.fromEntries(formdata.entries());
+  
+  if(data.batch === '' && data.branch === '' && data.user === '') {
+    document.querySelector('.users').innerText = '';
+    load_users();
+  }
+}
 
 async function load_users() {
   let current_page = 1;
@@ -87,22 +104,7 @@ async function getnewusers (page) {
   return data;
 }
 
-async function formState() {
-  const formdata = new FormData (document.querySelector('form'));
-  const data = Object.fromEntries(formdata.entries());
-  
-  if(data.batch === '' && data.branch === '' && data.user === '') {
-    document.querySelector('.users').innerHTML = '';
-    load_users();
-  }
-}
 
-const input_Element = document.querySelector('input');
-const year_Element = document.querySelector('.search-input-year');
-const branch_Element = document.querySelector('.search-input-branch');
 
-input_Element.addEventListener('input', formState);
-branch_Element.addEventListener('change', formState);
-year_Element.addEventListener('change', formState);
 
 load_users();

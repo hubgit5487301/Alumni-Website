@@ -129,7 +129,7 @@ router.get('/event-file/:event_id', async (req, res) => {
   }
 })
 
-router.get('/event-search', async (req, res) => {
+router.get('/event_search', async (req, res) => {
   let {name, date} = req.query;
   let results;
   try{
@@ -139,23 +139,21 @@ router.get('/event-search', async (req, res) => {
   results = await events.find({
       name: { $regex: `^${name}`, $options: 'i' },
       date: { $gte: startDate, $lte: endDate}}, 
+      {name: 1, date:1, event_logo:1}
+    );}
+  else {
+    results = await events.find({
+      name: { $regex: `^${name}`, $options: 'i' }}, 
       {name: 1, date:1, event_logo:1 }
     );}
-    else {
-      results = await events.find({
-        name: { $regex: `^${name}`, $options: 'i' }}, 
-        {name: 1, date:1, event_logo:1 }
-      );}
-    
-
   if(results.length === 0){
-    return res.status(200).json([]);
+    return res.status(404).json({message: 'No events found for the given parameters'});
   }
   res.status(200).json(results);
   }
   catch(err) {
     console.log(err);
-    res.status(500).json({error: 'internal servor error'});
+    res.status(500).json({error: 'internal server error'});
   }
 });
 
