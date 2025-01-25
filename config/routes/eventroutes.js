@@ -79,7 +79,10 @@ router.post('/submit-event', async (req, res) => {
 
 router.get('/events', async (req, res) =>{
   try{
-    const send_events = await events.find({}, {name: 1, date:1, event_logo:1 }).sort({ date:1});
+    let page = req.query.page || 1;
+    let limit = req.query.limit || 10;
+    const skip = (page - 1) * limit;
+    const send_events = await events.find({}, {name: 1, date:1, event_logo:1 }).sort({ date:1}).skip(skip).limit(limit);
     res.status(200).json(send_events) ;
   }
   catch(err) {

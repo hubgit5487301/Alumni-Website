@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events</title>
-    <link rel="stylesheet" href="/protected-styles/nav-bar.css">
+    <link rel="stylesheet" defer href="/protected/events/styles/event-directory.css">
+    <link rel="stylesheet" defer href="/protected-styles/nav-bar.css">
   </head>
-   <body>
-    <nav></nav>
-    <aside></aside>
-    <h1 style="font-size: 5em; justify-self: center;
-    align-self: center; background-color: var(--main-color);
-    border-radius: var(--border-radius);padding: 1em; font-family: Pacifico;">Work in progress</h1>
-<!--    <div class="top-box js-top-box"></div>
-    <div class="bottom-box">
-      <div class="page-heading"><head>Events</head></div>
-      <div class="search-box js-search-box">
-        <search class="search-bar js-search-bar">
-          <input class="search-input js-search-input" placeholder="Search"></input>
-          <input class="search-input js-search-input-date" type="date"></input>
-          <button class="search-button js-search-button">
-            <img class="search-icon" src="/images/search-icon.svg" loading="lazy">
-          </button>
-        </search>
-        <div class="search-output js-search-output">
+  <body>
+    <div class="loading-page">
+      <div class="circle">
+        <div class="dot-wrapper">
+          <div class="dot"></div>
         </div>
       </div>
-      <div class="all-events">
-        <div class="event-row js-events-row"></div>
-      </div>
     </div>
-    <footer class="bottom js-bottom"></footer>
-    <script type="module" src="/protected/events/scripts/events-directory.js"></script>-->
+    <nav></nav>
+    <aside></aside>
+    <main>
+      <search>
+        <form>
+          <input id="name" autocomplete="name" placeholder="Search"></input>
+          <input type="date"></input>
+          <button type="submit">Search</button>
+        </form>
+      </search>
+      <ul class="events">
+      </ul>
+    </main>
     <footer></footer>
     <script type="module" src="/protected-scripts/nav-bar-protected.js"></script>
-  </body> 
+    <script type="module" src="/protected/events/scripts/events-directory.js"></script>
+  </body>
 </html>
