@@ -45,13 +45,12 @@ main search {
 }
 main search form {
   background-color: var(--main-color);
-  padding: 2em;
+  padding: 2em 0.5em;
   border-radius: var(--border-radius);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1em;
-  padding-inline: 0.5em;
 }
 
 main search form input,select {
@@ -80,6 +79,7 @@ main search form input{
 
 main search form button {
   background-color: var(--blue);
+  
   border-radius: 10px;
   border: none;
   color: #f0f0f0;
@@ -145,10 +145,10 @@ main ul li section p {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-
   display: box;
   line-clamp: 3;
   box-orient: vertical;
+  font-size: 0.9em;
 }
 
 main ul li:hover img {
@@ -175,7 +175,7 @@ main ul li p {
 @media(width < 450px) {
   main search form {
     flex-direction: column;
-    gap: 1em;
+    gap: 0.5em;
     padding-inline: 1em;
   }
   main search form input,select,button {

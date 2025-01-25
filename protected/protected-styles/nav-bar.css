@@ -7,7 +7,7 @@
   --border-radius: 30px;
   --font: 'Nunito Sans', Georgia, Times, serif;
   --blue: rgb(98, 151, 226);
-  --dark-blue: rgb(35, 110, 215);
+  --dark-blue: #4169E1;
   --button-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 }
 

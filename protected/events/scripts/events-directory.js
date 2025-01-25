@@ -6,6 +6,10 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const form_data = new FormData(form);
   const query = Object.fromEntries(form_data.entries());
+  if (!Array.from(form_data.values()).some(value => value.trim() !== '')) {
+    alert('Form is empty! Please fill out at least one field.');
+    return;
+  }
   const query_string = new URLSearchParams(query).toString();
   const response = await get_data(`event_search?${query_string}`);
   if(response.length === 0) return;

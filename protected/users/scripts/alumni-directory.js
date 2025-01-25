@@ -5,8 +5,8 @@ document.querySelector('form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const formdata = new FormData(e.target);
   const data = Object.fromEntries(formdata.entries());
-  if(data.batch === '' && data.branch === '' && data.user === '') {
-    alert('Please provide at least one search parameter');
+  if (!Array.from(formdata.values()).some(value => value.trim() !== '')) {
+    alert('Form is empty! Please fill out at least one field.');
     return;
   }
   const query = new URLSearchParams({

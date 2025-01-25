@@ -54,7 +54,10 @@ router.post('/submit-job', async (req, res) => {
 
 router.get('/jobs', async(req, res) => {
   try{
-    const jobs = await job.find({}, {job_tittle: 1, job_company_name: 1, job_company_logo: 1, job_deadline: 1, job_type: 1, job_level: 1}).sort({job_deadline: 1});
+    let page = req.query.page || 1;
+    let limit = req.query.limit || 10;
+    const skip = (page - 1) * limit;
+    const jobs = await job.find({}, {job_tittle: 1, job_company_name: 1, job_company_logo: 1, job_deadline: 1, job_type: 1, job_level: 1}).sort({job_deadline: 1}).skip(skip).limit(limit);
     res.status(200).json(jobs);
   }
   catch(err) {
@@ -66,7 +69,7 @@ router.get(`/job`, (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'jobs', 'job.html'))
 })
 
-router.get(`/job-search`, async (req, res) => {
+router.get(`/job_search`, async (req, res) => {
   const {job_tittle, job_type, job_level, job_company_name } = req.query;
   try{
     const results = await job.find(
@@ -77,7 +80,7 @@ router.get(`/job-search`, async (req, res) => {
       },
       {job_tittle: 1, job_company_name: 1, job_level: 1, job_type: 1, job_deadline: 1, job_company_logo: 1});
     if(results.length === 0) {
-      return res.status(200).json([]);
+      return res.status(404).json({message: 'No job with given parameters found'});
     }
     return res.status(200).json(results);
   }

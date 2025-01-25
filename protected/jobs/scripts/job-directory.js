@@ -1,112 +1,103 @@
-import { API_BASE_URL } from "../../protected-scripts/config.js";
-import { formatjobdate } from "../../protected-scripts/util.js";
+import { getdataonevent as get_data} from "../../protected-scripts/util.js";
 
+const form = document.querySelector('form');
 
-
-fetch(`${API_BASE_URL}/protected/jobs`)
-.then(response => {
-  if(!response.ok) {
-    throw new Error('response not ok');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form_data = new FormData(form);
+  const query = Object.fromEntries(form_data.entries());
+  if (!Array.from(form_data.values()).some(value => value.trim() !== '')) {
+    alert('Form is empty! Please fill out at least one field.');
+    return;
   }
-  return response.json()
-})
-.then(jobs => {
-  let jobsHtml = '';
-  jobs.forEach( job => {
-    jobsHtml += `
-    <div class="job js-job">
-      <img class="j-job-icon js-job-icon" src="${job.job_company_logo}" loading="lazy">
-      <div class="job-info js-job-info">
-        <h1>${job.job_tittle}</h1>
-        <h2>${job.job_company_name}</h2>
-        <p>Level: ${job.job_level}</p>
-        <p>Type: ${job.job_type}</p>
-        <p>Last date: ${formatjobdate(job.job_deadline)}</p>
-      </div>
-      </div>
-  `})
-  document.querySelector('.js-job-row').innerHTML = jobsHtml;
-  document.querySelectorAll('.js-job').forEach((job, index) => {
-  job.addEventListener('click', () => {
-    const job_id = jobs[index]._id;
-    window.location.href = `job?_id=${job_id}`;
-  })
-  })
+  const query_string = new URLSearchParams(query).toString();
+  const response = await get_data(`job_search?${query_string}`);
+  if(response.length === 0) return;
+  if(response.length !== 0) { 
+    document.querySelector('.jobs').replaceChildren();
+    document.querySelector('.jobs').style.gridTemplateColumns = "repeat(auto-fit, minmax(clamp(170px, 20%, 250px), 1fr))";
+    render_jobs(response);
+  }
+  if(response.length === 1) document.querySelector('.jobs').style.gridTemplateColumns = "50%";
+});
 
-})
+const name = document.querySelector('#name');
+const emp_name = document.querySelector('#job_company_name');
+const level = document.querySelector('#job_level');
+const type = document.querySelector('#job_type');
 
-const searchButton = document.querySelector('.js-search-button');
-const result = document.querySelector('.js-search-output');
+async function form_state() {
+  const form_data = new FormData(form);
+  const data = Object.fromEntries(form_data.entries());
+  if(data.job_tittle === '' && data.job_company_name === '' && data.job_level === '' && data.job_type === '') {
+    document.querySelector('.jobs').innerText = '';
+    document.querySelector('.jobs').style.gridTemplateColumns = "repeat(auto-fit, minmax(clamp(170px, 20%, 250px), 1fr))";
+    load_jobs();
+  }
+}
 
-let searchHtml = '';
-searchButton.addEventListener('click', () =>{
-  const job_tittle = document.querySelector('.js-search-input').value.trim();
-  const job_type = document.querySelector('.js-search-input-type').value;
-  const job_level = document.querySelector('.js-search-input-level').value;
-  const job_company_name = document.querySelector('.js-search-input-emp').value;
+name.addEventListener('input', form_state);
+emp_name.addEventListener('input', form_state);
+level.addEventListener('change', form_state);
+type.addEventListener('change', form_state);
 
-  const query = new URLSearchParams({
-    job_tittle, job_type, job_level, job_company_name
-  })
+async function get_new_jobs(page) {
+  return await get_data(`jobs?page=${page}&limit=10`);
+}
 
-  let debounce = '';
-  clearTimeout(debounce);
+async function load_jobs() {
+    let current_page = 1;
+    let loading = false;
+    const data = await get_data(`jobs?page=${current_page}&limit=10`);
+    render_jobs(data);
+  
+    const lastlistobserver = new IntersectionObserver(async (entries) => {
+        const lastentry = entries[0];
+        if(!lastentry.isIntersecting || loading) return;
+        loading = true;
+        const data = await get_new_jobs(current_page + 1);
+        if(data.length === 0) {
+          loading = false;
+          return;
+        }
+        render_jobs(data);
+        current_page++;
+        lastlistobserver.unobserve(lastentry.target);
+        lastlistobserver.observe(document.querySelector('.job:last-child'));
+        loading = false;
+    },{
+      rootMargin: '100px'
+    });
+    const list = document.querySelector('.job:last-child');
+    if (list) lastlistobserver.observe(list);
+}
 
-  debounce = setTimeout(() => {
+function render_jobs(data) {
+  const job_window = document.querySelector('.jobs');
+  data.forEach(job => {
+    const li = document.createElement('li');
+    const image = document.createElement('img');
+    const section = document.createElement('section');
+    const name = document.createElement('p');
+    const emp_name = document.createElement('p');
+    name.id = 'name';
+    emp_name.id = 'emp_name';
+    section.append(name,emp_name);
+    li.append(image,section);
+    li.setAttribute('job_id', job._id);
+    li.classList.add('job');
+    image.src = job.job_company_logo;
+    name.innerText = job.job_tittle;
+    emp_name.innerText = job.job_company_name;
+    job_window.append(li);
+  });
+  const job_button = document.querySelectorAll('.job');
+  job_button.forEach(button => {
+    button.addEventListener('click', () => {
+      const job_id = button.getAttribute('job_id');
+      window.location.href = `job?_id=${job_id}`;
+    });
+  });
+}
 
-    if(!job_tittle && !job_company_name && job_level === '' && job_type ==='') {
-      result.classList.add('show');
-        result.innerHTML = `<div class="text js-text">No Please provide at least one search parameter.</div> `;
-        document.querySelector('.js-text').classList.add('show');
-      return;
-    }
-    
-  fetch(`${API_BASE_URL}/protected/job-search?${query}`)
-  .then(response => {
-    if(!response.ok) {
-      throw new Error('response not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    searchHtml = '';
-    if(data.length === 0) {
-        result.classList.add('show');
-        result.innerHTML = `<div class="text js-text">No job found</div> `;
-        document.querySelector('.js-text').classList.add('show');
-     }
-    data.forEach(job =>{
-      searchHtml +=`<div class="job-search js-job">
-      <img class="j-job-icon-search js-job-icon" src="${job.job_company_logo}"  loading="lazy">
-      <div class="job-info-search js-job-info">
-        <h1>${job.job_tittle}</h1>
-        <h2>${job.job_company_name}</h2>
-        <p>Level: ${job.job_level}</p>
-        <p>Type: ${job.job_type}</p>
-        <p>Last date: ${formatjobdate(job.job_deadline)}</p>
-      </div>
-      </div>
-`;
-      result.innerHTML = searchHtml;
-      setTimeout(() => {
-        document.querySelectorAll('.js-job').forEach(job => {
-          job.classList.add('show');
-        });
-      }, 10);
-      result.classList.add('show');
-      document.querySelectorAll('.js-job').forEach((job, index) => {
-        job.addEventListener('click' ,() => {
-          const job_id = data[index]._id;
-          window.location.href =  `job?_id=${job_id}`;
-        });
-      });
-    })
-})
-  .catch(err=> {
-    console.error('error fetching data',err);
-    result.innerHTML = '<div>There was an error fetching the data please reload the webpage</div>';
-  })
- 
-}, 250)})
-
-
+load_jobs();
