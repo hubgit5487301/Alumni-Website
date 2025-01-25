@@ -52,7 +52,7 @@ router.get('/resources_search', async (req, res) => {
       ...(Number.isInteger(semester)&&{semester}),
       type: type,
       branch: branch
-    });
+    },{file: 0});
     return res.status(200).json(data);
   }
   catch(err) {
