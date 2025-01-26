@@ -240,3 +240,11 @@ export const stopLoading = () => {
     document.querySelector('.loading-page').style.display = 'none';
   },500)
 };
+
+export function button_disable(button) {
+  button.disabled = true;
+  button.style.opacity = 0.5;
+  button.style.cursor = 'not-allowed';
+  button.style.backgroundColor = 'var(--blue)';
+  button.style.color = 'white';
+}

@@ -18,7 +18,6 @@ form.addEventListener('submit', async (e) => {
     document.querySelector('.jobs').style.gridTemplateColumns = "repeat(auto-fit, minmax(clamp(170px, 20%, 250px), 1fr))";
     render_jobs(response);
   }
-  if(response.length === 1) document.querySelector('.jobs').style.gridTemplateColumns = "50%";
 });
 
 const name = document.querySelector('#name');

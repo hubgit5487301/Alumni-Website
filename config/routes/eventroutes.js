@@ -15,8 +15,8 @@ router.get('/event-form', (req, res) => {
 
 router.post('/submit-event', async (req, res) => {
   try{
-    const {name, date, location, contact_info, event_des, event_file, event_logo} = req.body;
-    const resizedLogo = await resizeimage(event_logo, 60, 'webp', 200000); 
+    const {name, date, location, contact_info, event_des, eventfile, eventimage} = req.body;
+    const resizedLogo = await resizeimage(eventimage, 60, 'webp', 200000); 
     const logo = resizedLogo != null ? resizedLogo : undefined;
     const userid = req.user.userid;
     const newEvent = new events({
@@ -26,7 +26,7 @@ router.post('/submit-event', async (req, res) => {
       location,
       contact_info: contact_info,
       event_des,
-      event_file: event_file || undefined,
+      event_file: eventfile,
       event_logo: logo,
     })
     const eventDate = new Date(req.body.date);
@@ -94,8 +94,12 @@ router.get('/events', async (req, res) =>{
 router.get(`/events/:event_id`, async (req,res) => {
   try{
     const _id = req.params.event_id;
-    const found_event = await events.findOne({_id},{event_file: 0, applicants: 0});
+    let found_event = await events.findOne({_id},{applicants: 0});
     if(found_event) {
+      if(found_event.event_file === 'temp' || found_event.event_file === null) {
+        const text = 'no file';
+        found_event.event_file = text;
+      }
       return res.status(200).json(found_event);
     }
     else {
@@ -172,9 +176,25 @@ router.get('/event-directory', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'events', 'event-directory.html'))
 })
 
-router.post('/apply-event', async (req, res) => {
+router.get('/event_application_check', async (req, res) => {
   try{
-    const { userid, event_id} = req.body;
+      const event_id = req.query.event_id;
+      const userid = req.user.userid;
+      const findevent = await events.findOne({"applicants.applicant": userid, "_id": event_id});
+      if(findevent) return res.status(200).json({message: 'Already applied'});
+      else return res.status(200).json({message: 'Not applied'});
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'})
+  }
+})
+
+router.get('/apply_event', async (req, res) => {
+  try{
+    const event_id = req.query.event_id;
+    console.log(event_id);
+    const userid = req.user.userid;
     const findevent = await events.findOne({"applicants.applicant": userid, "_id": event_id});
     if(findevent) return res.status(409).json({error: 'Already applied'});
 

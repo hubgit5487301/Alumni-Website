@@ -18,7 +18,6 @@ form.addEventListener('submit', async (e) => {
     document.querySelector('.events').style.gridTemplateColumns = "repeat(auto-fit, minmax(clamp(170px, 20%, 250px), 1fr))";
     render_events(response);
   }
-  if(response.length === 1) document.querySelector('.events').style.gridTemplateColumns = "30%";
 });
 
 const name = document.querySelector('#name');
@@ -29,6 +28,7 @@ async function form_state() {
   const data = Object.fromEntries(form_data.entries());
   if(data.name === '' && data.date === '') {
     document.querySelector('.events').innerText = '';
+    document.querySelector('.events').style.gridTemplateColumns = "repeat(auto-fit, minmax(clamp(170px, 20%, 250px), 1fr))";
     load_events();
   }
 }

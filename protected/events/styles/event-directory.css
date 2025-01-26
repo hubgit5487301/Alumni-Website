@@ -116,7 +116,7 @@ main search form button:active {
 main ul li {
   list-style: none;
   display: flex;
-  max-height: 100px;
+  height: 100px;
   flex-direction: row;
   gap: 1em;
   align-items: center;
@@ -135,7 +135,7 @@ main ul li section {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  align-items: center;
+  align-items: flex-start;
   color: white;
 }
 
@@ -157,11 +157,13 @@ main ul li:hover img {
 
 main ul li img{ 
   border-radius: 50%;
-  max-width: 40%;
-  width: 45%;
-  height: 100%;
+  width: 100px;
+  height: 100px;
+  min-width: 100px;
+  min-height: 100px;
   transition: 0.15s ease-in-out;
   object-fit: cover;
+  object-position: center;
 }
 
 
