@@ -15,7 +15,7 @@ nav li:nth-child(4) a{
   align-self: center;
   padding-inline: 0.5em;
   align-content: center;
-  margin-right: 0.8em;
+  margin-right: 0.7em;
   border-radius: 10px !important;
   box-shadow: var(--button-shadow);
 }
@@ -25,10 +25,14 @@ nav li:nth-child(4) a:hover {
   color: black;
 }
 
-main{ 
+main{
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  background-color: var(--main-color);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
 }
 
 nav li:nth-child(8) {
@@ -48,43 +52,50 @@ main a:hover {
   margin-right: 10px;
 }
 
+*{
+  box-sizing: border-box;
+}
 
-main div {
-  padding: 25px 100px;
-  border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.315);
-  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  z-index: 1;
+main div {padding: 1em;
+  border-radius: var(--border-radius);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 10px;
-  
-}
+  gap: 1em;}
 
 form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
+  height: 100%;
+  width: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-color);
+  backdrop-filter: blur(10px);
+  padding: 1em 8em;
+  background-color: var(--main-color);
 }
 
 form a {
   align-self: center;
-  margin-top: 8px;
 }
 
 main div p {
-  margin: 0;
+  background-color: var(--blue);
+  padding: 0.25em 1em;
+  color: white;
+  border-radius: 0.5em;
+  box-shadow: var(--button-shadow);
   font-weight: bolder;
   font-size: 3em;
   text-align: center;
 }
 
 form button {
-  margin-top: 30px;
-  padding: 5px 0;
+  margin-top: 1em;
+  padding: 0.25em 1em;
   background-color: rgb(52, 156, 225);
   border: solid;
   border-color: rgb(52, 156, 225);
@@ -140,28 +151,31 @@ form span {
   align-self: center;
 }
 
-@media(width <= 480px) {
-  main {
-    display: inline-block;
+@media(width < 550px) {
+  main form {
+    padding: 1em;
+  }
+  main{
+      height: auto;
   }
   main div {
-    height: calc(100vh - 211.2px);
-    padding: 10px;
+      width: 100%;
   }
   main div p {
-    display: inline-block;
-  }
-  form button {
-    margin: 0;
-    margin-top: 10px;
-  }
-  main div {
-      height: calc(100vh - 211.2px);
-      padding-bottom: 60px;
-      padding-top: 50px;
+      padding-inline: 0.4em;
+      font-size: 2em;
   }
   input, label {
-      width: 80vw;
+      width: 100%;
       align-self: center;
+  }
+  form span span a{
+      border-radius: 0;
+    }
+}
+
+@media(width < 330px){
+  nav {
+    gap: 0 !important;
   }
 }

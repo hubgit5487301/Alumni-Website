@@ -58,13 +58,13 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 100%;
     width: 100%;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-color);
     backdrop-filter: blur(10px);
-    padding: 1em;
+    padding: 1em 8em;
     background-color: var(--main-color);
 }
 
@@ -148,12 +148,14 @@ form span > span {
 }
 
 @media(max-width:500px) {
+    form {
+        padding: 1em;
+    }
     main{
         height: auto;
     }
     main div {
         width: 100%;
-        padding: 1em;
     }
     main div p {
         padding-inline: 0.4em;
