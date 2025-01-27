@@ -105,12 +105,12 @@ router.get(`/job/:job_id`, async(req, res) => {
   
 })
 
-router.post(`/job-apply`, async (req, res) => {
+router.get(`/apply_job`, async (req, res) => {
   try {
-    const {userid, job_id} = req.body;
-
+    const userid = req.user.userid;
+    const job_id = req.query.job_id;
+    console.log(job_id);
     const resume_check = await user.findOne({userid: userid},{"details.resume": 1}) ;
-
     
     if(resume_check.details.resume !== 'empty' && resume_check.details.resume !== null && resume_check.details.resume !== '') {
       const findjob = await job.findOne({"applicants.applicant": userid, "_id": job_id});
@@ -171,6 +171,20 @@ router.get('/applicants/job/:job_id', async (req,res) => {
 
 router.get('/applicants/job', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'jobs', 'job-applicants.html'))
+})
+
+router.get('/job_application_check', async (req, res) => {
+  try{
+    const job_id = req.query.job_id;
+    const userid = req.user.userid;
+    const findjob = await job.findOne({"applicants.applicant": userid, "_id": job_id});
+    if(findjob) return res.status(200).json({message: 'Already applied'});
+    return res.status(200).json({message: 'Not applied'});
+  }
+  catch(err) {
+    console.log(err);
+    return res.status(500).json({error: 'internal server error'})
+  }
 })
 
 module.exports = router;

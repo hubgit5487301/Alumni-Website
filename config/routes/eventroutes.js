@@ -193,7 +193,6 @@ router.get('/event_application_check', async (req, res) => {
 router.get('/apply_event', async (req, res) => {
   try{
     const event_id = req.query.event_id;
-    console.log(event_id);
     const userid = req.user.userid;
     const findevent = await events.findOne({"applicants.applicant": userid, "_id": event_id});
     if(findevent) return res.status(409).json({error: 'Already applied'});

@@ -1,6 +1,82 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="tittle"></title>
+    <link rel="stylesheet" defer href="/protected/jobs/styles/job.css">
+    <link rel="stylesheet" defer href="/protected-styles/nav-bar.css">
+  </head>
+  <body>
+    <div class="loading-page">
+      <div class="circle">
+        <div class="dot-wrapper">
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+    <nav></nav>
+    <aside></aside>
+    <main>
+      <section>
+        <section style="grid-area: box1;">
+        </section>
+        <section style="grid-area: box2;">
+          <h1 id="job_name"></h1>
+          <h1 id="company_name"></h1>
+        </section>
+        <section style="grid-area: box3;">
+          <h1>Job Details</h1>
+          <p id="deadline"></p>
+          <p id="location"></p>
+          <p id="job_type"></p>
+          <p id="job_level"></p>
+          <p id="app_email"></p>
+          <p id="salary"></p>
+          <button id="apply">Apply</button>
+        </section>
+        <section style="grid-area: box4;">
+          <h2>Job Description</h2>
+          <p id="job_description"></p>
+        </section>
+        <section style="grid-area: box5;">
+          <h2>Emp Description</h2>
+          <p id="employer_description"></p>
+        </section>
+        <section style="grid-area: box6;">
+          <h2>Job Requirements</h2>
+          <div>
+            <h3>Education</h3>
+            <p id="education"></p>
+          </div>
+          <div>
+            <h3>Experience</h3>
+            <p id="experience"></p>
+          </div>
+        </section>
+        <section style="grid-area: box7;">
+          <h2>Employer Details</h2>
+          <div>
+            <h3>Website</h3>
+            <a id="emp_website" href="#"></a>
+          </div>
+          <div>
+            <h3>Contact-Us</h3>
+            <p id="contact_info"></p>
+          </div>
+        </section>
+      </section>
+    </main>
+    <footer></footer>
+    <script type="module" src="/protected-scripts/nav-bar-protected.js"></script>
+    <script type="module" src="/protected/jobs/scripts/job.js"></script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
         <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <title>Job</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -20,4 +96,4 @@
     <script type="module" src="/protected-scripts/nav-bar-protected.js"></script>
     <script type="module" src="/protected/jobs/scripts/job.js"></script>
   </body>
-</html>
+</html> -->
