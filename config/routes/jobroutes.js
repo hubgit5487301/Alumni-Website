@@ -109,7 +109,6 @@ router.get(`/apply_job`, async (req, res) => {
   try {
     const userid = req.user.userid;
     const job_id = req.query.job_id;
-    console.log(job_id);
     const resume_check = await user.findOne({userid: userid},{"details.resume": 1}) ;
     
     if(resume_check.details.resume !== 'empty' && resume_check.details.resume !== null && resume_check.details.resume !== '') {
