@@ -110,7 +110,7 @@ router.get(`/apply_job`, async (req, res) => {
     const userid = req.user.userid;
     const job_id = req.query.job_id;
     const resume_check = await user.findOne({userid: userid},{"details.resume": 1}) ;
-    
+    console.log('check')
     if(resume_check.details.resume !== 'empty' && resume_check.details.resume !== null && resume_check.details.resume !== '') {
       const findjob = await job.findOne({"applicants.applicant": userid, "_id": job_id});
       if(findjob) return res.status(409).json({error: 'Already applied'});
