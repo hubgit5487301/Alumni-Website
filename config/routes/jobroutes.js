@@ -119,7 +119,7 @@ router.get('/apply_job', async (req, res) => {
       {$push:{"applicants": {applicant: userid}}}
     )}
     else {
-      return res.status(404).json({error: 'Please upload a resume first to your account to apply for jobs'})
+      return res.status(404).json({message: 'Please upload a resume first to your account to apply for jobs'})
     }
     return res.status(201).json({message: 'Applied to job'});
   }
