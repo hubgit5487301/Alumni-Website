@@ -105,7 +105,7 @@ router.get(`/job/:job_id`, async(req, res) => {
   
 })
 
-router.get(`/apply_job`, async (req, res) => {
+router.get('/apply_job', async (req, res) => {
   try {
     const userid = req.user.userid;
     const job_id = req.query.job_id;
