@@ -3,6 +3,7 @@
   padding: 0;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  box-sizing: border-box;
 }
 
 :root{
@@ -347,7 +348,7 @@ footer div img:hover {
 
 @media(max-width: 480px) {
   nav {
-    gap: 1px;
+    gap: 8px;
   }
   footer {
     flex-direction: column;
