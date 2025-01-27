@@ -18,7 +18,7 @@ if(check.message.toLowerCase().trim() === 'already applied') {
   button_disable(applyButton);
 }
 applyButton.addEventListener('click', async () => {
-  const response = await get_data(`apply_job/?job_id=${job_id}`);
+  const response = await get_data(`apply_job?job_id=${job_id}`);
   if(response.message === 'Applied to job') {
     alert(response.message);
     applyButton.innerText = 'Already Applied';
