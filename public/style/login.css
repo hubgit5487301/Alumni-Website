@@ -148,9 +148,10 @@ form span > span {
 }
 
 @media(max-width:500px) {
-    
+    main{
+        height: auto;
+    }
     main div {
-        height: 100%;
         width: 100%;
         padding: 1em;
     }
