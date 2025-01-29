@@ -1,20 +1,7 @@
 
-import {getdataonevent as get_job_event, deletedataonevent as delete_appli} from '../../protected-scripts/util.js';
+import {getdataonevent as get_job_event, deletedataonevent as delete_appli,create_element as create_application_element} from '../../protected-scripts/util.js';
 
-const urlParams = new URLSearchParams(window.location.search); 
-const userid = urlParams.get('userid');
-
-const data = await get_job_event(`my-jobs-events-applied/${userid}`);
-
-function create_application_element() {
-  const li = document.createElement('li');
-  const p = document.createElement('p');
-  const img = document.createElement('div');
-  const button = document.createElement('button');
-  button.innerText = 'Remove';
-  li.append(img, p , button);
-  return li;
-}
+const data = await get_job_event(`my-jobs-events-applied`);
 
 let event_ids = data.all_events_ids;
 let job_ids = data.all_jobs_ids;
@@ -101,7 +88,7 @@ function load_events(all_events) {
 }
 
 async function default_jobs() {
-  const check = await get_job_event(`my-jobs-events-applied/${userid}`);
+  const check = await get_job_event(`my-jobs-events-applied`);
   const p = document.createElement('p');
   p.style.height = '100%';
   p.style.width = '100%';

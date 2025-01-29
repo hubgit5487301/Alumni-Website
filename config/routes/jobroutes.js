@@ -140,18 +140,21 @@ router.get('/apply_job', async (req, res) => {
   }
 })
 
-router.delete(`/myprofile-posts/:userid/delete-job/:job_id`, async (req, res) => {
+router.delete(`/my_profile_posts/delete_job`, async (req, res) => {
   try{
-    const {userid, job_id } = req.params;
+    const userid = req.user.userid;
+    const job_id = req.query._id;
     const deletejob = await job.deleteOne({_id: job_id});
     const deletejobuser = await user.updateOne(
       {"userid": userid},
       {$pull: {"data.job_ids": {"job_id": job_id}}}
     )
-    if(deletejob && deletejobuser) {
+    if(deletejob.deletedCount > 0 && deletejobuser.modifiedCount > 0) {
       return res.status(200).json({message: 'Job post deleted'})
     }
-    return res.status(404).json({error: 'Job not found'})
+    
+    return res.status(404).json({message: 'Job not found'})
+    
   }
   catch (err) {
     console.log(err);

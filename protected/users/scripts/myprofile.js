@@ -5,7 +5,7 @@ const data = await getdata('/my-profile');
 if(data.usertype === 'alumni' || data.usertype === 'admin') {
   const posts = document.querySelector('.my-posts');
   posts.style.display = 'block';
-  posts.href = `/protected/myprofile-posts/?userid=${data.userid}`;
+  posts.href = `/protected/myprofile-posts`;
 }
   
 document.querySelector('.profile-pic').src = data.personimage;
@@ -14,9 +14,8 @@ document.querySelector('.user-name').textContent = data.personname;
 document.querySelector('.batch').textContent = `Batch: ${data.details.batch}`;
 document.querySelector('.branch').textContent = `Branch: ${data.details.branch}`;
 
-document.querySelector('.my-applications').href = `/protected/myprofile-appli/?userid=${data.userid}`;
+document.querySelector('.my-applications').href = `/protected/myprofile-appli`;
 
-const userid = data.userid;
 const imagesallowed = ['image/jpeg', 'image/png'];
 
 document.querySelector('.edit-profile-pic').addEventListener('click', () => {
@@ -24,7 +23,7 @@ document.querySelector('.edit-profile-pic').addEventListener('click', () => {
 
   uploadfile('.input-image', imagesallowed, async (file64) => {
     const data = ({
-      file64, userid
+      file64
     })
     const response = await updatedata('my-profile/edit-profile-pic', data);
     if(response.message === 'Profile picture changed') {

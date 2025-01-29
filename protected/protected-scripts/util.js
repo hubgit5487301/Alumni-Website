@@ -249,3 +249,13 @@ export function button_disable(button) {
   button.style.backgroundColor = 'var(--blue)';
   button.style.color = 'white';
 }
+
+export function create_element() {
+  const li = document.createElement('li');
+  const p = document.createElement('p');
+  const img = document.createElement('div');
+  const button = document.createElement('button');
+  button.innerText = 'Remove';
+  li.append(img, p , button);
+  return li;
+}

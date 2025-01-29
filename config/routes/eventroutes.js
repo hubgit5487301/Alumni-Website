@@ -4,7 +4,8 @@ const path = require('path');
 const router = express();
 const events = require('../../models/events');
 const user = require('../../models/users');
-const { resizeimage } = require('../util')
+const { resizeimage } = require('../util');
+const { updateOne } = require('../../models/jobs');
 
 
 router.get('/event-form', (req, res) => {
@@ -209,18 +210,19 @@ router.get('/apply_event', async (req, res) => {
   }
 })
 
-router.delete(`/myprofile-posts/:userid/delete-event/:event_id`, async (req, res) => {
+router.delete(`/my_profile_post/delete_event`, async (req, res) => {
   try{
-    const {userid, event_id } = req.params;
-    const deleteevent = await events.deleteOne({_id: event_id});
+    const _id = req.query._id;
+    const userid = req.user.userid;
+    const deleteevent = await events.deleteOne({_id: _id});
     const deleteeventuser = await user.updateOne(
       {"userid": userid},
-      {$pull: {"data.event_ids": {"event_id": event_id}}}
+      {$pull: {"data.event_ids": {"event_id": _id}}}
     )
-    if(deleteevent && deleteeventuser) {
+    if(deleteevent.deletedCount > 0 && deleteeventuser.modifiedCount > 0) {
       return res.status(200).json({message: 'event post deleted'})
     }
-    return res.status(404).json({error: 'event not found'})
+    return res.status(404).json({message: 'event not found'})
   }
   catch (err) {
     console.log(err);

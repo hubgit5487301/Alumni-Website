@@ -52,9 +52,9 @@ router.get('/my-profile/edit_profile_info', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'myprofile-info-edit.html'));
 })
 
-router.get(`/users/:userid`, async (req,res) =>{
+router.get(`/users`, async (req,res) =>{
   try {
-    const userid = req.params.userid;
+    const userid = req.user.userid;
     const founduser = await user.findOne({userid}, {_id: 0, salt: 0, passwordhash: 0});
     if (founduser) {
       res.status(200).json(founduser);
@@ -206,11 +206,11 @@ router.get(`/myprofile-posts`, async (req, res) => {
   }
 })
 
-router.get('/my-jobs-events-applied/:userid', async (req, res) => {
+router.get('/my-jobs-events-applied', async (req, res) => {
   try{
-    const userid = req.params.userid;
-    const all_jobs_ids = await jobs.find({'applicants.applicant': userid },{_id: 1});
-    const all_events_ids = await events.find({'applicants.applicant': userid },{_id: 1});
+    const userid = req.user.userid;
+    const all_jobs_ids = await jobs.find({'applicants.applicant': userid },{_id: 1, job_deadline: 0}).sort({date: -1});
+    const all_events_ids = await events.find({'applicants.applicant': userid },{_id: 1, date: 0}).sort({date: -1});
     const data = ({all_jobs_ids, all_events_ids});
     res.status(200).json(data);
   }
@@ -220,11 +220,15 @@ router.get('/my-jobs-events-applied/:userid', async (req, res) => {
   }
 })
 
-router.get('/my-jobs-events-posts/:userid', async (req, res) => {
-  try{ 
-  const userid = req.params.userid;
-  const finduser = await user.findOne({userid}, {data: 1, usertype:1})
-  res.status(201).json(finduser);
+router.get('/my-jobs-events-posts', async (req, res) => {
+  try{
+    const userid = req.user.userid;
+    const all_data_events = await user.findOne({userid}, {'data.event_ids': 1});
+    const all_data_jobs = await user.findOne({userid}, {'data.job_ids': 1});
+    const event_ids = all_data_events.data.event_ids;
+    const job_ids = all_data_jobs.data.job_ids;
+    const data = ({event_ids, job_ids});
+    res.status(201).json(data);
   }
   catch(err) {
     console.log(err);
@@ -234,7 +238,8 @@ router.get('/my-jobs-events-posts/:userid', async (req, res) => {
 
 router.patch('/my-profile/edit-profile-pic', async (req, res) => {
   try {
-    const {file64, userid} = req.body;
+    const {file64} = req.body;
+    const userid = req.user.userid;
     const new_profile_pic = await resizeimage(file64, 60, 'webp', 100000)
     await user.updateOne(
       {"userid": userid},
@@ -264,7 +269,6 @@ router.patch('/update_details', async (req, res) => {
           "details.contactinfo": data.contactinfo
           }
       });
-      // console.log(update);
       if(update.modifiedCount>0) {
         return res.status(200).json({message: 'New details added successfully'})
       }
@@ -325,9 +329,9 @@ router.get('/my-profile/download-resume', async (req, res) => {
   }
 })
 
-router.get(`/job_users/:userid`, async (req,res) =>{
+router.get(`/job_users`, async (req,res) =>{
   try {
-    const userid = req.params.userid;
+    const userid = req.user.userid;
     const founduser = await user.findOne({userid}, {personname: 1, "details.branch": 1, _id: 0});
     if (founduser) {
       res.status(200).json(founduser);
@@ -342,9 +346,9 @@ router.get(`/job_users/:userid`, async (req,res) =>{
   }
 })
 
-router.get(`/event_users/:userid`, async (req,res) =>{
+router.get(`/event_users`, async (req,res) =>{
   try {
-    const userid = req.params.userid;
+    const userid = req.user.userid;
     const founduser = await user.findOne({userid}, {personname: 1, "details.branch": 1, _id: 0});
     if (founduser) {
       res.status(200).json(founduser);
@@ -430,12 +434,37 @@ router.get('/my_profile_appli/job_search', async (req, res) => {
   }
 })
 
+router.get('/my_profile_posts/job_search', async (req, res) => {
+  try{
+    const {job_tittle} = req.query;
+    const jobs_search = await jobs.find({job_tittle: { $regex: `^${job_tittle}`, $options: 'i'}}, {job_tittle: 1,job_company_logo:1 , job_id: '$_id', _id:0});
+    res.status(200).json(jobs_search);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
 router.get('/my_profile_appli/event_search', async (req, res) => {
   try{
     const userid = req.user.userid;
     const {event_name} = req.query;
-    console.log(req.query);
     const event_search = await events.find({name: { $regex: `^${event_name}`, $options: 'i'}, 'applicants.applicant': userid}, {name: 1, event_logo:1 , _id: 1});
+    res.status(200).json(event_search);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
+router.get('/my_profile_posts/event_search', async (req, res) => {
+  try{
+    const userid = req.user.userid;
+    const {event_name} = req.query;
+    
+    const event_search = await events.find({name: { $regex: `^${event_name}`, $options: 'i'}}, {name: 1, event_logo:1 , event_id: '$_id', _id: 0});
     res.status(200).json(event_search);
   }
   catch(err) {
