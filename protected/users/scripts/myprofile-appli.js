@@ -20,7 +20,6 @@ let event_ids = data.all_events_ids;
 let job_ids = data.all_jobs_ids;
 
 function load_jobs(all_jobs) {
-  console.log(all_jobs);
   if(all_jobs.length === 0) {
     default_jobs();
     return;
