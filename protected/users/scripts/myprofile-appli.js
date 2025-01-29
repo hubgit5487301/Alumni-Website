@@ -168,4 +168,14 @@ function job_form_state() {
   }
 }
 
+function event_form_state() {
+  const form_data = new FormData(event_form);
+  const data = Object.fromEntries(form_data.entries());
+  if(data.event_name === '' ) {
+    document.querySelector('#event_view').replaceChildren();
+    load_events(event_ids);
+  }
+}
+
+document.querySelector('#event_search_input').addEventListener('input', event_form_state)
 document.querySelector('#job_search_input').addEventListener('input', job_form_state);
