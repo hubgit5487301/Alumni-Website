@@ -4,7 +4,7 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Profile</title>
+    <title>My Applications</title>
     <link rel="stylesheet" href="/protected-styles/nav-bar.css">
     <link rel="stylesheet" href="/protected/users/styles/myprofile-appli.css">
   </head>
@@ -19,6 +19,30 @@
     <nav></nav>
     <aside></aside>
     <main>
+      <section>
+        <h1>Events</h1>
+        <search>
+          <form id="event_search"> 
+            <label for="search_input" style="display: none;"></label>
+            <input id="search_input" required name="event_name" type="text" placeholder="Search">
+            <button>Search</button>
+          </form>
+        </search>
+        <ul id="event_view">
+        </ul>
+      </section>
+      <section>
+        <h1>Jobs</h1>
+        <search>
+          <form id="job_search">
+            <label for="search_input" style="display: none;"></label>
+            <input id="job_search_input" name="job_tittle" required type="text" placeholder="Search">
+            <button>Search</button>
+          </form>
+        </search>
+        <ul id="job_view">
+        </ul>
+      </section>
     </main>
     <footer></footer>
     <script type="module" src="/protected-scripts/nav-bar-protected.js"></script>

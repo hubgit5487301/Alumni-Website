@@ -102,7 +102,19 @@ router.get(`/job/:job_id`, async(req, res) => {
  catch(err) {
   console.log(err);
  }
-  
+})
+
+router.get(`/my_profile_appli/my_jobs`, async (req, res) => {
+  try{
+    const userid = req.user.userid;
+    const _id = req.query._id;
+    const applied_job = await job.findOne({_id},{job_tittle: 1, job_company_logo: 1});
+    return res.status(200).json(applied_job);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(404).json({error: 'internal server error'});
+  }
 })
 
 router.get('/apply_job', async (req, res) => {

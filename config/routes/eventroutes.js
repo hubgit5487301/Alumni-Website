@@ -228,6 +228,20 @@ router.delete(`/myprofile-posts/:userid/delete-event/:event_id`, async (req, res
   }
 })
 
+
+router.get(`/my_profile_appli/my_events`, async (req, res) => {
+  try{
+    const userid = req.user.userid;
+    const _id = req.query._id;
+    const applied_events = await events.findOne({_id},{event_logo: 1, name: 1});
+    return res.status(200).json(applied_events);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(404).json({error: 'internal server error'});
+  }
+})
+
 router.get('/applicants/event', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'events', 'event-applicants.html'))
 })

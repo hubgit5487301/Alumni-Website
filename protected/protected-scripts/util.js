@@ -101,6 +101,7 @@ export function formatjobdate(jobdate) {
 export async function getdataonevent (address) {
   try{
     const response = await fetch(`${API_BASE_URL}/protected/${address}`);
+    
     if(!response.ok) {
       const errorResponse = await response.json(); 
       alert(errorResponse.message || 'Something went wrong'); 

@@ -209,9 +209,9 @@ router.get(`/myprofile-posts`, async (req, res) => {
 router.get('/my-jobs-events-applied/:userid', async (req, res) => {
   try{
     const userid = req.params.userid;
-     const all_jobs = await jobs.find({'applicants.applicant': userid },{_id: 1});
-    const all_events = await events.find({'applicants.applicant': userid },{_id: 1});
-    const data = ({all_jobs, all_events});
+    const all_jobs_ids = await jobs.find({'applicants.applicant': userid },{_id: 1});
+    const all_events_ids = await events.find({'applicants.applicant': userid },{_id: 1});
+    const data = ({all_jobs_ids, all_events_ids});
     res.status(200).json(data);
   }
   catch(err) {
@@ -376,5 +376,73 @@ router.get('/download-resume/:user_id', async (req, res) => {
     res.status(500).json({err, error: 'internal server error'})
   }
 })
+
+router.delete('/my_profile_appli/delete_job', async (req, res) => {
+  try{
+    const userid = req.user.userid;
+    const _id = req.query._id;
+    const test = ({userid, _id});
+    const response = await jobs.updateOne(
+      {_id: _id}, 
+      {$pull: {"applicants": {"applicant": userid}
+    }});
+    if(response.modifiedCount > 0) {
+      return res.status(200).json({message: 'job application removed'})
+    }
+    else return res.status(404).json({message: 'job not found'})
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
+router.delete('/my_profile_appli/delete_event', async (req, res) => {
+  try{
+    const userid = req.user.userid;
+    const _id = req.query._id;
+    const test = ({userid, _id});
+    const response = await events.updateOne(
+      {_id: _id}, 
+      {$pull: {"applicants": {"applicant": userid}
+    }});
+    if(response.modifiedCount > 0) {
+      return res.status(200).json({message: 'event application removed'})
+    }
+    else return res.status(404).json({message: 'event not found'})
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
+router.get('/my_profile_appli/job_search', async (req, res) => {
+  try{
+    const userid = req.user.userid;
+    const {job_tittle} = req.query;
+    const jobs_search = await jobs.find({job_tittle: { $regex: `^${job_tittle}`, $options: 'i'}, 'applicants.applicant': userid}, {job_tittle: 1,job_company_logo:1 , _id: 1});
+    res.status(200).json(jobs_search);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
+router.get('/my_profile_appli/event_search', async (req, res) => {
+  try{
+    const userid = req.user.userid;
+    const {event_name} = req.query;
+    console.log(req.query);
+    const event_search = await events.find({name: { $regex: `^${event_name}`, $options: 'i'}, 'applicants.applicant': userid}, {name: 1, event_logo:1 , _id: 1});
+    res.status(200).json(event_search);
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
 
 module.exports = router;  
