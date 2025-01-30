@@ -366,7 +366,7 @@ main section:nth-child(6) button:active {
   main section:nth-child(6) table {
     display: block;
     overflow: scroll;
-    width: 90vw;
+    width: 80vw;
   }
   main section:nth-child(6)>button {
     width: 50%;
