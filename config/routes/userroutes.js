@@ -52,9 +52,9 @@ router.get('/my-profile/edit_profile_info', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'users', 'myprofile-info-edit.html'));
 })
 
-router.get(`/users`, async (req,res) =>{
+router.get(`/user_profile`, async (req,res) =>{
   try {
-    const userid = req.user.userid;
+    const {userid} = req.query;
     const founduser = await user.findOne({userid}, {_id: 0, salt: 0, passwordhash: 0});
     if (founduser) {
       res.status(200).json(founduser);

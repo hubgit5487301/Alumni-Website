@@ -28,7 +28,9 @@ function load_jobs(all_jobs) {
     element.id = job.job_id;
     job_view.append(element);
     element.addEventListener('click', (e) => {
-      if(e.target.tagName !== 'BUTTON') window.location.href = `/protected/job?_id=${job.job_id}`;
+      const _id = element.getAttribute('id');
+      if(e.target.tagName !== 'BUTTON') window.location.href = `/protected/applicants/job?_id=${_id}` 
+        // window.location.href = `/protected/job?_id=${job.job_id}`;
     })
     button.addEventListener('click', async (e) => {
       const _id = button.getAttribute('button-id');
