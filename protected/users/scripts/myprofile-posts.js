@@ -91,7 +91,7 @@ function load_events(all_events) {
   });
 }
 
-// load_events(event_ids);
+load_events(event_ids);
 load_jobs(job_ids);
 
 
