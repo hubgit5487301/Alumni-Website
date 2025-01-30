@@ -6,10 +6,9 @@ const response = await get_data(`job/${job_id}`);
 const check = await get_data(`job_application_check/?job_id=${job_id}`);
 
 document.querySelector('main section>section').style.backgroundImage = `url(${response.job_company_logo})`;
-
 document.querySelector('#tittle').innerText = response.job_tittle;
 document.querySelector('#job_name').innerText = response.job_tittle;
-document.querySelector('#company_name').innerText = response.job_company_name
+document.querySelector('#company_name').innerText = response.job_company_name;
 
 const applyButton = document.querySelector('#apply');
 if(check.message.toLowerCase().trim() === 'already applied') {

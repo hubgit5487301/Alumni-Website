@@ -34,17 +34,12 @@
           <p id="job_level"></p>
           <p id="app_email"></p>
           <p id="salary"></p>
-          <button id="apply">Apply</button>
         </section>
         <section style="grid-area: box4;">
           <h2>Job Description</h2>
           <p id="job_description"></p>
         </section>
         <section style="grid-area: box5;">
-          <h2>Emp Description</h2>
-          <p id="employer_description"></p>
-        </section>
-        <section style="grid-area: box6;">
           <h2>Job Requirements</h2>
           <div>
             <h3>Education</h3>
@@ -55,21 +50,41 @@
             <p id="experience"></p>
           </div>
         </section>
-        <section style="grid-area: box7;">
-          <h2>Employer Details</h2>
+        <section style="grid-area: box6;">
+          <h2>Applicants</h2>
+          <table id="applicants_table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Batch</th>
+                <th>Degree</th>
+                <th>Current Role</th>
+                <th>Resume</th>
+              </tr>
+            </thead>
+            <tbody id="applicants">
+            </tbody>
+          </table>
           <div>
-            <h3>Website</h3>
-            <a id="emp_website" href="#"></a>
+            <label for="download_as">File Type:</label>
+            <select id="download_as">
+              <option value="xlsx">Excel</option>
+              <option value="csv">Csv</option>
+              <option value="txt">Text</option>
+              <option value="json">Json</option>
+              <option value="xml">Xml</option>
+              <option value="pdf">Pdf</option>
+            </select>
           </div>
-          <div>
-            <h3>Contact-Us</h3>
-            <p id="contact_info"></p>
-          </div>
+          <button id="download_as_list">Download List</button>
         </section>
       </section>
     </main>
     <footer></footer>
     <script type="module" src="/protected-scripts/nav-bar-protected.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script type="module" src="/protected/jobs/scripts/job-applicants.js"></script>
   </body>
 </html>

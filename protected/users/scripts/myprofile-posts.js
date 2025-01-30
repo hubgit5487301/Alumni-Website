@@ -28,9 +28,10 @@ function load_jobs(all_jobs) {
     element.id = job.job_id;
     job_view.append(element);
     element.addEventListener('click', (e) => {
+      if(e.target.closest('button')) return; 
       const _id = element.getAttribute('id');
-      if(e.target.tagName !== 'BUTTON') window.location.href = `/protected/applicants/job?_id=${_id}` 
-        // window.location.href = `/protected/job?_id=${job.job_id}`;
+      window.location.href = `/protected/applicants/job?_id=${_id}`;
+      
     })
     button.addEventListener('click', async (e) => {
       const _id = button.getAttribute('button-id');
@@ -90,7 +91,7 @@ function load_events(all_events) {
   });
 }
 
-load_events(event_ids);
+// load_events(event_ids);
 load_jobs(job_ids);
 
 

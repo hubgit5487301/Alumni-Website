@@ -329,6 +329,18 @@ router.get('/my-profile/download-resume', async (req, res) => {
   }
 })
 
+router.get('/applicant/resume_download', async (req, res) => {
+  try{
+    const userid = req.query.userid;
+    const file = await user.findOne({userid: userid}, {"details.resume": 1});
+    return res.status(200).json({file});
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
 router.get(`/job_users`, async (req,res) =>{
   try {
     const userid = req.user.userid;
@@ -461,9 +473,7 @@ router.get('/my_profile_appli/event_search', async (req, res) => {
 
 router.get('/my_profile_posts/event_search', async (req, res) => {
   try{
-    const userid = req.user.userid;
     const {event_name} = req.query;
-    
     const event_search = await events.find({name: { $regex: `^${event_name}`, $options: 'i'}}, {name: 1, event_logo:1 , event_id: '$_id', _id: 0});
     res.status(200).json(event_search);
   }
@@ -473,5 +483,20 @@ router.get('/my_profile_posts/event_search', async (req, res) => {
   }
 })
 
-
+router.get('/user/user_data', async (req, res) => {
+  try{
+    const {userid} = req.query;
+    const user_data = await user.findOne({userid}, {userid: 1, personname: 1, "details.batch": 1, "details.currentrole": 1, "details.education": 1, _id: 0});
+    if(user_data) {
+      return res.status(200).json(user_data);
+    }
+    else {
+      return res.status(404).json({message: 'user not found'});
+    }
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'});
+  }
+})
 module.exports = router;  

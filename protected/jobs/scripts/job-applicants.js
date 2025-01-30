@@ -1,90 +1,143 @@
-// import { API_BASE_URL } from "../../protected-scripts/config.js";
-// import { formatjobdate , getdataonevent as getdata, download as resume_download} from "../../protected-scripts/util.js";
+import { formatjobdate , getdataonevent as get_data, download as resume_download} from "../../protected-scripts/util.js";
 
-// const urlParam = new URLSearchParams(window.location.search);
-// const job_id = urlParam.get('job_id');
+const urlParam = new URLSearchParams(window.location.search);
+const job_id = urlParam.get('_id');
 
-// fetch(`${API_BASE_URL}/protected/applicants/job/${job_id}`)
-// .then(response => {
-//   if(!response.ok) {
-//     throw new Error('response not ok');
-//   }
-//   return response.json();
-// })
-// .then( async data => {
-//   const applicants = data.applicants_data[0].applicants;
-//   const jobHtml = `<div class="job-page js-job-page">
-//         <div class="first-view">
-//           <img class="job-pic" src="${data.job_data.job_company_logo}" loading="lazy">
-//           <div class="basic-data">
-//             <p class="name">${data.job_data.job_tittle}</p>
-//             <div class="basic-data-details">
-//               <p>Employer : ${data.job_data.job_company_name}</p>
-//               <p>Last date to apply: ${formatjobdate(data.job_data.job_deadline)}</p>
-//               <p>Location: ${data.job_data.job_location}</p>
-//               <p>Job Type: ${data.job_data.job_level}</p>
-//               <p>Application Email: ${data.job_data.job_app_email}</p>
-//               <p>Salary (Monthly): ${data.job_data.job_salary} Rs</p>
-//               <p>Total Applicants: ${applicants.length}</p>
-//             </div>
-//           </div>
-//         </div>
-//          <div class="job-headings">
-//             <h1>Applicants</h1>
-//           </div>
-//         <div class="job-requirement js-applicants">
-//           </div>
-// `;
+const data = await get_data(`applicants/posted_job?job_id=${job_id}`);
+const {job_data, applicants_data} = data;
+const applicants_Data = applicants_data.applicants;
 
-//   document.querySelector('.js-job-page').innerHTML = jobHtml;
+document.querySelector('main section>section').style.backgroundImage = `url(${job_data.job_company_logo})`;
 
-//   const sortedApplicantsData = await Promise.all(
-//     Object.values(applicants).map(async (applicant) => {
-//       const data = await getdata(`job_users/${applicant.applicant}`);
-//       return { applicant: applicant.applicant, ...data };
-//     })
-//   );
-//   sortedApplicantsData.sort((a, b) => a.personname.localeCompare(b.personname));
+document.querySelector('#tittle').innerText = job_data.job_tittle;
+document.querySelector('#job_name').innerText = job_data.job_tittle;
+document.querySelector('#company_name').innerText = job_data.job_company_name;
+document.querySelector('#salary').innerText = "Salary: "+job_data.job_salary + " Rs";
+document.querySelector('#job_type').innerText = "Job Type: "+job_data.job_type;
+document.querySelector('#app_email').innerText = "Email: "+job_data.job_app_email;
+document.querySelector('#job_level').innerText = "Job Level: "+job_data.job_level;
+document.querySelector('#deadline').innerText = "Deadline: "+formatjobdate(job_data.job_deadline);
+document.querySelector('#location').innerText = "Location: "+job_data.job_location;
+document.querySelector('#education').innerText = job_data.job_edu;
+document.querySelector('#experience').innerText = job_data.job_exp_level + " Years";
+document.querySelector('#job_description').innerText = job_data.job_des;
 
-//   let applicant_Html = '';
-//   sortedApplicantsData.forEach(async (applicants) => {
-    
-//     applicant_Html += `
-//             <div class="req-text">
-//               <p class="job-des-text-id">${applicants.personname}</p>
-//               <p class="job-des-text-id">${applicants.applicant}</p>
-//               <p class="job-des-text-id">${applicants.details.branch}</p>  
-//               <p class="resume-download js-view-profile" view-profile-id="${applicants.applicant}">View Profile</p>
-//               <div class="resume-download js-resume-download" download-resume="${applicants.applicant}"> Download Resume</div>
-//             </div>
-// `
-//   })
-//     document.querySelector('.js-applicants').innerHTML = applicant_Html;
-    
-//     const profile_Button = document.querySelectorAll('.js-view-profile');
-//       profile_Button.forEach(profile_Button => {
-//         profile_Button.addEventListener('click', () => {
-//           const userid = profile_Button.getAttribute('view-profile-id')
-//           window.location.href = `/protected/profile?userid=${userid}`
-//       })
-//     })
+applicants_Data.forEach(async (applicant) => {
+  const user_data = await get_data(`user/user_data?userid=${applicant.applicant}`);
+  const tr = document.createElement('tr');
+  tr.id = 'applicant_cell';
+  tr.setAttribute('userid', user_data.userid);
+  const name = document.createElement('td');
+  name.innerText = user_data.personname;
+  const batch = document.createElement('td');
+  batch.innerText = user_data.details.batch + `-${parseInt(user_data.details.batch)+4}`;
+  const role = document.createElement('td');
+  role.innerText = user_data.details.currentrole;
+  const education = document.createElement('td');
+  education.innerText = user_data.details.education;
+  const download = document.createElement('td');
+  const download_button = document.createElement('button');
+  download_button.innerText = "Download Resume";
+  download.append(download_button);
+  tr.append(name, batch, education, role, download);
+  document.querySelector('#applicants').append(tr);
 
-//     const download_Button = document.querySelectorAll('.js-resume-download');
-//     download_Button.forEach(download_Button => {
-//       download_Button.addEventListener('click', async ()=> {
-//         const userid = download_Button.getAttribute('download-resume');
-//         const data = await getdata(`download-resume/${userid}`);
-//         if(data.message === 'File Found') {
-//           const file64 = data.result.details.resume;
-//           const filetype = 'application/pdf'
-//           resume_download(file64, filetype, `${userid}.pdf`);
-//         }
-//         else if(data.error === 'File not found') {
-//           alert('No file was found')
-//         }
-//       })
-//     }) 
-//   })
-// .catch(err => {
-//   console.log(err);
-// })
+  tr.addEventListener('click', async (e) => {
+    if(e.target.tagName === 'BUTTON') {
+      return;
+    }
+    const userid = e.currentTarget.getAttribute('userid');
+    window.location.href = `/protected/profile?userid=${userid}`;
+  });
+
+  download_button.addEventListener('click', async (e) => {
+    const response = await get_data(`applicant/resume_download?userid=${user_data.userid}`);
+    const file = response.file.details.resume;
+    resume_download(file,'application/pdf',`${user_data.personname}_resume`);
+  })
+})
+
+document.querySelector('#download_as_list').addEventListener('click', async () => {
+  const table = document.querySelector('#applicants_table');
+  let table_data = [];
+  const header_row = table.querySelector('thead tr');
+  const header_cells = Array.from(header_row.children).slice(0, -1)
+  const header_data = header_cells.map(cell => cell.innerText);
+  table_data.push(header_data);
+  
+  const rows = table.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    const row_data = Array.from(row.cells).slice(0, -1).map(cell => cell.innerText);
+    table_data.push(row_data);
+  })
+
+  const select = document.querySelector('#download_as');
+  const select_value = select.value;
+  if(select_value === 'xlsx') {
+    const ws = XLSX.utils.aoa_to_sheet(table_data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Applicants');
+    XLSX.writeFile(wb, `${job_data.job_tittle}_applicants.xlsx`);
+  }
+  else if(select_value === 'csv') {
+    const csv = table_data.map(row => row.join(',')).join('\n');
+    const blob = new Blob([csv], {type: 'text/csv'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${job_data.job_tittle}_applicants.csv`;
+    a.click();
+  }
+  else if(select_value === 'txt') {
+    const txtContent = table_data.map(row => row.join('\t')).join('\n');
+    const blob = new Blob([txtContent], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${job_data.job_tittle}_applicants.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+  else if(select_value === 'pdf') {
+    const {jsPDF} = window.jspdf;
+    const doc = new jsPDF();
+    doc.autoTable({head: [header_data], body: table_data.slice(1)});
+    doc.save(`${job_data.job_tittle}_applicants.pdf`);
+  }
+  else if(select_value === 'json') {
+    const jsonData = table_data.slice(1).map(row => {
+      let obj = {};
+      row.forEach((cell, index) => {
+        obj[header_data[index]] = cell;
+      });
+      return obj;
+    });
+    const jsonString = JSON.stringify(jsonData, null, 2); 
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${job_data.job_tittle}_applicants.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+  else if(select_value === 'xml') {
+    let xmlContent = '<?xml version="1.0" encoding="UTF-8"?>\n<applicants>\n';
+
+    table_data.slice(1).forEach(row => {
+      xmlContent += '  <applicant>\n';
+      row.forEach((cell, index) => {
+        xmlContent += `    <${header_data[index]}>${cell}</${header_data[index]}>\n`;
+      });
+      xmlContent += '  </applicant>\n';
+    });
+    xmlContent += '</applicants>';
+    const blob = new Blob([xmlContent], { type: 'application/xml' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${job_data.job_tittle}_applicants.xml`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+})

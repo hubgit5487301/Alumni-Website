@@ -162,19 +162,13 @@ router.delete(`/my_profile_posts/delete_job`, async (req, res) => {
   }
 })
 
-router.get('/applicants/job/:job_id', async (req,res) => {
+router.get('/applicants/posted_job', async (req,res) => {
   try{
-    const job_id = req.params.job_id;
-    const applicants_data = await job.find({_id: job_id}, {applicants: 1});
-    const job_data = await job.findOne({_id: job_id}, {job_company_logo: 1, job_tittle: 1, job_company_name: 1, job_deadline: 1, job_location: 1, job_level: 1, job_app_email: 1, job_salary: 1});
-    if(applicants_data.length > 0) {
-      const message = 'applicants found';
-      data = ({job_data, applicants_data, message})
-      return res.status(200).json(data);
-    }
-    else {
-      return res.status(205).json({error: 'no applicants found'});
-    }
+    const job_id = req.query.job_id;
+    const applicants_data = await job.findOne({_id: job_id}, {applicants: 1, _id: 0});
+    const job_data = await job.findOne({_id: job_id}, {job_company_des: 0, job_contact_info: 0, userid: 0, job_company_website: 0, job_resume: 0});
+    const data = {job_data, applicants_data}
+    res.status(200).json(data)
   }
   catch(err) {
     console.log(err);
