@@ -8,7 +8,7 @@ if(data.usertype === 'alumni' || data.usertype === 'admin') {
   posts.href = `/protected/myprofile-posts`;
 }
 
-if (data.personimage.toLowerCase() === 'Empty') document.querySelector('.profile-pic').src = '/images/blank_profile_pic.png';
+if (data.personimage.toLowerCase() === 'empty') document.querySelector('.profile-pic').src = '/images/blank_profile_pic.png';
 else document.querySelector('.profile-pic').src = '/images/blank_profile_pic.png';  
 
 document.querySelector('.user-name').textContent = data.personname;
