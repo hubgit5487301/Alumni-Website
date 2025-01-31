@@ -27,11 +27,13 @@ const imageUrls = [
   "/images/linkedin.svg",
   "/images/instagram.svg",
   "/images/facebook.svg",
+  "/images/blank_profile_pic.png"
 ];
 
-const user_logo = await getdata("/user_logo");
-if (user_logo) imageUrls.push(user_logo); 
+let user_logo = await getdata("/user_logo");
 
+if (user_logo.toLowerCase() !== 'empty') imageUrls.push(user_logo); 
+else user_logo = "/images/blank_profile_pic.png";
 
 await preloadImages(imageUrls);
 stopLoading();

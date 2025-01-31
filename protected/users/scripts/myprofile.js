@@ -7,8 +7,10 @@ if(data.usertype === 'alumni' || data.usertype === 'admin') {
   posts.style.display = 'block';
   posts.href = `/protected/myprofile-posts`;
 }
-  
-document.querySelector('.profile-pic').src = data.personimage;
+
+if (data.personimage.toLowerCase() === 'Empty') document.querySelector('.profile-pic').src = '/images/blank_profile_pic.png';
+else document.querySelector('.profile-pic').src = '/images/blank_profile_pic.png';  
+
 document.querySelector('.user-name').textContent = data.personname;
 
 document.querySelector('.batch').textContent = `Batch: ${data.details.batch}`;
