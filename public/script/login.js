@@ -30,6 +30,7 @@ form.addEventListener('submit', async (e) => {
   })
   const form_data = new FormData(form);
   const login_data = Object.fromEntries(form_data.entries());
+  login_data.userid = login_data.userid.toUpperCase();
   const response = await post_login('login', login_data);
   if(response.message === 'Login successful') window.location.href = response.redirectUrl;
 })
