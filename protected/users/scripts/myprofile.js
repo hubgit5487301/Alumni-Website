@@ -9,7 +9,7 @@ if(data.usertype === 'alumni' || data.usertype === 'admin') {
 }
 
 if (data.personimage.toLowerCase() === 'empty') document.querySelector('.profile-pic').src = '/images/blank_profile_pic.png';
-else document.querySelector('.profile-pic').src = '/images/blank_profile_pic.png';  
+else document.querySelector('.profile-pic').src = data.personimage;  
 
 document.querySelector('.user-name').textContent = data.personname;
 
