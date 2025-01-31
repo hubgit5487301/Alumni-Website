@@ -8,6 +8,7 @@ passport.use(new localStrategy(
   { usernameField: 'userid'},
   async(userid, password, done) => {
     try {
+      userid = userid.toUpperCase();
       const user = await Users.findOne({userid});
       if(!user) {
         return done(null, false, {message: 'userid not registered'});
