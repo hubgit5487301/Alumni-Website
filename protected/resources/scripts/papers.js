@@ -11,7 +11,7 @@ form.addEventListener('submit',async (e) => {
     if(input.value.trim() !== '') {
       is_form_empty = false;
     }
-  });
+  });``
   if(is_form_empty) {
     alert('Please Provide at least one search parameter');
     return;
@@ -42,6 +42,8 @@ form.addEventListener('submit',async (e) => {
       download_button.setAttribute('data-id', item._id);
       p.innerText = item.name;
       div.append(p, download_button);
+      div.style.width = '100%';
+      p.style.width = '100%';
       search_result.append(div);
     });
     download_file();
