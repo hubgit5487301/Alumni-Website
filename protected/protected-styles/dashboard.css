@@ -45,10 +45,7 @@ nav li:nth-child(2) a:hover {
 main {
   max-height: 100%;
   min-width: 100%;
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-areas: 
-  "welcome-box";
+  display: flex;
   background-color: var(--main-color);
   box-shadow: var(--shadow-color);
   border-radius: var(--border-radius);
@@ -62,6 +59,7 @@ main {
 .welcome-box {
   grid-area: welcome-box;
   min-height: 80%;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas: 
@@ -112,6 +110,13 @@ main {
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-color);
 }
+
+@media(width > 1340px) {
+  main {
+    padding-inline: 10vw;
+  }
+} 
+
 
 @media(width < 1000px){
   main{

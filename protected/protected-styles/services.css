@@ -49,6 +49,13 @@ main section {
   cursor: pointer;
 }
 
+@media(width > 1340px) {
+  main {
+    padding-inline: 10vw;
+  }
+} 
+
+
 @media(width < 800px){
   main {
     flex-direction: column;

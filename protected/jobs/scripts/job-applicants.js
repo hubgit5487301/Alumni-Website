@@ -23,7 +23,7 @@ document.querySelector('#experience').innerText = job_data.job_exp_level + " Yea
 document.querySelector('#job_description').innerText = job_data.job_des;
 
 applicants_Data.forEach(async (applicant) => {
-  const user_data = await get_data(`user/user_data?userid=${applicant.applicant}`);
+  const user_data = await get_data(`user/user_data_job?userid=${applicant.applicant}`);
   const tr = document.createElement('tr');
   tr.id = 'applicant_cell';
   tr.setAttribute('userid', user_data.userid);

@@ -483,7 +483,7 @@ router.get('/my_profile_posts/event_search', async (req, res) => {
   }
 })
 
-router.get('/user/user_data', async (req, res) => {
+router.get('/user/user_data_job', async (req, res) => {
   try{
     const {userid} = req.query;
     const user_data = await user.findOne({userid}, {userid: 1, personname: 1, "details.batch": 1, "details.currentrole": 1, "details.education": 1, _id: 0});
@@ -499,4 +499,22 @@ router.get('/user/user_data', async (req, res) => {
     res.status(500).json({error: 'internal server error'});
   }
 })
+
+router.get('/user/user_data_event', async (req, res) => {
+  try{
+    const {userid} = req.query;
+    const user_data = await user.findOne({userid}, {userid: 1, personname: 1, "details.contactinfo": 1, "details.batch": 1, "details.currentrole": 1, "details.education": 1, _id: 0});
+    if(user_data) {
+      return res.status(200).json(user_data);
+    }
+    else {
+      return res.status(404).json({message: 'user not found'});
+    }
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'});
+  }
+})
+
 module.exports = router;  

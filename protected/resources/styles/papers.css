@@ -227,6 +227,13 @@ main section section div button:active {
   opacity: 0.5;
 }
 
+@media(width > 1340px) {
+  main {
+    padding-inline: 10vw;
+  }
+} 
+
+
 @media(width < 820px) {
   main search {
     min-width: 100%;

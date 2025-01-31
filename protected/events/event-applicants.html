@@ -1,23 +1,86 @@
 <!DOCTYPE html>
 <html>
   <head>
-        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    <title>Event</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/protected-styles/dashboard.css">
-    <link rel="stylesheet" href="/protected-styles/nav-bar.css">
-    <link rel="stylesheet" href="/protected/events/styles/event-applicants.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="tittle"></title>
+    <link rel="stylesheet" defer href="/protected/events/styles/event-applicants.css">
+    <link rel="stylesheet" defer href="/protected-styles/nav-bar.css">
   </head>
-  <body class="general-dashboard">
-    <div class="top-box js-top-box"></div>
-    <div class="bottom-box">
-      <div class="event-page js-event-page"></div>
+  <body>
+    <div class="loading-page">
+      <div class="circle">
+        <div class="dot-wrapper">
+          <div class="dot"></div>
+        </div>
+      </div>
     </div>
-    <footer class="bottom js-bottom"></footer>
+    <nav></nav>
+    <aside></aside>
+    <main>
+      <section>
+        <section style="grid-area: box1;">
+          <img id="event_image" src="#" alt="event-image">
+        </section>
+        <section style="grid-area: box2;">
+          <h1 id="event_name"></h1>
+          <p id="event_date"></p>
+          <button id="download_event_details">Get Event Details</button>
+        </section>
+        <section style="grid-area: box3;">
+          <h2>Description</h2>
+          <p id="event_description"></p>
+        </section>
+        <section style="grid-area: box4;">
+          <div>
+            <h2>Location</h2>
+            <p id="event_location"></p>
+          </div>
+          <div>
+            <h2>Phone No</h2>
+            <p id="event_phone_no"></p>
+          </div>
+          <div>
+            <h2>Email</h2>
+            <p id="event_email"></p>
+          </div>
+        </section>
+        <section style="grid-area: box5;">
+          <h2>Applicants</h2>
+          <table id="applicants_table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Batch</th>
+                <th>Degree</th>
+                <th>User Type</th>
+                <th>Contact Info</th>
+              </tr>
+            </thead>
+            <tbody id="applicants">
+            </tbody>
+          </table>
+          <div>
+            <label for="download_as">File Type:</label>
+            <select id="download_as">
+              <option value="xlsx">Excel</option>
+              <option value="csv">Csv</option>
+              <option value="txt">Text</option>
+              <option value="json">Json</option>
+              <option value="xml">Xml</option>
+              <option value="pdf">Pdf</option>
+            </select>
+          </div>
+          <button id="download_as_list">Download as list</button>
+        </section>
+      </section>
+    </main>
+    <footer></footer>
     <script type="module" src="/protected-scripts/nav-bar-protected.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script type="module" src="/protected/events/scripts/event-applicants.js"></script>
   </body>
 </html>

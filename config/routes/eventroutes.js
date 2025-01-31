@@ -101,6 +101,9 @@ router.get(`/events/:event_id`, async (req,res) => {
         const text = 'no file';
         found_event.event_file = text;
       }
+      else {
+        found_event.event_file = 'file';
+      }
       return res.status(200).json(found_event);
     }
     else {
@@ -233,7 +236,6 @@ router.delete(`/my_profile_post/delete_event`, async (req, res) => {
 
 router.get(`/my_profile_appli/my_events`, async (req, res) => {
   try{
-    const userid = req.user.userid;
     const _id = req.query._id;
     const applied_events = await events.findOne({_id},{event_logo: 1, name: 1});
     return res.status(200).json(applied_events);
@@ -248,19 +250,19 @@ router.get('/applicants/event', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'events', 'event-applicants.html'))
 })
 
-router.get('/applicants/event/:event_id', async (req,res) => {
+router.get('/applicants/posted_event', async (req,res) => {
   try{
-    const event_id = req.params.event_id;
-    const applicants_data = await events.find({_id: event_id}, {applicants: 1});
-    const event_data = await events.findOne({_id: event_id},{event_file: 0});
-    if(applicants_data.length > 0) {
-      const message = 'applicants found';
-      data = ({event_data, applicants_data, message})
-      return res.status(200).json(data);
+    const event_id = req.query.event_id;
+    const applicants_Data = await events.findOne({_id: event_id}, {applicants: 1});
+    const event_data = await events.findOne({_id: event_id},{userid: 0});
+    if(event_data.event_file === 'temp' || event_data.event_file === null) {
+      event_data.event_file = 'no file';
     }
     else {
-      return res.status(205).json({error: 'no applicants found'});
+      event_data.event_file = 'file';
     }
+    data = ({event_data, applicants_Data})
+    return res.status(200).json(data);
   }
   catch(err) {
     console.log(err);

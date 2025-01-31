@@ -80,6 +80,7 @@ main section button:active {
   opacity: 0.8;
 }
 
+
 @media(width < 650px) {
   main section section{
     flex-direction: column;
@@ -94,5 +95,8 @@ main section button:active {
     "box-1 box-2"
     "box-3 box-4"
     "box-5 box-6";
+  }
+  main {
+    padding-inline: 6.5vw;
   }
 }

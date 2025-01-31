@@ -12,9 +12,13 @@ document.querySelector('#event_image').src= response.event_logo;
 document.querySelector('#event_name').innerText = response.name;
 document.querySelector('#event_date').innerText = `Date & Time: ${formatEventDate(response.date)}`;
 
+document.querySelector('#event_description').innerText = response.event_des;
+document.querySelector('#event_location').innerText = response.location;
+document.querySelector('#event_phone_no').innerText = response.contact_info.phone_no;
+document.querySelector('#event_email').innerText = response.contact_info.email;
+
 const applyButton = document.querySelector('#apply');
 if(check.message.toLowerCase().trim() === 'already applied') {
-  
   applyButton.innerText = 'Already Applied';
   button_disable(applyButton);
 }
@@ -41,8 +45,3 @@ download_button.addEventListener('click', async () => {
     download_event_file(data, 'application/pdf', response.name)
   }
 })
-
-document.querySelector('#event_description').innerText = response.event_des;
-document.querySelector('#event_location').innerText = response.location;
-document.querySelector('#event_phone_no').innerText = response.contact_info.phone_no;
-document.querySelector('#event_email').innerText = response.contact_info.email;

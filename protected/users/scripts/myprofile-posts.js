@@ -71,7 +71,7 @@ function load_events(all_events) {
     p.innerText = event_data.name;
     document.querySelector('#event_view').append(element);
     element.addEventListener('click', () => {
-      window.location.href = `/protected/event?_id=${event.event_id}`;
+      window.location.href = `/protected/applicants/event?_id=${event.event_id}`;
     });
     button.addEventListener('click', async (e) => {
       e.stopPropagation();
