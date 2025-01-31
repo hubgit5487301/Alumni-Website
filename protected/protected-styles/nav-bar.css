@@ -194,6 +194,7 @@ nav li:first-child img {
 
 nav li:nth-child(8) img{
   transition: 0.15s ease-in-out;
+  object-fit: cover;
 }
 
 nav li:nth-child(8) img:hover {
