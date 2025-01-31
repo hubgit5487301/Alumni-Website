@@ -36,7 +36,7 @@ main search form {
   justify-self: center;
   justify-content: space-between;
   max-width: 100%;
-  width: 90%;
+  width: 100%;
   max-height: 100%;
   background-color: var(--main-color);
   padding: 0.5em 1em;
@@ -152,6 +152,7 @@ main section section div {
   box-shadow: var(--shadow-color);
   padding: 0.4em 1em;
   border-radius: 0.5em;
+  width: 100%;
 }
 
 main section section div p {
@@ -285,7 +286,7 @@ main section {
   }
 }
 
-@media(width < 400px) {
+@media(width < 600px) {
   main section {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
