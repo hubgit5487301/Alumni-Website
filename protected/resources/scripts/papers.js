@@ -1,9 +1,5 @@
 import {getdataonevent as getdata, download as download_notes} from '../../protected-scripts/util.js';
 
-const urlParams = new URLSearchParams(window.location.search);
-const branch = urlParams.get('branch');
-document.querySelector('#heading').innerText = `${branch} Question Papers`
-
 const form = document.querySelector('form');
 
 form.addEventListener('submit',async (e) => {
@@ -23,7 +19,6 @@ form.addEventListener('submit',async (e) => {
 
   const form_data = new FormData(form);
   const query = Object.fromEntries(form_data.entries());
-  query.branch = branch;
   query.type = 'qpapers';
   const query_string = new URLSearchParams(query).toString();
   const response = await getdata(`resources_search?${query_string}`);
@@ -53,7 +48,7 @@ form.addEventListener('submit',async (e) => {
   }
 })
 
-const response = await getdata(`resources/${branch}&qpapers`);
+const response = await getdata(`resources/&qpapers`);
 
 function load_content(response){
   const main_section = document.querySelector('main>section');

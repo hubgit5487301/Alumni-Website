@@ -55,7 +55,6 @@ function createNavLink(url, text, classname, imageUrl) {
     const img = imageCache[imageUrl] ? imageCache[imageUrl].cloneNode(true) : new Image();;
     img.src = imageUrl;
     link.append(img);
-    // console.log(link);
   }
   if (text) {
     const textnode = document.createTextNode(text);

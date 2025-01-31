@@ -3,12 +3,8 @@ const path =require('path');
 
 const resource = require('../../models/resources')
 
-
 const router = express()
 
-router.get('/resources', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'resources', 'resources.html'))
-})
 
 router.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'protected', 'resources', 'notes.html'))
@@ -26,11 +22,10 @@ router.get('/upload_resources', (req, res) => {
   else return res.redirect(`/dashboard?alert=Unauthorized-access-attempt`)
 })
 
-router.get('/resources/:branch&:type', async (req, res) => {
-  const branch = req.params.branch;
+router.get('/resources/&:type', async (req, res) => {
   const type = req.params.type;
   try {
-    const data = await resource.find({branch: branch, type: type}, {file:0});
+    const data = await resource.find({type: type}, {file:0});
     return res.status(200).json(data);
   }
   catch(err) {
@@ -44,14 +39,12 @@ router.get('/resources_search', async (req, res) => {
   const semester = parseInt(req.query.semester);
   const subject = req.query.subject;
   const type = req.query.type;
-  const branch = req.query.branch;
   try {
     const data = await resource.find({
       name: {$regex: `^${name}`, $options: 'i'},
       subject: {$regex: `^${subject}`, $options:'i'},
       ...(Number.isInteger(semester)&&{semester}),
-      type: type,
-      branch: branch
+      type: type
     },{file: 0});
     return res.status(200).json(data);
   }
