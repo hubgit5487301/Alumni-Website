@@ -6,7 +6,7 @@
   --primary-shadow-color: 0  3px  3px 5px rgba(0, 0, 0, 0.1);
   --shadow-color: 0  3px  3px 5px rgba(0, 0, 0, 0.21);
   --border-radius: 30px;
-  --font: 'Nunito Sans', Georgia, Times, serif;
+  --font: 'Nunito Sans', Arial ,Georgia, Times, serif;
   --blue: rgb(98, 151, 226);
   --dark-blue: #4169E1;
   --button-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
