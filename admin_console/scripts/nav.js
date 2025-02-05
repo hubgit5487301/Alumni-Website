@@ -42,11 +42,14 @@ document.querySelector('body>nav').append(
 
 
 
+console.log(document.querySelectorAll('body>nav>li'));
+
 let menu_check = false;
 document.querySelector('#open').addEventListener('click', () => {
   const screen_width = window.matchMedia('(max-width: 450px)');
   if(menu_check === false && !screen_width.matches) {
     document.querySelector('body>nav').style.width = "300px";
+    document.querySelectorAll('body>nav>li').forEach((li) =>{li.style.width = "100%"});
     document.querySelectorAll('body nav li a p').forEach(p => {p.style.display = "block";});
     menu_check = true;
   }
@@ -56,6 +59,7 @@ document.querySelector('#open').addEventListener('click', () => {
     document.querySelector('body>nav').style.left = "0";
     document.querySelector('body>nav').style.borderRadius = "0";
     document.querySelector('body>nav').style.height = "100vh";
+    document.querySelectorAll('body>nav>li').forEach((li) =>{li.style.width = "100%"});
     document.querySelectorAll('body nav li a p').forEach(p => {p.style.display = "block";});
     menu_check = true;
   }
@@ -65,6 +69,7 @@ document.querySelector('#open').addEventListener('click', () => {
     document.querySelector('body>nav').style.height = "99vh";
     document.querySelector('body>nav').style.left = "5px";
     document.querySelector('body>nav').style.borderRadius = "1em";
+    document.querySelectorAll('body>nav>li').forEach((li) =>{li.style.width = "50px"})
     document.querySelectorAll('body nav li a p').forEach(p => {p.style.display = "none";});
     menu_check = false;
   }

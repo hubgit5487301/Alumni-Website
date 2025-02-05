@@ -4,6 +4,7 @@
 
 nav li:nth-child(2) {
   background-color: var(--blue);
+  border-radius: 1em;
 }
 
 body>main {
