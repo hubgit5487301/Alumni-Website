@@ -20,10 +20,10 @@
 }
 
   body{
-    min-height: 100vh;
+    height: 100vh;
+    width: 100vw;
     display: grid;
     grid-template-columns: auto calc(100% - 70px);
-    gap: 5em;
     grid-template-rows: 100%;
     font-family: var(--font), Tahoma, Geneva, Verdana, sans-serif;
     grid-template-areas: 
@@ -38,6 +38,8 @@
     transition: 0.15s linear;    
     background-color: var(--main-color);
     backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: space-between;
   }
 
 body::-webkit-scrollbar {
