@@ -11,7 +11,7 @@
   --main-color:rgba(255, 255, 255, 0.315);
   --shadow-color: 0  3px  3px 5px rgba(0, 0, 0, 0.1);
   --border-radius: 30px;
-  --font: 'Nunito Sans', Georgia, Times, serif;
+  --font: 'Nunito Sans', Arial, Georgia, Times, serif;
   --blue: rgb(98, 151, 226);
   --button-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 }
