@@ -3,7 +3,7 @@
 protected/protected-scripts/config.js
 public/script/config.js
 admin_console/scripts/config.js
-# /mockdata
+/mockdata
 /ngrok.exe
 /browser_sync.js
 /server_test.js
