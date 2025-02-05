@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const user = require('../../models/users');
 const event = require('../../models/events');
 const job = require('../../models/jobs');
+const resources = require('../../models/resources')
 
 const router = express();
 const {usertype_and_batchSet, startObjectId, endObjectId} = require('../util');
@@ -39,17 +40,67 @@ router.get('/get_stats', async (req, res) => {
     if(req.user.usertype === 'admin') {
       const session = mongoose.connection.collection('sessions');
       const active_users = await session.countDocuments();
-      const total_users = await user.countDocuments();
+      const total_users = await user.countDocuments({usertype:{ $ne: 'admin'}});
       const total_events = await event.countDocuments();
       const total_jobs = await job.countDocuments();
-
-      const today_events = await event.countDocuments({_id: {$gte: startObjectId, $lt: endObjectId}});
-      const today_jobs = await job.countDocuments({_id: {$gte: startObjectId, $lt: endObjectId}})
+      const total_alumni = await user.countDocuments({usertype: 'alumni'});
+      const total_students = await user.countDocuments({usertype: 'student'});
+      const cse_users = await user.countDocuments({'details.branch': 'CSE',usertype: { $ne: 'admin'}});
+      const ece_users = await user.countDocuments({'details.branch': 'ECE', usertype:{ $ne: 'admin'}});
+      const ee_users = await user.countDocuments({'details.branch': 'EE',usertype:{ $ne: 'admin'}});
+      const me_users = await user.countDocuments({'details.branch': 'ME',usertype:{ $ne: 'admin'}});
+      const ce_users = await user.countDocuments({'details.branch': 'CE', usertype:{ $ne: 'admin'}});
+      const full_time = await job.countDocuments({job_type: 'Full Time'});
+      const part_time = await job.countDocuments({job_type: 'Part Time'});
+      const internships = await job.countDocuments({job_type: 'Internship'});
+      const contract = await job.countDocuments({job_type: 'Contract'});
+      const notes = await resources.countDocuments({type: 'Notes'});
+      const papers = await resources.countDocuments({type: 'qpapers'})
+      // const today_events = await event.countDocuments({_id: {$gte: startObjectId, $lt: endObjectId}});
+      // const today_jobs = await job.countDocuments({_id: {$gte: startObjectId, $lt: endObjectId}})
       const stats_data = ({
-        total_users, total_events, total_jobs, active_users, today_events, today_jobs
+        total_users, total_alumni, total_students, cse_users, me_users, ee_users, ece_users, ce_users, total_events, total_jobs, full_time, part_time, internships, contract, notes, papers, active_users
       })
       return res.status(200).json(stats_data);
     }
+  }
+  catch(err) {
+    console.log(err);
+    res.status(500).json({error: 'internal server error'})
+  }
+})
+
+router.get('/graph_data', async (req, res) => {
+  try {
+    const job_types = ['Full Time', 'Part Time', 'Internship', 'Contract'];
+    const job_count = {};
+    const applicant_count = {};
+    for(const job_type of job_types) {
+     job_count[job_type] = await job.countDocuments({job_type: job_type});
+     let total_applicants = 0;
+     const jobs = await job.find({job_type: job_type}, {applicants: 1});
+     jobs.forEach(job => {
+        total_applicants += job.applicants.length;
+     })
+     applicant_count[job_type] = total_applicants;
+    }
+    const event_count = {};
+    const currentYear = new Date().getFullYear();
+    const startOfYear = new Date(currentYear, 0, 1);
+    const endOfYear = new Date(currentYear+1, 0, 1); 
+    const events_dates = await events.find({date: {$gte: startOfYear , $lt: endOfYear}}, {date: 1});
+    events_dates.forEach(event => {
+      const month = event.date.getMonth();
+      if(!event_count[month]) {
+        event_count[month] = 0;
+      }
+      event_count[month] += 1;
+    })
+
+
+    const data = {job_count, applicant_count, event_count};
+    res.status(200).json(data);
+
   }
   catch(err) {
     console.log(err);

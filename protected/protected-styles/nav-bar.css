@@ -227,7 +227,8 @@ nav li:nth-child(9) a {
 }
 
 .menu-button:hover{
-  border-radius: 0 0 30px 0 ;}
+  border-radius: 0 0 30px 0 ;
+}
 main {
   grid-area: main;
 }

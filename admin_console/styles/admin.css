@@ -1,103 +1,149 @@
-
-.stats-div {
-  display: flex;
-  gap: 1vw;
-  justify-content: space-between;
+*{
+  box-sizing: border-box;
 }
 
-.stats {
-  background-color: rgba(0, 0, 0, 0.357);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  font-size: 1vw;
-  padding: 1vw;
-  border-radius: 0.4vw;
+nav li:nth-child(2) {
+  background-color: var(--blue);
 }
 
-.today-stats {
+body>main {
+  position: fixed;
+}
+
+body>main>section::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+body>main>section::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+  border-radius: 1em;
+}
+
+body main>section {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 2vw;
-  padding: 1vw;
-  font-size: 1vw;
-}
-
-.stat-info {
-  display: grid;
-  grid-template-rows: 1fr 5fr;
-  padding: 0.3vw;
-  border-radius: 0.4vw;
-  background-color: rgba(0, 0, 0, 0.357);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-}
-
-.heading {
-  display: grid;
-  flex-direction: row;
-  font-size: 1vw;
-  text-align: center;
-  align-items: center;
-}
-
-.stat-box {
-  display: grid;
-  grid-template-columns: 8fr 1fr;
-  text-align: center;
-  font-size: 1vw;
-  height: 10vw;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 
+  "stats"
+  "detailed_stats";
+  background-color: var(--main-color);
+  border-radius: 1em;
+  box-shadow: var(--primary-shadow-color);
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+  gap: 1em;
   overflow-y: scroll;
-  padding: 1vw;
-  gap: 1vw;
-  position: relative;
+  &>section:first-child {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "stat_1 stat_2 stat_3 stat_4";
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    & p{
+      text-align: center;
+      align-content: center;
+      border-radius: 0.3em;
+      color: white;
+      background-color: var(--blue);
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      box-shadow: var(--button-shadow);
+      cursor: pointer;
+      padding-block: 1em;
+    }
+  }
+  &>section:nth-child(2) {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: .8fr auto;
+    grid-template-areas: 
+    "box1 box1 box2 box2 box3 box3 box7 box7"
+    "box5 box5 box5 box6 box6 box6 box4 box4";
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    gap: 1em;
+    &>section {
+      background-color: var(--main-color);
+      height: 100%;
+      width: 100%;
+      border-radius: 0.5em;
+      backdrop-filter: blur(10px);
+      padding: 0;
+      box-shadow: var(--primary-shadow-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+    #users_by_type, #users_by_branch, #jobs_by_type, #files_by_type, #all_active_users {
+      height: auto !important;
+      width: 71% !important;
+      cursor: pointer;
+     }
+     #events_graph, #jobs_graph {
+      height: auto !important;
+      width: 95% !important;
+      cursor: pointer;
+     }
+  }
 }
 
-.stat-box::-webkit-scrollbar {
-  display: none;
+
+@media(width < 1010px) {
+  #my_charts{
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "box1 box2"
+    "box3 box4"
+    "box7 ."
+    "box6 box6"
+    "box5 box5";
+    row-gap: 1em;
+  }
+  #events_graph, #jobs_graph {
+    height: 50%;
+    width: 50%;
+    padding: 1em;
+  }
 }
 
-.data {
-  display: grid;
-  grid-template-columns: 1fr 2fr 3fr;
-  height: 3vw;
-  padding: 0.5vw;
-  align-items: center;
-  justify-items:center;
-  border-radius: 0.4vw;
-  background-color: rgba(0, 0, 0, 0.357);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  cursor: pointer;
-}
-
-.image {
-  width: 3vw;
-  height: 3vw;
-  object-fit: cover;
-  border-radius: 100%;  
-}
-
-.revoke-button {
-  display: grid;
-  background-color: red;
-  border-radius: 0.4vw;
-  padding: 1vw;
-  height: 2vw;
-  align-items: center;
-  cursor: pointer;
-}
-
-.revoke-button:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-}
-
-.revoke-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-}
-
-.stat-box .text-info {
-  position: absolute;
-  left: 13vw;
-  bottom: 6vw;
+@media(width < 635px) {
+  #users_by_type, #users_by_branch, #jobs_by_type, #files_by_type, #all_active_users {
+    height: auto;
+    min-width: 70%;
+  }
+  #events_graph, #jobs_graph {
+    height: 100%;
+    width: 100%;
+    padding: 1em;
+  }
+  #my_charts {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "box1"
+    "box2"
+    "box3"
+    "box4"
+    "box7"
+    "box6"
+    "box5";
+  }
+  #stats{
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    "stat_1 stat_2"
+    "stat_3 stat_4";
+    row-gap: 1em;
+    & p {
+      padding: 1em;
+    }
+  }
 }
