@@ -1,12 +1,7 @@
 *{
   box-sizing: border-box;
 }
-
-nav li:nth-child(2) {
-  background-color: var(--blue);
-  border-radius: 1em;
-}
-
+  
 body>main {
   position: fixed;
 }
@@ -26,14 +21,12 @@ body main>section {
   grid-template-areas: 
   "stats"
   "detailed_stats";
-  background-color: var(--main-color);
-  border-radius: 1em;
-  box-shadow: var(--primary-shadow-color);
   height: 100%;
   width: 100%;
   padding: 1em;
   gap: 1em;
   overflow-y: scroll;
+  backdrop-filter: blur(10px);
   &>section:first-child {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -51,15 +44,16 @@ body main>section {
       width: 100%;
       height: 100%;
       margin: 0;
-      box-shadow: var(--button-shadow);
       cursor: pointer;
       padding-block: 1em;
+      font-size: 1.1em;
+      font-weight: bold;
     }
   }
   &>section:nth-child(2) {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: .8fr auto;
+    grid-template-rows: 1fr auto;
     grid-template-areas: 
     "box1 box1 box2 box2 box3 box3 box7 box7"
     "box5 box5 box5 box6 box6 box6 box4 box4";
@@ -98,7 +92,7 @@ body main>section {
 @media(width < 1010px) {
   #my_charts{
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
     grid-template-areas: 
     "box1 box2"
     "box3 box4"
@@ -114,19 +108,23 @@ body main>section {
   }
 }
 
-@media(width < 635px) {
+@media(width < 500px) {
+  #content{
+    padding-inline: 1em;
+  }
+
   #users_by_type, #users_by_branch, #jobs_by_type, #files_by_type, #all_active_users {
-    height: auto;
-    min-width: 70%;
+    height: 100%;
+    max-width: 50%;
   }
   #events_graph, #jobs_graph {
     height: 100%;
     width: 100%;
-    padding: 1em;
+
   }
   #my_charts {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto auto auto auto auto;
     grid-template-areas: 
     "box1"
     "box2"

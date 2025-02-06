@@ -52,7 +52,7 @@ new Chart(users_by_type,{
   plugins: [ChartDataLabels],
   options: {
     hoverOffset: 10,
-    responsive: true,
+    responsive: false,
     cutout: '80%',
     centerText: 'Users By Type',
     plugins: {
@@ -95,7 +95,7 @@ new Chart(users_by_branch,{
   plugins: [ChartDataLabels],
   options: {
     hoverOffset: 10,
-    responsive: true,
+    responsive: false,
     cutout: '80%',
     centerText: 'Users By Branch',
     plugins: {
@@ -139,7 +139,7 @@ new Chart (jobs_by_type, {
   plugins: [ChartDataLabels],
   options: {
     hoverOffset: 10,
-    responsive: true,
+    responsive: false,
     cutout: '80%',
     centerText: 'Jobs By Type',
     plugins: {
@@ -179,6 +179,7 @@ new Chart(files_by_type, {
   plugin: [ChartDataLabels],
   options: {
     hoverOffset: 10,
+    responsive: false,
     cutout: '80%',
     centerText: 'Files By Type',
     plugins: {
@@ -221,6 +222,7 @@ new Chart(active_users_chart, {
   plugin: [ChartDataLabels],
   options: {
     hoverOffset: 10,
+    responsive: false,
     cutout: '80%',
     centerText: 'Active Users',
     plugins: {
@@ -268,7 +270,6 @@ new Chart(job_graph, {
     }
   ]},
   options: {
-    maintainAspectRatio: false,
     centerText : 'Jobs and Applicants',
     responsive: true,
     scales: {
@@ -279,7 +280,7 @@ new Chart(job_graph, {
       legend: { display: true , position: 'top', labels: {pointStyle: 'circle', usePointStyle: true, useBorderRadius: true}},
       tooltip: { enabled: true },
     },
-    layout: {padding: 10}
+    layout: {padding: 5}
   }
 });
 
@@ -298,7 +299,6 @@ new Chart(events_graph, {
     }]
   },
   options: {
-    maintainAspectRatio: false,
     centerText : 'Events this year',
     responsive: true,
     scales: {
@@ -309,6 +309,6 @@ new Chart(events_graph, {
       legend: { display: true , position: 'top', labels: {pointStyle: 'circle', usePointStyle: true, useBorderRadius: true}},
       tooltip: { enabled: true },
     },
-    layout: {padding: 10}
+    layout: {padding: 5}
   }
 })
