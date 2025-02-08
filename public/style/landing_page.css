@@ -18,7 +18,7 @@
 }
 
 :root{
-  interpolate-size: allow-keywords;
+   interpolate-size: allow-keywords;
   --main-color:rgba(255, 255, 255, 0.3);
   --shadow-color: 0  3px  3px 5px rgba(0, 0, 0, 0.1);
   --border-radius: 30px;
