@@ -232,12 +232,12 @@ router.post('/submit_user', async (req, res) => {
   }
 );
 
-router.get('/', (req, res) => {
+router.get('', (req, res) => {
   if(req.isAuthenticated()) {
     return res.redirect('/dashboard');
   }
   else {
-    return res.redirect('/login'); 
+    return res.sendFile(path.join(__dirname, '..', '..', 'public', 'landing_page.html'));
   }           
 })
 

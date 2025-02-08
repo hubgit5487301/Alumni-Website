@@ -4,7 +4,7 @@
   interpolate-size: allow-keywords;
   /* --main-primary-color: rgb(255, 189, 66); */
   --main-primary-color: skyblue;
-  --nav-color: rgb(0, 0, 0); 
+  --nav-color: rgba(0, 0, 0, 0); 
   --main-color:rgba(255, 255, 255, 0.695);
   /* --nav-color: rgba(0, 0, 0, 0.804);  */
   --primary-shadow-color: 0  3px  3px 5px rgba(0, 0, 0, 0.1);
@@ -23,6 +23,12 @@
 }
 
 body{
+  
+  background-image: url('/images/background.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   height: 100vh;
   width: 100vw;
   display: grid;
