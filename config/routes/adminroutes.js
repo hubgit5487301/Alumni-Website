@@ -2,6 +2,11 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 
+const emailuser = process.env.user;
+const pass = process.env.pass;
+const service = process.env.service;
+
+const nodemailer = require('nodemailer');
 const user = require('../../models/users');
 const event = require('../../models/events');
 const job = require('../../models/jobs');
@@ -31,9 +36,13 @@ router.get('/', (req, res) => {
 
 router.get('/manage_events', (req, res) => {
   if(req.user.usertype === 'admin')
-res.sendFile(path.join(__dirname, '..', '..', 'admin_console', 'events.html'))
+  res.sendFile(path.join(__dirname, '..', '..', 'admin_console', 'events.html'))
 })
 
+router.get('/alerts', (req, res) => {
+  if(req.user.usertype === 'admin')
+  res.sendFile(path.join(__dirname, '..', '..', 'admin_console', 'alerts.html'))
+})
 
 router.get('/get_stats', async (req, res) => {
   try{
@@ -359,5 +368,47 @@ router.get(`/search_jobs`, async (req, res) => {
   }
 })
 
+router.post('/alerts', async(req, res) => {
+  try {
+    const {from, to, subject, message} = req.body;
+    let users_by_type;
+    let info;
+    if(to === 'all') {
+      users_by_type = await user.find({}, {email: 1});
+    }
+    else {
+      users_by_type = await user.find({usertype: to}, {email: 1});
+    }
+    const transporter = nodemailer.createTransport({
+      host: service,
+      port: 465,
+      secure: true,
+      auth: {
+        user: emailuser,
+        pass: pass,
+      }
+    })
+    users_by_type.forEach(async user => {
+      const mail_option = {
+        from: `${from} ${emailuser}`,
+        to: user.email,
+        subject: subject,
+        text: message,
+      }
+      info = await transporter.sendMail(mail_option);
+      console.log('Email sent: %s', info.messageId);
+    })
+    if(info) {
+      return res.status(200).json({message: 'Email sent successfully'});
+    }
+    else {
+      return res.status(500).json({message: 'Emails not sent, try again later'});
+    }
+  }
+  catch(err) {
+    console.log(err)
+    res.status(500).json({error: 'internal server error'})
+  }
+} )
 
 module.exports = router;
