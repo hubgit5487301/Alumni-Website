@@ -72,6 +72,9 @@ router.get('/get_stats', async (req, res) => {
       })
       return res.status(200).json(stats_data);
     }
+    else {
+      return res.status(404).json({message: 'unauthorized'})
+    }
   }
   catch(err) {
     console.log(err);
@@ -81,35 +84,37 @@ router.get('/get_stats', async (req, res) => {
 
 router.get('/graph_data', async (req, res) => {
   try {
-    const job_types = ['Full Time', 'Part Time', 'Internship', 'Contract'];
-    const job_count = {};
-    const applicant_count = {};
-    for(const job_type of job_types) {
-     job_count[job_type] = await job.countDocuments({job_type: job_type});
-     let total_applicants = 0;
-     const jobs = await job.find({job_type: job_type}, {applicants: 1});
-     jobs.forEach(job => {
-        total_applicants += job.applicants.length;
-     })
-     applicant_count[job_type] = total_applicants;
-    }
-    const event_count = {};
-    const currentYear = new Date().getFullYear();
-    const startOfYear = new Date(currentYear, 0, 1);
-    const endOfYear = new Date(currentYear+1, 0, 1); 
-    const events_dates = await events.find({date: {$gte: startOfYear , $lt: endOfYear}}, {date: 1});
-    events_dates.forEach(event => {
-      const month = event.date.getMonth();
-      if(!event_count[month]) {
-        event_count[month] = 0;
+    if(req.user.usertype === 'admin') { 
+      const job_types = ['Full Time', 'Part Time', 'Internship', 'Contract'];
+      const job_count = {};
+      const applicant_count = {};
+      for(const job_type of job_types) {
+      job_count[job_type] = await job.countDocuments({job_type: job_type});
+      let total_applicants = 0;
+      const jobs = await job.find({job_type: job_type}, {applicants: 1});
+      jobs.forEach(job => {
+          total_applicants += job.applicants.length;
+      })
+      applicant_count[job_type] = total_applicants;
       }
-      event_count[month] += 1;
-    })
-
-
-    const data = {job_count, applicant_count, event_count};
-    res.status(200).json(data);
-
+      const event_count = {};
+      const currentYear = new Date().getFullYear();
+      const startOfYear = new Date(currentYear, 0, 1);
+      const endOfYear = new Date(currentYear+1, 0, 1); 
+      const events_dates = await events.find({date: {$gte: startOfYear , $lt: endOfYear}}, {date: 1});
+      events_dates.forEach(event => {
+        const month = event.date.getMonth();
+        if(!event_count[month]) {
+          event_count[month] = 0;
+        }
+        event_count[month] += 1;
+      })
+      const data = {job_count, applicant_count, event_count};
+      res.status(200).json(data);
+    }
+    else {
+      return res.status(404).json({message: 'unauthorized'})
+    }
   }
   catch(err) {
     console.log(err);
@@ -123,6 +128,9 @@ router.get('/admin_data', async (req, res) => {
       const admin_data = await user.find({usertype: 'admin', verified: true, userid: {$ne : '248650'}}, {userid: 1, personimage: 1, personname: 1});
       return res.status(200).json(admin_data);
     }
+    else {
+      return res.status(404).json({message: 'unauthorized'})
+    }
   }
   catch(err) {
     console.log(err);
@@ -130,7 +138,7 @@ router.get('/admin_data', async (req, res) => {
   }
 })
 
-router.patch('/revoke', async (req, res) => {
+router.patch('/manage_users/revoke_admin', async (req, res) => {
   try {
     if(req.user.usertype === 'admin') {
       const userid = req.query.userid;
@@ -139,7 +147,10 @@ router.patch('/revoke', async (req, res) => {
       await user.updateOne(
         {userid: userid},
         {$set: {usertype: usertype}})
-      return res.status(200).json({message: 'admin rights revoked'})
+      return res.status(200).json({message: 'admin rights revoked', usertype})
+    }
+    else{
+      return res.status(404).json({message: 'unauthorized'});
     }
   }
   catch(err) {
@@ -148,33 +159,10 @@ router.patch('/revoke', async (req, res) => {
   }
 })
 
-router.get('/user_name', async (req, res) => {
-  if(req.isAuthenticated()) {
-    const data = ({ personname: req.user.personname });
-    res.status(200).json(data);
-  }
-  else {
-    res.redirect(`/login?alert=not-logged-in`);
-  }
-})
-
-router.get('/today_new_users_data', async (req, res) => {
+router.delete('/manage_users/remove_user', async (req, res) => {
   try {
     if(req.user.usertype === 'admin') {
-      const today_new_users = await user.find({_id: {$gte: startObjectId, $lt: endObjectId}},{userid: 1, personimage: 1, personname: 1});
-      return res.status(200).json(today_new_users)
-    }
-  }
-  catch(err) {
-    console.log(err);
-    res.status(500).json({error : 'internal server error'});
-    }
-})
-
-router.delete('/remove_user', async (req, res) => {
-  try {
-    const userid = req.query.userid;
-    if(req.user.usertype === 'admin') {
+      const userid = req.query.userid;
       await user.deleteOne({userid:userid});
       return res.status(200).json({message: 'user deleted'})
     }
@@ -185,23 +173,10 @@ router.delete('/remove_user', async (req, res) => {
   }
 })
 
-router.get('/today_new_events_data', async (req, res) => {
-  try{
-    if(req.user.usertype === 'admin') {
-      const today_events = await events.find({_id: {$gte: startObjectId, $lt: endObjectId}}, {name: 1, event_logo: 1, date: 1});
-      return res.status(200).json(today_events);
-    }
-  }
-  catch(err) {
-    console.log(err);
-    res.status(500).json({error : 'internal server error'});
-    }
-})
-
 router.delete('/remove_event', async (req, res) => {
   try {
-    const _id = req.query._id;
     if(req.user.usertype === 'admin') {
+      const _id = req.query._id;
       const data = await events.findOne({_id:_id},{userid: 1});
       const userid = data.userid;
 
@@ -210,6 +185,9 @@ router.delete('/remove_event', async (req, res) => {
         {$pull: {"data.event_ids": {event_id: _id}}})
       await events.deleteOne({_id:_id});
       return res.status(200).json({message: 'event deleted'})
+    }
+    else {
+      return res.status(404).json({message: 'unauthorized'});
     }
   }
   catch(err) {
@@ -224,6 +202,9 @@ router.get('/today_new_jobs_data', async (req, res) => {
       const today_jobs = await job.find({_id: {$gte: startObjectId, $lt: endObjectId}}, {job_tittle: 1, job_company_logo: 1, job_deadline: 1});
       return res.status(200).json(today_jobs);
     }
+    else {
+      return res.status(404).json({message: 'unauthorized'});
+    }
   }
   catch(err) {
     console.log(err);
@@ -233,17 +214,19 @@ router.get('/today_new_jobs_data', async (req, res) => {
 
 router.delete('/remove_job', async (req, res) => {
   try {
-    const _id = req.query._id;
-    const data = await job.findOne({_id:_id},{userid: 1});
-    const userid = data.userid;
-    
     if(req.user.usertype === 'admin') {
+      const _id = req.query._id;
+      const data = await job.findOne({_id:_id},{userid: 1});
+      const userid = data.userid;
       await user.updateOne(
         {userid: userid},
         {$pull: {"data.job_ids": {job_id: _id}}})
 
       await job.deleteOne({_id:_id});
       return res.status(200).json({message: 'job deleted'});
+    }
+    else {
+      return res.status(404).json({message: 'unauthorized'});
     }
   }
   catch(err) {
@@ -263,7 +246,6 @@ router.get('/search_users', async (req, res) => {
       }, {userid: 1, personname: 1, usertype: 1, personimage: 1})
       return res.status(200).json(result); 
     }
-
   }
   catch(err) {
     console.log(err);
@@ -273,9 +255,18 @@ router.get('/search_users', async (req, res) => {
 
 router.get('/users', async (req,res) => {
   try {
-    const users = await user.find({}, {userid: 1, personname: 1, personimage: 1, usertype: 1 }).sort({personname: 1});
-    const filteredUsers = users.filter(user => user.usertype !== 'admin');
-    res.status(200).json(filteredUsers);
+    if(req.user.usertype === 'admin') {
+      const users = await user.find({}, {userid: 1, personname: 1, personimage: 1, usertype: 1, verified: 1, email: 1, 'details.batch': 1, 'details.branch': 1 }).sort({personname: 1});
+      const filteredUsers = users.filter(user => user.userid !== '248650');
+      const admins = filteredUsers.filter(user => user.usertype === 'admin');
+      const alumni = filteredUsers.filter(user => user.usertype === 'alumni');
+      const students = filteredUsers.filter(user => user.usertype === 'student');
+      const data = ({alumni, students, admins});
+      res.status(200).json(data);
+    }
+    else {
+      return res.status(404).json({message: 'unauthorized'});
+    }
   }
   catch (err){
     console.log(err);
@@ -283,14 +274,18 @@ router.get('/users', async (req,res) => {
   }
 })
 
-router.patch('/set_admin', async (req, res) => {
+router.patch('/manage_users/set_admin', async (req, res) => {
   try{
     if(req.user.usertype === 'admin') {
       const userid = req.query.userid;
+      console.log(userid);
       await user.updateOne({userid: userid},{
         $set: {usertype: 'admin'}
       })
-      return res.status(200).json({message: 'made admin'});
+      return res.status(200).json({message: 'Admin Added'});
+    }
+    else {
+      return res.status(404).json({message: 'unauthorized'});
     }
   }catch (err){
     console.log(err);
@@ -300,8 +295,13 @@ router.patch('/set_admin', async (req, res) => {
 
 router.get('/events', async (req, res) =>{
   try{
-    const send_events = await events.find({}, {name: 1, date:1, event_logo:1 }).sort({ date:1});
-    res.status(200).json(send_events) ;
+    if(req.user.usertype === 'admin') {
+      const send_events = await events.find({}, {name: 1, date:1, event_logo:1 }).sort({ date:1});
+      res.status(200).json(send_events) ;
+    }
+    else {
+      return res.status(404).json({message: 'unauthorized'});
+    }
   }
   catch(err) {
     console.log(err);
@@ -310,28 +310,29 @@ router.get('/events', async (req, res) =>{
 })
 
 router.get('/search_events', async (req, res) => {
-  let {eventname, date} = req.query;
-  let results;
   try{
-  if(date && !isNaN(Date.parse(date))) {
-  const startDate = new Date(date + 'T00:00:00'); 
-  const endDate = new Date(date + 'T23:59:59');  
-  results = await events.find({
-      name: { $regex: `^${eventname}`, $options: 'i' },
-      date: { $gte: startDate, $lte: endDate}}, 
-      {name: 1, date:1, event_logo:1 }
-    );}
+    if(req.user.usertype === 'admin') {
+      let {eventname, date} = req.query;
+      let results;
+      if(date && !isNaN(Date.parse(date))) {
+        const startDate = new Date(date + 'T00:00:00'); 
+        const endDate = new Date(date + 'T23:59:59');  
+        results = await events.find({
+            name: { $regex: `^${eventname}`, $options: 'i' }, date: { $gte: startDate, $lte: endDate}}, {name: 1, date:1, event_logo:1 }
+          )}
+      else {
+        results = await events.find({
+          name: { $regex: `^${eventname}`, $options: 'i' }}, 
+          {name: 1, date:1, event_logo:1 }
+        )};
+      if(results.length === 0){
+        return res.status(200).json([]);
+      }
+      res.status(200).json(results);
+    }
     else {
-      results = await events.find({
-        name: { $regex: `^${eventname}`, $options: 'i' }}, 
-        {name: 1, date:1, event_logo:1 }
-      );}
-    
-
-  if(results.length === 0){
-    return res.status(200).json([]);
-  }
-  res.status(200).json(results);
+      return res.status(404).json({message: 'unauthorized'});
+    }
   }
   catch(err) {
     console.log(err);
@@ -341,8 +342,13 @@ router.get('/search_events', async (req, res) => {
 
 router.get('/jobs', async(req, res) => {
   try{
-    const jobs = await job.find({}, {job_tittle: 1, job_company_name: 1, job_company_logo: 1, job_deadline: 1, job_type: 1, job_level: 1}).sort({job_deadline: 1});
-    res.status(200).json(jobs);
+    if(req.user.usertype === 'admin') {
+      const jobs = await job.find({}, {job_tittle: 1, job_company_name: 1, job_company_logo: 1, job_deadline: 1, job_type: 1, job_level: 1}).sort({job_deadline: 1});
+      res.status(200).json(jobs);
+    }
+    else {
+      res.status(404).json({message: 'unauthorized'});
+    }
   }
   catch(err) {
     console.log(err);
@@ -350,17 +356,18 @@ router.get('/jobs', async(req, res) => {
 })
 
 router.get(`/search_jobs`, async (req, res) => {
-  const {jobname, company } = req.query;
   try{
-    const results = await job.find(
-      { job_tittle: { $regex: `^${jobname}`, $options: 'i' },
-        job_company_name: { $regex: `^${company}`, $options: 'i' }
-      },
-      {job_tittle: 1, job_company_name: 1, job_level: 1, job_type: 1, job_deadline: 1, job_company_logo: 1});
-    if(results.length === 0) {
-      return res.status(200).json([]);
+    if(req.user.usertype === 'admin') {
+      const {jobname, company } = req.query;
+      const results = await job.find({ job_tittle: { $regex: `^${jobname}`, $options: 'i' }, job_company_name: { $regex: `^${company}`, $options: 'i' }}, {job_tittle: 1, job_company_name: 1, job_level: 1, job_type: 1, job_deadline: 1, job_company_logo: 1});
+      if(results.length === 0) {
+        return res.status(200).json([]);
+        }
+      return res.status(200).json(results);
     }
-    return res.status(200).json(results);
+    else{
+      res.status(404).json({message: 'unauthorized'});
+    }
   }
   catch(err) {
     console.log(err);
@@ -370,45 +377,66 @@ router.get(`/search_jobs`, async (req, res) => {
 
 router.post('/alerts', async(req, res) => {
   try {
-    const {from, to, subject, message} = req.body;
-    let users_by_type;
-    let info;
-    if(to === 'all') {
-      users_by_type = await user.find({}, {email: 1});
+    if(req.user.usertype === 'admin'){  
+      const {from, to, subject, message} = req.body;
+      let users_by_type;
+      let info;
+      if(to === 'all') {
+        users_by_type = await user.find({}, {email: 1});
+      }
+      else {
+        users_by_type = await user.find({usertype: to}, {email: 1});
+      }
+      const transporter = nodemailer.createTransport({
+        host: service,
+        port: 465,
+        secure: true,
+        auth: {
+          user: emailuser,
+          pass: pass,
+        }
+      })
+      users_by_type.forEach(async user => {
+        const mail_option = {
+          from: `${from} ${emailuser}`,
+          to: user.email,
+          subject: subject,
+          text: message,
+        }
+        info = await transporter.sendMail(mail_option);
+        console.log('Email sent: %s', info.messageId);
+      })
+      if(info) {
+        return res.status(200).json({message: 'Emails sent successfully'});
+      }
+      else {
+        return res.status(500).json({message: 'Emails not sent, try again later'});
+      }
     }
     else {
-      users_by_type = await user.find({usertype: to}, {email: 1});
-    }
-    const transporter = nodemailer.createTransport({
-      host: service,
-      port: 465,
-      secure: true,
-      auth: {
-        user: emailuser,
-        pass: pass,
-      }
-    })
-    users_by_type.forEach(async user => {
-      const mail_option = {
-        from: `${from} ${emailuser}`,
-        to: user.email,
-        subject: subject,
-        text: message,
-      }
-      info = await transporter.sendMail(mail_option);
-      console.log('Email sent: %s', info.messageId);
-    })
-    if(info) {
-      return res.status(200).json({message: 'Email sent successfully'});
-    }
-    else {
-      return res.status(500).json({message: 'Emails not sent, try again later'});
+      res.status(404).json({message: 'unauthorized'});
     }
   }
   catch(err) {
     console.log(err)
     res.status(500).json({error: 'internal server error'})
   }
-} )
+})
+
+router.patch('/manage_users/verify_user', async (req, res) => {
+  try{
+    if(req.user.usertype === 'admin') {
+      const userid = req.query.userid;
+      const response = await user.updateOne({userid: userid}, {$set: {verified: true }});
+      if(response.modifiedCount > 0) {
+        return res.status(200).json({message: 'Account Verified'});
+      }
+    }
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({message: 'internal server error'})
+  }
+})
 
 module.exports = router;

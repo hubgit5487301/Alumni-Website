@@ -20,11 +20,99 @@
     </nav>
     <main style="grid-area: main;">
       <h1 style="grid-area: header;">Users</h1>
+      <section style="grid-area: content;">
+        <section>
+          <form>
+            <div style="grid-area: input1;">
+              <label for="search_by_name">Name:</label>
+              <input type="text" id="search_by_name" name="personname" placeholder="Search for Users">
+            </div>
+            <div style="grid-area: input2;">
+              <label for="search_by_userid">Userid:</label>
+              <input type="text" id="search_by_userid" name="userid" placeholder="Search for Userid">
+            </div>
+            <div style="grid-area: input3;">
+              <label for="search_by_year">Batch:</label>
+              <select name="batch" id="search_by_year">
+                <option value="">Select Batch</option>
+              </select>
+              </div>
+            <div style="grid-area: input4;">
+              <label for="search_by_branch">Branch:</label>
+              <select name="branch" id="search_by_branch">
+                <option value="">Select Branch</option>
+                <option value="CSE">Computer Science</option>
+                <option value="ECE">Electrical Comm.</option>
+                <option value="EE">Electrical</option>
+                <option value="ME">Mechanical</option>
+                <option value="CE">Civil</option>
+              </select>
+            </div>
+            <button style="grid-area: submit;" type="submit">Search</button>
+          </form>
+          <section id="search_result"></section>
+          <div>
+            <button id="all_alumni_button" class="button_active">Alumni</button>
+            <button id="all_students_button">Students</button>
+            <button id="all_admin_button">Admin</button>
+          </div>
+          <section id="all_users">
+            <div id="all_table_container">
+              <table id="all_alumni">
+                <thead>
+                  <tr>
+                    <th>Userid</th>
+                    <th>Name</th>
+                    <th id="email_user">Email</th>
+                    <th>Branch</th>
+                    <th>Batch</th>
+                    <th>Verification</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                  </tbody>
+              </table>
+            </div>
+            <div id="all_table_container">
+              <table id="all_students">
+                <thead>
+                  <tr>
+                    <th>Userid</th>
+                    <th>Name</th>
+                    <th id="email_user">Email</th>
+                    <th>Branch</th>
+                    <th>Batch</th>
+                    <th>Verification</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                  </tbody>
+              </table>
+            </div>
+            <div id="all_table_container">
+              <table id="all_admin">
+                <thead>
+                  <tr>
+                    <th>Userid</th>
+                    <th>Name</th>
+                    <th id="email_user">Email</th>
+                    <th>Branch</th>
+                    <th>Batch</th>
+                    <th>Verification</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                  </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </section>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/gh/DavideViolante/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
     <script type="module" src="/admin_console/scripts/nav.js"></script>
-    <script type="module" src="/admin_console/scripts/admin.js"></script>
+    <script type="module" src="/admin_console/scripts/users.js"></script>
   </body>
 </html>

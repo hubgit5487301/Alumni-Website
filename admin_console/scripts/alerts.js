@@ -9,5 +9,8 @@ form.addEventListener('submit', async (e) => {
   const form_data = new FormData(form);
   const data = Object.fromEntries(form_data.entries());
   const response = await send_emails('alerts', data);
-  console.log(response);
+  if(response.status === 200) {
+    alert('Emails sent successfully');
+    form.reset();
+  }
 })

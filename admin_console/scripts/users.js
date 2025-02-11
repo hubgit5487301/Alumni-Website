@@ -1,134 +1,152 @@
-import {getdataonevent as getdata, deletedataonevent as deletedata, updatedataonevent as patchdata} from './util.js'
+import {getdataonevent as get_data, deletedataonevent as delete_data, updatedataonevent as patch_data, yearSelect as batch_year, } from './util.js'
+
+document.querySelector('.active').classList.remove('active');
+document.querySelector('nav>li:nth-child(2)').classList.add('active');
+batch_year('#search_by_year');
+
+const {admins, alumni, students} = await get_data('users');
+
+const all_admin = document.querySelector('#all_admin_button');
+const all_alumni = document.querySelector('#all_alumni_button');
+const all_students = document.querySelector('#all_students_button');
+
+const admin_table = document.querySelector('#all_admin>tbody');
+const alumni_table = document.querySelector('#all_alumni>tbody');
+const student_table = document.querySelector('#all_students>tbody');
 
 
-function setuser() {
-  const user_button = document.querySelectorAll('.js-user-data');
-  user_button.forEach(button => {
-    button.addEventListener('click', () => {
-      const userid = button.getAttribute('user-id');
-      window.location.href = `/protected/profile?userid=${userid}`
-    })
-  })
-  const set_admin = document.querySelectorAll('.js-set-admin');
-  set_admin.forEach(button => {
-    button.addEventListener('click',async () => {
-      const userResponse = confirm('Are you sure you want to set user as an admin')
-      if(userResponse) {
-        const userid = button.getAttribute('user-admin')
-        const data = await patchdata(`set_admin?userid=${userid}`);
-        if(data.message === 'made admin') {
-          const userelement = document.querySelector(`.data.js-user-data[user-id="${userid}"]`);
-          const removeelement = document.querySelector(`.revoke-button.js-remove-button[remove-button="${userid}"]`);
-          const adminelemet = document.querySelector(`.set-admin.js-set-admin[user-admin="${userid}"]`)
-          if(userelement) userelement.remove();
-          if(removeelement) removeelement.remove();
-          if(adminelemet) adminelemet.remove();
-          if(list_users.innerHTML.trim() === ''){
-            list_users.innerHTML = '<div class="text-info">No users found</div>'
-            list_users.style.gridTemplateColumns= '1fr' }
-        }
-      }
-    })
-  })
-  const remove_button = document.querySelectorAll('.js-remove-button');
-  remove_button.forEach(button => {
-    button.addEventListener('click', async () => {
-      const userResponse = confirm('Delete User')
-      if(userResponse) {
-        const userid = button.getAttribute('remove-button');
-        const data = await deletedata(`remove_user?userid=${userid}`, '');
-        if(data.message === 'user deleted') {
-          const userelement = document.querySelector(`.data.js-user-data[user-id="${userid}"]`);
-          const removeelement = document.querySelector(`.revoke-button.js-remove-button[remove-button="${userid}"]`);
-          const adminelemet = document.querySelector(`.set-admin.js-set-admin[user-admin="${userid}"]`)
-          if(userelement) userelement.remove();
-          if(removeelement) removeelement.remove();
-          if(adminelemet) adminelemet.remove();
-          if(list_users.innerHTML.trim() === ''){
-            list_users.innerHTML = '<div class="text-info">No users found</div>';
-            list_users.style.gridTemplateColumns= '1fr'}
-        }
-      }
-    })
-  })
-}
-
-
-const list_users = document.querySelector('.js-list-users');
-let all_users = []
-async function fetch_users() {
-  all_users = await getdata('users');
-  list_users.innerHTML = render_users(all_users);
-}
-
-window.addEventListener('load', async () => {
-  await fetch_users();
-  setuser();
-})
-
-
-let find_data = '';
-const search_button = document.querySelector('.js-search-button');
-
-const personname = document.querySelector('.js-search-username');
-const userid= document.querySelector('.js-search-userid');
-search_button.addEventListener('click', () => {
-  find_data = find();
-  list_users.innerHTML = render_users(find_data);
-})
-personname.addEventListener('keydown', (e)=> {
-  if(e.key === 'Enter') {
-    find_data =  find();
-    list_users.innerHTML = render_users(find_data);
-  }
-})
-userid.addEventListener('keydown', (e) => {
-  if(e.key === 'Enter') {
-    find_data = find();
-    list_users.innerHTML = render_users(find_data);
-  }
-})
-
-function render_users (data) {
-  let html_data = '';
-  if(data.length > 0) {
-    list_users.style.gridTemplateColumns= '8fr 1fr 1fr';
+function create_table(data, table, user_type) {
   data.forEach(user => {
-    html_data += `
-    <div class="data js-user-data" user-id="${user.userid}">
-      <img class="image" src="${user.personimage}">
-      <div class="name">${user.userid}
-      </div>
-      <div class="name">${user.personname}
-      </div>
-      <div class="name">${user.usertype}
-      </div>
-    </div>
-    <div class="set-admin js-set-admin" user-admin="${user.userid}">Make Admin</div>
-    <div class="revoke-button js-remove-button" remove-button="${user.userid}">Remove</div>`
+    const user_id_td = document.createElement('td');
+    user_id_td.innerText = user.userid;
+
+    const user_name_td = document.createElement('td');
+    user_name_td.innerText = user.personname;
+    
+    const email_td = document.createElement('td');
+    email_td.innerText = user.email;
+
+    const branch_td = document.createElement('td');
+    branch_td.innerText = user.details.branch;
+    
+    const batch_td = document.createElement('td');
+    batch_td.innerText = user.details.batch + '-' + (parseInt(user.details.batch)+4);
+
+    const user_verification_td = document.createElement('td');
+    if(user.verified)user_verification_td.innerText = 'Verified';
+    else user_verification_td.innerText = 'Not Verified';
+
+    const action_button = document.createElement('select');
+    const option1 = document.createElement('option');
+    option1.value = '';
+    option1.innerText = 'Select Action';
+    const option2 = document.createElement('option');
+    option2.value = 'verify';
+    option2.innerText = 'Verify';
+    const option3 = document.createElement('option');
+    option3.value = 'remove';
+    option3.innerText = 'Remove';
+    const option4 = document.createElement('option');
+    option4.value = 'admin';
+    option4.innerText = 'Make Admin';
+    const option5 = document.createElement('option');
+    option5.innerText = 'Revoke Admin';
+    option5.value = 'revoke';
+    action_button.setAttribute('data-userid', user.userid);
+    action_button.id = `action_button_${user.usertype}`;
+
+    if (user.usertype === 'alumni' || user.usertype === 'student' ) 
+      {
+        if(user.verified) action_button.append(option1, option3, option4);
+        else action_button.append(option1, option2, option3);
+      }
+    else if (user.usertype === 'admin') action_button.append(option1, option5);
+    const action_button_td = document.createElement('td');
+    action_button_td.append(action_button);
+
+    const tr = document.createElement('tr');
+    tr.append( user_id_td, user_name_td, email_td, branch_td, batch_td, user_verification_td, action_button_td);
+    tr.setAttribute('data-userid', user.userid);
+    tr.id = `user_${user.usertype}`;
+    table.append(tr);
   });
-  return html_data;
-  }
-  else if(data.length === 0){
-    const no_html = '<div>No users found</div>';
-    list_users.style.gridTemplateColumns= '1fr';
-    return no_html;
-  }
+  document.querySelectorAll(`#user_${user_type}`).forEach(user_tr => {
+    user_tr.addEventListener('click', async (e) => {
+      if(e.target.tagName === 'SELECT') return;
+      const user_id = user_tr.getAttribute('data-userid');
+      window.location.href = `/protected/profile?userid=${user_id}`;
+    })
+  })
+  document.querySelectorAll(`#action_button_${user_type}`).forEach(action_button => {
+    action_button.addEventListener('change', async (e) => {
+      const user_id = action_button.getAttribute('data-userid');
+      const action = e.target.value;
+      if(action === 'verify') {
+        const response = await patch_data(`manage_users/verify_user?userid=${user_id}`);
+        if(response.message.toLowerCase() === 'account verified') {
+          action_button.parentElement.parentElement.querySelector('td:nth-child(6)').innerText = 'Verified';
+          const option4 = document.createElement('option');
+          option4.value = 'admin';
+          option4.innerText = 'Make Admin';
+          action_button.append(option4);
+          action_button.querySelector('option[value="verify"]').remove();
+        }
+      }
+      else if(action === 'admin') {
+        const response = await patch_data(`manage_users/set_admin?userid=${user_id}`);
+        if (response.message.toLowerCase() === 'admin added') {
+          all_admin.click();
+          action_button.innerText = '';
+          const option1 = document.createElement('option');
+          option1.value = '';
+          option1.innerText = 'Select Action';
+          const option5 = document.createElement('option');
+          option5.innerText = 'Revoke Admin';
+          option5.value = 'revoke';
+          action_button.append(option1, option5);
+          admin_table.append(action_button.parentElement.parentElement);  
+        }
+      }
+      else if(action === 'remove') {
+        let confirmation =  confirm('Are you sure you want to remove this user?');
+        if(!confirmation) {
+          action_button.value = '';
+          return;
+        }
+        const response = await delete_data(`manage_users/remove_user?userid=${user_id}`);
+        if(response.message.toLowerCase() === 'user deleted') {
+          action_button.parentElement.parentElement.remove();
+        }
+      }
+      else if(action === 'revoke') {
+        let confirmation = confirm('Are you sure you want to revoke admin access?');
+        if(!confirmation) {
+          action_button.value = '';
+          return;
+        }
+        const response = await patch_data(`manage_users/revoke_admin?userid=${user_id}`);
+        if(response.message.toLowerCase() === 'admin rights revoked') {
+          document.querySelector(`#all_${response.usertype}_button`).click();
+          document.querySelector(`#all_${response.usertype}>tbody`).append(action_button.parentElement.parentElement);
+        }
+      }
+    })
+  });
 }
 
 
-function find() {
-  if(personname.value && userid.value) {  
-    const match = all_users.filter(user => (user.personname.toLowerCase().startsWith(personname.value.toLowerCase()))&& user.userid.toLowerCase().startsWith(userid.value.toLowerCase()))
-    return match;
-  }
-  else if(personname.value) {
-    const match = all_users.filter(user => user.personname.toLowerCase().startsWith(personname.value.toLowerCase()))
-    return match;
-  }
-  else if(userid.value) {
-    const match = all_users.filter(user => user.userid.toLowerCase().startsWith(userid.value.toLowerCase()))
-    return match;
-  }
-   return all_users;
+create_table(alumni, alumni_table, 'alumni');
+create_table(students, student_table, 'student');
+create_table(admins, admin_table, 'admin');
+
+
+const table_container = document.querySelector('#all_users');
+const show_table = (table, button_id) => {
+  table_container.style.transform = `translateX(-${table * 33.3}%)`;
+  document.querySelector('.button_active').classList.remove('button_active')
+  document.getElementById(button_id).classList.add('button_active');
 }
+
+all_alumni.addEventListener('click', () => {show_table(0, 'all_alumni_button')});
+all_students.addEventListener('click', () => {show_table(1, 'all_students_button')});
+all_admin.addEventListener('click', () => {show_table(2, 'all_admin_button');})
