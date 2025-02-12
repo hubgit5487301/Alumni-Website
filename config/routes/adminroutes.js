@@ -235,15 +235,17 @@ router.delete('/remove_job', async (req, res) => {
   }
 })
 
-router.get('/search_users', async (req, res) => {
+router.get('/manage_users/search_users', async (req, res) => {
   try{
     if(req.user.usertype === 'admin') {
       const query = req.query;
       const result = await user.find({
         personname: { $regex: `^${query.personname}`, $options: 'i' },
-        userid: {$regex: `^${query.userid}`,  $options: 'i'},
-        usertype: {$ne: 'admin'}
-      }, {userid: 1, personname: 1, usertype: 1, personimage: 1})
+        'details.batch': { $regex: `^${query.batch}`, $options: 'i' },
+        'details.branch': { $regex: `^${query.branch}`, $options: 'i' },
+        $and :[{userid: {$regex: `^${query.userid}`,  $options: 'i'}},
+        {userid: {$ne: '248650'}}]
+      }, {userid: 1, personname: 1, usertype: 1, 'details.batch': 1, 'details.branch': 1, verified: 1, email: 1});
       return res.status(200).json(result); 
     }
   }

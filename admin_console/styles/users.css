@@ -118,6 +118,7 @@ main>section>section {
 
 #all_users {
   background-color: transparent;
+  min-height: 40vh;
   height: 100%;
   width: 300%;
   display: flex;
@@ -194,6 +195,7 @@ main>section>section {
     max-width: 1px;
   }
 }
+
   
 .button_active {
   position: relative;
@@ -209,19 +211,69 @@ main>section>section {
   }
 }
 
-#search_result {
-  background-color: var(--blue);
-  color: #fff;
-  border-radius: 1em;
-  padding: 1em;
-  transition: 1em;
-  height: 100%;
+#search_result_container:has(#search_result:empty) {
+  padding: 0;
+  min-height: 0;
   transition: 0.15s linear;
 }
 
-#search_result:empty {
-  height: 0;
-  padding: 0;
+
+#search_result_container {
+  min-height: 25vh;
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+  background-color: var(--main-color);
+  border-radius: 1em;
+  overflow: auto;
+  transition: 0.15s linear;
+}
+
+#search_result{
+  width: 100%;
+  & tr {
+    width: 100%;
+  }
+  & tr:nth-of-type(2n+1){
+    & select {
+      background-color: var(--dark-blue) !important;
+    }
+  }
+  & td {
+    text-align: start;
+    padding: 0.25em 0.5em;
+    height: 10px;
+    white-space: nowrap;
+  }
+  & tr>td:not(:last-child) {
+    cursor: pointer;;
+  }
+  & tr td:last-of-type:nth-of-type(odd)  {
+    padding: 0;
+    & select {
+      background-color: var(--blue);
+      min-width: 100%;
+      min-height: 100%;
+      border: none;
+      color: white;
+    }
+  }
+}
+
+
+.search_alumni {
+    background-color: rgba(225, 0, 0, 1);
+    color: white;
+}
+
+.search_student {
+    background-color: var(--blue);
+    color: white;
+}
+
+.search_admin {
+    background-color: rgb(114, 112, 112, 1);
+    color: white;
 }
 
 @media(width < 1000px) {

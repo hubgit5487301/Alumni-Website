@@ -22,7 +22,7 @@
       <h1 style="grid-area: header;">Users</h1>
       <section style="grid-area: content;">
         <section>
-          <form>
+          <form id="search_form">
             <div style="grid-area: input1;">
               <label for="search_by_name">Name:</label>
               <input type="text" id="search_by_name" name="personname" placeholder="Search for Users">
@@ -50,7 +50,9 @@
             </div>
             <button style="grid-area: submit;" type="submit">Search</button>
           </form>
-          <section id="search_result"></section>
+          <section id="search_result_container">
+            <table id="search_result"></table>
+          </section>
           <div>
             <button id="all_alumni_button" class="button_active">Alumni</button>
             <button id="all_students_button">Students</button>
