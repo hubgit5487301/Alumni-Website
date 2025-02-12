@@ -128,9 +128,19 @@ main>section>section {
   padding: 1em ;
 }
 
+
+#all_table_container:first-of-type {
+  margin-right: auto;
+}
+
+#all_table_container:last-of-type {
+  margin-left: auto;
+}
+
 #all_alumni {
   & th {
     background-color: rgba(225, 0, 0, 1);
+    min-width: 100%;
   }
 }
 

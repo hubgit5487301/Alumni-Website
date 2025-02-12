@@ -201,7 +201,7 @@ form.addEventListener('submit', async (e) => {
   create_search_table(response, result, '');
 })
 
-function create_search_table( data, table, user_type) {
+function create_search_table( data, table) {
   {
     table.innerText = '';
     if (data.length === 0) {
