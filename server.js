@@ -59,10 +59,13 @@ app.use(loginroutes);
 app.use(messageroute);
 
 
+app.get('/google40135135384f37a1.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'google40135135384f37a1.html'));
+})
+
 app.use(logout_check);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
-
 
 app.use('/styles', isAuthenticated, express.static(path.join(__dirname, 'admin_console', 'styles')));
 app.use('/scripts', isAuthenticated, express.static(path.join(__dirname, 'admin_console', 'scripts')));
