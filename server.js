@@ -63,6 +63,10 @@ app.get('/google40135135384f37a1.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'google40135135384f37a1.html'));
 })
 
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(path.join(__dirname, 'sitemap.xml'));
+})
+
 app.use(logout_check);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
