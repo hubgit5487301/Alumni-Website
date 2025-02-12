@@ -223,7 +223,10 @@ function create_search_table( data, table) {
       
       const email_td = document.createElement('td');
       email_td.innerText = user.email;
-  
+      
+      const user_type_td = document.createElement('td');
+      user_type_td.innerText = user.usertype;
+
       const branch_td = document.createElement('td');
       branch_td.innerText = user.details.branch;
       
@@ -267,7 +270,7 @@ function create_search_table( data, table) {
       action_button_td.append(action_button);
   
       const tr = document.createElement('tr');
-      tr.append( user_id_td, user_name_td, email_td, branch_td, batch_td, user_verification_td, action_button_td);
+      tr.append( user_id_td, user_name_td, email_td, branch_td, batch_td, user_verification_td, user_type_td, action_button_td);
       tr.setAttribute('data-userid', user.userid);
       tr.id = `search_user_${user.usertype}`;
       if(user.usertype === 'alumni') tr.classList.add('search_alumni');

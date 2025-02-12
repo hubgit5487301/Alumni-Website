@@ -128,21 +128,12 @@ main>section>section {
   padding: 1em ;
 }
 
-
-#all_table_container:first-of-type {
-  margin-right: auto;
-}
-
-#all_table_container:last-of-type {
-  margin-left: auto;
-}
-
 #all_alumni {
   & th {
     background-color: rgba(225, 0, 0, 1);
-    min-width: 100%;
   }
 }
+
 
 #all_students {
   & th {
@@ -244,11 +235,6 @@ main>section>section {
   & tr {
     width: 100%;
   }
-  & tr:nth-of-type(2n+1){
-    & select {
-      background-color: var(--dark-blue) !important;
-    }
-  }
   & td {
     text-align: start;
     padding: 0.25em 0.5em;
@@ -258,10 +244,10 @@ main>section>section {
   & tr>td:not(:last-child) {
     cursor: pointer;;
   }
-  & tr td:last-of-type:nth-of-type(odd)  {
+  & tr td:last-of-type  {
     padding: 0;
     & select {
-      background-color: var(--blue);
+      background-color: var(--dark-blue);
       min-width: 100%;
       min-height: 100%;
       border: none;
