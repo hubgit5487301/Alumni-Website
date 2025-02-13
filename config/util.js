@@ -182,4 +182,4 @@ const startObjectId = mongoose.Types.ObjectId.createFromTime(startOfToday / 1000
 const endObjectId = mongoose.Types.ObjectId.createFromTime(endOfToday / 1000);
 
 
-module.exports = { hashPassword, setBranchValue, verifyPassword, isAuthenticated, resizeimage, generatetoken, sendlink, usertype_and_batchSet, startObjectId, endObjectId, isValidUserid};
+module.exports = { hashPassword, setBranchValue, verifyPassword, isAuthenticated, resizeimage, generatetoken, sendlink, usertype_and_batchSet, startOfToday, endOfToday, isValidUserid, startObjectId, endObjectId};

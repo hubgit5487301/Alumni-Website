@@ -13,7 +13,7 @@ const job = require('../../models/jobs');
 const resources = require('../../models/resources')
 
 const router = express();
-const {usertype_and_batchSet, startObjectId, endObjectId} = require('../util');
+const {usertype_and_batchSet, startOfToday, endOfToday} = require('../util');
 const events = require('../../models/events');
 
 router.get('/manage_jobs', (req, res) => {
@@ -44,6 +44,11 @@ router.get('/alerts', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'admin_console', 'alerts.html'))
 })
 
+router.get('/manage_event', (req, res) => {
+  if(req.user.usertype === 'admin')
+  res.sendFile(path.join(__dirname, '..', '..', 'protected', 'events', 'event-applicants.html'))
+})
+
 router.get('/get_stats', async (req, res) => {
   try{
     if(req.user.usertype === 'admin') {
@@ -65,8 +70,6 @@ router.get('/get_stats', async (req, res) => {
       const contract = await job.countDocuments({job_type: 'Contract'});
       const notes = await resources.countDocuments({type: 'Notes'});
       const papers = await resources.countDocuments({type: 'qpapers'})
-      // const today_events = await event.countDocuments({_id: {$gte: startObjectId, $lt: endObjectId}});
-      // const today_jobs = await job.countDocuments({_id: {$gte: startObjectId, $lt: endObjectId}})
       const stats_data = ({
         total_users, total_alumni, total_students, cse_users, me_users, ee_users, ece_users, ce_users, total_events, total_jobs, full_time, part_time, internships, contract, notes, papers, active_users
       })
@@ -173,18 +176,15 @@ router.delete('/manage_users/remove_user', async (req, res) => {
   }
 })
 
-router.delete('/remove_event', async (req, res) => {
+router.delete('/manage_events/remove_event', async (req, res) => {
   try {
     if(req.user.usertype === 'admin') {
       const _id = req.query._id;
       const data = await events.findOne({_id:_id},{userid: 1});
       const userid = data.userid;
-
-      await user.updateOne(
-        {userid: userid},
-        {$pull: {"data.event_ids": {event_id: _id}}})
-      await events.deleteOne({_id:_id});
-      return res.status(200).json({message: 'event deleted'})
+      await user.updateOne({userid: userid}, {$pull: {"data.event_ids": {event_id: _id}}})
+      const response = await events.deleteOne({_id:_id}); 
+      if(response.deletedCount > 0) return res.status(200).json({message: 'event deleted'})
     }
     else {
       return res.status(404).json({message: 'unauthorized'});
@@ -295,11 +295,25 @@ router.patch('/manage_users/set_admin', async (req, res) => {
   }
 })
 
-router.get('/events', async (req, res) =>{
+router.get('/manage_events/events', async (req, res) =>{
   try{
     if(req.user.usertype === 'admin') {
-      const send_events = await events.find({}, {name: 1, date:1, event_logo:1 }).sort({ date:1});
-      res.status(200).json(send_events) ;
+      const past_events = await events.aggregate([
+          {$match: {date: {$lt: startOfToday}}},
+          {$project : { name: 1, date: 1, location: 1, 'contact_info.email': 1, applicants_count: { $size: '$applicants'}}},
+          {$sort: {date: -1}}
+      ]);
+      const today_events = await events.aggregate([
+        {$match : {date: {$gte: startOfToday, $lt: endOfToday}}},
+        {$project: {name: 1, date: 1, location: 1, 'contact_info.email': 1, applicants_count: { $size: '$applicants'}}},
+        {$sort: {name: 1}}
+      ]);
+      const upcoming_events = await events.aggregate([
+        {$match: {date: {$gt: endOfToday}}},
+        {$project: {name: 1, date: 1, location: 1, 'contact_info.email': 1, applicants_count: { $size: '$applicants'}}},
+        {$sort: {date: 1}}  
+      ]);
+      res.status(200).json({past_events, today_events, upcoming_events}); ;
     }
     else {
       return res.status(404).json({message: 'unauthorized'});
@@ -311,22 +325,25 @@ router.get('/events', async (req, res) =>{
   }
 })
 
-router.get('/search_events', async (req, res) => {
+router.get('/manage_events/search_events', async (req, res) => {
   try{
     if(req.user.usertype === 'admin') {
-      let {eventname, date} = req.query;
+      let {event_name, date, location} = req.query;
       let results;
       if(date && !isNaN(Date.parse(date))) {
         const startDate = new Date(date + 'T00:00:00'); 
         const endDate = new Date(date + 'T23:59:59');  
-        results = await events.find({
-            name: { $regex: `^${eventname}`, $options: 'i' }, date: { $gte: startDate, $lte: endDate}}, {name: 1, date:1, event_logo:1 }
-          )}
-      else {
-        results = await events.find({
-          name: { $regex: `^${eventname}`, $options: 'i' }}, 
-          {name: 1, date:1, event_logo:1 }
-        )};
+        results = await events.aggregate([
+          {$match: {date: {$gte: startDate, $lt: endDate}, name: {$regex: event_name, $options: 'i'}, location :{$regex: location, $options: 'i'}}}, {$project: {name: 1, date: 1, location: 1, 'contact_info.email': 1, applicants_count: { $size: '$applicants'}}}, {$sort: {date: 1}}]);
+      }
+      else 
+        results = await events.aggregate([
+          {$match: {
+            name: {$regex: event_name, $options: 'i'}, location :{$regex: location, $options: 'i'}
+          }},
+          {$project: {name: 1, date: 1, location: 1, 'contact_info.email': 1, applicants_count: { $size: '$applicants'}}},
+          {$sort : {date: 1}}
+        ]);
       if(results.length === 0){
         return res.status(200).json([]);
       }

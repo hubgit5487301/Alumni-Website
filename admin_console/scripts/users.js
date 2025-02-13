@@ -364,7 +364,7 @@ function form_state() {
   const form = document.querySelector('#search_form');
   const form_data = new FormData(form);
   const data = Object.fromEntries(form_data.entries());
-  if(data.personname === '' && data.userid === '' && data.batch === ''&& data.branch === '') {
+  if(data.personname.trim() === '' && data.userid.trim() === '' && data.batch.trim() === ''&& data.branch.trim() === '') {
     document.querySelector('#search_result').innerText = '';
     return;
   }

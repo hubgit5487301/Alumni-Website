@@ -12,3 +12,327 @@
   background-color: var(--dark-blue);
   border-radius: 1em;
 }
+
+main>section {
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+  background-color: transparent;
+}
+
+main>section>section {
+  height: 100%;
+  width: 100%;
+  background-color: var(--main-color);
+  padding: 1em;
+  border-radius: 1em;
+  display: grid;
+  grid-template-rows: 60px auto 50px 1fr;
+  grid-template-columns: 1fr;
+  align-items: start;
+  overflow: hidden;
+  gap: 0.1em;
+  &>form {
+    height: 100%;
+    width: 100%;
+    background-color: var(--main-color);
+    padding: 1em;
+    border-radius: 1em;
+    color: black;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 10ch;
+    grid-template-rows: 1fr;
+    grid-template-areas: "input1 input2 input3 submit";
+    align-items: center;
+    justify-content: start;
+    gap: 1em;
+    &>div{
+      background-color: transparent;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      gap: 1em;
+      & label {
+        width: auto;
+        min-width: 6ch;
+        text-align: start;
+      }
+      & input{
+        background-color: var(--blue);
+        padding: 0.25em 0.5em;
+        color: #fff;
+        border: none;
+        height: 100%;
+        width: 100%;
+        border-radius: 0.5em;
+        &::placeholder {
+          color: #fff;
+        }
+        &:focus {
+          outline: 2px solid var(--dark-blue);
+        }
+      }
+    }
+    & button {
+      background-color: var(--dark-blue);
+      color: #fff;
+      padding: 0.5em 0.5em;
+      border: none;
+      height: 100%;
+      width: 100%;
+      border-radius: 0.5em;
+      transition: 0.15s linear;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+        background-color: #fff;
+        color: black;
+      }
+      &:hover{
+        background-color: #fff;
+        color: black;
+      }
+    }
+  }
+  &>div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 0;
+    background-color: transparent;
+    border-bottom: 2px solid var(--dark-blue);
+    gap: 0;
+    & button {
+      height: 100%;
+      width: 14%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      background-color: transparent;
+      border: none;
+      position: relative;
+      cursor: pointer;
+    }
+  }
+}
+
+.button_active {
+  position: relative;
+  &:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: var(--dark-blue);
+    bottom: 0;
+    right: 0;
+    transition: 0.15s linear;
+  }
+}
+
+#all_events {
+  width: 300%;
+  height: 100%;
+  max-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  transition: 0.15s linear;
+  overflow: auto;
+  background-color: transparent;
+}
+
+#all_table_container {
+  width: 32.3%;
+  height: 100%;
+  overflow: auto;
+}
+
+#all_past_events, #all_upcoming_events, #all_today_events {
+  width: auto;
+  min-width: 100%;
+  white-space: nowrap;
+  table-layout: auto;
+  border-collapse: collapse;
+  & th {
+    text-align: start;
+    background-color: var(--dark-blue);
+    padding: 0.25em 0.5em;
+    height: 15px;
+    position: sticky;
+    color: white;
+    top: 0;
+  }
+  & tr:nth-of-type(2n) {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+  & tr:nth-of-type(2n+1){
+    background-color: #fff;
+    color: #000;
+  }
+  & td {
+    cursor: pointer;
+    text-align: start;
+    padding: 0.25em 0.5em;
+    height: 10px;
+  }
+  & td:last-of-type
+  { padding: 0.1em;
+    & button {
+      background-color: red;
+      border: none;
+      color: white;
+      padding: 0.25em 0.5em;
+      height: 100%;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.15s linear;
+      font-weight: 600;
+      &:focus {
+        outline: none;
+        background-color: transparent;
+        color: black;
+        border: none;
+        box-shadow: var(--button-shadow);
+        border-radius: 0.5em;
+      }
+      &:hover {
+        background-color: transparent;
+        color: black;
+        border: none;
+        box-shadow: var(--button-shadow);
+        border-radius: 0.5em;
+      }
+      &:active{
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+#search_result_container:has(#search_result:empty) {
+  padding: 0;
+  min-height: 0;
+  transition: 0.15s linear;
+}
+
+#search_result_container {
+  max-height: 40vh;
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+  background-color: var(--main-color);
+  border-radius: 1em;
+  overflow: auto;
+  transition: 0.15s linear;
+}
+
+#search_result {
+  width: auto;
+  min-width: 100%;
+  white-space: nowrap;
+  table-layout: auto;
+  border-collapse: collapse;
+  & th {
+    text-align: start;
+    background-color: var(--dark-blue);
+    padding: 0.25em 0.5em;
+    height: 15px;
+    position: sticky;
+    color: white;
+    top: 0;
+  }
+  & tr:nth-of-type(2n) {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+  & tr:nth-of-type(2n+1){
+    background-color: #fff;
+    color: #000;
+  }
+  & td {
+    cursor: pointer;
+    text-align: start;
+    padding: 0.25em 0.5em;
+    height: 10px;
+  }
+  & td:last-of-type
+  { padding: 0.1em;
+    & button {
+      background-color: red;
+      border: none;
+      color: white;
+      padding: 0.25em 0.5em;
+      height: 100%;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.15s linear;
+      font-weight: 600;
+      &:focus {
+        outline: none;
+        background-color: transparent;
+        color: black;
+        border: none;
+        box-shadow: var(--button-shadow);
+        border-radius: 0.5em;
+      }
+      &:hover {
+        background-color: transparent;
+        color: black;
+        border: none;
+        box-shadow: var(--button-shadow);
+        border-radius: 0.5em;
+      }
+      &:active{
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+@media(width < 870px) {
+  main>section>section {
+    grid-template-rows: auto auto 50px 1fr;
+    & div {
+      & button {
+        width: 100%;
+      }
+    }
+  }
+  main>section>section>form {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr auto;
+    grid-template-areas: 
+    "input1 input1 input2 input2"
+    ". input3 input3 ."
+    ". submit submit .";
+    & button{
+      width: 50%;
+      align-self: center;
+      justify-self: center;
+    }
+  }
+}
+
+@media(width < 560px) {
+  main>section>Section>form {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "input1"
+    "input2"
+    "input3"
+    "submit";
+    & button {
+      width: 100%;
+      align-self: center;
+      justify-self: center;
+    }
+  }
+}

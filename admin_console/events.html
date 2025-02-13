@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events Management</title>
-    <link rel="stylesheet"  href="/admin_console/styles/users.css">
+    <link rel="stylesheet"  href="/admin_console/styles/events.css">
     <link rel="stylesheet"  href="/admin_console/styles/nav.css">
   </head>
   <body>
@@ -21,7 +21,80 @@
     <main style="grid-area: main;">
       <h1 style="grid-area: header;">Events</h1>
       <section style="grid-area: content;">
-        <section></section>
+        <section>
+          <form id="search_form">
+            <div style="grid-area: input1;">
+              <label for="search_by_name">Name:</label>
+              <input type="text" id="search_by_name" name="event_name" placeholder="Search for Events">
+            </div>
+            <div style="grid-area: input2;">
+              <label for="search_by_date">Date:</label>
+              <input type="date" id="search_by_date" name="date">
+            </div>
+            <div style="grid-area: input3;">
+              <label for="search_by_location">Location:</label>
+              <input type="text" id="search_by_location" name="location" placeholder="Search for Location"> 
+            </div>
+            <button type="submit"  style="grid-area: submit;">Search</button>
+          </form>
+          <section id="search_result_container">
+            <table id="search_result"></table>
+          </section>
+          <div>
+            <button id="past_events_button" class="button_active">Past Events</button>
+            <button id="active_events_button">Active Events</button>
+            <button id="upcoming_events_button">Upcoming Events</button>
+          </div>
+          <section id="all_events">
+            <div id="all_table_container">
+              <table id="all_past_events">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Date & Time</th>
+                    <th>Location</th>
+                    <th>Email</th>
+                    <th>Applicants</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div id="all_table_container">
+              <table id="all_today_events">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Date & Time</th>
+                    <th>Location</th>
+                    <th>Email</th>
+                    <th>Applicants</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div id="all_table_container">
+              <table id="all_upcoming_events">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Date & Time</th>
+                    <th>Location</th>
+                    <th>Email</th>
+                    <th>Applicants</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
       </section>
     </main>
     <script type="module" src="/admin_console/scripts/nav.js"></script>
