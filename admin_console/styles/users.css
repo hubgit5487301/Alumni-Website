@@ -20,7 +20,7 @@ main>section{
   background-color: transparent;
 }
 
-main>section>section {
+main>section {
   padding: 1em;
   border-radius: 1em;
   background-color: var(--main-color);
@@ -255,7 +255,6 @@ main>section>section {
     }
   }
 }
-
 
 .search_alumni {
     background-color: rgba(225, 0, 0, 1);
