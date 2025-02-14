@@ -322,11 +322,11 @@ function create_search_table( data, table) {
           }
         }
         else if(action === 'remove') {
-          let confirmation =  confirm('Are you sure you want to remove this user?');
-          if(!confirmation) {
-            action_button.value = '';
-            return;
-          }
+          // let confirmation =  confirm('Are you sure you want to remove this user?');
+          // if(!confirmation) {
+          //   action_button.value = '';
+          //   return;
+          // }
           const response = await delete_data(`manage_users/remove_user?userid=${user_id}`);
           if(response.message.toLowerCase() === 'user deleted') {
             action_button.parentElement.parentElement.remove();
