@@ -1,149 +1,364 @@
-.jobs-div {
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--dark-blue);
+  border-radius: 1em;
+}
+
+main>section {
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+}
+
+main>section>section {
+  background-color: var(--main-color);
+  height: 100%;
+  width: 100%;
+  border-radius: 1em;
+  padding: 1em;
   display: grid;
+  grid-template-rows: 60px auto 50px 1fr;
+  grid-template-columns: 1fr;
+  align-items: start;
+  overflow: hidden;
+  gap: 0.1em;
+  &>form{
+    background-color: var(--main-color);
+    height: 100%;
+    width: 100%;
+    padding: 1em 0.5em;
+    border-radius: 1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 10ch;
+    grid-template-rows: 1fr;
+    gap: 1em;
+    grid-template-areas: 
+    "input1 input2 input3 input4 submit";
+    align-items: center;
+    justify-content: space-evenly;
+    &>div{
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      gap: 1em;
+      & label {
+        width: auto;
+        min-width: 7ch;
+        text-align: start;
+      }
+      & input, select {
+        background-color: var(--blue);
+        padding: 0.25em 0.5em;
+        border: none;
+        height: 100%;
+        width: 100%;
+        color: #fff;
+        border-radius: 0.5em;
+        &::placeholder {
+          color: #fff;
+        }
+        &:focus {
+          outline: 2px solid var(--dark-blue);
+        }
+      }
+    }
+    & button {
+      background-color: var(--dark-blue);
+      color: #fff;
+      padding: 0.5em 0.5em;
+      border: none;
+      height: 100%;
+      width: 100%;
+      border-radius: 0.5em;
+      transition: 0.15s linear;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+        background-color: #fff;
+        color: black;
+      }
+      &:hover{
+        background-color: #fff;
+        color: black;
+      }
+    }
+  }
+  &>div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    border-bottom: 2px solid var(--dark-blue);
+    background-color: transparent;
+    gap: 0;
+    &>button {
+      background-color: transparent;
+      border: none;
+      height: 100%;
+      width: 8%;
+      cursor: pointer;
+    }
+  }
+}
+
+.button_active {
+  position: relative;
+  &:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: var(--dark-blue);
+    bottom: 0;
+    right: 0;
+    transition: 0.15s linear;
+  }
+}
+
+#search_result_container:has(#search_result:empty) {
+  padding: 0;
+  min-height: 0;
+  transition: 0.15s linear;
 }
 
 
-.search-jobs {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+#search_result_container {
+  min-height: 25vh;
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+  background-color: var(--main-color);
+  border-radius: 1em;
+  overflow: auto;
+  transition: 0.15s linear;
+}
+
+#all_jobs {
+  display: flex;
+  height: 100%;
+  width: 400%;
+  max-height: 50vh;
   align-items: center;
-  justify-items: center;
-  background-color: rgba(0, 0, 0, 0.357);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  padding: 1vw;
-  border-radius: 0.4vw;
-  margin-bottom: 1vw;
+  justify-content: space-around;
+  transition: 0.15s linear;
+  overflow: auto;
+  background-color: transparent;
+  gap: 1em;
 }
 
-.search-button {
-  text-decoration: none;
-  background-color: rgb(21, 101, 221);
-  color: white;
-  font-weight: bold;
-  padding: 0.7vw;
-  border-radius: 0.4vw;
-  text-align: center;
-  font-size: 1vw ;
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  transition: 0.10s;
-  cursor: pointer;
+#all_table_container {
+  width: 24%;
+  height: 100%;
+  overflow: auto;
+  padding-inline: 1em;
 }
 
-.search-button:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+#all_full_time_jobs, #all_part_time_jobs, #all_internship_jobs, #all_contract_jobs {
+  max-height: 100%;
+  height: auto;
+  width: auto;
+  min-width: 100%;
+  white-space: nowrap;
+  table-layout: auto;
+  border-collapse: collapse;
+  & th {
+    text-align: start;
+    background-color: var(--dark-blue);
+    padding: 0.25em 0.5em;
+    height: 15px;
+    position: sticky;
+    color: white;
+    top: 0;
+  }
+  & tr:nth-of-type(2n) {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+  & tr:nth-of-type(2n+1){
+    background-color: #fff;
+    color: #000;
+  }
+  & td {
+    cursor: pointer;
+    text-align: start;
+    padding: 0.25em 0.5em;
+    max-height: 10px;
+  }
+  & td:last-of-type
+  { padding: 0.1em;
+    & button {
+      background-color: red;
+      border: none;
+      color: white;
+      padding: 0.25em 0.5em;
+      height: 100%;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.15s linear;
+      font-weight: 600;
+      &:focus {
+        outline: none;
+        background-color: transparent;
+        color: black;
+        border: none;
+        box-shadow: var(--button-shadow);
+        border-radius: 0.5em;
+      }
+      &:hover {
+        background-color: #fff;
+        color: black;
+        border: none;
+        box-shadow: var(--button-shadow);
+        border-radius: 0.5em;
+      }
+      &:active{
+        opacity: 0.5;
+      }
+    }
+  }
 }
 
-.search-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+#search_result_container:has(#search_result:empty) {
+  padding: 0;
+  min-height: 0;
+  transition: 0.15s linear;
 }
 
-.job-data {display: flex;
-  flex-direction: column;
-  gap: 1vw;
+#search_result_container {
+  max-height: 40vh;
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+  background-color: var(--main-color);
+  border-radius: 1em;
+  overflow: auto;
+  transition: 0.15s linear;
 }
 
-.list-jobs {
-  display: grid;
-  grid-template-columns: 8fr 1fr;
-  text-align: center;
-  font-size: 1vw;
-  max-height: 30vw;
-  overflow-y: scroll;
-  padding: 1vw;
-  gap: 1vw;
-  border-radius: 0.4vw;
-  background-color: rgba(0, 0, 0, 0.357);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+#search_result {
+  width: auto;
+  min-width: 100%;
+  white-space: nowrap;
+  table-layout: auto;
+  border-collapse: collapse;
+  & th {
+    text-align: start;
+    background-color: var(--dark-blue);
+    padding: 0.25em 0.5em;
+    height: 15px;
+    position: sticky;
+    color: white;
+    top: 0;
+  }
+  & tr:nth-of-type(2n) {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+  & tr:nth-of-type(2n+1){
+    background-color: #fff;
+    color: #000;
+  }
+  & td {
+    cursor: pointer;
+    text-align: start;
+    padding: 0.25em 0.5em;
+    height: 10px;
+  }
+  & td:last-of-type
+  { padding: 0.1em;
+    & button {
+      background-color: red;
+      border: none;
+      color: white;
+      padding: 0.25em 0.5em;
+      height: 100%;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.15s linear;
+      font-weight: 600;
+      &:focus {
+        outline: none;
+        background-color: transparent;
+        color: black;
+        border: none;
+        box-shadow: var(--button-shadow);
+        border-radius: 0.5em;
+      }
+      &:hover {
+        background-color: transparent;
+        color: black;
+        border: none;
+        box-shadow: var(--button-shadow);
+        border-radius: 0.5em;
+      }
+      &:active{
+        opacity: 0.5;
+      }
+    }
+  }
 }
 
 
-.list-jobs::-webkit-scrollbar {
-  display: none;
+@media(width < 1100px) {
+  main>section>section {
+    grid-template-rows: auto auto 50px 1fr;
+  }
+  main>section>section>form {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr auto;
+    grid-template-areas: 
+    "input1 input1 input2 input2" 
+    "input3 input3 input4 input4" 
+    ". submit submit .";
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+    & div {
+      gap: 0.5em;
+    }
+  }
 }
 
-.list-search-jobs {
-  display: none;
-  grid-template-columns: 8fr 1fr;
-  text-align: center;
-  font-size: 1vw;
-  max-height: 30vw;
-  overflow-y: scroll;
-  padding: 1vw;
-  gap: 1vw;
-  border-radius: 0.4vw;
-  background-color: rgba(0, 0, 0, 0.357);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
+@media(width < 935px) {
+  main>section>section>div{
+    & button {
+      width: 100%;
+    }
+  }
 }
 
-
-.list-search-jobs::-webkit-scrollbar {
-  display: none;
+@media(width < 530px) {
+  main>section>section {
+    grid-template-rows: auto auto 50px 1fr;
+  }
+  main>section>section>form {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr auto;
+    grid-template-areas: 
+    "input1" 
+    "input2"
+    "input3"
+    "input4"
+    "submit";
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+    & div {
+      gap: 0.5em;
+    }
+  }
 }
-
-
-.data {
-  display: grid;
-  grid-template-columns: 1fr 2fr 2fr 2fr;
-  height: 3vw;
-  padding: 0.5vw;
-  align-items: center;
-  justify-items:center;
-  border-radius: 0.4vw;
-  background-color: rgba(0, 0, 0, 0.357);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-  cursor: pointer;
-}
-
-.image {
-  width: 3vw;
-  height: 3vw;
-  object-fit: cover;
-  border-radius: 100%;  
-}
-
-.revoke-button {
-  display: grid;
-  background-color: red;
-  border-radius: 0.4vw;
-  padding: 1vw;
-  height: 2vw;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.15s;
-}
-
-.revoke-button:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-}
-
-.revoke-button:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-}
-
-.set-admin {
-  display: grid;
-  background-color: rgb(55, 170, 233);
-  border-radius: 0.4vw;
-  padding: 0.7vw;
-  height: 2.6vw;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.15s;
-}
-
-.set-admin:hover {
-  transform: scale(1.01);
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-}
-
-.set-admin:active {
-  transform: scale(1);
-  opacity: 0.8;
-  box-shadow: 0px 18px 16px 0px rgba(20, 20, 20, 0.486);
-} 

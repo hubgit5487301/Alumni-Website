@@ -15,6 +15,7 @@ const resources = require('../../models/resources')
 const router = express();
 const {usertype_and_batchSet, startOfToday, endOfToday} = require('../util');
 const events = require('../../models/events');
+const jobs = require('../../models/jobs');
 
 router.get('/manage_jobs', (req, res) => {
   if(req.user.usertype === 'admin')
@@ -212,7 +213,7 @@ router.get('/today_new_jobs_data', async (req, res) => {
   }
 })
 
-router.delete('/remove_job', async (req, res) => {
+router.delete('/manage_jobs/remove_job', async (req, res) => {
   try {
     if(req.user.usertype === 'admin') {
       const _id = req.query._id;
@@ -280,7 +281,6 @@ router.patch('/manage_users/set_admin', async (req, res) => {
   try{
     if(req.user.usertype === 'admin') {
       const userid = req.query.userid;
-      console.log(userid);
       await user.updateOne({userid: userid},{
         $set: {usertype: 'admin'}
       })
@@ -359,11 +359,30 @@ router.get('/manage_events/search_events', async (req, res) => {
   }
 });
 
-router.get('/jobs', async(req, res) => {
+router.get('/manage_jobs/jobs', async(req, res) => {
   try{
     if(req.user.usertype === 'admin') {
-      const jobs = await job.find({}, {job_tittle: 1, job_company_name: 1, job_company_logo: 1, job_deadline: 1, job_type: 1, job_level: 1}).sort({job_deadline: 1});
-      res.status(200).json(jobs);
+      const full_time = await jobs.aggregate([
+        {$match: {job_type: 'Full Time'}},
+        {$project: {job_tittle: 1, job_company_name: 1, job_deadline: 1, job_salary: 1, job_location: 1, applicants_count: { $size: '$applicants'}}},
+        {$sort :{job_deadline: 1}}
+      ]);
+      const part_time = await jobs.aggregate([
+        {$match: {job_type: 'Part Time'}},
+        {$project: {job_tittle: 1, job_company_name: 1, job_deadline: 1, job_salary: 1, job_location: 1, applicants_count: { $size: '$applicants'}}},
+        {$sort :{job_deadline: 1}}
+      ]);
+      const internships = await jobs.aggregate([
+        {$match: {job_type: 'Internship'}},
+        {$project: {job_tittle: 1, job_company_name: 1, job_deadline: 1, job_salary: 1, job_location: 1, applicants_count: { $size: '$applicants'}}},
+        {$sort :{job_deadline: 1}}
+      ]);
+      const contract = await jobs.aggregate([
+        {$match: {job_type: 'Contract'}},
+        {$project: {job_tittle: 1, job_company_name: 1, job_deadline: 1, job_salary: 1, job_location: 1, applicants_count: { $size: '$applicants'}}},
+        {$sort :{job_deadline: 1}}
+      ]);
+      res.status(200).json({full_time, part_time, internships, contract});
     }
     else {
       res.status(404).json({message: 'unauthorized'});
@@ -374,19 +393,51 @@ router.get('/jobs', async(req, res) => {
   }
 })
 
-router.get(`/search_jobs`, async (req, res) => {
+router.get(`/manage_jobs/search_jobs`, async (req, res) => {
   try{
     if(req.user.usertype === 'admin') {
-      const {jobname, company } = req.query;
-      const results = await job.find({ job_tittle: { $regex: `^${jobname}`, $options: 'i' }, job_company_name: { $regex: `^${company}`, $options: 'i' }}, {job_tittle: 1, job_company_name: 1, job_level: 1, job_type: 1, job_deadline: 1, job_company_logo: 1});
-      if(results.length === 0) {
-        return res.status(200).json([]);
-        }
+      const {job_tittle, job_company_name, job_location, job_status } = req.query;
+      let results;
+      if(job_status === '') {
+      results = await job.aggregate([
+        {$match : {
+          job_tittle: { $regex: `^${job_tittle}`, $options: 'i' }, job_company_name: { $regex: `^${job_company_name}`, $options: 'i' }, job_location: { $regex: `^${job_location}`, $options: 'i' }
+        }},
+        {$project: {
+          job_tittle: 1, job_company_name: 1, job_location: 1, job_deadline: 1, job_salary: 1, applicants_count: { $size: '$applicants'}
+        }},
+        {$sort: {job_tittle: 1}}
+      ]);
+      }
+      else if(job_status.toLowerCase() === 'active') {
+        results = await job.aggregate([
+          {$match: {
+            job_tittle: { $regex: `^${job_tittle}`, $options: 'i' }, job_company_name: { $regex: `^${job_company_name}`, $options: 'i' }, job_location: { $regex: `^${job_location}`, $options: 'i'},
+            job_deadline: {$gte: startOfToday}
+          }
+          },
+          {$project: {
+            job_tittle: 1, job_company_name: 1, job_location: 1, job_deadline: 1, job_salary: 1, applicants_count: { $size: '$applicants'}
+          }},
+          {$sort: {job_tittle: 1}}
+        ]);
+      }
+      else if(job_status.toLowerCase() === 'expired') {
+        results = await job.aggregate([
+          {$match: {
+            job_tittle: { $regex: `^${job_tittle}`, $options: 'i' }, job_company_name: { $regex: `^${job_company_name}`, $options: 'i' }, job_location: { $regex: `^${job_location}`, $options: 'i'},
+            job_deadline: {$lt: startOfToday}
+          }
+          },
+          {$project: {
+            job_tittle: 1, job_company_name: 1, job_location: 1, job_deadline: 1, job_salary: 1, applicants_count: { $size: '$applicants'}
+          }},
+          {$sort: {job_tittle: 1}}
+        ]);
+      }
       return res.status(200).json(results);
     }
-    else{
-      res.status(404).json({message: 'unauthorized'});
-    }
+    else res.status(404).json({message: 'unauthorized'});
   }
   catch(err) {
     console.log(err);

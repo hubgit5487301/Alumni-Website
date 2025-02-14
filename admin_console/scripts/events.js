@@ -181,3 +181,5 @@ function form_state() {
 }
 
 document.querySelector('#search_by_name').addEventListener('input', form_state);
+document.querySelector('#search_by_location').addEventListener('input', form_state);
+document.querySelector('#search_by_date').addEventListener('change', form_state);
