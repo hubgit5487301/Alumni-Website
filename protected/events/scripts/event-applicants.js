@@ -47,12 +47,27 @@ if(event_data.event_file === 'no file') {
 }
 
 download_button.addEventListener('click', async () => {
-  const data = await get_data(`event-file/${event_id}`)
-  if(data.error) {
-    alert(data.error)
-  }
-  else {
-    download_event_file(data, 'application/pdf', response.name)
+  const file = await get_data(`event-file/${event_id}`)
+  if (file) {
+    try {
+      let base64String = file;
+      if (base64String.startsWith('data:')) {
+        base64String = base64String.split(',')[1];
+      }
+      const byteCharacters = atob(base64String);
+      const byteNumbers = new Array(byteCharacters.length).fill().map((_, i) => byteCharacters.charCodeAt(i));
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'application/pdf' });
+      const blobUrl = URL.createObjectURL(blob);
+
+      window.open(blobUrl, '_blank');
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+    } catch (error) {
+      console.error('Failed to open PDF:', error);
+      alert('Invalid file data, please try later.');
+    }
+  } else {
+    alert('An error has occurred, please try later');
   }
 })
 

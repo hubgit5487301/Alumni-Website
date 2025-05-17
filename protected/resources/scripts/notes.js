@@ -37,7 +37,7 @@ form.addEventListener('submit',async (e) => {
       const div = document.createElement('div');
       const p = document.createElement('p');
       const download_button = document.createElement('button');
-      download_button.innerText = 'Download';
+      download_button.innerText = 'View';
       div.classList.add('search-result');
       download_button.classList.add('download-button');
       download_button.setAttribute('data-id', item._id);
@@ -73,7 +73,7 @@ function load_content(response){
     const div = document.createElement('div');
     const p = document.createElement('p');
     const download_button = document.createElement('button');
-    download_button.innerText = 'Download';
+    download_button.innerText = 'View';
     div.append(p, download_button);
     const sem = document.querySelector(`#sem-${item.semester}`);
     if(sem.innerText.toLowerCase() === 'no files found') sem.innerText = '';
@@ -90,8 +90,29 @@ function download_file() {
     button.addEventListener('click', async (e) => {
       const _id = e.target.getAttribute('data-id')
       const file = await getdata(`resources/download/${_id}`);
-      if(file) download_notes(file.file, 'application/pdf', file.name);
-      else alert('An error has occurred please try later');
+      // if(file) download_notes(file.file, 'application/pdf', file.name);
+      // else alert('An error has occurred please try later');
+      if (file && file.file) {
+        try {
+          let base64String = file.file;
+          if (base64String.startsWith('data:')) {
+            base64String = base64String.split(',')[1];
+          }
+          const byteCharacters = atob(base64String);
+          const byteNumbers = new Array(byteCharacters.length).fill().map((_, i) => byteCharacters.charCodeAt(i));
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'application/pdf' });
+          const blobUrl = URL.createObjectURL(blob);
+
+          window.open(blobUrl, '_blank');
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+        } catch (error) {
+          console.error('Failed to open PDF:', error);
+          alert('Invalid file data, please try later.');
+        }
+      } else {
+        alert('An error has occurred, please try later');
+      }
     })
   });
 }

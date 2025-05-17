@@ -16,8 +16,8 @@ router.get('/event-form', (req, res) => {
 
 router.post('/submit-event', async (req, res) => {
   try{
-    const {name, date, location, contact_info, event_des, eventfile, eventimage} = req.body;
-    const resizedLogo = await resizeimage(eventimage, 60, 'webp', 200000); 
+    const {name, date, location, contact_info, event_des, event_file, event_logo} = req.body;
+    const resizedLogo = await resizeimage(event_logo, 60, 'webp', 200000); 
     const logo = resizedLogo != null ? resizedLogo : undefined;
     const userid = req.user.userid;
     const newEvent = new events({
@@ -27,7 +27,7 @@ router.post('/submit-event', async (req, res) => {
       location,
       contact_info: contact_info,
       event_des,
-      event_file: eventfile,
+      event_file: event_file,
       event_logo: logo,
     })
     const eventDate = new Date(req.body.date);

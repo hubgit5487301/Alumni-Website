@@ -68,11 +68,32 @@ document.querySelector('.download-resume').addEventListener('click', async () =>
   const response = await getdata('my-profile/download-resume');
   
     if(response.message === 'File Found') {
-      const file64 = response.result.details.resume;
-      const filetype = 'application/pdf';
-      downloadresume(file64, filetype, `${response.result.personname} Resume.pdf`);}
-    else if(data.error === 'File not found') {
-      alert('No file was found')
+      const file = response.result.details.resume;
+      // const filetype = 'application/pdf';
+      // downloadresume(file64, filetype, `${response.result.personname} Resume.pdf`);}
+      if (file) {
+        try {
+          let base64String = file;
+          if (base64String.startsWith('data:')) {
+            base64String = base64String.split(',')[1];
+          }
+          const byteCharacters = atob(base64String);
+          const byteNumbers = new Array(byteCharacters.length).fill().map((_, i) => byteCharacters.charCodeAt(i));
+          const byteArray = new Uint8Array(byteNumbers);
+          const blob = new Blob([byteArray], { type: 'application/pdf' });
+          const blobUrl = URL.createObjectURL(blob);
+
+          window.open(blobUrl, '_blank');
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+        } catch (error) {
+          console.error('Failed to open PDF:', error);
+          alert('Invalid file data, please try later.');
+        }
+      } else {
+        alert('An error has occurred, please try later');
+      }
+    // else if(data.error === 'File not found') {
+    //   alert('No file was found')
     }
 });
 
