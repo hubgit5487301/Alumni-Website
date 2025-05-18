@@ -10,7 +10,8 @@ const Alumni = require('../models/users'); // IMPORTANT: Verify this path
 // --- Configuration ---
 // MongoDB Connection URI: Replace 'yourDatabaseName' with your actual database name.
  // IMPORTANT: Update with your DB URI and name
-const MONGO_URI = process.env.mongoURI
+// const MONGO_URI = process.env.mongoURI
+const MONGO_URI = 'mongodb://localhost:27017/'; // Local MongoDB URI
 console.log(MONGO_URI)
 // --- Hashing Functions (as provided by user) ---
 /**
