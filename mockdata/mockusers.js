@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { faker } = require('@faker-js/faker');
 const Alumni = require('../models/users');  // Make sure the correct path is used for your model
-
+const {hashPassword, hashloginPassword} = require('../config/util')
 const connectDB = async () => {
   try {
     await mongoose.connect('mongodb://localhost:27017', { useNewUrlParser: true, useUnifiedTopology: true });
