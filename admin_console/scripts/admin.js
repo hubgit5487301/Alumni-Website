@@ -41,7 +41,7 @@ new Chart(users_by_type,{
     labels: ['Students',  'Alumni', null],
     datasets: [{
       label : '',
-      data: [data.total_alumni ,data.total_students],
+      data: [data.total_students, data.total_alumni],
       borderWidth: 0,
       borderRadius: 5,
       backgroundColor: ['rgba(98, 151, 226, 0.72)' ,'rgba(255, 0, 0, 0.72)'],
