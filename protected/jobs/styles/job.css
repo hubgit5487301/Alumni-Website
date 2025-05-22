@@ -370,7 +370,7 @@ main section:nth-child(7) div p {
 
 @media(width > 1340px) {
   main {
-    padding-inline: 20vw;
+    padding-inline: 5vw;
   }
 }
 
