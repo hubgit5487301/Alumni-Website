@@ -85,7 +85,7 @@ export function formatEventDate(eventdate) {
   const year = date.getFullYear();
   const hours = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
-  return `${day} ${date.toLocaleString('default', { month: 'long' })} ${year}, ${hours}:${minutes}`;
+  return `${day} ${date.toLocaleString('default', { month: 'long' })} ${year}`;
 }
 
 export function formatjobdate(jobdate) {

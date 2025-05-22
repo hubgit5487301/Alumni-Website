@@ -83,6 +83,7 @@ function render_events(data) {
     li.classList.add('event');
     image.src = event.event_logo;
     name.innerText = event.name;
+    console.log(event.date)
     date.innerText = formatEventDate(event.date);
     event_window.append(li);
   });
