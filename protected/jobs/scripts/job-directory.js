@@ -85,7 +85,9 @@ function render_jobs(data) {
     li.append(image,section);
     li.setAttribute('job_id', job._id);
     li.classList.add('job');
-    image.src = job.job_company_logo;
+    if (job.job_company_logo === 'empty') {
+      image.src = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
+    }
     name.innerText = job.job_tittle;
     emp_name.innerText = job.job_company_name;
     job_window.append(li);

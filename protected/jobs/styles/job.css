@@ -359,7 +359,12 @@ main section:nth-child(7) div h3 {
   padding: 0.25em 1em;
   box-shadow: var(--button-shadow);
 }
-
+#emp_website{
+  width: 320px;
+  height: 100%;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
 main section:nth-child(7) div p {
   font-weight: bold;
   display: flex;

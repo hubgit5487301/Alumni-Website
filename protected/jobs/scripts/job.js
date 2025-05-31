@@ -4,25 +4,29 @@ const urlParams = new URLSearchParams(window.location.search);
 const job_id = urlParams.get('_id');
 const response = await get_data(`job/${job_id}`);
 const check = await get_data(`job_application_check/?job_id=${job_id}`);
+const logoUrl = (response.job_company_logo && response.job_company_logo !== 'empty') 
+  ? response.job_company_logo 
+  : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
 
-document.querySelector('main section>section').style.backgroundImage = `url(${response.job_company_logo})`;
+document.querySelector('main section>section').style.backgroundImage = `url(${logoUrl})`;
 document.querySelector('#tittle').innerText = response.job_tittle;
 document.querySelector('#job_name').innerText = response.job_tittle;
 document.querySelector('#company_name').innerText = response.job_company_name;
 
 const applyButton = document.querySelector('#apply');
-if(check.message.toLowerCase().trim() === 'already applied') {
+// if(check.message.toLowerCase().trim() === 'already applied') {
   
-  applyButton.innerText = 'Already Applied';
-  button_disable(applyButton);
-}
+//   applyButton.innerText = 'Already Applied';
+//   button_disable(applyButton);
+// }
 applyButton.addEventListener('click', async () => {
-  const response = await get_data(`apply_job?job_id=${job_id}`);
-  if(response.message === 'Applied to job') {
-    alert(response.message);
-    applyButton.innerText = 'Already Applied';
-    button_disable(applyButton);
-  }
+  // const response = await get_data(`apply_job?job_id=${job_id}`);
+  // if(response.message === 'Applied to job') {
+  //   alert(response.message);
+  //   applyButton.innerText = 'Already Applied';
+  //   button_disable(applyButton);
+  // }
+  window.location.href = response.job_company_website;
 })
 
 document.querySelector('#salary').innerText = "Salary: "+response.job_salary + " Rs";
