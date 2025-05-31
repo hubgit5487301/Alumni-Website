@@ -30,17 +30,9 @@
         <label for="email">Email</label>
         <input type="email" id="email" name="email" required placeholder="Email" autocomplete="email">
         <label for="password">Password</label>
-        <div class="password-container">
-          <input type="password" id="password" name="getpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least one number, one lowercase letter, one uppercase letter, and be at least 8 characters long." required autocomplete="new-password" placeholder="Password">
-          <input type="checkbox" id="showPasswordReg">
-          <label for="showPasswordReg">Show Password</label>
-        </div>
+        <input type="password" id="password" name="getpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Password must contain at least one number, one lowercase letter, one uppercase letter, and be at least 8 characters long." required autocomplete="new-password" placeholder="Password">
         <label for="renterpassword">Re-enter Password</label>
-        <div class="password-container">
-          <input type="password" id="renterpassword" name="repassword" required autocomplete="new-password" placeholder="Re-enter Password">
-          <input type="checkbox" id="showRePasswordReg">
-          <label for="showRePasswordReg">Show Password</label>
-        </div>
+        <input type="password" id="renterpassword" name="repassword" required autocomplete="new-password" placeholder="Re-enter Password">
         <button type="submit">Submit</button>
         <span>
           <span>Have an account?</span>
@@ -52,22 +44,5 @@
   <footer></footer>
   <script type="module" src="/script/registration-form.js"></script>
   <script type="module" src="/script/nav-bar.js"></script>
-  <script>
-    const passwordInputReg = document.getElementById('password');
-    const showPasswordCheckboxReg = document.getElementById('showPasswordReg');
-
-    showPasswordCheckboxReg.addEventListener('change', function() {
-      const currentType = passwordInputReg.getAttribute('type');
-      passwordInputReg.setAttribute('type', currentType === 'password' ? 'text' : 'password');
-    });
-
-    const rePasswordInputReg = document.getElementById('renterpassword');
-    const showRePasswordCheckboxReg = document.getElementById('showRePasswordReg');
-
-    showRePasswordCheckboxReg.addEventListener('change', function() {
-      const currentType = rePasswordInputReg.getAttribute('type');
-      rePasswordInputReg.setAttribute('type', currentType === 'password' ? 'text' : 'password');
-    });
-  </script>
 </body>
 </html>

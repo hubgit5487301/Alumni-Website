@@ -26,11 +26,7 @@
         <label for="userid">UserID</label>
         <input type="text" required id="userid" name="userid" autocomplete="username" placeholder="UserID">
         <label for="password">Password</label>
-        <div class="password-container">
-          <input type="password" required autocomplete="current-password" id="password" name="password" placeholder="Password">
-          <input type="checkbox" id="showPasswordLogin">
-          <label for="showPasswordLogin">Show Password</label>
-        </div>
+        <input type="password" required autocomplete="current-password" id="password" name="password" placeholder="Password">
         <a href="forgot-password">Forgot Password?</a>
         <button type="submit">Login</button>
         <span>
@@ -43,14 +39,5 @@
   <footer></footer>
   <script type="module" src="/script/nav-bar.js"></script>
   <script type="module" src="/script/login.js"></script>
-  <script>
-    const passwordInputLogin = document.getElementById('password');
-    const showPasswordCheckboxLogin = document.getElementById('showPasswordLogin');
-
-    showPasswordCheckboxLogin.addEventListener('change', function() {
-      const currentType = passwordInputLogin.getAttribute('type');
-      passwordInputLogin.setAttribute('type', currentType === 'password' ? 'text' : 'password');
-    });
-  </script>
 </body>
 </html>
