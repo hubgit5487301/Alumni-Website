@@ -15,7 +15,7 @@ async function fetchAdzunaJobs() {
   const APP_KEY = 'e86be0ac8bf76918386693b7429742ac';
 
   try {
-    const res = await axios.get(`https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=${APP_ID}&app_key=${APP_KEY}&results_per_page=50&what=engineer&where=india`);
+    const res = await axios.get(`https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=${APP_ID}&app_key=${APP_KEY}&results_per_page=100&what=engineer&where=india`);
 
     const jobs = res.data.results;
 
