@@ -1,5 +1,6 @@
-require('dotenv').config({path:'../.env'}); // Ensure you have a .env file with mongoURI
-const MONGO_URI = process.env.mongoURI
+// require('dotenv').config({path:'../.env'}); // Ensure you have a .env file with mongoURI
+// const MONGO_URI = process.env.mongoURI
+const MONGO_URI = 'mongodb://localhost:27017/';
 const axios = require('axios');
 const mongoose = require('mongoose');
 const Job = require('../models/jobs');
