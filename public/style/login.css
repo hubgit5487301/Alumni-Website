@@ -169,31 +169,3 @@ form span > span {
         border-radius: 0;
       }
 }
-
-.password-container {
-  display: flex;
-  align-items: center;
-  /* Add some margin below if it's too close to the next element */
-  /* margin-bottom: 10px; */ 
-}
-.password-container input[type="password"], .password-container input[type="text"] {
-  /* Assuming password field takes full width, adjust if needed */
-  flex-grow: 1; 
-}
-.password-container input[type="checkbox"] {
-  margin-left: 8px;
-  vertical-align: middle;
-  /* Making checkbox smaller */
-  width: auto; 
-  height: auto;
-}
-.password-container label {
-  margin-left: 4px;
-  font-size: 0.9em; /* Or match existing label styles */
-  vertical-align: middle;
-  white-space: nowrap; /* Prevent label from wrapping */
-  /* Resetting some global label styles that might interfere */
-  margin-top: 0; 
-  margin-bottom: 0;
-  font-weight: normal; /* Assuming standard weight for this label */
-}
