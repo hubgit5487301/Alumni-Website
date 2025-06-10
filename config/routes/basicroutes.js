@@ -298,7 +298,7 @@ router.get('/dashboard', (req,res) => {
     res.sendFile(path.join(__dirname,'..', '..', 'protected', 'dashboard.html'));
   } 
   else {
-  res.redirect(`/login?alert=not-logged-in`);
+    res.redirect(`/login?alert=not-logged-in`);
   }
 });
 
